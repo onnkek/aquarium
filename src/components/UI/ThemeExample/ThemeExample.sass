@@ -1,0 +1,82 @@
+@import '../../../main.sass'
+
+.example-body-container
+    border-top-left-radius: 6px
+    border-top-right-radius: 6px
+    width: 100%
+    background-color: white
+    border-bottom: 1px solid var(--main-border-color)
+
+.example-top
+    display: flex
+    padding: 10px
+    margin-bottom: 15px
+    background-color: #e6e6e6
+    border-top-right-radius: 5px
+    border-top-left-radius: 5px
+
+.example-body-wrapper
+    width: 140px
+    height: 60px
+    background-color: #e6e6e6
+
+.temp
+    height: 10px
+    width: 40px
+    margin-right: 10px
+    border-radius: 6px
+
+.temp-color
+    background-color: #c8cdd3
+
+.example-tabs
+    display: flex
+    justify-content: space-between
+    padding: 0 20px 0 30px
+    margin-bottom: 15px
+
+.temp-1
+    width: 60px
+
+.temp-group
+    display: flex
+
+.temp-2
+    margin: 0 0 0 5px
+    width: 10px
+
+.temp-color1
+    background-color: var(--current-color)
+    border-radius: 2px
+
+.temp-color2
+    background-color: none
+    border-radius: 2px
+    border: 1px solid var(--current-color)
+
+.example-body
+    display: flex
+    padding: 0 20px 20px 30px
+    justify-content: space-between
+
+.example-body-wrapper-1
+    width: 50px
+    height: 50px
+
+.example-body-temp
+    background-color: rgba(var(--current-color-rgb), 0.25)
+    padding: 5px
+
+
+.temp-3
+    width: 80px
+    background-color: var(--current-color)
+
+[dark]
+    background-color: #161B22
+    .example-top
+        background-color: rgba(72, 79, 88, 0.6)
+    .temp-color
+        background-color: #8B949E
+    .example-body-wrapper
+        background-color: #30363D

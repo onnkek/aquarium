@@ -1,0 +1,255 @@
+@import "bootstrap/scss/functions"
+@import "bootstrap/scss/variables"
+
+// #root
+//     min-height: 100vh
+
+
+
+$header-bg-color-dark: #010409
+$header-bg-color-light: #a7a7a7
+
+$main-bg-color-dark: #0d1117
+$main-bg-color-light: #ffffff
+
+$main-border-color-dark: #30363d
+$main-border-color-light: #cbcbcb
+
+$main-ph-color-dark: #787a7c
+$main-ph-color-light: #363636
+
+$subtitle-bg-color-dark: #161b22
+$subtitle-bg-color-light: #797979
+
+$main-color-dark: white
+$main-color-light: black
+
+$icon-bg-dark: #21262d
+$icon-bg-light: #e3e3e3
+
+$icon-color-dark: #c1c1c1
+$icon-color-light: #21262d
+
+$tab-bg-dark: rgba(255, 255, 255, 0.095)
+$tab-bg-light: rgba(0, 0, 0, 0.15)
+
+[data-color-theme="primary"]
+    .btn
+        --bs-btn-color: #fff
+        --bs-btn-bg: #0d6efd
+        --bs-btn-border-color: #0d6efd
+        --bs-btn-hover-color: #fff
+        --bs-btn-hover-bg: #0b5ed7
+        --bs-btn-hover-border-color: #0a58ca
+        --bs-btn-focus-shadow-rgb: 49,132,253
+        --bs-btn-active-color: #fff
+        --bs-btn-active-bg: #0a58ca
+        --bs-btn-active-border-color: #0a53be
+        --bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125)
+        --bs-btn-disabled-color: #fff
+        --bs-btn-disabled-bg: #0d6efd
+        --bs-btn-disabled-border-color: #0d6efd
+    .progress
+        --bs-progress-bar-bg: #0d6efd
+    .form-control:focus
+        border-color: #{$blue-400}
+        box-shadow: 0 0 0 0.25rem rgba($blue-400, .25)
+    .form-check-input:checked
+        background-color: #0d6efd
+        border-color: #0d6efd
+    .form-check-input:focus
+        border-color: #{$blue-400}
+        box-shadow: 0 0 0 0.25rem rgba($blue-400, .25)
+    --current-color: #0d6efd
+    --current-color-rgb: 13, 110, 253
+
+[data-color-theme="success"]
+    .btn
+        --bs-btn-color: #fff
+        --bs-btn-bg: #198754
+        --bs-btn-border-color: #198754
+        --bs-btn-hover-color: #fff
+        --bs-btn-hover-bg: #157347
+        --bs-btn-hover-border-color: #146c43
+        --bs-btn-focus-shadow-rgb: 60,153,110
+        --bs-btn-active-color: #fff
+        --bs-btn-active-bg: #146c43
+        --bs-btn-active-border-color: #13653f
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+        --bs-btn-disabled-color: #fff
+        --bs-btn-disabled-bg: #198754
+        --bs-btn-disabled-border-color: #198754
+    .progress
+        --bs-progress-bar-bg: #198754
+    .form-control:focus
+        border-color: #{$green-400}
+        box-shadow: 0 0 0 0.25rem rgba($green-400, .25)
+    .form-check-input:checked
+        background-color: #198754
+        border-color: #198754
+    .form-check-input:focus
+        border-color: #{$green-400}
+        box-shadow: 0 0 0 0.25rem rgba($green-400, .25)
+    --current-color: #198754
+    --current-color-rgb: 25, 135, 84
+
+[data-color-theme="danger"]
+    .btn
+        --bs-btn-color: #fff
+        --bs-btn-bg: #dc3545
+        --bs-btn-border-color: #dc3545
+        --bs-btn-hover-color: #fff
+        --bs-btn-hover-bg: #bb2d3b
+        --bs-btn-hover-border-color: #b02a37
+        --bs-btn-focus-shadow-rgb: 225,83,97
+        --bs-btn-active-color: #fff
+        --bs-btn-active-bg: #b02a37
+        --bs-btn-active-border-color: #a52834
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+        --bs-btn-disabled-color: #fff
+        --bs-btn-disabled-bg: #dc3545
+        --bs-btn-disabled-border-color: #dc3545
+    .progress
+        --bs-progress-bar-bg: #dc3545
+    .form-control:focus
+        border-color: #{$red-400}
+        box-shadow: 0 0 0 0.25rem rgba($red-400, .25)
+    .form-check-input:checked
+        background-color: #dc3545
+        border-color: #dc3545
+    .form-check-input:focus
+        border-color: #{$red-400}
+        box-shadow: 0 0 0 0.25rem rgba($red-400, .25)
+    --current-color: #dc3545
+    --current-color-rgb: 220, 53, 69
+
+[data-color-theme="warning"]
+    .btn
+        --bs-btn-color: #000
+        --bs-btn-bg: #ffc107
+        --bs-btn-border-color: #ffc107
+        --bs-btn-hover-color: #000
+        --bs-btn-hover-bg: #ffca2c
+        --bs-btn-hover-border-color: #ffc720
+        --bs-btn-focus-shadow-rgb: 217,164,6
+        --bs-btn-active-color: #000
+        --bs-btn-active-bg: #ffcd39
+        --bs-btn-active-border-color: #ffc720
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+        --bs-btn-disabled-color: #000
+        --bs-btn-disabled-bg: #ffc107
+        --bs-btn-disabled-border-color: #ffc107
+    .progress
+        --bs-progress-bar-bg: #ffc107
+    .form-control:focus
+        border-color: #{$yellow-400}
+        box-shadow: 0 0 0 0.25rem rgba($yellow-400, .25)
+    .form-check-input:checked
+        background-color: #ffc107
+        border-color: #ffc107
+    .form-check-input:focus
+        border-color: #{$yellow-400}
+        box-shadow: 0 0 0 0.25rem rgba($yellow-400, .25)
+    .icon-trash-3
+        color: var(--bs-body-bg)
+    --current-color: #ffc107
+    --current-color-rgb: 255, 193, 7
+
+[data-color-theme="purple"]
+    .btn
+        --bs-btn-color: #fff
+        --bs-btn-bg: #{$purple-500}
+        --bs-btn-border-color: #{$purple-500}
+        --bs-btn-hover-color: #fff
+        --bs-btn-hover-bg: #{$purple-400}
+        --bs-btn-hover-border-color: #{$purple-600}
+        --bs-btn-focus-shadow-rgb: 111, 66, 193
+        --bs-btn-active-color: #fff
+        --bs-btn-active-bg: #{$purple-400}
+        --bs-btn-active-border-color: #{$purple-600}
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)
+        --bs-btn-disabled-color: #fff
+        --bs-btn-disabled-bg: #{$purple-500}
+        --bs-btn-disabled-border-color: #{$purple-500}
+    .progress
+        --bs-progress-bar-bg: #{$purple-500}
+    .form-control:focus
+        border-color: #{$purple-400}
+        box-shadow: 0 0 0 0.25rem rgba($purple-400, .25)
+    .form-check-input:checked
+        background-color: #{$purple-500}
+        border-color: #{$purple-500}
+    .form-check-input:focus
+        border-color: #{$purple-400}
+        box-shadow: 0 0 0 0.25rem rgba($purple-400, .25)
+    --current-color: #{$purple-500}
+    --current-color-rgb: 111, 66, 193
+
+:root
+    // --primary: white
+    --bs-link-hover-color-rgb: 0
+    --bs-link-color-rgb: #{$main-color-dark}
+    --bs-dropdown-link-color: #{$main-color-dark}
+    --bs-tertiary-bg: #{$main-bg-color-dark}
+    --bs-body-color: #{$main-color-dark}
+    --header-bg-color: #{$header-bg-color-dark}
+    --bs-body-bg: #{$main-bg-color-dark}
+    --bs-border-color-translucent: #{$main-border-color-dark}
+    --main-border-color: #{$main-border-color-dark}
+    --main-ph-color: #{$main-ph-color-dark}
+    --subtitle-bg-color: #{$subtitle-bg-color-dark}
+    --bs-border-color: #{$main-border-color-dark}
+    --icon-bg: #{$icon-bg-dark}
+    --icon-color: #{$icon-color-dark}
+    --tab-bg: #{$tab-bg-dark}
+    .btn-close
+        --bs-btn-close-opacity: 1
+        --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%)
+
+[data-theme="light"]
+
+    --bs-link-color-rgb: #{$main-color-light}
+    --bs-dropdown-link-color: #{$main-color-light}
+    --bs-tertiary-bg: #{$main-bg-color-light}
+    --bs-body-color: #{$main-color-light}
+    --header-bg-color: #{$header-bg-color-light}
+    --bs-body-bg: #{$main-bg-color-light}
+    --bs-border-color-translucent: #{$main-border-color-light}
+    --main-border-color: #{$main-border-color-light}
+    --main-ph-color: #{$main-ph-color-light}
+    --subtitle-bg-color: #{$subtitle-bg-color-light}
+    --bs-border-color: #{$main-border-color-light}
+    --icon-bg: #{$icon-bg-light}
+    --icon-color: #{$icon-color-light}
+    --tab-bg: #{$tab-bg-light}
+    .btn-close
+        --bs-btn-close-opacity: 1
+        --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%)
+
+*
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    font-family: 'Verdana'
+    // color: white
+    font-size: 16px
+    transition: color 0.026s ease-in-out, background-color 0.5s ease-in-out, border-color 0.5s ease-in-out
+
+html
+    // background-color: var(--main-bg-color)
+
+// .btn
+//     border: 1px solid var(--main-border-color)
+//     background-color: $primary
+//     &:hover
+//         border: 1px solid var(--main-border-color)
+//         background-color: $primary-hover
+//     &:focus-visible
+//         background-color: $primary
+//         border-color: $primary-focus
+//         outline: 0
+//         box-shadow: 0 0 0 0.25rem $primary-focus-shadow
+
+//     &:active
+//         --bs-btn-active-bg: #{$primary-hover}
+//         --bs-btn-active-border-color: #{$primary-focus}
