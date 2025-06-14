@@ -14,3 +14,21 @@ body
 .app
     width: 100%
     // height: 100vh
+
+.fan
+    animation: 2s linear 0s infinite normal cool
+
+.heat
+    animation: 1s ease-in-out 0s infinite alternate-reverse heat
+
+@keyframes cool
+    from
+        transform: rotate(0)
+    to
+        transform: rotate(360deg)
+
+@keyframes heat
+    from
+        transform: scale(0.8)
+    to
+        transform: scale(1)
