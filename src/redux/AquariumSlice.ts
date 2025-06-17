@@ -4,14 +4,32 @@ import { INote } from "../models/Note"
 import IFolder from "../models/Folder"
 import AquariumService from "../services/AquariumService"
 
-interface ISystem {
+interface ISystemInfo {
   chipTemp: number,
+  uptime: number,
   totalSpace: number,
   usedSpace: number,
   freeSpace: number
 }
 
-export interface IPump {
+interface IStatusInfo {
+  status: number
+}
+
+interface ICurrentInfo {
+  system: ISystemInfo,
+  doser: IStatusInfo[],
+  co2: IStatusInfo,
+  o2: IStatusInfo,
+  light: IStatusInfo,
+  rgb: IStatusInfo,
+  temp: {
+    status: number,
+    current: number
+  }
+}
+
+export interface IPumpConfig {
   name: string,
   dose: number,
   period: string,
@@ -20,23 +38,23 @@ export interface IPump {
   maxVolume: number,
   status: number
 }
+export interface IPumpStatus {
+  status: number
+}
 
 interface ICO2 {
   on: string,
-  off: string,
-  status: boolean
+  off: string
 }
 
 interface IO2 {
   on: string,
-  off: string,
-  status: boolean
+  off: string
 }
 
 interface ILight {
   on: string,
-  off: string,
-  status: boolean
+  off: string
 }
 
 interface IRGB {
@@ -44,47 +62,80 @@ interface IRGB {
   g: number,
   b: number,
   on: string,
-  off: string,
-  status: boolean
+  off: string
 }
 
 interface ITemp {
   setting: number,
   hysteresis: number,
   k: number,
-  timeout: number,
-  status: number // 0 - off, 1 - cool, 2 - heat
+  timeout: number
 }
 
+interface IConfig {
+  system: {
+    test: string
+  },
+  doser: IPumpConfig[],
+  co2: ICO2,
+  o2: IO2,
+  light: ILight,
+  rgb: IRGB,
+  temp: ITemp
+}
 
 interface IAquarium {
-  settings: {
-    system: ISystem,
-    doser: {
-      pump1: IPump,
-      pump2: IPump,
-      pump3: IPump,
-      pump4: IPump
-    },
-    co2: ICO2,
-    o2: IO2,
-    light: ILight,
-    rgb: IRGB,
-    temp: ITemp
-  }
+  currentInfo: ICurrentInfo,
+  config: IConfig,
   status: Status
 }
 
 const initialState: IAquarium = {
-  settings: {
+  currentInfo: {
     system: {
       chipTemp: 0,
+      uptime: 0,
       totalSpace: 0,
       usedSpace: 0,
       freeSpace: 0
     },
-    doser: {
-      pump1: {
+    doser: [
+      {
+        status: 0
+      },
+      {
+        status: 0
+      },
+      {
+        status: 0
+      },
+      {
+        status: 0
+      }
+    ],
+    co2: {
+      status: 0
+    },
+    o2: {
+      status: 0
+    },
+    light: {
+      status: 0
+    },
+    rgb: {
+      status: 0
+    },
+    temp: {
+      status: 0,
+      current: 0
+    }
+  },
+  config: {
+    system: {
+      test: ""
+    },
+    doser: [
+      {
         name: "",
         dose: 0,
         period: "",
@@ -93,7 +144,7 @@ const initialState: IAquarium = {
         maxVolume: 0,
         status: 0
       },
-      pump2: {
+      {
         name: "",
         dose: 0,
         period: "",
@@ -102,7 +153,7 @@ const initialState: IAquarium = {
         maxVolume: 0,
         status: 0
       },
-      pump3: {
+      {
         name: "",
         dose: 0,
         period: "",
@@ -111,7 +162,7 @@ const initialState: IAquarium = {
         maxVolume: 0,
         status: 0
       },
-      pump4: {
+      {
         name: "",
         dose: 0,
         period: "",
@@ -120,36 +171,31 @@ const initialState: IAquarium = {
         maxVolume: 0,
         status: 0
       }
-    },
+    ],
     co2: {
       on: "null",
-      off: "null",
-      status: false
+      off: "null"
     },
     o2: {
       on: "null",
-      off: "null",
-      status: false
+      off: "null"
     },
     light: {
       on: "null",
-      off: "null",
-      status: false
+      off: "null"
     },
     rgb: {
       r: 0,
       g: 0,
       b: 0,
       on: "null",
-      off: "null",
-      status: false
+      off: "null"
     },
     temp: {
       setting: 0,
       hysteresis: 0,
       k: 0,
-      timeout: 0,
-      status: 0
+      timeout: 0
     }
   },
   status: Status.Idle
@@ -162,22 +208,36 @@ const AquariumSlice = createSlice({
   extraReducers(builder) {
     builder
 
-      .addCase(getSettings.pending, (state: IAquarium) => {
+      .addCase(getConfig.pending, (state: IAquarium) => {
         state.status = Status.Loading
       })
-      .addCase(getSettings.fulfilled, (state: IAquarium, action) => {
+      .addCase(getConfig.fulfilled, (state: IAquarium, action) => {
         state.status = Status.Succeeded
-        state.settings = action.payload
+        state.config = action.payload
+      })
+
+      .addCase(getCurrentInfo.pending, (state: IAquarium) => {
+        state.status = Status.Loading
+      })
+      .addCase(getCurrentInfo.fulfilled, (state: IAquarium, action) => {
+        state.status = Status.Succeeded
+        state.currentInfo = action.payload
       })
   }
 })
 
-
-export const getSettings = createAsyncThunk(
-  'aquarium/getSettings',
+export const getCurrentInfo = createAsyncThunk(
+  'aquarium/getCurrentInfo',
 
   async () => {
-    return await new AquariumService().getSettings()
+    return await new AquariumService().getCurrentInfo()
+  })
+
+export const getConfig = createAsyncThunk(
+  'aquarium/getConfig',
+
+  async () => {
+    return await new AquariumService().getConfig()
   })
 
 export default AquariumSlice.reducer

@@ -1,16 +1,29 @@
 export default class AquariumService {
+
   _apiBase: string
-  _apiSettings: string
+  _apiCurrentInfo: string
+  _apiConfig: string
+
   constructor() {
     this._apiBase = "http://192.168.0.110"
-    this._apiSettings = "settings"
+    this._apiConfig = "config"
+    this._apiCurrentInfo = "current"
   }
 
-  getSettings = async () => {
-    const response = await fetch(`${this._apiBase}/${this._apiSettings}`, {
+  getCurrentInfo = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiCurrentInfo}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    return await response.json()
+  }
+  getConfig = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiConfig}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
       },
     })
     return await response.json()

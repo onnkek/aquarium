@@ -14,9 +14,10 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-transition-group": "^4.4.6",
     "axios": "^1.4.0",
-    "bootstrap": "^5.3.0",
+    "bootstrap": "^5.3.7",
     "bootstrap-icons": "^1.10.5",
     "final-form": "^4.20.9",
+    "ftp-deploy": "^2.4.7",
     "highlight.js": "^11.10.0",
     "prism": "^4.1.2",
     "prismjs": "^1.29.0",
@@ -39,9 +40,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && mv build/static/js/main*.js build/static/js/main.min.js",
+    "deploy": "node deploy.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "npm run build && gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

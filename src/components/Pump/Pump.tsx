@@ -1,58 +1,47 @@
 import React from "react"
-import { PumpItem } from '../PumpItem/PumpItem';
 import './Pump.sass';
-import { IPump } from "../../redux/AquariumSlice";
+import dropIcon from '../../assets/icons/drop.svg'
+import bottleIcon from '../../assets/icons/bottle.svg'
+import { IPumpConfig, IPumpStatus } from "../../redux/AquariumSlice";
 
 interface PumpProps {
-  pump1: IPump
-  pump2: IPump
-  pump3: IPump
-  pump4: IPump
+  number: number
+  pumpConfig: IPumpConfig
+  status: IPumpStatus
 }
 
-export const Pump = ({ pump1, pump2, pump3, pump4 }: PumpProps) => {
+export const Pump = ({ pumpConfig, number, status }: PumpProps) => {
   return (
-    <div className="pump">
-      <PumpItem
-        number={1}
-        name={pump1.name}
-        setDose={pump1.dose}
-        setPeriod={pump1.period}
-        setTime={pump1.time}
-        currentVolume={pump1.currentVolume}
-        maxVolume={pump1.maxVolume}
-        status={pump1.status}
-      />
-      <PumpItem
-        number={2}
-        name={pump2.name}
-        setDose={pump2.dose}
-        setPeriod={pump2.period}
-        setTime={pump2.time}
-        currentVolume={pump2.currentVolume}
-        maxVolume={pump2.maxVolume}
-        status={pump2.status}
-      />
-      <PumpItem
-        number={3}
-        name={pump3.name}
-        setDose={pump3.dose}
-        setPeriod={pump3.period}
-        setTime={pump3.time}
-        currentVolume={pump3.currentVolume}
-        maxVolume={pump3.maxVolume}
-        status={pump3.status}
-      />
-      <PumpItem
-        number={4}
-        name={pump4.name}
-        setDose={pump4.dose}
-        setPeriod={pump4.period}
-        setTime={pump4.time}
-        currentVolume={pump4.currentVolume}
-        maxVolume={pump4.maxVolume}
-        status={pump4.status}
-      />
+    <div className={`pump ${status.status && "pump_active"}`}>
+      <div className="pump__header">
+        <div className="pump__header-number">{number}</div>
+        <h3 className="pump__header-title">{pumpConfig.name}</h3>
+      </div>
+      <div className="pump__body-container">
+        <div className="pump__dose-container">
+          <img className="pump__dose-icon" src={dropIcon} alt="" />
+          <span className="pump__dose">{pumpConfig.dose} ml</span>
+        </div>
+        <span className="pump__period">{pumpConfig.period}</span>
+        <span className="pump__period">{pumpConfig.time}</span>
+      </div>
+      <div className="pump__status">
+        <div className="pump__status-bar">
+          <div className="pump__status-bar_active" style={{ width: pumpConfig.status / pumpConfig.dose * 100 + "%" }}></div>
+        </div>
+      </div>
+      <div className="pump__remainder">
+        <div className="pump__remainder-container">
+          <div className="pump__remainder-left">
+            <img className="pump__remainder-icon" src={bottleIcon} alt="" />
+            <span className="pump__remainder-days">{pumpConfig.currentVolume / pumpConfig.dose} days</span>
+          </div>
+          <span className="pump__remainder-volume">{pumpConfig.maxVolume} ml</span>
+        </div>
+        <div className="pump__remainder-bar">
+          <div className="pump__remainder-bar_active" style={{ width: pumpConfig.currentVolume / pumpConfig.maxVolume * 100 + "%" }}></div>
+        </div>
+      </div>
     </div>
   );
 };
