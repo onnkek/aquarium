@@ -1,38 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="263" height="757" viewBox="0 0 263 757" fill="none">
-  <path d="M203 160C203 151.716 195.837 145 187 145" stroke="#215EA3" stroke-width="10" />
-  <path d="M81 160C81 151.716 88.1634 145 97 145" stroke="#215EA3" stroke-width="10" />
-  <line x1="141" y1="144" x2="141" y2="120" stroke="#215EA3" stroke-width="10" />
-  <line x1="187" y1="145" x2="97" y2="145" stroke="#215EA3" stroke-width="10" />
-  <line x1="81" y1="160" x2="81" y2="179" stroke="#215EA3" stroke-width="10" />
-  <line x1="203" y1="160" x2="203" y2="179" stroke="#215EA3" stroke-width="10" />
-  <path d="M25 737.5L25 266.5" stroke="#215EA3" stroke-width="10" />
-  <path d="M258 738L258 266" stroke="#215EA3" stroke-width="10" />
-  <path d="M88 177L198 177" stroke="#215EA3" stroke-width="10" />
+  <path d="M203 160C203 151.716 195.837 145 187 145" stroke="#d7b67c" stroke-width="10" />
+  <path d="M81 160C81 151.716 88.1634 145 97 145" stroke="#d7b67c" stroke-width="10" />
+  <line x1="141" y1="144" x2="141" y2="120" stroke="#d7b67c" stroke-width="10" />
+  <line x1="187" y1="145" x2="97" y2="145" stroke="#d7b67c" stroke-width="10" />
+  <line x1="81" y1="160" x2="81" y2="179" stroke="#d7b67c" stroke-width="10" />
+  <line x1="203" y1="160" x2="203" y2="179" stroke="#d7b67c" stroke-width="10" />
+  <path d="M25 737.5L25 266.5" stroke="#d7b67c" stroke-width="10" />
+  <path d="M258 738L258 266" stroke="#d7b67c" stroke-width="10" />
+  <path d="M88 177L198 177" stroke="#d7b67c" stroke-width="10" />
   <g filter="url(#filter0_d_11_40)">
-    <line x1="230" y1="335" x2="230" y2="273" stroke="#215EA3" stroke-width="10"
+    <line x1="230" y1="335" x2="230" y2="273" stroke="#d7b67c" stroke-width="10"
       stroke-linecap="round" />
   </g>
   <g filter="url(#filter1_d_11_40)">
-    <line x1="230" y1="705" x2="230" y2="374" stroke="#215EA3" stroke-width="10"
+    <line x1="230" y1="705" x2="230" y2="374" stroke="#d7b67c" stroke-width="10"
       stroke-linecap="round" />
   </g>
-  <line x1="141" y1="68" x2="141" y2="25" stroke="#215EA3" stroke-width="10" />
-  <line x1="91" y1="5" x2="192" y2="5" stroke="#215EA3" stroke-width="10" />
-  <line x1="91" y1="25" x2="192" y2="25" stroke="#215EA3" stroke-width="10" />
-  <line x1="119" y1="94" x2="84" y2="94" stroke="#215EA3" stroke-width="10" />
+  <line x1="141" y1="68" x2="141" y2="25" stroke="#d7b67c" stroke-width="10" />
+  <line x1="91" y1="5" x2="192" y2="5" stroke="#d7b67c" stroke-width="10" />
+  <line x1="91" y1="25" x2="192" y2="25" stroke="#d7b67c" stroke-width="10" />
+  <line x1="119" y1="94" x2="84" y2="94" stroke="#d7b67c" stroke-width="10" />
   <path
     d="M141.5 69C154.952 69 166 80.1133 166 94C166 107.887 154.952 119 141.5 119C128.048 119 117 107.887 117 94C117 80.1133 128.048 69 141.5 69Z"
-    stroke="#215EA3" stroke-width="10" />
-  <circle cx="44.5" cy="93.5" r="39.5" stroke="#215EA3" stroke-width="10" />
-  <path d="M91 5C84.3726 5 79 9.47715 79 15C79 20.5228 84.3726 25 91 25" stroke="#215EA3"
+    stroke="#d7b67c" stroke-width="10" />
+  <circle cx="44.5" cy="93.5" r="39.5" stroke="#d7b67c" stroke-width="10" />
+  <path d="M91 5C84.3726 5 79 9.47715 79 15C79 20.5228 84.3726 25 91 25" stroke="#d7b67c"
     stroke-width="10" />
-  <path d="M192 25C198.627 25 204 20.5228 204 15C204 9.47715 198.627 5 192 5" stroke="#215EA3"
+  <path d="M192 25C198.627 25 204 20.5228 204 15C204 9.47715 198.627 5 192 5" stroke="#d7b67c"
     stroke-width="10" />
-  <path d="M88 177C64 177 25 219 25 266.5" stroke="#215EA3" stroke-width="10" />
-  <path d="M195 177C215 177 258 219 258 266.5" stroke="#215EA3" stroke-width="10" />
-  <path d="M25 737C25 745.284 32.1634 752 41 752" stroke="#215EA3" stroke-width="10" />
-  <path d="M258 737C258 745.284 250.837 752 242 752" stroke="#215EA3" stroke-width="10" />
-  <line x1="242" y1="752" x2="41" y2="752" stroke="#215EA3" stroke-width="10" />
+  <path d="M88 177C64 177 25 219 25 266.5" stroke="#d7b67c" stroke-width="10" />
+  <path d="M195 177C215 177 258 219 258 266.5" stroke="#d7b67c" stroke-width="10" />
+  <path d="M25 737C25 745.284 32.1634 752 41 752" stroke="#d7b67c" stroke-width="10" />
+  <path d="M258 737C258 745.284 250.837 752 242 752" stroke="#d7b67c" stroke-width="10" />
+  <line x1="242" y1="752" x2="41" y2="752" stroke="#d7b67c" stroke-width="10" />
   <defs>
     <filter id="filter0_d_11_40" x="221" y="268" width="18" height="80" filterUnits="userSpaceOnUse"
       color-interpolation-filters="sRGB">

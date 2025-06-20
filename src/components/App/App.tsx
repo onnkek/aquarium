@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect } from "react"
+import React, { MouseEvent, useEffect, useState } from "react"
 import "./App.sass"
 import Header from "../Header/Header"
 import { useAppDispatch, useAppSelector } from "../../models/Hook"
@@ -8,17 +8,24 @@ import { getConfig, getCurrentInfo } from "../../redux/AquariumSlice"
 import fanIcon from '../../assets/icons/fan.svg'
 import heatIcon from '../../assets/icons/heat.svg'
 
-import co2Icon from '../../assets/icons/aquarium/co2.svg'
+
 import filterIcon from '../../assets/icons/aquarium/filter.svg'
 import lightIcon from '../../assets/icons/aquarium/light.svg'
 import o2Icon from '../../assets/icons/aquarium/o2.svg'
-import rgbIcon from '../../assets/icons/aquarium/rgb.svg'
+import rgbIcon from '../../assets/icons/aquarium/argb.svg'
 import tempIcon from '../../assets/icons/aquarium/temp.svg'
 import doserIcon from '../../assets/icons/aquarium/doser.svg'
 
 import chipIcon from '../../assets/icons/aquarium/chip.svg'
 import timeIcon from '../../assets/icons/aquarium/time.svg'
 import harddriveIcon from '../../assets/icons/aquarium/harddrive.svg'
+import Modal from "../Modal/Modal"
+import CO2Widget from "../widgets/CO2Widget/CO2Widget"
+import O2Widget from "components/widgets/O2Widget/O2Widget"
+import LightWidget from "components/widgets/LightWidget/LightWidget"
+import FilterWidget from "components/widgets/FilterWidget/FilterWidget"
+import ARGBWidget from "components/widgets/ARGBWidget/ARGBWidget"
+import TempWidget from "components/widgets/TempWidget/TempWidget"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -32,9 +39,21 @@ const App = () => {
     dispatch(getConfig())
   }, [dispatch])
 
+
+  const [showModal, setShowModal] = useState(false)
   return (
     <div onClick={closeMenusHandler} className="app">
-      <Header />
+      {/* <Header /> */}
+
+      <button
+        type="button"
+        className="btn"
+        onClick={() => setShowModal(true)}
+      >
+        {/* <img className="co2__edit-btn-icon" ></img> */}TEST
+      </button>
+
+
       <div style={{ padding: "20px" }}>
         <div style={{ display: "flex", alignItems: "center", margin: "10px 0" }}>
           <div style={{ width: "50px" }}>
@@ -71,83 +90,20 @@ const App = () => {
       </div>
 
 
-      <div style={{ marginLeft: "100px" }}>
+
+      <div style={{}}>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <div className="card">
-            <img className="" style={{ width: "40px" }} src={co2Icon}></img>
-            <div>On Time: {aquarium.config.co2.on}</div>
-            <div>Off Time: {aquarium.config.co2.off}</div>
-            {/* <div>Status: {aquarium.currentInfo.co2.status}</div> */}
-            <div className="form-check form-switch">
-              <input className="form-check-input mt-3" type="checkbox" role="switch" id="switchCheckChecked" checked />
-            </div>
-          </div>
 
-          <div className="card">
-            <img className="" style={{ width: "50px" }} src={o2Icon}></img>
-            <div>On Time: {aquarium.config.o2.on}</div>
-            <div>Off Time: {aquarium.config.o2.off}</div>
-            {/* <div>Status: {aquarium.currentInfo.o2.status}</div> */}
-            <div className="form-check form-switch">
-              <input className="form-check-input mt-3" type="checkbox" role="switch" id="switchCheckChecked" />
-            </div>
-          </div>
-
-          <div className="card">
-            <img className="" style={{ width: "50px" }} src={tempIcon}></img>
-            <div>Setting: {aquarium.config.temp.setting}</div>
-            <div>Hysteresis: {aquarium.config.temp.hysteresis}</div>
-            <div>k: {aquarium.config.temp.k}</div>
-            <div>Timeout: {aquarium.config.temp.timeout}</div>
-            <div>Temp: {aquarium.currentInfo.temp.current}</div>
-            {/* <div>Status: {aquarium.currentInfo.temp.status}</div> */}
-            {/* {aquarium.config.temp.status == 1 && <img className="fan" style={{ width: "80px" }} src={fanIcon}></img>} */}
-            {/* {aquarium.config.temp.status == 2 && <img className="heat" style={{ width: "80px" }} src={heatIcon}></img>} */}
-            {<img className="fan" style={{ width: "80px" }} src={fanIcon}></img>}
-            <div className="form-check form-switch">
-              <input className="form-check-input mt-3" type="checkbox" role="switch" id="switchCheckChecked" checked />
-            </div>
-            {<img className="heat" style={{ width: "80px" }} src={heatIcon}></img>}
-            <div className="form-check form-switch">
-              <input className="form-check-input mt-3" type="checkbox" role="switch" id="switchCheckChecked" checked />
-            </div>
-          </div>
+          <CO2Widget />
+          <O2Widget />
+          <LightWidget />
+          <FilterWidget />
+          <ARGBWidget />
+          <TempWidget />
 
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <div className="card">
-            <img className="" style={{ width: "100px" }} src={lightIcon}></img>
-            <div>On Time: {aquarium.config.light.on}</div>
-            <div>Off Time: {aquarium.config.light.off}</div>
-            {/* <div>Status: {aquarium.currentInfo.light.status}</div> */}
-            <div className="form-check form-switch">
-              <input className="form-check-input mt-3" type="checkbox" role="switch" id="switchCheckChecked" checked />
-            </div>
-          </div>
 
-          <div className="card">
-            <img className="" style={{ width: "150px" }} src={rgbIcon}></img>
-            <div>R: {aquarium.config.rgb.r}</div>
-            <div>G: {aquarium.config.rgb.g}</div>
-            <div>B: {aquarium.config.rgb.b}</div>
-            <div>On Time: {aquarium.config.rgb.on}</div>
-            <div>Off Time: {aquarium.config.rgb.off}</div>
-            {/* <div>Status: {aquarium.currentInfo.rgb.status}</div> */}
-            <div className="form-check form-switch">
-              <input className="form-check-input mt-3" type="checkbox" role="switch" id="switchCheckChecked" checked />
-            </div>
-          </div>
-
-          <div className="card">
-            <img className="" style={{ width: "80px" }} src={filterIcon}></img>
-            {/* <div>Status: 1</div> */}
-            <div className="form-check form-switch">
-              <input className="form-check-input mt-3" type="checkbox" role="switch" id="switchCheckChecked" checked />
-            </div>
-          </div>
-
-        </div>
       </div>
 
 
@@ -165,6 +121,9 @@ const App = () => {
         <Route path="/settings/*" element={<SettingsPage />} />
 
       </Routes> */}
+      <Modal title='Add new task' show={showModal} setShow={setShowModal}>
+        <h1>TEST</h1>
+      </Modal >
     </div>
   )
 }
