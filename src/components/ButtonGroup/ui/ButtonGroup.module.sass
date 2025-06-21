@@ -1,0 +1,26 @@
+.buttonGroup
+  display: flex
+  button,
+  div
+    --bs-border-width: 1px
+    margin-left: calc(var(--bs-border-width)* -1)
+  button,
+  div
+    &:first-child
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+  button,
+  div
+    &:last-child
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
+  button,
+  div
+    &:not(:last-child):not(:first-child)
+      border-radius: 0
+  div
+    button
+      border-radius: 0
+
+button:active
+  z-index: 100

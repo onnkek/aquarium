@@ -1,0 +1,53 @@
+.progressFile
+  display: flex
+  padding: 16px
+  border: 1px solid var(--border-secondary)
+  background-color: var(--bg-primary)
+  border-radius: var(--radius-xl)
+
+.fileIcon
+  width: 40px
+  height: 40px
+  margin-right: 12px
+  stroke: var(--fg-quinary)
+
+.content
+  width: 100%
+.header
+  display: flex
+  justify-content: space-between
+
+.fileName
+  font: var(--text-sm-medium)
+  color: var(--text-secondary)
+.removeIcon
+  width: 16px
+  height: 16px
+  stroke: var(--fg-tertiary)
+  &:hover
+    cursor: pointer
+    stroke: var(--fg-tertiary_hover)
+
+.fileSize
+  font: var(--text-sm-regular)
+  color: var(--text-tertiary)
+
+.pending
+
+.fulfilled
+
+.rejected
+  margin: -1px
+  border: 2px solid var(--border-error-solid)
+  .removeIcon
+    stroke: var(--utility-error-600)
+    &:hover
+      stroke: var(--utility-error-700)
+
+.error
+  margin-top: 10px
+  font: var(--text-sm-semibold)
+  color: var(--text-tertiary)
+
+.progress
+  margin-top: 10px

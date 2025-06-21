@@ -1,0 +1,48 @@
+<svg width="768" height="768" viewBox="0 0 768 768" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="myGradient">
+      <stop offset="0%" stop-color="#ffffff00" />
+      <stop offset="70%" stop-color="#ffffff" />
+    </radialGradient>
+  </defs>
+
+  <line x1='0' y1='0' x2='768' y2='0' stroke='#EAECF0' />
+  <line x1='0' y1='48' x2='768' y2='48' stroke='#EAECF0' />
+  <line x1='0' y1='96' x2='768' y2='96' stroke='#EAECF0' />
+  <line x1='0' y1='144' x2='768' y2='144' stroke='#EAECF0' />
+  <line x1='0' y1='192' x2='768' y2='192' stroke='#EAECF0' />
+  <line x1='0' y1='240' x2='768' y2='240' stroke='#EAECF0' />
+  <line x1='0' y1='288' x2='768' y2='288' stroke='#EAECF0' />
+  <line x1='0' y1='336' x2='768' y2='336' stroke='#EAECF0' />
+  <line x1='0' y1='384' x2='768' y2='384' stroke='#EAECF0' />
+  <line x1='0' y1='432' x2='768' y2='432' stroke='#EAECF0' />
+  <line x1='0' y1='480' x2='768' y2='480' stroke='#EAECF0' />
+  <line x1='0' y1='528' x2='768' y2='528' stroke='#EAECF0' />
+  <line x1='0' y1='576' x2='768' y2='576' stroke='#EAECF0' />
+  <line x1='0' y1='624' x2='768' y2='624' stroke='#EAECF0' />
+  <line x1='0' y1='672' x2='768' y2='672' stroke='#EAECF0' />
+  <line x1='0' y1='720' x2='768' y2='720' stroke='#EAECF0' />
+  <line x1='0' y1='768' x2='768' y2='768' stroke='#EAECF0' />
+
+  <line x1='0' y1='0' x2='0' y2='768' stroke='#EAECF0' />
+  <line x1='48' y1='0' x2='48' y2='768' stroke='#EAECF0' />
+  <line x1='96' y1='0' x2='96' y2='768' stroke='#EAECF0' />
+  <line x1='144' y1='0' x2='144' y2='768' stroke='#EAECF0' />
+  <line x1='192' y1='0' x2='192' y2='768' stroke='#EAECF0' />
+  <line x1='240' y1='0' x2='240' y2='768' stroke='#EAECF0' />
+  <line x1='288' y1='0' x2='288' y2='768' stroke='#EAECF0' />
+  <line x1='336' y1='0' x2='336' y2='768' stroke='#EAECF0' />
+  <line x1='384' y1='0' x2='384' y2='768' stroke='#EAECF0' />
+  <line x1='432' y1='0' x2='432' y2='768' stroke='#EAECF0' />
+  <line x1='480' y1='0' x2='480' y2='768' stroke='#EAECF0' />
+  <line x1='528' y1='0' x2='528' y2='768' stroke='#EAECF0' />
+  <line x1='576' y1='0' x2='576' y2='768' stroke='#EAECF0' />
+  <line x1='624' y1='0' x2='624' y2='768' stroke='#EAECF0' />
+  <line x1='672' y1='0' x2='672' y2='768' stroke='#EAECF0' />
+  <line x1='720' y1='0' x2='720' y2='768' stroke='#EAECF0' />
+  <line x1='768' y1='0' x2='768' y2='768' stroke='#EAECF0' />
+
+
+  <circle cx="384" cy="384" r="550" stroke="none" fill="url('#myGradient')" />
+
+</svg>

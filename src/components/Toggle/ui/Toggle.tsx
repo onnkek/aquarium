@@ -1,14 +1,12 @@
-import React from "react"
-import { Mods, classNames } from '../../../helpers/classNames';
+import { Mods, classNames } from 'helpers/classNames';
 import cls from './Toggle.module.sass';
 import { Switch } from '@headlessui/react';
 import { useState } from 'react';
 
-type ToggleSize = 'M' | 'L' | 'XL';
+type ToggleSize = 'M' | 'L';
 const sizeClasses: Record<ToggleSize, string> = {
   M: cls.m,
-  L: cls.l,
-  XL: cls.xl
+  L: cls.l
 };
 export interface ToggleProps {
   className?: string;

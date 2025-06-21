@@ -1,0 +1,87 @@
+.avatar
+  --avatar-contrast-border: var(--alpha-black-10)
+  --avatar-bg: var(--bg-tertiary)
+  --avatar-fg: var(--fg-quaternary)
+  position: relative
+  display: flex
+  justify-content: center
+  align-items: center
+  border: 0.75px solid var(--avatar-contrast-border)
+  border-radius: var(--radius-full)
+  background-color: var(--avatar-bg)
+  svg
+    stroke: var(--avatar-fg)
+  img
+    width: 100%
+    height: 100%
+    border-radius: var(--radius-full)
+
+.indicator
+  position: absolute
+  bottom: -1px
+  right: -1px
+  border-radius: var(--radius-full)
+  border: 1.5px solid var(--bg-primary)
+.online
+  background-color: var(--fg-success-secondary)
+.offline
+  background-color: var(--fg-disabled_subtle)
+.brb
+  background-color: var(--warning-300)
+.dnd
+  background-color: var(--utility-error-500)
+
+.xs
+  width: 24px
+  height: 24px
+  svg
+    width: 12px
+    height: 12px
+  .indicator
+    width: 6px
+    height: 6px
+.s
+  width: 32px
+  height: 32px
+  svg
+    width: 15px
+    height: 15px
+  .indicator
+    width: 8px
+    height: 8px
+.m
+  width: 40px
+  height: 40px
+  svg
+    width: 18px
+    height: 18px
+  .indicator
+    width: 10px
+    height: 10px
+.l
+  width: 48px
+  height: 48px
+  svg
+    width: 21px
+    height: 21px
+  .indicator
+    width: 12px
+    height: 12px
+.xl
+  width: 56px
+  height: 56px
+  svg
+    width: 24px
+    height: 24px
+  .indicator
+    width: 14px
+    height: 14px
+.xxl
+  width: 64px
+  height: 64px
+  svg
+    width: 24px
+    height: 24px
+  .indicator
+    width: 16px
+    height: 16px

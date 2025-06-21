@@ -1,0 +1,93 @@
+@import '../../../variables'
+
+.pagination
+  display: flex
+  justify-content: space-between
+  align-items: center
+  .pages
+    margin: 0px 20px
+    button
+      width: 40px
+      &:not(:last-child)
+        margin-right: 2px
+  svg
+    width: 12px
+    height: 12px
+    stroke: var(--fg-tertiary)
+    margin-right: 0
+  .arrowLeft
+    margin: 0
+    margin-right: 10px
+  .arrowRight
+    margin: 0
+    margin-left: 10px
+  .default
+
+.pagination.defaultCircle
+  .pages
+    button
+
+      border-radius: 50%
+
+.pagination.minimal,
+.pagination.text,
+.pagination.textArrow
+
+  .button
+    background-color: var(--button-secondary-bg)
+    border: 1px solid var(--button-secondary-border)
+    color: var(--button-secondary-fg)
+    box-shadow: var(--shadow-xs)
+    svg
+      fill: var(--button-secondary-fg)
+    &:hover
+      background-color: var(--button-secondary-bg_hover)
+      color: var(--button-secondary-fg_hover)
+      border-color: var(--button-secondary-border_hover)
+    &:active,
+    &:focus-visible
+      box-shadow: var(--ring-gray-shadow-xs)
+
+.pagination.minimalCircle
+  .button
+    background-color: var(--button-secondary-bg)
+    border: 1px solid var(--button-secondary-border)
+    color: var(--button-secondary-fg)
+    box-shadow: var(--shadow-xs)
+    svg
+      fill: var(--button-secondary-fg)
+      &:hover
+        background-color: var(--button-secondary-bg_hover)
+        color: var(--button-secondary-fg_hover)
+        border-color: var(--button-secondary-border_hover)
+      &:active,
+      &:focus-visible
+        box-shadow: var(--ring-gray-shadow-xs)
+  .pages
+    button
+      border-radius: 50%
+
+.pagination.buttonGroup
+  justify-content: center
+  .pages
+    margin: 0px
+    button
+      margin-right: 0px
+
+.pagination.text
+
+.pageText
+  font: var(--text-sm-medium)
+  color: var(--text-secondary)
+
+.active
+  background-color: var(--bg-primary_hover)
+
+.pages
+  display: flex
+
+.pagination.textArrow
+  .arrowLeft
+    margin: 0
+  .arrowRight
+    margin: 0

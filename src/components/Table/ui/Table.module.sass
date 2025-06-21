@@ -1,0 +1,46 @@
+.tableContainer
+  border-radius: var(--radius-xl)
+  border: 1px solid var(--border-secondary)
+  box-shadow: var(--shadow-sm)
+
+.tableHeader
+  padding: 32px 24px 12px 24px
+  font: var(--text-lg-semibold)
+  color: var(--text-primary)
+
+.table
+  width: 100%
+
+.tableContainer.interlacedFill
+  .tableHead
+    background-color: var(--transparent)
+  .tbody
+    tr:nth-child(odd)
+      background-color: var(--bg-secondary_alt)
+
+table, th, td
+  border: 0
+  border-collapse: collapse
+
+.tableHead
+  border: none
+  border-top: 1px solid var(--border-secondary)
+  background-color: var(--bg-secondary)
+  th
+    font: var(--text-xs-medium)
+    color: var(--text-tertiary)
+    padding: 12px 24px
+
+.row
+  border-top: 1px solid var(--border-secondary)
+  th
+    font: var(--text-sm-regular)
+    color: var(--text-tertiary)
+
+.cell
+  height: 72px
+  padding: 0px 24px
+
+.tableFooter
+  border-top: 1px solid var(--border-secondary)
+  padding: 14px 24px 18px 24px

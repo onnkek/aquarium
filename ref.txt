@@ -1,0 +1,4 @@
+https://www.figma.com/design/5OtZ9gq2jAPCYkmVI2Dd8e/%E2%9D%96-PREVIEW-%E2%9D%96-Untitled-UI-%E2%80%93-PRO-VARIABLES-(v4.0)?node-id=6520-67419&t=PyEOTIiGigN9rkRx-0
+ICONS https://www.figma.com/design/sMSojlCN20zIWuSPYVJ1uU/%E2%9D%96-Untitled-UI-Icons-%E2%80%93-1%2C100%2B-essential-Figma-icons-(Community)?node-id=181-128951&t=WzjAap8SnITOaM4q-0
+DEMO https://c4benni.github.io/dashboard-ui/dashboard/overview
+File Types https://www.figma.com/design/ngyYpCIxYqn23sJeBE2ejf/40-File-type-%2F-File-extension-icon-(Community)

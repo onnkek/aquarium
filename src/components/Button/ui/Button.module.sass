@@ -1,0 +1,165 @@
+.button
+  --button-primary-bg: var(--bg-brand-solid)
+  --button-primary-border: var(--border-brand-solid)
+  --button-primary-fg: var(--fg-white)
+  --button-primary-bg_hover: var(--bg-brand-solid_hover)
+  --button-primary-border_hover: var(--border-brand-solid)
+
+  --button-secondary-bg: var(--bg-primary)
+  --button-secondary-border: var(--border-primary)
+  --button-secondary-fg: var(--text-secondary)
+  --button-secondary-fg_hover: var(--text-secondary_hover)
+  --button-secondary-bg_hover: var(--bg-primary_hover)
+  --button-secondary-border_hover: var(--border-primary)
+
+  --button-secondary-color-bg: var(--bg-primary)
+  --button-secondary-color-border: var(--border-brand)
+  --button-secondary-color-fg: var(--text-brand-secondary)
+  --button-secondary-color-fg_hover: var(--brand-800)
+  --button-secondary-color-bg_hover: var(--bg-brand-primary)
+  --button-secondary-color-border_hover: var(--border-brand)
+
+  --button-tertiary-fg: var(--text-tertiary)
+  --button-tertiary-bg_hover: var(--bg-primary_hover)
+
+  --button-tertiary-color-fg: var(--text-brand-secondary)
+  --button-tertiary-color-bg_hover: var(--bg-brand-primary)
+
+  height: 44px
+  padding: 10px 16px
+  border-radius: var(--radius-md)
+  background-color: var(--transparent)
+  border: none
+  font: var(--text-md-semibold)
+  transition: box-shadow 0.05s ease-in, background-color 0.2s linear
+  display: flex
+  justify-content: center
+  align-items: center
+  user-select: none
+  cursor: pointer
+  svg
+    margin-right: 6px
+    width: 20px
+    height: 20px
+  &:disabled
+    cursor: default
+  &:focus-visible
+    outline: none
+
+.primary
+  background-color: var(--button-primary-bg)
+  color: var(--button-primary-fg)
+  border: 1px solid var(--button-primary-border)
+  box-shadow: var(--shadow-xs)
+  svg
+    fill: var(--button-primary-fg)
+  &:hover
+    background-color: var(--button-primary-bg_hover)
+    border-color: var(--bg-brand-solid_hover)
+  &:active,
+  &:focus-visible
+    box-shadow: var(--ring-brand-shadow-xs)
+  &:disabled
+    color: var(--fg-disabled)
+    background-color: var(--bg-disabled)
+    border-color: var(--border-disabled_subtle)
+    svg
+      fill: var(--fg-disabled)
+    &:active
+      box-shadow: var(--shadow-xs)
+
+.outline
+  background-color: var(--button-secondary-bg)
+  border: 1px solid var(--button-secondary-border)
+  color: var(--button-secondary-fg)
+  box-shadow: var(--shadow-xs)
+  svg
+    fill: var(--button-secondary-fg)
+  &:hover
+    background-color: var(--button-secondary-bg_hover)
+    color: var(--button-secondary-fg_hover)
+    border-color: var(--button-secondary-border_hover)
+  &:active,
+  &:focus-visible
+    box-shadow: var(--ring-gray-shadow-xs)
+  &:disabled
+    color: var(--fg-disabled)
+    background-color: var(--button-secondary-bg)
+    border-color: var(--border-disabled_subtle)
+    svg
+      fill: var(--fg-disabled)
+    &:active
+      box-shadow: var(--shadow-xs)
+
+.colorOutline
+  background-color: var(--button-secondary-color-bg)
+  border: 1px solid var(--button-secondary-color-border)
+  color: var(--button-secondary-color-fg)
+  box-shadow: var(--shadow-xs)
+  svg
+    fill: var(--button-secondary-color-fg)
+  &:hover
+    color: var(--button-secondary-color-fg_hover)
+    border-color: var(--button-secondary-color-border_hover)
+    background-color: var(--button-secondary-color-bg_hover)
+  &:active
+    box-shadow: var(--ring-brand-shadow-xs)
+  &:disabled
+    color: var(--fg-disabled)
+    background-color: var(--button-secondary-bg)
+    border-color: var(--border-disabled_subtle)
+    svg
+      color: var(--fg-disabled)
+    &:active
+      box-shadow: var(--shadow-xs)
+
+.clear
+  color: var(--button-tertiary-fg)
+  svg
+    fill: var(--button-tertiary-fg)
+  &:hover
+    background-color: var(--button-tertiary-bg_hover)
+  &:disabled
+    background-color: var(--transparent)
+    color: var(--fg-disabled)
+    svg
+      fill: var(--fg-disabled)
+
+.colorClear
+  color: var(--button-tertiary-color-fg)
+  svg
+    fill: var(--button-tertiary-color-fg)
+  &:hover
+    background-color: var(--button-tertiary-color-bg_hover)
+  &:disabled
+    background-color: var(--transparent)
+    color: var(--fg-disabled)
+    svg
+      fill: var(--fg-disabled)
+
+.xs
+  height: 36px
+  padding: 8px 12px
+  font: var(--text-sm-semibold)
+  svg
+    margin-right: 4px
+.s
+  height: 40px
+  padding: 10px 14px
+  font: var(--text-sm-semibold)
+  svg
+    margin-right: 4px
+.l
+  height: 48px
+  padding: 12px 18px
+  font: var(--text-md-semibold)
+  svg
+    margin-right: 6px
+.xl
+  height: 60px
+  padding: 16px 22px
+  font: var(--text-lg-semibold)
+  svg
+    margin-right: 10px
+    width: 24px
+    height: 24px

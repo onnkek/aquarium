@@ -1,0 +1,35 @@
+<svg width="480" height="480" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="myGradient">
+      <stop offset="0%" stop-color="#ffffff00" />
+      <stop offset="70%" stop-color="#ffffff" />
+    </radialGradient>
+  </defs>
+
+  <line x1='9' y1='9' x2='480' y2='9' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='31' x2='480' y2='31' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='53' x2='480' y2='53' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='75' x2='480' y2='75' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='97' x2='480' y2='97' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='119' x2='480' y2='119' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='141' x2='480' y2='141' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='163' x2='480' y2='163' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='185' x2='480' y2='185' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='207' x2='480' y2='207' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='229' x2='480' y2='229' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='251' x2='480' y2='251' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='273' x2='480' y2='273' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='295' x2='480' y2='295' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='317' x2='480' y2='317' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='339' x2='480' y2='339' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='361' x2='480' y2='361' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='383' x2='480' y2='383' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='9' y1='405' x2='480' y2='405' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='10' y1='427' x2='480' y2='427' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='11' y1='449' x2='480' y2='449' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  <line x1='12' y1='471' x2='480' y2='471' stroke='#EAECF0'  stroke-width='3' stroke-dasharray="0.1 23" stroke-linecap='round' />
+  
+
+  <circle cx="240" cy="240" r="330" stroke="none" fill="url('#myGradient')" />
+
+</svg>

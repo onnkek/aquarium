@@ -1,0 +1,116 @@
+@import '../../../variables'
+
+.modal
+  position: fixed
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  opacity: 0
+  pointer-events: none
+  z-index: -1
+  // color: white
+
+.overlay
+  width: 100%
+  height: 100%
+  background-color: #0C111DB3
+  display: flex
+  justify-content: center
+  align-items: center
+
+.content
+  width: 400px
+  padding: 24px
+  border-radius: var(--radius-xl)
+  background-color: var(--bg-primary_alt)
+  border: 1px solid var(--border-primary)
+  box-shadow: var(--shadow-xl)
+  // transition: transform 0.3s ease-in-out
+  // transform: scale(0.5)
+  // max-width: 60%
+  overflow: hidden
+
+.opened
+  pointer-events: auto
+  opacity: 1
+  z-index: 99999
+
+  // .content
+  //   transform: scale(1)
+
+.isClosing
+  // .content
+  //   transform: scale(0.2)
+
+.header
+  background-color: transparent
+  position: relative
+  margin-bottom: 16px
+
+.close
+  padding: 0
+  width: 12px
+  height: 12px
+  position: absolute
+  top: 0
+  right: 0
+  svg
+    margin: 0
+    width: 12px
+    height: 12px
+    stroke: var(--fg-quinary)
+
+.wrapper
+  position: absolute
+  top: -143px
+  left: -143px
+  z-index: 0
+
+.body
+  position: relative
+  z-index: 10
+
+.iconWrapper
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 48px
+  height: 48px
+  border-radius: 9999px
+
+.icon
+  z-index: 100
+
+.none
+  .icon
+    stroke: var(--fg-secondary)
+
+.default
+  .iconWrapper
+    border: 1px solid var(--border-primary)
+    border-radius: var(--radius-lg)
+    background-color: var(--transparent)
+  .icon
+    stroke: var(--fg-secondary)
+
+.green
+  .iconWrapper
+    background-color: var(--utility-success-100)
+  .icon
+    stroke: var(--utility-success-600)
+.red
+  .iconWrapper
+    background-color: var(--utility-error-100)
+  .icon
+    stroke: var(--utility-error-600)
+.save
+  .iconWrapper
+    background-color: var(--utility-warning-100)
+  .icon
+    stroke: var(--utility-warning-600)
+.purple
+  .iconWrapper
+    background-color: var(--utility-brand-100)
+  .icon
+    stroke: var(--utility-brand-600)

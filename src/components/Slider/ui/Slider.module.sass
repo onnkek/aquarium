@@ -1,0 +1,71 @@
+.sliderWrapper
+  --slider-handle-border: var(--border-brand-solid)
+  --slider-handle-bg: var(--bg-primary)
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 300px
+  touch-action: none
+
+.slider
+  position: relative
+  height: 30px
+  width: 100%
+
+.line
+  position: absolute
+  background-color: var(--bg-quaternary)
+  height: 8px
+  top: 13px
+  width: 100%
+  border-radius: var(--radius-full)
+
+.thumbContainer
+  display: flex
+  flex-direction: column
+  align-items: center
+  position: absolute
+  top: 4.5px
+  transform: translateX(-50%)
+
+.thumb
+  width: 24px
+  height: 24px
+  border: 2px solid var(--slider-handle-border)
+  background-color: var(--slider-handle-bg)
+  border-radius: var(--radius-full)
+  box-shadow: var(--shadow-md)
+  cursor: pointer
+
+.progress
+  top: 13px
+  position: absolute
+  left: 0
+  width: 100px
+  height: 8px
+  border-radius: var(--radius-full)
+  background-color: var(--fg-brand-primary)
+
+.outputContainer
+  height: 32px
+.outputContainerTooltipTop
+  height: 38px
+.output.none
+  display: none
+.output.bottom
+  position: absolute
+  top: 32px
+  font: var(-text-md-medium)
+  color: var(--text-primary)
+
+.output.tooltipTop
+  position: absolute
+  padding: 8px 12px
+  top: -41px
+  background-color: var(--bg-primary-alt)
+  border: 1px solid var(--border-secondary)
+  border-radius: var(--radius-md)
+  box-shadow: var(--shadow-lg)
+  font: var(-text-xs-semibold)
+  color: var(--text-secondary)

@@ -1,0 +1,23 @@
+<svg width="768" height="768" viewBox="0 0 768 768" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="myGradient">
+      <stop offset="0%" stop-color="#ffffff00" />
+      <stop offset="70%" stop-color="#ffffff" />
+    </radialGradient>
+  </defs>
+
+  <g transform="translate(384, 384) rotate(-12.5) translate(-48, -48)">
+    <rect width='96' height='96' stroke='#EAECF0' stroke-width='1' fill='none' rx='12' ry='12' />
+    <rect x='-48' y='-48' width='192' height='192' stroke='#EAECF0' stroke-width='1' fill='none' rx='12' ry='12' />
+    <rect x='-96' y='-96' width='288' height='288' stroke='#EAECF0' stroke-width='1' fill='none' rx='12' ry='12' />
+    <rect x='-144' y='-144' width='384' height='384' stroke='#EAECF0' stroke-width='1' fill='none' rx='12' ry='12' />
+    <rect x='-192' y='-192' width='480' height='480' stroke='#EAECF0' stroke-width='1' fill='none' rx='12' ry='12' />
+    <rect x='-240' y='-240' width='576' height='576' stroke='#EAECF0' stroke-width='1' fill='none' rx='12' ry='12' />
+    <rect x='-288' y='-288' width='672' height='672' stroke='#EAECF0' stroke-width='1' fill='none' rx='12' ry='12' />
+    <rect x='-336' y='-336' width='768' height='768' stroke='#EAECF0' stroke-width='1' fill='none' rx='12' ry='12' />
+  </g>
+
+
+  <circle cx="384" cy="384" r="550" stroke="none" fill="url('#myGradient')" />
+
+</svg>

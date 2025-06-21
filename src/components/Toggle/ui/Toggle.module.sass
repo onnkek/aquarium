@@ -1,63 +1,66 @@
 .toggleContainer
   --toggle-button-fg_disabled: var(--bg-disabled_subtle)
-  --animation-duration: 0.2s
-  --animation-timing: cubic-bezier(0.76,0.05,0.24,0.95)
-  padding: 0
+  display: flex
   color: var(--indigo-50)
   align-items: center
-  min-width: 36px
   width: 36px
   height: 20px
-  background-color: #7f56d9
+  background-color: var(--bg-tertiary)
   outline: none
   border: none
-  border-radius: 9999px
+  border-radius: var(--radius-full)
   cursor: pointer
 .toggle
-  margin: 0px 2px
   display: block
   width: 16px
   height: 16px
-  border-radius: 9999px
-  background-color: white
-  transition: transform var(--animation-duration) var(--animation-timing)
-  box-shadow: 0px 1px 2px 0px #1018280f, 0px 1px 3px 0px #1018281a
+  border-radius: var(--radius-full)
+  background-color: var(--fg-white)
+  transition: transform 0.2s ease-in-out
+  box-shadow: var(--shadow-sm)
 .disabled
   cursor: default
   .toggle
     color: var(--toggle-button-fg_disabled)
 
 .toggleContainer[aria-checked="true"].disabled
-  background-color: white
+  background-color: var(--bg-disabled)
 
 .toggleContainer[aria-checked="true"]
-  transition: background-color var(--animation-duration) var(--animation-timing)
-  background-color: #7f56d9
+  animation: color 0.2s ease-in-out
+  background-color: var(--bg-brand-solid)
   .toggle
-    transform: translateX(100%)
+    transform: translateX(12px)
   &:focus-visible
     box-shadow: var(--ring-brand)
 .toggleContainer[aria-checked="false"]
-  transition: background-color var(--animation-duration) var(--animation-timing)
-  background-color: #333
+  animation: colorBack 0.2s ease-in-out
+  background-color: var(--bg-tertiary)
+  .toggle
+    transform: translateX(-3.5px)
   &:focus-visible
     box-shadow: var(--ring-gray-secondary)
 
+@keyframes color
+  from
+    background-color: var(--bg-tertiary)
+  to
+    background-color: var(--bg-brand-solid)
+
+@keyframes colorBack
+  from
+    background-color: var(--bg-brand-solid)
+  to
+    background-color: var(--bg-tertiary)
+
 .toggleContainer.l
   width: 44px
-  min-width: 44px
   height: 24px
 
   .toggle
     width: 20px
     height: 20px
 
-.toggleContainer.xl
-  width: 66px
-  min-width: 66px
-  height: 36px
-
+.toggleContainer[aria-checked="true"].l
   .toggle
-    width: 30px
-    height: 30px
-    margin: 0px 3px
+    transform: translateX(16px)

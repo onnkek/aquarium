@@ -1,0 +1,999 @@
+html
+  // Typography
+  --font-family: "Inter", sans-serif
+  --font-regular: 400
+  --font-medium: 500
+  --font-semibold: 600
+  --font-bold: 700
+  --text-xs: 12px/18px
+  --text-sm: 14px/20px
+  --text-md: 16px/24px
+  --text-lg: 18px/28px
+  --text-xl: 20px/30px
+  --display-xs: 24px/32px
+  --display-sm: 30px/38px
+  --display-md: 36px/44px
+  --display-lg: 48px/60px
+  --display-xl: 60px/72px
+  --display-2xl: 72px/90px
+
+  --text-xs-regular: var(--font-regular) var(--text-xs) var(--font-family)
+  --text-sm-regular: var(--font-regular) var(--text-sm) var(--font-family)
+  --text-md-regular: var(--font-regular) var(--text-md) var(--font-family)
+  --text-lg-regular: var(--font-regular) var(--text-lg) var(--font-family)
+  --text-xl-regular: var(--font-regular) var(--text-xl) var(--font-family)
+  --display-xs-regular: var(--font-regular) var(--display-xs) var(--font-family)
+  --display-sm-regular: var(--font-regular) var(--display-sm) var(--font-family)
+  --display-md-regular: var(--font-regular) var(--display-md) var(--font-family)
+  --display-lg-regular: var(--font-regular) var(--display-lg) var(--font-family)
+  --display-xl-regular: var(--font-regular) var(--display-xl) var(--font-family)
+  --display-2xl-regular: var(--font-regular) var(--display-2xl) var(--font-family)
+
+  --text-xs-medium: var(--font-medium) var(--text-xs) var(--font-family)
+  --text-sm-medium: var(--font-medium) var(--text-sm) var(--font-family)
+  --text-md-medium: var(--font-medium) var(--text-md) var(--font-family)
+  --text-lg-medium: var(--font-medium) var(--text-lg) var(--font-family)
+  --text-xl-medium: var(--font-medium) var(--text-xl) var(--font-family)
+  --display-xs-medium: var(--font-medium) var(--display-xs) var(--font-family)
+  --display-sm-medium: var(--font-medium) var(--display-sm) var(--font-family)
+  --display-md-medium: var(--font-medium) var(--display-md) var(--font-family)
+  --display-lg-medium: var(--font-medium) var(--display-lg) var(--font-family)
+  --display-xl-medium: var(--font-medium) var(--display-xl) var(--font-family)
+  --display-2xl-medium: var(--font-medium) var(--display-2xl) var(--font-family)
+
+  --text-xs-semibold: var(--font-semibold) var(--text-xs) var(--font-family)
+  --text-sm-semibold: var(--font-semibold) var(--text-sm) var(--font-family)
+  --text-md-semibold: var(--font-semibold) var(--text-md) var(--font-family)
+  --text-lg-semibold: var(--font-semibold) var(--text-lg) var(--font-family)
+  --text-xl-semibold: var(--font-semibold) var(--text-xl) var(--font-family)
+  --display-xs-semibold: var(--font-semibold) var(--display-xs) var(--font-family)
+  --display-sm-semibold: var(--font-semibold) var(--display-sm) var(--font-family)
+  --display-md-semibold: var(--font-semibold) var(--display-md) var(--font-family)
+  --display-lg-semibold: var(--font-semibold) var(--display-lg) var(--font-family)
+  --display-xl-semibold: var(--font-semibold) var(--display-xl) var(--font-family)
+  --display-2xl-semibold: var(--font-semibold) var(--display-2xl) var(--font-family)
+
+  --text-xs-bold: var(--font-bold) var(--text-xs) var(--font-family)
+  --text-sm-bold: var(--font-bold) var(--text-sm) var(--font-family)
+  --text-md-bold: var(--font-bold) var(--text-md) var(--font-family)
+  --text-lg-bold: var(--font-bold) var(--text-lg) var(--font-family)
+  --text-xl-bold: var(--font-bold) var(--text-xl) var(--font-family)
+  --display-xs-bold: var(--font-bold) var(--display-xs) var(--font-family)
+  --display-sm-bold: var(--font-bold) var(--display-sm) var(--font-family)
+  --display-md-bold: var(--font-bold) var(--display-md) var(--font-family)
+  --display-lg-bold: var(--font-bold) var(--display-lg) var(--font-family)
+  --display-xl-bold: var(--font-bold) var(--display-xl) var(--font-family)
+  --display-2xl-bold: var(--font-bold) var(--display-2xl) var(--font-family)
+
+  // Primary colors
+  --white: #fff
+  --black: #000
+  --transparent: transparent
+
+  --gray-25: #FCFCFD
+  --gray-50: #F9FAFB
+  --gray-100: #F2F4F7
+  --gray-200: #EAECF0
+  --gray-300: #D0D5DD
+  --gray-400: #98A2B3
+  --gray-500: #667085
+  --gray-600: #475467
+  --gray-700: #344054
+  --gray-800: #182230
+  --gray-900: #101828
+  --gray-950: #0C111D
+  --brand-25: #FCFAFF
+  --brand-50: #F9F5FF
+  --brand-100: #F4EBFF
+  --brand-200: #E9D7FE
+  --brand-300: #D6BBFB
+  --brand-400: #B692F6
+  --brand-500: #9E77ED
+  --brand-600: #7F56D9
+  --brand-700: #6941C6
+  --brand-800: #53389E
+  --brand-900: #42307D
+  --brand-950: #2C1C5F
+  --error-25: #FFFBFA
+  --error-50: #FEF3F2
+  --error-100: #FEE4E2
+  --error-200: #FECDCA
+  --error-300: #FDA29B
+  --error-400: #F97066
+  --error-500: #F04438
+  --error-600: #D92D20
+  --error-700: #B42318
+  --error-800: #912018
+  --error-900: #7A271A
+  --error-950: #55160C
+  --warning-25: #FFFCF5
+  --warning-50: #FFFAEB
+  --warning-100: #FEF0C7
+  --warning-200: #FEDF89
+  --warning-300: #FEC84B
+  --warning-400: #FDB022
+  --warning-500: #F79009
+  --warning-600: #DC6803
+  --warning-700: #B54708
+  --warning-800: #93370D
+  --warning-900: #7A2E0E
+  --warning-950: #4E1D09
+  --success-25: #F6FEF9
+  --success-50: #ECFDF3
+  --success-100: #DCFAE6
+  --success-200: #ABEFC6
+  --success-300: #75E0A7
+  --success-400: #47CD89
+  --success-500: #17B26A
+  --success-600: #079455
+  --success-700: #067647
+  --success-800: #085D3A
+  --success-900: #074D31
+  --success-950: #053321
+
+  // Secondary colors
+  --gray-blue-25: #FCFCFD
+  --gray-blue-50: #F8F9FC
+  --gray-blue-100: #EAECF5
+  --gray-blue-200: #D5D9EB
+  --gray-blue-300: #B3B8DB
+  --gray-blue-400: #717BBC
+  --gray-blue-500: #4E5BA6
+  --gray-blue-600: #3E4784
+  --gray-blue-700: #363F72
+  --gray-blue-800: #293056
+  --gray-blue-900: #101323
+  --gray-blue-950: #0D0F1C
+  --gray-cool-25: #FCFCFD
+  --gray-cool-50: #F9F9FB
+  --gray-cool-100: #EFF1F5
+  --gray-cool-200: #DCDFEA
+  --gray-cool-300: #B9C0D4
+  --gray-cool-400: #7D89B0
+  --gray-cool-500: #5D6B98
+  --gray-cool-600: #4A5578
+  --gray-cool-700: #404968
+  --gray-cool-800: #30374F
+  --gray-cool-900: #111322
+  --gray-cool-950: #0E101B
+  --gray-modern-25: #FCFCFD
+  --gray-modern-50: #F8FAFC
+  --gray-modern-100: #EEF2F6
+  --gray-modern-200: #E3E8EF
+  --gray-modern-300: #CDD5DF
+  --gray-modern-400: #9AA4B2
+  --gray-modern-500: #697586
+  --gray-modern-600: #4B5565
+  --gray-modern-700: #364152
+  --gray-modern-800: #202939
+  --gray-modern-900: #121926
+  --gray-modern-950: #0D121C
+  --gray-neutral-25: #FCFCFD
+  --gray-neutral-50: #F9FAFB
+  --gray-neutral-100: #F3F4F6
+  --gray-neutral-200: #E5E7EB
+  --gray-neutral-300: #D2D6DB
+  --gray-neutral-400: #9DA4AE
+  --gray-neutral-500: #6C737F
+  --gray-neutral-600: #4D5761
+  --gray-neutral-700: #384250
+  --gray-neutral-800: #1F2A37
+  --gray-neutral-900: #111927
+  --gray-neutral-950: #0D121C
+  --gray-iron-25: #FCFCFC
+  --gray-iron-50: #FAFAFA
+  --gray-iron-100: #F4F4F5
+  --gray-iron-200: #E4E4E7
+  --gray-iron-300: #D1D1D6
+  --gray-iron-400: #A0A0AB
+  --gray-iron-500: #70707B
+  --gray-iron-600: #51525C
+  --gray-iron-700: #3F3F46
+  --gray-iron-800: #26272B
+  --gray-iron-900: #1A1A1E
+  --gray-iron-950: #131316
+  --gray-true-25: #FCFCFC
+  --gray-true-50: #FAFAFA
+  --gray-true-100: #F5F5F5
+  --gray-true-200: #E5E5E5
+  --gray-true-300: #D6D6D6
+  --gray-true-400: #A3A3A3
+  --gray-true-500: #737373
+  --gray-true-600: #525252
+  --gray-true-700: #424242
+  --gray-true-800: #292929
+  --gray-true-900: #141414
+  --gray-true-950: #0F0F0F
+  --gray-warm-25: #FDFDFC
+  --gray-warm-50: #FAFAF9
+  --gray-warm-100: #F5F5F4
+  --gray-warm-200: #E7E5E4
+  --gray-warm-300: #D7D3D0
+  --gray-warm-400: #A9A29D
+  --gray-warm-500: #79716B
+  --gray-warm-600: #57534E
+  --gray-warm-700: #44403C
+  --gray-warm-800: #292524
+  --gray-warm-900: #1C1917
+  --gray-warm-950: #171412
+  --moss-25: #FAFDF7
+  --moss-50: #F5FBEE
+  --moss-100: #E6F4D7
+  --moss-200: #CEEAB0
+  --moss-300: #ACDC79
+  --moss-400: #86CB3C
+  --moss-500: #669F2A
+  --moss-600: #4F7A21
+  --moss-700: #3F621A
+  --moss-800: #335015
+  --moss-900: #2B4212
+  --moss-950: #1A280B
+  --green-light-25: #FAFEF5
+  --green-light-50: #F3FEE7
+  --green-light-100: #E4FBCC
+  --green-light-200: #D0F8AB
+  --green-light-300: #A6EF67
+  --green-light-400: #85E13A
+  --green-light-500: #66C61C
+  --green-light-600: #4CA30D
+  --green-light-700: #3B7C0F
+  --green-light-800: #326212
+  --green-light-900: #2B5314
+  --green-light-950: #15290A
+  --green-25: #F6FEF9
+  --green-50: #EDFCF2
+  --green-100: #D3F8DF
+  --green-200: #AAF0C4
+  --green-300: #73E2A3
+  --green-400: #3CCB7F
+  --green-500: #16B364
+  --green-600: #099250
+  --green-700: #087443
+  --green-800: #095C37
+  --green-900: #084C2E
+  --green-950: #052E1C
+  --teal-25: #F6FEFC
+  --teal-50: #F0FDF9
+  --teal-100: #CCFBEF
+  --teal-200: #99F6E0
+  --teal-300: #5FE9D0
+  --teal-400: #2ED3B7
+  --teal-500: #15B79E
+  --teal-600: #0E9384
+  --teal-700: #107569
+  --teal-800: #125D56
+  --teal-900: #134E48
+  --teal-950: #0A2926
+  --cyan-25: #F5FEFF
+  --cyan-50: #ECFDFF
+  --cyan-100: #CFF9FE
+  --cyan-200: #A5F0FC
+  --cyan-300: #67E3F9
+  --cyan-400: #22CCEE
+  --cyan-500: #06AED4
+  --cyan-600: #088AB2
+  --cyan-700: #0E7090
+  --cyan-800: #155B75
+  --cyan-900: #164C63
+  --cyan-950: #0D2D3A
+  --blue-light-25: #F5FBFF
+  --blue-light-50: #F0F9FF
+  --blue-light-100: #E0F2FE
+  --blue-light-200: #B9E6FE
+  --blue-light-300: #7CD4FD
+  --blue-light-400: #36BFFA
+  --blue-light-500: #0BA5EC
+  --blue-light-600: #0086C9
+  --blue-light-700: #026AA2
+  --blue-light-800: #065986
+  --blue-light-900: #0B4A6F
+  --blue-light-950: #062C41
+  --blue-25: #F5FAFF
+  --blue-50: #EFF8FF
+  --blue-100: #D1E9FF
+  --blue-200: #B2DDFF
+  --blue-300: #84CAFF
+  --blue-400: #53B1FD
+  --blue-500: #2E90FA
+  --blue-600: #1570EF
+  --blue-700: #175CD3
+  --blue-800: #1849A9
+  --blue-900: #194185
+  --blue-950: #102A56
+  --blue-dark-25: #F5F8FF
+  --blue-dark-50: #EFF4FF
+  --blue-dark-100: #D1E0FF
+  --blue-dark-200: #B2CCFF
+  --blue-dark-300: #84ADFF
+  --blue-dark-400: #528BFF
+  --blue-dark-500: #2970FF
+  --blue-dark-600: #155EEF
+  --blue-dark-700: #004EEB
+  --blue-dark-800: #0040C1
+  --blue-dark-900: #00359E
+  --blue-dark-950: #002266
+  --indigo-25: #F5F8FF
+  --indigo-50: #EEF4FF
+  --indigo-100: #E0EAFF
+  --indigo-200: #C7D7FE
+  --indigo-300: #A4BCFD
+  --indigo-400: #8098F9
+  --indigo-500: #6172F3
+  --indigo-600: #444CE7
+  --indigo-700: #3538CD
+  --indigo-800: #2D31A6
+  --indigo-900: #2D3282
+  --indigo-950: #1F235B
+  --violet-25: #FBFAFF
+  --violet-50: #F5F3FF
+  --violet-100: #ECE9FE
+  --violet-200: #DDD6FE
+  --violet-300: #C3B5FD
+  --violet-400: #A48AFB
+  --violet-500: #875BF7
+  --violet-600: #7839EE
+  --violet-700: #6927DA
+  --violet-800: #5720B7
+  --violet-900: #491C96
+  --violet-950: #2E125E
+  --purple-25: #FAFAFF
+  --purple-50: #F4F3FF
+  --purple-100: #EBE9FE
+  --purple-200: #D9D6FE
+  --purple-300: #BDB4FE
+  --purple-400: #9B8AFB
+  --purple-500: #7A5AF8
+  --purple-600: #6938EF
+  --purple-700: #5925DC
+  --purple-800: #4A1FB8
+  --purple-900: #3E1C96
+  --purple-950: #27115F
+  --fuchsia-25: #FEFAFF
+  --fuchsia-50: #FDF4FF
+  --fuchsia-100: #FBE8FF
+  --fuchsia-200: #F6D0FE
+  --fuchsia-300: #EEAAFD
+  --fuchsia-400: #E478FA
+  --fuchsia-500: #D444F1
+  --fuchsia-600: #BA24D5
+  --fuchsia-700: #9F1AB1
+  --fuchsia-800: #821890
+  --fuchsia-900: #6F1877
+  --fuchsia-950: #47104C
+  --pink-25: #FEF6FB
+  --pink-50: #FDF2FA
+  --pink-100: #FCE7F6
+  --pink-200: #FCCEEE
+  --pink-300: #FAA7E0
+  --pink-400: #F670C7
+  --pink-500: #EE46BC
+  --pink-600: #DD2590
+  --pink-700: #C11574
+  --pink-800: #9E165F
+  --pink-900: #851651
+  --pink-950: #4E0D30
+  --rose-25: #FFF5F6
+  --rose-50: #FFF1F3
+  --rose-100: #FFE4E8
+  --rose-200: #FECDD6
+  --rose-300: #FEA3B4
+  --rose-400: #FD6F8E
+  --rose-500: #F63D68
+  --rose-600: #E31B54
+  --rose-700: #C01048
+  --rose-800: #A11043
+  --rose-900: #89123E
+  --rose-950: #510B24
+  --orange-dark-25: #FFF9F5
+  --orange-dark-50: #FFF4ED
+  --orange-dark-100: #FFE6D5
+  --orange-dark-200: #FFD6AE
+  --orange-dark-300: #FF9C66
+  --orange-dark-400: #FF692E
+  --orange-dark-500: #FF4405
+  --orange-dark-600: #E62E05
+  --orange-dark-700: #BC1B06
+  --orange-dark-800: #97180C
+  --orange-dark-900: #771A0D
+  --orange-dark-950: #57130A
+  --orange-25: #FEFAF5
+  --orange-50: #FEF6EE
+  --orange-100: #FDEAD7
+  --orange-200: #F9DBAF
+  --orange-300: #F7B27A
+  --orange-400: #F38744
+  --orange-500: #EF6820
+  --orange-600: #E04F16
+  --orange-700: #B93815
+  --orange-800: #932F19
+  --orange-900: #772917
+  --orange-950: #511C10
+  --yellow-25: #FEFDF0
+  --yellow-50: #FEFBE8
+  --yellow-100: #FEF7C3
+  --yellow-200: #FEEE95
+  --yellow-300: #FDE272
+  --yellow-400: #FAC515
+  --yellow-500: #EAAA08
+  --yellow-600: #CA8504
+  --yellow-700: #A15C07
+  --yellow-800: #854A0E
+  --yellow-900: #713B12
+  --yellow-950: #542C0D
+
+  // Radiuses
+  --radius-none: 0px
+  --radius-xxs: 2px
+  --radius-xs: 4px
+  --radius-sm: 6px
+  --radius-md: 8px
+  --radius-lg: 10px
+  --radius-xl: 12px
+  --radius-2xl: 16px
+  --radius-3xl: 20px
+  --radius-4xl: 24px
+  --radius-full: 9999px
+
+  // Shadows
+  --shadow-xs: 0px 1px 2px 0px #1018280D
+  --shadow-sm: 0px 1px 2px 0px #1018280F, 0px 1px 3px 0px #1018281A
+  --shadow-md: 0px 2px 4px -2px #1018280F, 0px 4px 8px -2px #1018281A
+  --shadow-lg: 0px 4px 6px -2px #10182808, 0px 12px 16px -4px #10182814
+  --shadow-xl: 0px 8px 8px -4px #10182808, 0px 20px 24px -4px #10182814
+  --shadow-2xl: 0px 24px 48px -12px #1018282E
+  --shadow-3xl: 0px 32px 64px -12px #10182824
+
+  // Focus rings
+  --ring-brand: 0px 0px 0px 4px #9E77ED3D
+  --ring-gray: 0px 0px 0px 4px #98A2B324
+  --ring-gray-secondary: 0px 0px 0px 4px #98A2B333
+  --ring-error: 0px 0px 0px 4px #F044383D
+
+  --ring-brand-shadow-xs: var(--ring-brand), var(--shadow-xs)
+  --ring-brand-shadow-sm: var(--ring-brand), var(--shadow-sm)
+  --ring-gray-shadow-xs: var(--ring-gray), var(--shadow-xs)
+  --ring-gray-shadow-sm: var(--ring-gray), var(--shadow-sm)
+  --ring-error-shadow-xs: var(--ring-error), var(--shadow-xs)
+
+  // Text color
+  // Light
+  --text-primary: var(--gray-900)
+  --text-primary_on-brand: var(--white)
+  --text-secondary: var(--gray-700)
+  --text-secondary_hover: var(--gray-800)
+  --text-secondary_on-brand: var(--brand-200)
+  --text-tertiary: var(--gray-600)
+  --text-tertiary_hover: var(--gray-700)
+  --text-tertiary_on-brand: var(--brand-200)
+  --text-quaternary: var(--gray-500)
+  --text-quaternary_on-brand: var(--brand-300)
+  --text-white: var(--white)
+  --text-disabled: var(--gray-500)
+  --text-placeholder: var(--gray-500)
+  --text-placeholder_subtle: var(--gray-300)
+  --text-brand-primary: var(--brand-900)
+  --text-brand-secondary: var(--brand-700)
+  --text-brand-tertiary: var(--brand-600)
+  --text-brand-tertiary_alt: var(--brand-600)
+  --text-error-primary: var(--error-600)
+  --text-warning-primary: var(--warning-600)
+  --text-success-primary: var(--success-600)
+
+  // Border color
+  // Light
+  --border-primary: var(--gray-300)
+  --border-secondary: var(--gray-200)
+  --border-tertiary: var(--gray-100)
+  --border-disabled: var(--gray-300)
+  --border-disabled_subtle: var(--gray-200)
+  --border-brand: var(--brand-300)
+  --border-brand-solid: var(--brand-600)
+  --border-brand-solid_alt: var(--brand-600)
+  --border-error: var(--error-300)
+  --border-error-solid: var(--error-600)
+
+  // Foreground color
+  // Light
+  --fg-primary: var(--gray-900)
+  --fg-secondary: var(--gray-700)
+  --fg-secondary_hover: var(--gray-800)
+  --fg-tertiary: var(--gray-600)
+  --fg-tertiary_hover: var(--gray-700)
+  --fg-quaternary: var(--gray-500)
+  --fg-quaternary_hover: var(--gray-600)
+  --fg-quinary: var(--gray-400)
+  --fg-quinary_hover: var(--gray-500)
+  --fg-senary: var(--gray-300)
+  --fg-white: var(--white)
+  --fg-disabled: var(--gray-400)
+  --fg-disabled_subtle: var(--gray-300)
+  --fg-brand-primary: var(--brand-600)
+  --fg-brand-primary_alt: var(--brand-600)
+  --fg-brand-secondary: var(--brand-500)
+  --fg-error-primary: var(--error-600)
+  --fg-error-secondary: var(--error-500)
+  --fg-warning-primary: var(--warning-600)
+  --fg-warning-secondary: var(--warning-500)
+  --fg-success-primary: var(--success-600)
+  --fg-success-secondary: var(--success-500)
+
+  // Background color
+  // Light
+  --bg-primary: var(--white)
+  --bg-primary_alt: var(--white)
+  --bg-primary_hover: var(--gray-50)
+  --bg-primary_solid: var(--gray-950)
+  --bg-secondary: var(--gray-50)
+  --bg-secondary_alt: var(--gray-50)
+  --bg-secondary_hover: var(--gray-100)
+  --bg-secondary_subtle: var(--gray-25)
+  --bg-secondary_solid: var(--gray-600)
+  --bg-tertiary: var(--gray-100)
+  --bg-quaternary: var(--gray-200)
+  --bg-active: var(--gray-50)
+  --bg-disabled: var(--gray-100)
+  --bg-disabled_subtle: var(--gray-50)
+  --bg-overlay: var(--gray-950)
+  --bg-brand-primary: var(--brand-50)
+  --bg-brand-primary_alt: var(--brand-50)
+  --bg-brand-secondary: var(--brand-100)
+  --bg-brand-solid: var(--brand-600)
+  --bg-brand-solid_hover: var(--brand-700)
+  --bg-brand-section: var(--brand-800)
+  --bg-brand-section_subtle: var(--brand-700)
+  --bg-error-primary: var(--error-50)
+  --bg-error-secondary: var(--error-100)
+  --bg-error-solid: var(--error-600)
+  --bg-warning-primary: var(--warning-50)
+  --bg-warning-secondary: var(--warning-100)
+  --bg-warning-solid: var(--warning-600)
+  --bg-success-primary: var(--success-50)
+  --bg-success-secondary: var(--success-100)
+  --bg-success-solid: var(--success-600)
+
+  // Alpha colors
+  // Light
+  --alpha-white-10: #FFFFFF1A
+  --alpha-white-20: #FFFFFF33
+  --alpha-white-30: #FFFFFF4D
+  --alpha-white-40: #FFFFFF66
+  --alpha-white-50: #FFFFFF80
+  --alpha-white-60: #FFFFFF99
+  --alpha-white-70: #FFFFFFB3
+  --alpha-white-80: #FFFFFFCC
+  --alpha-white-90: #FFFFFFE6
+  --alpha-white-100: #FFFFFF
+  --alpha-black-10: #0000001A
+  --alpha-black-20: #00000033
+  --alpha-black-30: #0000004D
+  --alpha-black-40: #00000066
+  --alpha-black-50: #00000080
+  --alpha-black-60: #00000099
+  --alpha-black-70: #000000B2
+  --alpha-black-80: #000000CC
+  --alpha-black-90: #000000E5
+  --alpha-black-100: #000000
+
+  // Utility colors
+  // Light
+  --utility-gray-50: var(--gray-50)
+  --utility-gray-100: var(--gray-100)
+  --utility-gray-200: var(--gray-200)
+  --utility-gray-300: var(--gray-300)
+  --utility-gray-400: var(--gray-400)
+  --utility-gray-500: var(--gray-500)
+  --utility-gray-600: var(--gray-600)
+  --utility-gray-700: var(--gray-700)
+  --utility-gray-800: var(--gray-800)
+  --utility-gray-900: var(--gray-900)
+
+  --utility-brand-50: var(--brand-50)
+  --utility-brand-50_alt: var(--brand-50)
+  --utility-brand-100: var(--brand-100)
+  --utility-brand-100_alt: var(--brand-100)
+  --utility-brand-200: var(--brand-200)
+  --utility-brand-200_alt: var(--brand-200)
+  --utility-brand-300: var(--brand-300)
+  --utility-brand-300_alt: var(--brand-300)
+  --utility-brand-400: var(--brand-400)
+  --utility-brand-400_alt: var(--brand-400)
+  --utility-brand-500: var(--brand-500)
+  --utility-brand-500_alt: var(--brand-500)
+  --utility-brand-600: var(--brand-600)
+  --utility-brand-600_alt: var(--brand-600)
+  --utility-brand-700: var(--brand-700)
+  --utility-brand-700_alt: var(--brand-700)
+  --utility-brand-800: var(--brand-800)
+  --utility-brand-800_alt: var(--brand-800)
+  --utility-brand-900: var(--brand-900)
+  --utility-brand-900_alt: var(--brand-900)
+
+  --utility-error-50: var(--error-50)
+  --utility-error-100: var(--error-100)
+  --utility-error-200: var(--error-200)
+  --utility-error-300: var(--error-300)
+  --utility-error-400: var(--error-400)
+  --utility-error-500: var(--error-500)
+  --utility-error-600: var(--error-600)
+  --utility-error-700: var(--error-700)
+
+  --utility-warning-50: var(--warning-50)
+  --utility-warning-100: var(--warning-100)
+  --utility-warning-200: var(--warning-200)
+  --utility-warning-300: var(--warning-300)
+  --utility-warning-400: var(--warning-400)
+  --utility-warning-500: var(--warning-500)
+  --utility-warning-600: var(--warning-600)
+  --utility-warning-700: var(--warning-700)
+
+  --utility-success-50: var(--success-50)
+  --utility-success-100: var(--success-100)
+  --utility-success-200: var(--success-200)
+  --utility-success-300: var(--success-300)
+  --utility-success-400: var(--success-400)
+  --utility-success-500: var(--success-500)
+  --utility-success-600: var(--success-600)
+  --utility-success-700: var(--success-700)
+
+  --utility-gray-blue-50: var(--gray-blue-50)
+  --utility-gray-blue-100: var(--gray-blue-100)
+  --utility-gray-blue-200: var(--gray-blue-200)
+  --utility-gray-blue-300: var(--gray-blue-300)
+  --utility-gray-blue-400: var(--gray-blue-400)
+  --utility-gray-blue-500: var(--gray-blue-500)
+  --utility-gray-blue-600: var(--gray-blue-600)
+  --utility-gray-blue-700: var(--gray-blue-700)
+
+  --utility-blue-light-50: var(--blue-light-50)
+  --utility-blue-light-100: var(--blue-light-100)
+  --utility-blue-light-200: var(--blue-light-200)
+  --utility-blue-light-300: var(--blue-light-300)
+  --utility-blue-light-400: var(--blue-light-400)
+  --utility-blue-light-500: var(--blue-light-500)
+  --utility-blue-light-600: var(--blue-light-600)
+  --utility-blue-light-700: var(--blue-light-700)
+
+  --utility-blue-50: var(--blue-50)
+  --utility-blue-100: var(--blue-100)
+  --utility-blue-200: var(--blue-200)
+  --utility-blue-300: var(--blue-300)
+  --utility-blue-400: var(--blue-400)
+  --utility-blue-500: var(--blue-500)
+  --utility-blue-600: var(--blue-600)
+  --utility-blue-700: var(--blue-700)
+
+  --utility-blue-dark-50: var(--blue-dark-50)
+  --utility-blue-dark-100: var(--blue-dark-100)
+  --utility-blue-dark-200: var(--blue-dark-200)
+  --utility-blue-dark-300: var(--blue-dark-300)
+  --utility-blue-dark-400: var(--blue-dark-400)
+  --utility-blue-dark-500: var(--blue-dark-500)
+  --utility-blue-dark-600: var(--blue-dark-600)
+  --utility-blue-dark-700: var(--blue-dark-700)
+
+  --utility-indigo-50: var(--indigo-50)
+  --utility-indigo-100: var(--indigo-100)
+  --utility-indigo-200: var(--indigo-200)
+  --utility-indigo-300: var(--indigo-300)
+  --utility-indigo-400: var(--indigo-400)
+  --utility-indigo-500: var(--indigo-500)
+  --utility-indigo-600: var(--indigo-600)
+  --utility-indigo-700: var(--indigo-700)
+
+  --utility-purple-50: var(--purple-50)
+  --utility-purple-100: var(--purple-100)
+  --utility-purple-200: var(--purple-200)
+  --utility-purple-300: var(--purple-300)
+  --utility-purple-400: var(--purple-400)
+  --utility-purple-500: var(--purple-500)
+  --utility-purple-600: var(--purple-600)
+  --utility-purple-700: var(--purple-700)
+
+  --utility-fuchsia-50: var(--fuchsia-50)
+  --utility-fuchsia-100: var(--fuchsia-100)
+  --utility-fuchsia-200: var(--fuchsia-200)
+  --utility-fuchsia-300: var(--fuchsia-300)
+  --utility-fuchsia-400: var(--fuchsia-400)
+  --utility-fuchsia-500: var(--fuchsia-500)
+  --utility-fuchsia-600: var(--fuchsia-600)
+  --utility-fuchsia-700: var(--fuchsia-700)
+
+  --utility-pink-50: var(--pink-50)
+  --utility-pink-100: var(--pink-100)
+  --utility-pink-200: var(--pink-200)
+  --utility-pink-300: var(--pink-300)
+  --utility-pink-400: var(--pink-400)
+  --utility-pink-500: var(--pink-500)
+  --utility-pink-600: var(--pink-600)
+  --utility-pink-700: var(--pink-700)
+
+  --utility-orange-dark-50: var(--orange-dark-50)
+  --utility-orange-dark-100: var(--orange-dark-100)
+  --utility-orange-dark-200: var(--orange-dark-200)
+  --utility-orange-dark-300: var(--orange-dark-300)
+  --utility-orange-dark-400: var(--orange-dark-400)
+  --utility-orange-dark-500: var(--orange-dark-500)
+  --utility-orange-dark-600: var(--orange-dark-600)
+  --utility-orange-dark-700: var(--orange-dark-700)
+
+  --utility-orange-50: var(--orange-50)
+  --utility-orange-100: var(--orange-100)
+  --utility-orange-200: var(--orange-200)
+  --utility-orange-300: var(--orange-300)
+  --utility-orange-400: var(--orange-400)
+  --utility-orange-500: var(--orange-500)
+  --utility-orange-600: var(--orange-600)
+  --utility-orange-700: var(--orange-700)
+
+:root
+  .dark
+    --gray-25: #FAFAFA
+    --gray-50: #F5F5F6
+    --gray-100: #F0F1F1
+    --gray-200: #ECECED
+    --gray-300: #CECFD2
+    --gray-400: #94969C
+    --gray-500: #85888E
+    --gray-600: #61646C
+    --gray-700: #333741
+    --gray-800: #1F242F
+    --gray-900: #161B26
+    --gray-950: #0C111D
+
+    --text-primary: var(--gray-50)
+    --text-primary_on-brand: var(--gray-50)
+    --text-secondary: var(--gray-300)
+    --text-secondary_hover: var(--gray-200)
+    --text-secondary_on-brand: var(--gray-300)
+    --text-tertiary: var(--gray-400)
+    --text-tertiary_hover: var(--gray-300)
+    --text-tertiary_on-brand: var(--brand-400)
+    --text-quaternary: var(--gray-400)
+    --text-quaternary_on-brand: var(--gray-400)
+    --text-white: var(--white)
+    --text-disabled: var(--gray-500)
+    --text-placeholder: var(--gray-400)
+    --text-placeholder_subtle: var(--gray-700)
+    --text-brand-primary: var(--gray-50)
+    --text-brand-secondary: var(--gray-300)
+    --text-brand-tertiary: var(--gray-400)
+    --text-brand-tertiary_alt: var(--gray-50)
+    --text-error-primary: var(--error-400)
+    --text-warning-primary: var(--warning-400)
+    --text-success-primary: var(--success-400)
+
+    --border-primary: var(--gray-700)
+    --border-secondary: var(--gray-800)
+    --border-tertiary: var(--gray-800)
+    --border-disabled: var(--gray-700)
+    --border-disabled_subtle: var(--gray-800)
+    --border-brand: var(--brand-400)
+    --border-brand-solid: var(--brand-500)
+    --border-brand-solid_alt: var(--gray-700)
+    --border-error: var(--error-400)
+    --border-error-solid: var(--error-500)
+
+    --fg-primary: var(--white)
+    --fg-secondary: var(--gray-300)
+    --fg-secondary_hover: var(--gray-200)
+    --fg-tertiary: var(--gray-400)
+    --fg-tertiary_hover: var(--gray-300)
+    --fg-quaternary: var(--gray-400)
+    --fg-quaternary_hover: var(--gray-300)
+    --fg-quinary: var(--gray-500)
+    --fg-quinary_hover: var(--gray-400)
+    --fg-senary: var(--gray-600)
+    --fg-white: var(--white)
+    --fg-disabled: var(--gray-500)
+    --fg-disabled_subtle: var(--gray-600)
+    --fg-brand-primary: var(--brand-500)
+    --fg-brand-primary_alt: var(--gray-300)
+    --fg-brand-secondary: var(--brand-500)
+    --fg-error-primary: var(--error-500)
+    --fg-error-secondary: var(--error-400)
+    --fg-warning-primary: var(--warning-500)
+    --fg-warning-secondary: var(--warning-400)
+    --fg-success-primary: var(--success-500)
+    --fg-success-secondary: var(--success-400)
+
+    --bg-primary: var(--gray-950)
+    --bg-primary_alt: var(--gray-900)
+    --bg-primary_hover: var(--gray-800)
+    --bg-primary_solid: var(--gray-900)
+    --bg-secondary: var(--gray-900)
+    --bg-secondary_alt: var(--gray-950)
+    --bg-secondary_hover: var(--gray-800)
+    --bg-secondary_subtle: var(--gray-900)
+    --bg-secondary_solid: var(--gray-600)
+    --bg-tertiary: var(--gray-800)
+    --bg-quaternary: var(--gray-700)
+    --bg-active: var(--gray-800)
+    --bg-disabled: var(--gray-800)
+    --bg-disabled_subtle: var(--gray-900)
+    --bg-overlay: var(--gray-800)
+    --bg-brand-primary: var(--brand-500)
+    --bg-brand-primary_alt: var(--gray-800)
+    --bg-brand-secondary: var(--brand-600)
+    --bg-brand-solid: var(--brand-600)
+    --bg-brand-solid_hover: var(--brand-500)
+    --bg-brand-section: var(--gray-800)
+    --bg-brand-section_subtle: var(--gray-950)
+    --bg-error-primary: var(--error-500)
+    --bg-error-secondary: var(--error-600)
+    --bg-error-solid: var(--error-600)
+    --bg-warning-primary: var(--warning-500)
+    --bg-warning-secondary: var(--warning-600)
+    --bg-warning-solid: var(--warning-600)
+    --bg-success-primary: var(--success-500)
+    --bg-success-secondary: var(--success-600)
+    --bg-success-solid: var(--success-600)
+
+    --alpha-white-10: #0C111D1A
+    --alpha-white-20: #0C111D33
+    --alpha-white-30: #0C111D4D
+    --alpha-white-40: #0C111D66
+    --alpha-white-50: #0C111D80
+    --alpha-white-60: #0C111D99
+    --alpha-white-70: #0C111DB2
+    --alpha-white-80: #0C111DCC
+    --alpha-white-90: #0C111DE5
+    --alpha-white-100: #0C111D
+    --alpha-black-10: #FFFFFF1A
+    --alpha-black-20: #FFFFFF33
+    --alpha-black-30: #FFFFFF4D
+    --alpha-black-40: #FFFFFF66
+    --alpha-black-50: #FFFFFF80
+    --alpha-black-60: #FFFFFF99
+    --alpha-black-70: #FFFFFFB2
+    --alpha-black-80: #FFFFFFCC
+    --alpha-black-90: #FFFFFFE5
+    --alpha-black-100: #FFFFFF
+
+    --utility-gray-50: var(--gray-900)
+    --utility-gray-100: var(--gray-800)
+    --utility-gray-200: var(--gray-700)
+    --utility-gray-300: var(--gray-700)
+    --utility-gray-400: var(--gray-600)
+    --utility-gray-500: var(--gray-500)
+    --utility-gray-600: var(--gray-400)
+    --utility-gray-700: var(--gray-300)
+    --utility-gray-800: var(--gray-200)
+    --utility-gray-900: var(--gray-100)
+
+    --utility-brand-50: var(--brand-950)
+    --utility-brand-50_alt: var(--gray-900)
+    --utility-brand-100: var(--brand-900)
+    --utility-brand-100_alt: var(--gray-800)
+    --utility-brand-200: var(--brand-800)
+    --utility-brand-200_alt: var(--gray-700)
+    --utility-brand-300: var(--brand-300)
+    --utility-brand-300_alt: var(--gray-300)
+    --utility-brand-400: var(--brand-600)
+    --utility-brand-400_alt: var(--gray-600)
+    --utility-brand-500: var(--brand-500)
+    --utility-brand-500_alt: var(--gray-500)
+    --utility-brand-600: var(--brand-400)
+    --utility-brand-600_alt: var(--gray-400)
+    --utility-brand-700: var(--brand-300)
+    --utility-brand-700_alt: var(--gray-300)
+    --utility-brand-800: var(--brand-200)
+    --utility-brand-800_alt: var(--gray-200)
+    --utility-brand-900: var(--brand-100)
+    --utility-brand-900_alt: var(--gray-100)
+
+    --utility-error-50: var(--error-950)
+    --utility-error-100: var(--error-900)
+    --utility-error-200: var(--error-800)
+    --utility-error-300: var(--error-700)
+    --utility-error-400: var(--error-600)
+    --utility-error-500: var(--error-500)
+    --utility-error-600: var(--error-400)
+    --utility-error-700: var(--error-300)
+
+    --utility-warning-50: var(--warning-950)
+    --utility-warning-100: var(--warning-900)
+    --utility-warning-200: var(--warning-800)
+    --utility-warning-300: var(--warning-700)
+    --utility-warning-400: var(--warning-600)
+    --utility-warning-500: var(--warning-500)
+    --utility-warning-600: var(--warning-400)
+    --utility-warning-700: var(--warning-300)
+
+    --utility-success-50: var(--success-950)
+    --utility-success-100: var(--success-900)
+    --utility-success-200: var(--success-800)
+    --utility-success-300: var(--success-700)
+    --utility-success-400: var(--success-600)
+    --utility-success-500: var(--success-500)
+    --utility-success-600: var(--success-400)
+    --utility-success-700: var(--success-300)
+
+    --utility-gray-blue-50: var(--gray-blue-950)
+    --utility-gray-blue-100: var(--gray-blue-900)
+    --utility-gray-blue-200: var(--gray-blue-800)
+    --utility-gray-blue-300: var(--gray-blue-700)
+    --utility-gray-blue-400: var(--gray-blue-600)
+    --utility-gray-blue-500: var(--gray-blue-500)
+    --utility-gray-blue-600: var(--gray-blue-400)
+    --utility-gray-blue-700: var(--gray-blue-300)
+
+    --utility-blue-light-50: var(--blue-light-950)
+    --utility-blue-light-100: var(--blue-light-900)
+    --utility-blue-light-200: var(--blue-light-800)
+    --utility-blue-light-300: var(--blue-light-700)
+    --utility-blue-light-400: var(--blue-light-600)
+    --utility-blue-light-500: var(--blue-light-500)
+    --utility-blue-light-600: var(--blue-light-400)
+    --utility-blue-light-700: var(--blue-light-300)
+
+    --utility-blue-50: var(--blue-950)
+    --utility-blue-100: var(--blue-900)
+    --utility-blue-200: var(--blue-800)
+    --utility-blue-300: var(--blue-700)
+    --utility-blue-400: var(--blue-600)
+    --utility-blue-500: var(--blue-500)
+    --utility-blue-600: var(--blue-400)
+    --utility-blue-700: var(--blue-300)
+
+    --utility-blue-dark-50: var(--blue-dark-950)
+    --utility-blue-dark-100: var(--blue-dark-900)
+    --utility-blue-dark-200: var(--blue-dark-800)
+    --utility-blue-dark-300: var(--blue-dark-700)
+    --utility-blue-dark-400: var(--blue-dark-600)
+    --utility-blue-dark-500: var(--blue-dark-500)
+    --utility-blue-dark-600: var(--blue-dark-400)
+    --utility-blue-dark-700: var(--blue-dark-300)
+
+    --utility-indigo-50: var(--indigo-950)
+    --utility-indigo-100: var(--indigo-900)
+    --utility-indigo-200: var(--indigo-800)
+    --utility-indigo-300: var(--indigo-700)
+    --utility-indigo-400: var(--indigo-600)
+    --utility-indigo-500: var(--indigo-500)
+    --utility-indigo-600: var(--indigo-400)
+    --utility-indigo-700: var(--indigo-300)
+
+    --utility-purple-50: var(--purple-950)
+    --utility-purple-100: var(--purple-900)
+    --utility-purple-200: var(--purple-800)
+    --utility-purple-300: var(--purple-700)
+    --utility-purple-400: var(--purple-600)
+    --utility-purple-500: var(--purple-500)
+    --utility-purple-600: var(--purple-400)
+    --utility-purple-700: var(--purple-300)
+
+    --utility-fuchsia-50: var(--fuchsia-950)
+    --utility-fuchsia-100: var(--fuchsia-900)
+    --utility-fuchsia-200: var(--fuchsia-800)
+    --utility-fuchsia-300: var(--fuchsia-700)
+    --utility-fuchsia-400: var(--fuchsia-600)
+    --utility-fuchsia-500: var(--fuchsia-500)
+    --utility-fuchsia-600: var(--fuchsia-400)
+    --utility-fuchsia-700: var(--fuchsia-300)
+
+    --utility-pink-50: var(--pink-950)
+    --utility-pink-100: var(--pink-900)
+    --utility-pink-200: var(--pink-800)
+    --utility-pink-300: var(--pink-700)
+    --utility-pink-400: var(--pink-600)
+    --utility-pink-500: var(--pink-500)
+    --utility-pink-600: var(--pink-400)
+    --utility-pink-700: var(--pink-300)
+
+    --utility-orange-dark-50: var(--orange-dark-950)
+    --utility-orange-dark-100: var(--orange-dark-900)
+    --utility-orange-dark-200: var(--orange-dark-800)
+    --utility-orange-dark-300: var(--orange-dark-700)
+    --utility-orange-dark-400: var(--orange-dark-600)
+    --utility-orange-dark-500: var(--orange-dark-500)
+    --utility-orange-dark-600: var(--orange-dark-400)
+    --utility-orange-dark-700: var(--orange-dark-300)
+
+    --utility-orange-50: var(--orange-950)
+    --utility-orange-100: var(--orange-900)
+    --utility-orange-200: var(--orange-800)
+    --utility-orange-300: var(--orange-700)
+    --utility-orange-400: var(--orange-600)
+    --utility-orange-500: var(--orange-500)
+    --utility-orange-600: var(--orange-400)
+    --utility-orange-700: var(--orange-300)

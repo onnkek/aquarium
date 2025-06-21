@@ -1,0 +1,48 @@
+.inputFile
+  padding: 16px 24px
+  display: flex
+  flex-direction: column
+  align-items: center
+  background-color: var(--bg-primary)
+  border: 1px solid var(--border-secondary)
+  border-radius: var(--radius-xl)
+  &:hover:not(.disabled)
+    cursor: pointer
+
+.dragOver:not(.disabled)
+  margin: -1px
+  border: 2px solid var(--border-brand-solid)
+
+.disabled
+  background-color: var(--bg-disabled_subtle)
+  border: 1px solid var(--border-disabled_subtle)
+
+.iconContainer
+  margin-bottom: 12px
+  display: inline-flex
+  justify-content: center
+  align-items: center
+  padding: 10px
+  border: 1px solid var(--border-secondary)
+  border-radius: var(--radius-md)
+  box-shadow: var(--shadow-xs)
+
+.icon
+  width: 20px
+  height: 20px
+  stroke: var(--fg-secondary)
+
+.text
+  font: var(--text-sm-regular)
+  color: var(--text-tertiary)
+
+.colorText
+  font: var(--text-sm-semibold)
+  color: var(--text-brand-secondary)
+
+.input
+  opacity: 0
+  overflow: hidden
+  position: absolute
+  width: 0px
+  height: 0px

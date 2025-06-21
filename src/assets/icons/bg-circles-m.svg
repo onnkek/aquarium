@@ -1,0 +1,19 @@
+<svg width="480" height="480" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="myGradient">
+      <stop offset="0%" stop-color="#ffffff00" />
+      <stop offset="70%" stop-color="#ffffff" />
+    </radialGradient>
+  </defs>
+
+  <circle cx="240" cy="240" r="48" fill="none" stroke="#CCCED1" />
+  <circle cx="240" cy="240" r="80" fill="none" stroke="#CCCED1" />
+  <circle cx="240" cy="240" r="112" fill="none" stroke="#CCCED1" />
+  <circle cx="240" cy="240" r="144" fill="none" stroke="#CCCED1" />
+  <circle cx="240" cy="240" r="176" fill="none" stroke="#CCCED1" />
+  <circle cx="240" cy="240" r="208" fill="none" stroke="#CCCED1" />
+  <circle cx="240" cy="240" r="240" fill="none" stroke="#CCCED1" />
+
+  <circle cx="240" cy="240" r="330" stroke="none" fill="url('#myGradient')" />
+
+</svg>
