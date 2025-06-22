@@ -1,12 +1,15 @@
 import cls from './Dropdown.module.sass';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { classNames } from 'helpers/classNames';
+import { useTheme } from 'helpers/ThemeProvider/lib/useTheme';
+import { Button } from 'components/Button';
+import clsButton from '../../Button/ui/Button.module.sass'
 
 type DropdownItem = {
   content: string;
-  link: string;
   disabled?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   Icon?: React.VFC<React.SVGProps<SVGSVGElement>>;
 }
 type DropdownAnchor =
@@ -16,30 +19,36 @@ type DropdownAnchor =
   'right' | 'right end' | 'right start'
 export interface DropdownProps {
   className?: string;
-  button?: ReactElement;
+  select: string;
   items?: DropdownItem[][];
   header?: ReactElement;
   anchor?: DropdownAnchor
 }
 
-export const Dropdown = ({ className, button, items, header, anchor = 'bottom' }: DropdownProps) => {
-
+export const Dropdown = ({ className, select, items, header, anchor = 'bottom' }: DropdownProps) => {
+  const { theme } = useTheme();
   return (
+
     <Menu>
-      <MenuButton className={cls.btn}>
-        {button}
+      <MenuButton className={classNames(clsButton.button, {}, [clsButton.outline])}>
+        {select}
       </MenuButton>
-      <MenuItems anchor={anchor} className={classNames(cls.dropdown, {}, [className])}>
+      <MenuItems anchor={anchor} className={classNames(cls.dropdown, {}, [theme, className])}>
         {header}
         {items && items.map((group: DropdownItem[]) => (
-          <div className={cls.group}>
+          <div className={cls.group} key={Math.random()}>
             {group && group.map((item: DropdownItem) => (
-              <MenuItem disabled={item.disabled}>
+              <MenuItem disabled={item.disabled} key={Math.random()}>
                 <div className={classNames(cls.item, { [cls.disabled]: item.disabled })}>
                   {item.Icon && <item.Icon className={cls.icon} />}
-                  <a href={item.link} className={cls.content}>
+                  <Button
+                    theme='clear'
+                    onClick={item.onClick}
+                    className={cls.button_option}
+                  >{item.content}</Button>
+                  {/* <a href={item.link} className={cls.content}>
                     {item.content}
-                  </a>
+                  </a> */}
                 </div>
               </MenuItem>
             ))}

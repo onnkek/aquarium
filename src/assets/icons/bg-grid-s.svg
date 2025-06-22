@@ -1,8 +1,8 @@
 <svg width="336" height="336" viewBox="0 0 336 336" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <radialGradient id="myGradient">
-      <stop offset="0%" stop-color="#ffffff00" />
-      <stop offset="70%" stop-color="#ffffff" />
+      <stop offset="0%" stop-opacity="0" />
+      <stop offset="70%" stop-color="1" />
     </radialGradient>
   </defs>
 
@@ -38,6 +38,6 @@
   <line x1='336' y1='0' x2='336' y2='336' stroke='#EAECF0' />
 
 
-  <circle cx="168" cy="168" r="250" stroke="none" fill="url('#myGradient')" />
+  <!-- <circle cx="168" cy="168" r="250" stroke="none" fill="url('#myGradient')" /> -->
 
 </svg>

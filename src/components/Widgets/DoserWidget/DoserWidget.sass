@@ -1,0 +1,143 @@
+@import "../../../main"
+
+.doser
+  padding: 40px 50px
+  position: relative
+  display: flex
+  // flex-direction: column
+  align-items: center
+  justify-content: space-between
+
+  flex-wrap: wrap
+  max-width: 1400px
+  min-height: 300px
+  margin: 10px
+  background-color: $card-bgc
+  // border: 1px solid rgba(100, 100, 100, 0.4)
+  border-radius: 15px
+  overflow: hidden
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
+  &__blur
+    //260left 125bottom
+
+    position: absolute
+    left: calc(80% - 75px)
+    bottom: calc(70% - 75px)
+    width: 150px
+    height: 150px
+    background-color: $card-circle-doser
+    border-radius: 50%
+    border: 1px solid black
+    filter: blur(25px)
+  &__rect
+    position: absolute
+    top: 0
+    left: 0
+    background-color: $card-line-doser
+    height: 100%
+    width: 6px
+  &__icon
+    width: 50px
+    margin-right: 10px
+  &__edit-btn
+    position: absolute
+    display: flex
+    justify-content: center
+    align-items: center
+    top: 7px
+    right: 7px
+    background-color: rgba(255, 255, 255, 10%)
+    border: none
+    border-radius: 50%
+    outline: none
+    width: 46px
+    height: 46px
+    transition: 0.1s background-color ease-in-out
+  &__edit-btn:hover
+    background-color: rgba(255, 255, 255, 30%)
+  &__edit-btn-icon
+    width: 20px
+    height: 20px
+  &__left
+    // padding-top: 5px
+    // height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+  &__right
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+    z-index: 1
+
+  &__text-container
+    display: flex
+    // min-width: 300px
+    width: 100%
+    // flex-direction: column
+    align-items: center
+    justify-content: start
+    padding: 15px 25px
+    background-color: #282828
+    opacity: 90%
+    border-radius: 20px
+    margin: 10px
+    &:not(:last-child)
+      margin-bottom: 10px
+
+  &__text-tag
+    align-self: flex-start
+    margin: 0
+    color: #898989
+    font-size: 12px
+  &__text-space
+    margin: 0
+    color: white
+    font-size: 16px
+  &__text
+    margin: 0
+    color: white
+    font-size: 22px
+    font-weight: bold
+  &__progress
+    width: 150px
+    background-color: #444
+    margin-top: 5px
+  &_progress-bar
+  &__space_values
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+.fan
+  animation: 2s linear 0s infinite normal cool
+
+.heat
+  animation: 1s ease-in-out 0s infinite alternate-reverse heat
+
+@keyframes cool
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+
+@keyframes heat
+  from
+    transform: scale(0.8)
+  to
+    transform: scale(1)
+
+// .doser
+//   background-color: #a7a7a7
+//   width: fit-content
+//   margin: 0px 50px 50px 50px
+//   // max-width: 1300px
+//   // width: 1000px
+//   // height: 200px
+//   border-radius: 20px
+//   display: flex
+//   align-items: center
+//   justify-content: center
+//   flex-wrap: wrap

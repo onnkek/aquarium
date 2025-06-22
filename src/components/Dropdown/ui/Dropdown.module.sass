@@ -2,32 +2,40 @@
   margin-top: 8px
   display: flex
   flex-direction: column
-  background-color: #fff
-  border: 1px solid #EAECF0
+  background-color: var(--bg-primary)
+  border: 1px solid var(--border-primary)
   border-radius: var(--radius-md)
   box-shadow: 0px 4px 6px -2px #10182808, 0px 12px 16px -4px #10182814
   z-index: 10000
+  font: var(--text-md-regular)
+  color: var(--text-primary)
 .btn
+  width: max-content
   background: none
   border: none
   outline: none
   padding: 0
   margin: 0
+.dropdown
+  .button_option
+    width: 100%
+    justify-content: start
 
 .item
-  padding: 10px 10px
-  display: flex
-  align-items: center
-  color: #344054
-  transition: background-color 0.2s linear
-  &:hover:not(.disabled)
-    cursor: pointer
-    background-color: #F9FAFB
-    border-radius: var(--radius-sm)
-    .content
-      color: #182230
-    .icon
-      fill: #182230
+  // padding: 10px 10px
+  // display: flex
+  // align-items: center
+  // color: #344054
+  // transition: background-color 0.2s linear
+
+  // &:hover:not(.disabled)
+  //   cursor: pointer
+  //   background-color: #F9FAFB
+  //   border-radius: var(--radius-sm)
+  //   .content
+  //     color: #182230
+  //   .icon
+  //     fill: #182230
 
 .disabled
   .content
@@ -37,7 +45,7 @@
     fill: #667085
 
 .content
-  color: #344054
+  color: var(--text-primary)
   text-decoration: none
   font-weight: 500
   font-size: 14px

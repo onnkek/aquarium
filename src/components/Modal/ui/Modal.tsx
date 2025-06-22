@@ -1,6 +1,5 @@
 import cls from './Modal.module.sass';
 import { MutableRefObject, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { Portal } from '../../Portal';
 import { Mods, classNames } from 'helpers/classNames';
 import { ReactComponent as XIcon } from 'assets/icons/x.svg';
 import { ReactComponent as CirclesBG } from 'assets/icons/bg-circles-s.svg';
@@ -9,6 +8,7 @@ import { ReactComponent as GridDotBG } from 'assets/icons/bg-grid-dot-s.svg';
 import { ReactComponent as SquaresBG } from 'assets/icons/bg-squares-s.svg';
 import { Button } from 'components/Button';
 import { useTheme } from 'helpers/ThemeProvider/lib/useTheme';
+import { Portal } from 'components/Portal';
 
 type ModalIconColor = 'green' | 'red' | 'save' | 'purple' | 'default' | 'none';
 type ModalBGWrapper = 'circles' | 'grid' | 'grid-dot' | 'squares' | 'none';
@@ -77,6 +77,16 @@ export const Modal = ({ className, children, isOpen, lazy, onClose, Icon, iconCo
       window.removeEventListener('keydown', onKeyDown);
     };
   }, [isOpen, onKeyDown]);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const previousOverflow = html.style.overflow;
+    html.style.overflow = 'hidden';
+
+    return () => {
+      html.style.overflow = previousOverflow;
+    };
+  }, []);
 
   const mods: Mods = {
     [colorClasses[iconColor]]: true,
