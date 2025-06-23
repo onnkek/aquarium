@@ -11,6 +11,7 @@ export default class AquariumService {
   _apiLight: string
   _apiTemp: string
   _apiARGB: string
+  _apiDoser: string
 
   constructor() {
     this._apiBase = "http://192.168.0.110"
@@ -22,6 +23,7 @@ export default class AquariumService {
     this._apiLight = "light"
     this._apiTemp = "temp"
     this._apiARGB = "argb"
+    this._apiDoser = "doser"
   }
 
   getCurrentInfo = async () => {
