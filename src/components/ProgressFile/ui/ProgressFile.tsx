@@ -14,7 +14,7 @@ const statusClasses: Record<Status, string> = {
 export interface ProgressFileProps {
   className?: string;
   status?: Status;
-  value?: string;
+  value?: number;
   fileName?: string;
   FileIcon?: React.VFC<React.SVGProps<SVGSVGElement>>;
   fileSize?: string;
@@ -23,7 +23,7 @@ export interface ProgressFileProps {
 export const ProgressFile = ({
   className,
   status = 'pending',
-  value = '0',
+  value = 0,
   fileName = 'File name',
   FileIcon = FileDefaultIcon,
   fileSize = 'File size'
@@ -48,7 +48,7 @@ export const ProgressFile = ({
         {status === 'rejected' ?
           <div className={cls.error}>Try again</div>
           :
-          <Progress className={cls.progress} value={status === 'fulfilled' ? '100' : value} />
+          <Progress className={cls.progress} value={status === 'fulfilled' ? 100 : value} />
         }
       </div>
     </div >

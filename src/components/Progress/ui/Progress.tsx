@@ -2,36 +2,38 @@ import { Mods, classNames } from 'helpers/classNames';
 import cls from './Progress.module.sass';
 import { useState } from 'react';
 
-type ProgressTextType = 'end' | 'bottom-end' | 'tooltip-top' | 'tooltip-bottom';
+type ProgressTextType = 'end' | 'bottom-end' | 'tooltip-top' | 'tooltip-bottom' | 'none';
 const textClasses: Record<ProgressTextType, string> = {
   end: cls.end,
   'bottom-end': cls.bottomEnd,
   'tooltip-top': cls.tooltipTop,
-  'tooltip-bottom': cls.tooltipBottom
+  'tooltip-bottom': cls.tooltipBottom,
+  'none': cls.none
 };
 export interface ProgressProps {
   className?: string;
-  value?: string;
+  value?: number;
   text?: ProgressTextType;
 }
 
-export const Progress = ({ className, value = '0', text = 'end' }: ProgressProps) => {
-  const [progress, setProgress] = useState(value);
+export const Progress = ({ className, value = 0, text = 'end' }: ProgressProps) => {
+  //const [progress, setProgress] = useState(value);
   const mods: Mods = {
     [textClasses[text]]: true
   }
+  console.log(value)
   return (
     <div className={classNames(cls.wrapper, mods, [className])}>
       <div className={cls.progressContainer}>
         <div
           className={cls.progress}
-          style={{ width: `${progress}%` }}
+          style={{ width: `${(value > 0 && value < 1) ? 1 : value}%` }}
         />
       </div>
       <div
         className={cls.text}
-        style={{ left: `${value}%` }}
-      >{`${progress}%`}</div>
+        style={{ left: `${(value > 0 && value < 1) ? 1 : value}%` }}
+      >{`${value}%`}</div>
     </div >
   );
 };

@@ -106,7 +106,7 @@ interface ITemp {
 
 export interface IConfig {
   system: {
-    test: string
+    update: number
   },
   doser: IPumpConfig[],
   co2: ICO2,
@@ -174,7 +174,7 @@ const initialState: IAquarium = {
   },
   config: {
     system: {
-      test: ""
+      update: 0
     },
     doser: [
       {
@@ -316,6 +316,14 @@ const AquariumSlice = createSlice({
         state.currentInfo = action.payload
       })
 
+      .addCase(updateSystem.pending, (state: IAquarium) => {
+        state.status = Status.Loading
+      })
+      .addCase(updateSystem.fulfilled, (state: IAquarium, action) => {
+        state.config = action.payload
+        state.status = Status.Succeeded
+      })
+
       .addCase(updateCO2.pending, (state: IAquarium) => {
         state.status = Status.Loading
       })
@@ -431,6 +439,25 @@ export const getConfig = createAsyncThunk(
   async () => {
     return await new AquariumService().getConfig()
   })
+
+export const updateSystem = createAsyncThunk<IConfig, { update: number }, { state: RootState }>(
+
+  'aquarium/updateSystem',
+  async (payload: { update: number }, { rejectWithValue, getState, dispatch }) => {
+    const state = getState()
+
+    const newConfig: IConfig = { ...state.aquarium.config }
+    newConfig.system = { ...state.aquarium.config.system }
+    newConfig.system.update = payload.update
+    const response = await new AquariumService().updateConfig(newConfig)
+
+    if (!response.ok) {
+      return rejectWithValue('Can\'t delete post! Server error!')
+    }
+    return newConfig
+
+  }
+)
 
 export const updateCO2 = createAsyncThunk<IConfig, { on: string, off: string }, { state: RootState }>(
 

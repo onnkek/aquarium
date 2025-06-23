@@ -4,17 +4,18 @@
   padding: 50px
   position: relative
   display: flex
-  // flex-direction: column
   align-items: center
   justify-content: space-between
-  width: 350px
   height: 300px
   margin: 10px
   background-color: $card-bgc
-  // border: 1px solid rgba(100, 100, 100, 0.4)
   border-radius: 15px
   overflow: hidden
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
+  width: 350px
+  @media (max-width: 780px)
+    width: 100%
+    justify-content: space-around
   &__form
     padding-right: 30px
     display: flex
@@ -59,6 +60,8 @@
     outline: none
     width: 46px
     height: 46px
+    z-index: 100
+    cursor: pointer
     transition: 0.1s background-color ease-in-out
   &__edit_btn:hover
     background-color: rgba(255, 255, 255, 30%)

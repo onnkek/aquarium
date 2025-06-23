@@ -11,6 +11,7 @@ import { Button } from "components/Button"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ButtonGroup } from "components/ButtonGroup"
 import { getPeriodString } from "helpers/period"
+import { Progress } from "components/Progress"
 
 interface PumpWidgetProps {
   number: number
@@ -68,31 +69,27 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
     }
   }
   return (
-    <div className="pump1">
-      <div className="pump1__blur" />
-      <div className="pump1__rect" />
-      <div className="pump1__body">
-        <div className="pump1__left">
-          <img className="pump1__icon" src={pumpIcon} />
+    <div className="pump">
+      <div className="pump__blur" />
+      <div className="pump__rect" />
+      <div className="pump__body">
+        <div className="pump__left">
+          <img className="pump__icon" src={pumpIcon} />
         </div>
-        <div className="pump1__right">
-          <div className="pump1__text-container">
-            <p className="pump1__text">{pump.name}</p>
+        <div className="pump__right">
+          <div className="pump__text-container">
+            <p className="pump__text">{pump.name}</p>
           </div>
-          <div className="pump1__text-container pump1__remainder-container">
-            {/* <img className="pump1__icon" src={harddriveIcon}></img> */}
+          <div className="pump__text-container pump__remainder-container">
+            {/* <img className="pump__icon" src={harddriveIcon}></img> */}
 
-            <div className="pump1__remainder">
-              <p className="pump1__text-tag">Remainder</p>
-              <div className="pump1__values">
-                <p className="pump1__text">{pump.currentVolume / pump.dose} days</p>
-                <p className="pump1__text">{pump.currentVolume} ml</p>
+            <div className="pump__remainder">
+              <p className="pump__text-tag">Remainder</p>
+              <div className="pump__values">
+                <p className="pump__text">{pump.currentVolume / pump.dose} days</p>
+                <p className="pump__text">{pump.currentVolume} ml</p>
               </div>
-              <div className="progress pump1__progress">
-                <div className="progress-bar pump1__progress-bar"
-                  style={{ width: pump.currentVolume / pump.maxVolume * 100 + "%" }}
-                >{pump.currentVolume / pump.maxVolume * 100} %</div>
-              </div>
+              <Progress className="pump__progress" text="none" value={pump.currentVolume / pump.maxVolume * 100} />
 
             </div>
           </div>
@@ -100,46 +97,43 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
 
         </div>
       </div>
-      <div className="pump1__dose-container">
-        <div className="pump1__dose">
-          <p className="pump1__text-tag">Dose</p>
-          <p className="pump1__text">{getPeriodString(pump.period)}</p>
-          <div className="pump1__values">
-            <p className="pump1__text">{pump.dose} ml</p>
+      <div className="pump__dose-container">
+        <div className="pump__dose">
+          <p className="pump__text-tag">Dose</p>
+          <p className="pump__text">{getPeriodString(pump.period)}</p>
+          <div className="pump__values">
+            <p className="pump__text">{pump.dose} ml</p>
 
-            <p className="pump1__text">{pump.time}</p>
+            <p className="pump__text">{pump.time}</p>
           </div>
-          <div className="progress pump1__progress-dose">
-            <div className="progress-bar pump1__progress-bar-dose"
-              style={{ width: pumpCurrent.current / pump.dose * 100 + "%" }}
-            >{pumpCurrent.current / pump.dose * 100} %</div>
-          </div>
+          <Progress className="pump__progress-dose" text="none" value={pumpCurrent.current / pump.dose * 100} />
+
         </div>
       </div>
       <button
         type="button"
-        className="pump1__edit-btn"
+        className="pump__edit-btn"
         onClick={openModal}
       >
-        <img className="pump1__edit-btn-icon" src={gearIcon}></img>
+        <img className="pump__edit-btn-icon" src={gearIcon}></img>
       </button>
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none'>
-        <div className="co2__form">
+        <div className="pump__form">
           <div>
-            <div className="co2__input">
-              <label className="co2__label">
+            <div className="pump__input">
+              <label className="pump__label">
                 Set pump name
               </label>
               <Input value={name} onChange={(e) => setName(e.target.value)} />
             </div>
-            <div className="co2__input">
-              <label className="co2__label">
+            <div className="pump__input">
+              <label className="pump__label">
                 Set time the pump will work
               </label>
               <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
             </div>
-            <div className="co2__input">
-              <label className="co2__label">
+            <div className="pump__input">
+              <label className="pump__label">
                 Set what days the pump will work
               </label>
               <ButtonGroup>
@@ -153,22 +147,22 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
               </ButtonGroup>
             </div>
 
-            <div className="co2__input">
-              <label className="co2__label">
+            <div className="pump__input">
+              <label className="pump__label">
                 Set the fertilizer dosage
               </label>
               <Input type="number" value={dose} onChange={(e) => setDose(Number(e.target.value))} />
             </div>
 
 
-            <div className="co2__input">
-              <label className="co2__label">
+            <div className="pump__input">
+              <label className="pump__label">
                 Set the current volume in the container
               </label>
               <Input type="number" value={currentVolume} onChange={(e) => setCurrentVolume(Number(e.target.value))} />
             </div>
-            <div className="co2__input">
-              <label className="co2__label">
+            <div className="pump__input">
+              <label className="pump__label">
                 Set the container volume
               </label>
               <Input type="number" value={maxVolume} onChange={(e) => setMaxVolume(Number(e.target.value))} />

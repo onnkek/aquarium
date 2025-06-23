@@ -79,14 +79,17 @@ export const Modal = ({ className, children, isOpen, lazy, onClose, Icon, iconCo
   }, [isOpen, onKeyDown]);
 
   useEffect(() => {
-    const html = document.documentElement;
-    const previousOverflow = html.style.overflow;
-    html.style.overflow = 'hidden';
+    const originalOverflow = document.body.style.overflow
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = document.body.style.overflow
+    }
 
     return () => {
-      html.style.overflow = previousOverflow;
+      document.body.style.overflow = originalOverflow;
     };
-  }, []);
+  }, [isOpen]);
 
   const mods: Mods = {
     [colorClasses[iconColor]]: true,

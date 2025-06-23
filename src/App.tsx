@@ -9,20 +9,40 @@ import O2Widget from 'components/Widgets/O2Widget/O2Widget';
 import FilterWidget from 'components/Widgets/FilterWidget/FilterWidget';
 import ARGBWidget from 'components/Widgets/ARGBWidget/ARGBWidget';
 import { PumpWidget } from 'components/Widgets/PumpWidget/PumpWidget';
-import { useEffect } from 'react';
-import { useAppDispatch } from 'models/Hook';
+import { useEffect, useRef, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'models/Hook';
 import { getConfig, getCurrentInfo } from './redux/AquariumSlice';
+import { Status } from 'models/Status';
 
 function App() {
   const { theme, toggleTheme } = useTheme();
   const dispatch = useAppDispatch()
-  // setInterval(() => {
-  //   dispatch(getCurrentInfo())
-  // }, 5000)
+  const system = useAppSelector(state => state.aquarium.config.system)
+  const status = useAppSelector(state => state.aquarium.updateStatus)
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   useEffect(() => {
     dispatch(getCurrentInfo())
     dispatch(getConfig())
   }, [dispatch])
+
+  useEffect(() => {
+    if (status === Status.Succeeded && system.update > 0) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+      timerRef.current = setInterval(() => {
+        dispatch(getCurrentInfo())
+      }, 1000 * system.update)
+
+      return () => {
+        if (timerRef.current) {
+          clearInterval(timerRef.current);
+        }
+      };
+    }
+
+  }, [status, system.update, dispatch])
+
 
   return (
     <div className={classNames('app', {}, [theme])}>

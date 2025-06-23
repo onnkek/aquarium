@@ -1,20 +1,22 @@
 @import "../../../variables"
 
-.pump1
+.pump
   padding: 30px
   position: relative
   display: flex
   flex-direction: column
   align-items: center
   justify-content: center
-  width: 350px
   height: 300px
   margin: 10px
   background-color: $card-bgc
-  // border: 1px solid rgba(100, 100, 100, 0.4)
   border-radius: 15px
   overflow: hidden
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
+  width: 350px
+  @media (max-width: 780px)
+    width: 100%
+    justify-content: space-around
   &__blur
     //260left 125bottom
 
@@ -56,6 +58,8 @@
     outline: none
     width: 46px
     height: 46px
+    z-index: 100
+    cursor: pointer
     transition: 0.1s background-color ease-in-out
   &__edit-btn:hover
     background-color: rgba(255, 255, 255, 30%)
@@ -104,15 +108,19 @@
     width: 100%
 
   &__progress
-    background-color: #249afa5c
+    width: 100%
+    div
+      background-color: #249afa5c
+      div
+        background-color: #249afa
+
   &__progress-dose
     width: 100%
-    background-color: #fe575744
+    div
+      background-color: #fe575744
+      div
+        background-color: #c64141
 
-  &__progress-bar
-    background-color: #249afa
-  &__progress-bar-dose
-    background-color: #c64141
 
   &__values
     display: flex

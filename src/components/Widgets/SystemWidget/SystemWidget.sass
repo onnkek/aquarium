@@ -17,6 +17,7 @@
   border-radius: 15px
   overflow: hidden
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
+  @media (max-width: 780px)
   &__blur
     //260left 125bottom
 
@@ -52,6 +53,8 @@
     outline: none
     width: 46px
     height: 46px
+    z-index: 100
+    cursor: pointer
     transition: 0.1s background-color ease-in-out
   &__edit-btn:hover
     background-color: rgba(255, 255, 255, 30%)
@@ -101,13 +104,11 @@
     color: white
     font-size: 22px
     font-weight: bold
-  &__progress
+  &__space
     width: 150px
-    background-color: #444
+  &__progress
     margin-top: 5px
-  &_progress-bar
   &__space_values
     display: flex
     align-items: center
     justify-content: space-between
-
