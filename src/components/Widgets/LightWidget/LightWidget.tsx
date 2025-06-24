@@ -1,7 +1,6 @@
 import React, { MouseEvent, ReactNode, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
-import lightIcon from '../../../assets/icons/aquarium/light.svg'
-import gearIcon from '../../../assets/icons/gear.svg'
+import { ReactComponent as LightIcon } from '../../../assets/icons/aquarium/light.svg'
 import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
 import cls from './LightWidget.module.sass'
@@ -10,6 +9,7 @@ import { Status } from "models/Status"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { Button } from "components/Button"
 import { Input } from "components/Input"
+import { WidgetWrapper } from "../WidgetWrapper"
 
 interface LightWidgetProps {
   prop?: string
@@ -56,37 +56,69 @@ const LightWidget = ({ prop }: LightWidgetProps) => {
   }
 
   return (
-    <div className={cls.light}>
-      <div className={cls.light__blur} />
-      <div className={cls.light__rect} />
-      <div className={cls.light__left} >
-        <img className={cls.light__icon} src={lightIcon} />
-        <Toggle size="XL" checked={lightCurrent} onClick={openApprove} />
+    <WidgetWrapper color='red' onClickEdit={openModal}>
+      <div className={cls.left}>
+        <div className={cls.icon_wrapper}>
+          <LightIcon className={cls.icon} />
+        </div>
+
+        <Toggle className={cls.toggle} size="XL" checked={lightCurrent} onClick={openApprove} />
       </div>
-      <div className={cls.light__right}>
-        <div className={cls.light__body_right}>
-          <div className={cls.light__text_container}>
-            <p className={cls.light__text_tag}>On Time</p>
-            <p className={cls.light__text}>{light.on}</p>
+      <div className={cls.right}>
+        <div>
+          <div className={cls.text_wrapper}>
+            <p className={cls.text_header}>On Time</p>
+            <p className={cls.text}>{light.on}</p>
           </div>
-          <div className={cls.light__text_container}>
-            <p className={cls.light__text_tag}>Off Time</p>
-            <p className={cls.light__text}>{light.off}</p>
+          <div className={cls.text_wrapper}>
+            <p className={cls.text_header}>Off Time</p>
+            <p className={cls.text}>{light.off}</p>
           </div>
         </div>
       </div>
 
-      <button
-        type="button"
-        className={cls.light__edit_btn}
-        onClick={openModal}
-      >
-        <img className={cls.light__edit_btn_icon} src={gearIcon}></img>
-      </button>
+      <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
+        <WidgetWrapper color='red' type='write' onClickEdit={closeModal}>
+          <div className={cls.edit}>
+            <div className={cls.right}>
+              <LightIcon className={cls.edit_icon} />
+              <div>
+                <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>On Time</p>
+                  <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
+                </div>
+                <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>Off Time</p>
+                  <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+                </div>
+              </div>
+            </div>
+            <div className={cls.buttons}>
+              {status !== Status.Loading ? (
+                <>
+                  <Button width='170px' size='L' theme='outline-transp' onClick={closeModal}>Cancel</Button>
+                  <Button width='170px' size='L' onClick={sendConfig}>Confirm</Button>
+                </>
+              ) : (
+                <>
+                  <Button width='170px' size='L' theme='outline' disabled>Cancel</Button>
+                  <Button width='170px' size='L' disabled>
+                    <Spinner />
+                    Loading...
+                  </Button>
+                </>
+              )}
+            </div>
+
+          </div>
+        </WidgetWrapper>
+      </Modal>
+
+
       <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div className={cls.light__form}>
-          <div className={cls.light__input}>
-            <label className={cls.light__label}>
+        <div className="co2__form">
+          <div className="co2__input">
+            <label className="co2__label">
               This will lead to light shutdown. Do you agree?
             </label>
           </div>
@@ -108,39 +140,7 @@ const LightWidget = ({ prop }: LightWidgetProps) => {
           )}
         </div>
       </Modal>
-      <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none'>
-        <div className={cls.light__form}>
-          <div className={cls.light__input}>
-            <label className={cls.light__label}>
-              Set on time
-            </label>
-            <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
-          </div>
-          <div className={cls.light__input}>
-            <label className={cls.light__label}>
-              Set off time
-            </label>
-            <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
-          </div>
-        </div>
-        <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>
-          {status !== Status.Loading ? (
-            <>
-              <Button width='170px' size='L' theme='outline' onClick={closeModal}>Cancel</Button>
-              <Button width='170px' size='L' onClick={sendConfig}>Confirm</Button>
-            </>
-          ) : (
-            <>
-              <Button width='170px' size='L' theme='outline' disabled>Cancel</Button>
-              <Button width='170px' size='L' disabled>
-                <Spinner />
-                Loading...
-              </Button>
-            </>
-          )}
-        </div>
-      </Modal>
-    </div>
+    </WidgetWrapper>
   )
 }
 

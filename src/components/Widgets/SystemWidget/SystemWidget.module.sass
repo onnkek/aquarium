@@ -1,0 +1,116 @@
+@import "../../../variables"
+
+.wrapper
+  display: flex
+  justify-content: space-around
+  flex-wrap: wrap
+  width: 720px
+  height: 100%
+  @media (max-width: 780px)
+    width: auto
+    justify-content: space-around
+
+.edit_text_wrapper
+  padding: 15px 30px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  &:not(:last-child)
+    margin-bottom: 10px
+
+.edit
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  width: 100%
+  input
+    background-color: $widget-bgc
+
+.edit_right
+  display: flex
+  justify-content: center
+  align-items: center
+  z-index: 1
+
+.edit
+  .edit_icon
+    margin-right: 50px
+    height: 100px
+    @media (max-width: 780px)
+      margin-right: 40px
+      height: 130px
+
+.buttons
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-top: 50px
+  button
+    &:not(:last-child)
+      margin-right: 20px
+
+.icon
+  width: 35px
+  height: 35px
+  margin-right: 20px
+
+.icon_wrapper
+  height: 100%
+  display: flex
+  align-items: center
+
+.toggle
+  margin-top: 40px
+  flex-shrink: 0
+
+.right
+  @media (max-width: 675px)
+    margin-top: 20px
+
+.text_wrapper
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  padding: 15px 30px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  margin: 20px 0
+  @media (max-width: 780px)
+    width: 250px
+    &:last-child
+      margin: 20px 0 0 0
+    &:first-child
+      margin: 0
+
+.text_header
+  margin: 0
+  color: $widget-text-header
+  font-size: 12px
+
+.edit_text_header
+  margin: 0
+  color: $widget-text
+  font-size: 16px
+  margin-bottom: 10px
+
+.text
+  margin: 0
+  color: white
+  font-size: 22px
+  font-weight: bold
+
+.space_item
+  margin: 0
+  color: white
+  font-size: 16px
+
+.progress
+  width: 150px
+  margin-top: 5px
+
+.space_items
+  display: flex
+  align-items: center
+  justify-content: space-between

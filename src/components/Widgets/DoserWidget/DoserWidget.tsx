@@ -36,7 +36,7 @@ export const DoserWidget = ({ doserConfig, doserStatus }: DoserWidgetProps) => {
       >
         <img className="system__edit-btn-icon" src={gearIcon}></img>
       </button>
-      <Modal isOpen={showModal}>
+      {/* <Modal isOpen={showModal}>
         <label className="form-label">
           Set on time
         </label>
@@ -62,7 +62,7 @@ export const DoserWidget = ({ doserConfig, doserStatus }: DoserWidgetProps) => {
             Add
           </button>
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   )
 };

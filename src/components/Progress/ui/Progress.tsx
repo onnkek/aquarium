@@ -17,11 +17,9 @@ export interface ProgressProps {
 }
 
 export const Progress = ({ className, value = 0, text = 'end' }: ProgressProps) => {
-  //const [progress, setProgress] = useState(value);
   const mods: Mods = {
     [textClasses[text]]: true
   }
-  console.log(value)
   return (
     <div className={classNames(cls.wrapper, mods, [className])}>
       <div className={cls.progressContainer}>

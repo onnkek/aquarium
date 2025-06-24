@@ -12,16 +12,18 @@ import { Portal } from 'components/Portal';
 
 type ModalIconColor = 'green' | 'red' | 'save' | 'purple' | 'default' | 'none';
 type ModalBGWrapper = 'circles' | 'grid' | 'grid-dot' | 'squares' | 'none';
+type ModalStyle = 'default' | 'none';
 
 interface ModalProps {
   className?: string;
   children?: ReactNode;
   isOpen?: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   lazy?: boolean;
   Icon?: React.VFC<React.SVGProps<SVGSVGElement>>;
   iconColor?: ModalIconColor;
   bgWrapper?: ModalBGWrapper;
+  style?: ModalStyle;
 }
 
 const colorClasses: Record<ModalIconColor, string> = {
@@ -32,35 +34,48 @@ const colorClasses: Record<ModalIconColor, string> = {
   default: cls.default,
   none: cls.none
 };
+const styleClasses: Record<ModalStyle, string> = {
+  default: cls.default,
+  none: cls.none
+};
 // const ANIMATION_DELAY = 300;
 
-export const Modal = ({ className, children, isOpen, lazy, onClose, Icon, iconColor = 'none', bgWrapper = 'none' }: ModalProps) => {
+export const Modal = ({ className, children, isOpen, lazy, onClose, Icon, iconColor = 'none', bgWrapper = 'none', style = 'default' }: ModalProps) => {
 
+  const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const timerRef = useRef() as MutableRefObject<ReturnType<typeof setTimeout>>;
+
+  const [overflow, setOverflow] = useState(document.body.style.overflow)
+
+  const timerRef = useRef() as MutableRefObject<ReturnType<typeof setTimeout>>
   const { theme } = useTheme();
+
+
   useEffect(() => {
     if (isOpen) {
-      setIsMounted(true);
+      setIsVisible(true);
+      setIsClosing(false);
+    } else if (isVisible && !isClosing) {
+      setIsClosing(true);
     }
   }, [isOpen]);
 
-  const closeHandler = useCallback(() => {
-    if (onClose) {
-      setIsClosing(true);
-      // timerRef.current = setTimeout(() => {
-      onClose();
-      setIsClosing(false);
-      // }, ANIMATION_DELAY);
-    }
-  }, [onClose]);
+  const startClosing = () => {
+    if (!isClosing) setIsClosing(true);
+  };
 
+  const handleAnimationEnd = () => {
+    if (isClosing) {
+      setIsVisible(false)
+      onClose();
+      document.body.style.overflow = overflow
+    }
+  };
   const onKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
-      closeHandler();
+      startClosing();
     }
-  }, [closeHandler]);
+  }, [startClosing]);
 
   const onContentClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -79,34 +94,37 @@ export const Modal = ({ className, children, isOpen, lazy, onClose, Icon, iconCo
   }, [isOpen, onKeyDown]);
 
   useEffect(() => {
-    const originalOverflow = document.body.style.overflow
+    setOverflow(document.body.style.overflow)
     if (isOpen) {
       document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = document.body.style.overflow
+      document.body.style.overflow = overflow
     }
-
     return () => {
-      document.body.style.overflow = originalOverflow;
+      document.body.style.overflow = overflow
     };
+
   }, [isOpen]);
+
+  if (!isVisible) return null
+
+
 
   const mods: Mods = {
     [colorClasses[iconColor]]: true,
-    [cls.opened]: isOpen,
-    [cls.isClosing]: isClosing
+    [styleClasses[style]]: true
   };
-
-  if (lazy && !isMounted) {
-    return null;
-  }
 
   return (
     <Portal>
-      <div className={classNames(cls.modal, mods, [className, theme])}>
-        <div className={cls.overlay} onClick={closeHandler}>
-          <div className={cls.content} onClick={onContentClick}>
-            <div className={cls.header}>
+      <div className={classNames(cls.modal, mods, [className, theme])} >
+
+        <div className={cls.overlay} onClick={startClosing}>
+
+          <div className={classNames(cls.content, {}, [isClosing ? cls.close : cls.open])} onClick={onContentClick} onAnimationEnd={handleAnimationEnd}>
+
+
+            {style === 'none' || <div className={cls.header}>
               {Icon &&
                 <div className={cls.iconWrapper}>
                   <Icon className={cls.icon} />
@@ -116,13 +134,14 @@ export const Modal = ({ className, children, isOpen, lazy, onClose, Icon, iconCo
               {bgWrapper === 'grid' && <GridBG className={cls.wrapper} />}
               {bgWrapper === 'grid-dot' && <GridDotBG className={cls.wrapper} />}
               {bgWrapper === 'squares' && <SquaresBG className={cls.wrapper} />}
-              {<Button onClick={closeHandler} className={cls.close} theme='clear'>
+              <Button onClick={startClosing} className={cls.close} theme='clear'>
                 <XIcon />
-              </Button>}
-            </div>
+              </Button>
+            </div>}
             <div className={cls.body}>
               {children}
             </div>
+
           </div>
         </div>
       </div>

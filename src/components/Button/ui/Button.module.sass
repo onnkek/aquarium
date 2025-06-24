@@ -91,6 +91,29 @@
     &:active
       box-shadow: var(--shadow-xs)
 
+.outlineTransp
+  background-color: transparent
+  border: 1px solid var(--button-secondary-border)
+  color: var(--button-secondary-fg)
+  box-shadow: var(--shadow-xs)
+  svg
+    fill: var(--button-secondary-fg)
+  &:hover
+    background-color: var(--button-secondary-bg_hover)
+    color: var(--button-secondary-fg_hover)
+    border-color: var(--button-secondary-border_hover)
+  &:active,
+  &:focus-visible
+    box-shadow: var(--ring-gray-shadow-xs)
+  &:disabled
+    color: var(--fg-disabled)
+    background-color: var(--button-secondary-bg)
+    border-color: var(--border-disabled_subtle)
+    svg
+      fill: var(--fg-disabled)
+    &:active
+      box-shadow: var(--shadow-xs)
+
 .colorOutline
   background-color: var(--button-secondary-color-bg)
   border: 1px solid var(--button-secondary-color-border)
@@ -138,7 +161,6 @@
       fill: var(--fg-disabled)
 
 .loading
-
 
 .xs
   height: 36px

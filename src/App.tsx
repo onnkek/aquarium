@@ -47,22 +47,25 @@ function App() {
   return (
     <div className={classNames('app', {}, [theme])}>
 
+      <h6 className='aquarium'>Aquarium</h6>
+      <div className='container'>
+        <SystemWidget />
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <TempWidget />
+          <LightWidget />
+          <CO2Widget />
+          <O2Widget />
+          <FilterWidget />
+          <ARGBWidget />
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <PumpWidget number={0} />
+          <PumpWidget number={1} />
+          <PumpWidget number={2} />
+          <PumpWidget number={3} />
+        </div>
+      </div>
 
-      <SystemWidget />
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <TempWidget />
-        <LightWidget />
-        <CO2Widget />
-        <O2Widget />
-        <FilterWidget />
-        <ARGBWidget />
-      </div>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <PumpWidget number={0} />
-        <PumpWidget number={1} />
-        <PumpWidget number={2} />
-        <PumpWidget number={3} />
-      </div>
 
     </div>
   );

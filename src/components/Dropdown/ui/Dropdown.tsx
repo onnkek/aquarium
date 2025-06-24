@@ -30,7 +30,7 @@ export const Dropdown = ({ className, select, items, header, anchor = 'bottom' }
   return (
 
     <Menu>
-      <MenuButton className={classNames(clsButton.button, {}, [clsButton.outline])}>
+      <MenuButton className={classNames(clsButton.button, {}, [clsButton.outlineTransp])}>
         {select}
       </MenuButton>
       <MenuItems anchor={anchor} className={classNames(cls.dropdown, {}, [theme, className])}>

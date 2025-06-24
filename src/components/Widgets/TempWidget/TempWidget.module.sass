@@ -11,11 +11,11 @@
 
 .edit
   .edit_icon
-    margin-right: 40px
-    height: 100px
+    margin-right: 50px
+    height: 200px
     @media (max-width: 780px)
-      margin-right: 20px
-      height: 80px
+      margin-right: 40px
+      height: 180px
 
 .buttons
   display: flex
@@ -27,8 +27,8 @@
       margin-right: 20px
 
 .icon
-  width: 90px
-  margin-right: 10px
+  height: 120px
+  margin-right: 30px
 
 .icon_wrapper
   height: 100%
@@ -60,6 +60,7 @@
   &:not(:last-child)
     margin-bottom: 10px
 
+
 .text_header
   margin: 0
   color: $widget-text-header
@@ -87,3 +88,31 @@
   &__input
     display: flex
     flex-direction: column
+
+.cool
+  margin-top: 10px
+  width: 80px
+  height: 80px
+
+.heat
+  margin-top: 10px
+  width: 80px
+  height: 80px
+
+.cool_animation
+  animation: 2s linear 0s infinite normal coolan
+
+.heat_animation
+  animation: 1s ease-in-out 0s infinite alternate-reverse heatan
+
+@keyframes coolan
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+
+@keyframes heatan
+  from
+    transform: scale(0.9)
+  to
+    transform: scale(1)

@@ -1,18 +1,18 @@
 import React, { MouseEvent, ReactNode, useState } from "react"
-import "./TempWidget.sass"
+import cls from './TempWidget.module.sass'
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
-import tempIcon from '../../../assets/icons/aquarium/temp.svg'
-import gearIcon from '../../../assets/icons/gear.svg'
 import { Toggle } from "components/Toggle"
-import fanIcon from '../../../assets/icons/fan.svg'
-import heatIcon from '../../../assets/icons/heat.svg'
 import { Modal } from "components/Modal"
 import { Status } from "models/Status"
 import { Button } from "components/Button"
 import { Input } from "components/Input"
 import { updateTemp, updateTempState } from "../../../redux/AquariumSlice"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
+import { ReactComponent as TempIcon } from 'assets/icons/aquarium/temp.svg';
+import { ReactComponent as CoolIcon } from 'assets/icons/fan.svg';
+import { ReactComponent as HeatIcon } from 'assets/icons/heat.svg';
 import { classNames } from "helpers/classNames"
+import { WidgetWrapper } from "../WidgetWrapper"
 
 interface TempWidgetProps {
   prop?: string
@@ -70,44 +70,84 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
   }
 
   return (
-    <div className="temp">
-      <div className="temp__blur" />
-      <div className="temp__rect" />
-      <div className="temp__left">
-        <img className="temp__icon" src={tempIcon} />
-        <Toggle size="XL" checked={tempCurrent.status} onClick={openApprove} />
+    <WidgetWrapper color='violet' onClickEdit={openModal}>
+      <div className={cls.left}>
+        <div className={cls.icon_wrapper}>
+          <TempIcon className={cls.icon} />
+        </div>
+
+        <Toggle className={cls.toggle} size="XL" checked={tempCurrent.status} onClick={openApprove} />
       </div>
-      <div className="temp__right">
-        <div className="temp__body-right">
-          <div className="temp__text-container">
-            <p className="temp__text-tag">Current</p>
-            <p className="temp__text">{tempCurrent.current} ℃</p>
+      <div className={cls.right}>
+        <div>
+          <div className={cls.text_wrapper}>
+            <p className={cls.text_header}>Current</p>
+            <p className={cls.text}>{tempCurrent.current} ℃</p>
           </div>
 
-          {tempCurrent.cool && <div className="temp__text-container temp__text-container-mode">
-            <p className="temp__text-tag">Mode</p>
-            <img className={classNames("fan", { ["fan-animation"]: tempCurrent.status }, [])} src={fanIcon}></img>
+          {tempCurrent.cool && <div className={cls.text_wrapper}>
+            <p className={cls.text_header}>Mode</p>
+            <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: tempCurrent.status }, [])} />
           </div>}
 
-          {tempCurrent.heat && <div className="temp__text-container temp__text-container-mode">
-            <p className="temp__text-tag">Mode</p>
-            <img className={classNames("heat", { ["heat-animation"]: tempCurrent.status }, [])} src={heatIcon}></img>
+          {tempCurrent.heat && <div className={cls.text_wrapper}>
+            <p className={cls.text_header}>Mode</p>
+            <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: tempCurrent.status }, [])} />
           </div>}
-
         </div>
       </div>
 
-      <button
-        type="button"
-        className="temp__edit-btn"
-        onClick={openModal}
-      >
-        <img className="temp__edit-btn-icon" src={gearIcon}></img>
-      </button>
+      <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
+        <WidgetWrapper color='violet' type='write' onClickEdit={closeModal}>
+          <div className={cls.edit}>
+            <div className={cls.right}>
+              <TempIcon className={cls.edit_icon} />
+              <div>
+                <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>Set setting</p>
+                  <Input type="number" value={setting} onChange={(e) => setSetting(Number(e.target.value))} />
+                </div>
+                <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>Set k</p>
+                  <Input type="number" value={k} onChange={(e) => setK(Number(e.target.value))} />
+                </div>
+                <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>Set hysteresis</p>
+
+                  <Input type="number" value={hysteresis} onChange={(e) => setHysteresis(Number(e.target.value))} />
+                </div>
+                <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>Set timeout</p>
+                  <Input type="number" value={timeout} onChange={(e) => setTimeout(Number(e.target.value))} />
+                </div>
+              </div>
+            </div>
+            <div className={cls.buttons}>
+              {status !== Status.Loading ? (
+                <>
+                  <Button width='170px' size='L' theme='outline-transp' onClick={closeModal}>Cancel</Button>
+                  <Button width='170px' size='L' onClick={sendConfig}>Confirm</Button>
+                </>
+              ) : (
+                <>
+                  <Button width='170px' size='L' theme='outline' disabled>Cancel</Button>
+                  <Button width='170px' size='L' disabled>
+                    <Spinner />
+                    Loading...
+                  </Button>
+                </>
+              )}
+            </div>
+
+          </div>
+        </WidgetWrapper>
+      </Modal>
+
+
       <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div className="temp__form">
-          <div className="temp__input">
-            <label className="temp__label">
+        <div className="co2__form">
+          <div className="co2__input">
+            <label className="co2__label">
               This will lead to PID control shutdown. Do you agree?
             </label>
           </div>
@@ -129,55 +169,7 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
           )}
         </div>
       </Modal>
-      <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none'>
-        <div className="temp__form">
-          <div className="temp__input-group">
-            <div className="temp__input">
-              <label className="temp__label">
-                Set setting
-              </label>
-              <Input type="number" value={setting} onChange={(e) => setSetting(Number(e.target.value))} />
-            </div>
-            <div className="temp__input">
-              <label className="temp__label">
-                Set k
-              </label>
-              <Input type="number" value={k} onChange={(e) => setK(Number(e.target.value))} />
-            </div>
-          </div>
-          <div className="temp__input-group">
-            <div className="temp__input">
-              <label className="temp__label">
-                Set hysteresis
-              </label>
-              <Input type="number" value={hysteresis} onChange={(e) => setHysteresis(Number(e.target.value))} />
-            </div>
-            <div className="temp__input">
-              <label className="temp__label">
-                Set timeout
-              </label>
-              <Input type="number" value={timeout} onChange={(e) => setTimeout(Number(e.target.value))} />
-            </div>
-          </div>
-        </div>
-        <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>
-          {status !== Status.Loading ? (
-            <>
-              <Button width='170px' size='L' theme='outline' onClick={closeModal}>Cancel</Button>
-              <Button width='170px' size='L' onClick={sendConfig}>Confirm</Button>
-            </>
-          ) : (
-            <>
-              <Button width='170px' size='L' theme='outline' disabled>Cancel</Button>
-              <Button width='170px' size='L' disabled>
-                <Spinner />
-                Loading...
-              </Button>
-            </>
-          )}
-        </div>
-      </Modal>
-    </div >
+    </WidgetWrapper>
   )
 }
 

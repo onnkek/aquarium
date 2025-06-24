@@ -6,10 +6,17 @@
   bottom: 0
   right: 0
   left: 0
-  opacity: 0
-  pointer-events: none
-  z-index: -1
+  opacity: 1
+  pointer-events: auto
+  z-index: 999
+  overflow: hidden
   // color: white
+
+// .opened
+//   pointer-events: auto
+//   opacity: 1
+//   z-index: 999
+//   overflow: hidden
 
 .overlay
   width: 100%
@@ -31,11 +38,13 @@
   // max-width: 60%
   overflow: hidden
 
-.opened
-  pointer-events: auto
-  opacity: 1
-  z-index: 999
-  overflow: hidden
+.none
+  .overlay
+    .content
+      background-color: transparent
+      border: none
+      box-shadow: none
+      padding: 0
 
   // .content
   //   transform: scale(1)
@@ -43,7 +52,7 @@
 // body.opened
 //   overflow: hidden
 
-.isClosing
+// .isClosing
   // .content
   //   transform: scale(0.2)
 
@@ -125,3 +134,37 @@
     background-color: var(--utility-brand-100)
   .icon
     stroke: var(--utility-brand-600)
+
+.overlay
+  animation-duration: 0.3s
+  animation-fill-mode: forwards
+
+.content
+  animation-duration: 0.3s
+  animation-fill-mode: forwards
+
+.overlay
+  .open
+    animation-name: fadeIn
+
+.overlay
+  .close
+    animation-name: fadeOut
+
+@keyframes fadeIn
+  from
+    opacity: 0
+    transform: scale(0.5)
+
+  to
+    opacity: 1
+    transform: scale(1)
+
+@keyframes fadeOut
+  from
+    opacity: 1
+    transform: scale(1)
+
+  to
+    opacity: 0
+    transform: scale(0.5)

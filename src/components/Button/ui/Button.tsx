@@ -4,7 +4,7 @@ import { Button as HButton } from '@headlessui/react'
 import { ReactNode } from 'react';
 
 type ButtonSize = 'XS' | 'S' | 'M' | 'L' | 'XL';
-type ButtonTheme = 'primary' | 'outline' | 'color-outline' | 'clear' | 'color-clear' | 'loading';
+type ButtonTheme = 'primary' | 'outline' | 'outline-transp' | 'color-outline' | 'clear' | 'color-clear' | 'loading';
 const sizeClasses: Record<ButtonSize, string> = {
   XS: cls.xs,
   S: cls.s,
@@ -15,6 +15,7 @@ const sizeClasses: Record<ButtonSize, string> = {
 const themeClasses: Record<ButtonTheme, string> = {
   primary: cls.primary,
   outline: cls.outline,
+  'outline-transp': cls.outlineTransp,
   'color-outline': cls.colorOutline,
   clear: cls.clear,
   'color-clear': cls.colorClear,
@@ -26,7 +27,7 @@ export interface ButtonProps {
   disabled?: boolean;
   size?: ButtonSize;
   theme?: ButtonTheme;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; 
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   width?: string;
 }
 
