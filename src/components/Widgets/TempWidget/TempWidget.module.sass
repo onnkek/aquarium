@@ -12,16 +12,22 @@
 .edit
   .edit_icon
     margin-right: 50px
-    height: 200px
+    width: 140px
+    height: 430px
     @media (max-width: 780px)
       margin-right: 40px
-      height: 180px
+      width: 150px
+      height: 430px
+
+.wrapper
+  @media (max-width: 780px)
+    padding: 60px 30px 30px 30px
 
 .buttons
   display: flex
   align-items: center
   justify-content: center
-  margin-top: 50px
+  margin-top: 30px
   button
     &:not(:last-child)
       margin-right: 20px
@@ -60,7 +66,6 @@
   &:not(:last-child)
     margin-bottom: 10px
 
-
 .text_header
   margin: 0
   color: $widget-text-header
@@ -88,6 +93,12 @@
   &__input
     display: flex
     flex-direction: column
+
+.agree
+  font-weight: bold
+  color: white
+  margin: 10px 0
+  width: 300px
 
 .cool
   margin-top: 10px

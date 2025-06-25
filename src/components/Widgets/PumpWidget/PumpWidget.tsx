@@ -79,17 +79,19 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
           </div>
         </div>
         <div className={cls.right}>
-          <div>
+          <div className={cls.right_wrapper}>
+
             <div className={cls.text_name_wrapper}>
-              <p className={cls.text}>{pump.name}</p>
+              {pumpCurrent.status ? <span className={cls.work} /> : <></>}
+              <p className={cls.text_name}>{pump.name}</p>
             </div>
             <div className={cls.text_wrapper}>
 
               <div className={cls.remainder}>
                 <p className={cls.text_header}>Remainder</p>
                 <div className={cls.values}>
-                  <p className={cls.value}>{pump.currentVolume / pump.dose} days</p>
-                  <p className={cls.value}>{pump.currentVolume} ml</p>
+                  <p className={cls.value}>{(pump.currentVolume / pump.dose).toFixed(0)} days</p>
+                  <p className={cls.value}>{pump.currentVolume.toFixed(0)} ml</p>
                 </div>
                 <Progress className={cls.progress} text="none" value={pump.currentVolume / pump.maxVolume * 100} />
 
@@ -113,21 +115,21 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='yellow' type='write' onClickEdit={closeModal}>
+        <WidgetWrapper color='yellow' type='write' onClickEdit={closeModal} className={cls.edit_wrapper}>
           <div className={cls.edit}>
             <div className={cls.right}>
               <PumpIcon className={cls.edit_icon} />
               <div>
-                <div className={cls.text_wrapper}>
+                <div className={cls.edit_text_wrapper}>
                   <p className={cls.edit_text_header}>Set pump name</p>
                   <Input value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
-                <div className={cls.text_wrapper}>
+                <div className={cls.edit_text_wrapper}>
                   <p className={cls.edit_text_header}>Set time the pump will work</p>
                   <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
                 </div>
 
-                <div className={cls.text_wrapper}>
+                <div className={cls.edit_text_wrapper}>
                   <p className={cls.edit_text_header}>Set the fertilizer dosage</p>
                   <Input type="number" value={dose} onChange={(e) => setDose(Number(e.target.value))} />
                 </div>
@@ -138,11 +140,11 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
 
             </div>
             <div className={cls.volumes}>
-              <div className={cls.text_wrapper}>
+              <div className={cls.volume_text_wrapper}>
                 <p className={cls.edit_text_header}>Set the current volume in the container</p>
                 <Input type="number" value={currentVolume} onChange={(e) => setCurrentVolume(Number(e.target.value))} />
               </div>
-              <div className={cls.text_wrapper}>
+              <div className={cls.volume_text_wrapper}>
                 <p className={cls.edit_text_header}>Set the container volume</p>
                 <Input type="number" value={maxVolume} onChange={(e) => setMaxVolume(Number(e.target.value))} />
               </div>

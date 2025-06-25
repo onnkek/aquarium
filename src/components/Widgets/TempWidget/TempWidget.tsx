@@ -97,8 +97,8 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
         </div>
       </div>
 
-      <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='violet' type='write' onClickEdit={closeModal}>
+      <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none' >
+        <WidgetWrapper color='violet' type='write' onClickEdit={closeModal} className={cls.wrapper}>
           <div className={cls.edit}>
             <div className={cls.right}>
               <TempIcon className={cls.edit_icon} />
@@ -145,14 +145,14 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
 
 
       <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div className="co2__form">
-          <div className="co2__input">
-            <label className="co2__label">
-              This will lead to PID control shutdown. Do you agree?
-            </label>
+        <div>
+          <div>
+            <p className={cls.agree}>
+              PID control, coolers and heaters will be {tempCurrent.status ? 'switched off' : 'switched on'}.
+            </p>
           </div>
         </div>
-        <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>
+        <div className={cls.buttons}>
           {status !== Status.Loading ? (
             <>
               <Button width='170px' size='L' theme='outline' onClick={closeApprove}>Cancel</Button>

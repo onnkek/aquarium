@@ -5,6 +5,7 @@ export default class AquariumService {
   _apiBase: string
   _apiCurrent: string
   _apiConfig: string
+  _apiLogs: string
   _apiCO2: string
   _apiFilter: string
   _apiO2: string
@@ -13,10 +14,12 @@ export default class AquariumService {
   _apiARGB: string
   _apiDoser: string
 
+
   constructor() {
     this._apiBase = "http://192.168.0.110"
     this._apiConfig = "config"
     this._apiCurrent = "current"
+    this._apiLogs = "logs"
     this._apiCO2 = "co2"
     this._apiFilter = "filter"
     this._apiO2 = "o2"
@@ -43,6 +46,15 @@ export default class AquariumService {
       },
     })
     return await response.json()
+  }
+  getLogs = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    return await response.text()
   }
   updateConfig = async (data: IConfig) => {
     const response = await fetch(`${this._apiBase}/${this._apiConfig}`, {

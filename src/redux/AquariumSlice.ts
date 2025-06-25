@@ -119,7 +119,9 @@ export interface IConfig {
 interface IAquarium {
   currentInfo: ICurrentInfo,
   config: IConfig,
+  logs: string,
   status: Status,
+  logStatus: Status,
   updateStatus: Status
 }
 
@@ -289,7 +291,9 @@ const initialState: IAquarium = {
       timeout: 0
     }
   },
+  logs: "",
   status: Status.Idle,
+  logStatus: Status.Idle,
   updateStatus: Status.Idle
 }
 
@@ -314,6 +318,14 @@ const AquariumSlice = createSlice({
       .addCase(getCurrentInfo.fulfilled, (state: IAquarium, action) => {
         state.updateStatus = Status.Succeeded
         state.currentInfo = action.payload
+      })
+
+      .addCase(getLogs.pending, (state: IAquarium) => {
+        state.logStatus = Status.Loading
+      })
+      .addCase(getLogs.fulfilled, (state: IAquarium, action) => {
+        state.logStatus = Status.Succeeded
+        state.logs = action.payload
       })
 
       .addCase(updateSystem.pending, (state: IAquarium) => {
@@ -438,6 +450,13 @@ export const getConfig = createAsyncThunk(
 
   async () => {
     return await new AquariumService().getConfig()
+  })
+
+export const getLogs = createAsyncThunk(
+  'aquarium/getLogs',
+
+  async () => {
+    return await new AquariumService().getLogs()
   })
 
 export const updateSystem = createAsyncThunk<IConfig, { update: number }, { state: RootState }>(

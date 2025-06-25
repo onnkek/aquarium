@@ -103,7 +103,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
     }
   }
   return (
-    <WidgetWrapper color='rgb' onClickEdit={openModal} >
+    <WidgetWrapper color='rgb' onClickEdit={openModal}>
       <div className={cls.left}>
         <div className={cls.icon_wrapper}>
           <ARGBIcon className={cls.icon} />
@@ -129,7 +129,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.edit_wrapper}>
+        <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.wrapper}>
           <div className={cls.edit}>
             <div className={cls.right}>
               <ARGBIcon className={cls.edit_icon} />
@@ -260,11 +260,11 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
 
 
       <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div className="co2__form">
-          <div className="co2__input">
-            <label className="co2__label">
-              This will lead to ARGB shutdown. Do you agree?
-            </label>
+        <div>
+          <div>
+            <p className={cls.agree}>
+              ARGB lighting will be {argbCurrent.status ? 'switched off' : 'switched on'}.
+            </p>
           </div>
         </div>
         <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>

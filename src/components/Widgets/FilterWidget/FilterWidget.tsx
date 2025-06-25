@@ -52,11 +52,11 @@ const FilterWidget = ({ prop }: FilterWidgetProps) => {
       </div>
 
       <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div className="co2__form">
-          <div className="co2__input">
-            <label className="co2__label">
-              This will lead to filter shutdown. Do you agree?
-            </label>
+        <div>
+          <div>
+            <p className={cls.agree}>
+              Filtering will be {filter ? 'switched off' : 'switched on'}.
+            </p>
           </div>
         </div>
         <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>

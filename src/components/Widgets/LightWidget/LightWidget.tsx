@@ -78,7 +78,7 @@ const LightWidget = ({ prop }: LightWidgetProps) => {
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='red' type='write' onClickEdit={closeModal}>
+        <WidgetWrapper color='red' type='write' onClickEdit={closeModal} className={cls.wrapper}>
           <div className={cls.edit}>
             <div className={cls.right}>
               <LightIcon className={cls.edit_icon} />
@@ -116,11 +116,11 @@ const LightWidget = ({ prop }: LightWidgetProps) => {
 
 
       <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div className="co2__form">
-          <div className="co2__input">
-            <label className="co2__label">
-              This will lead to light shutdown. Do you agree?
-            </label>
+        <div>
+          <div>
+            <p className={cls.agree}>
+               Lighting will be {lightCurrent ? 'switched off' : 'switched on'}.
+            </p>
           </div>
         </div>
         <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>

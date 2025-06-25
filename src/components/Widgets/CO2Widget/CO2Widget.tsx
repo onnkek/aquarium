@@ -77,7 +77,7 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='yellow' type='write' onClickEdit={closeModal}>
+        <WidgetWrapper color='yellow' type='write' onClickEdit={closeModal} className={cls.wrapper}>
           <div className={cls.edit}>
             <div className={cls.right}>
               <CO2Icon className={cls.edit_icon} />
@@ -115,11 +115,11 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
 
 
       <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div className="co2__form">
-          <div className="co2__input">
-            <label className="co2__label">
-              This will lead to CO2 shutdown. Do you agree?
-            </label>
+        <div>
+          <div>
+            <p className={cls.agree}>
+              CO2 supply will be {co2current ? 'switched off' : 'switched on'}.
+            </p>
           </div>
         </div>
         <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>
