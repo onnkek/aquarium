@@ -17,6 +17,7 @@ import { ReactComponent as Logo } from './assets/logo.svg';
 import { Modal } from 'components/Modal';
 import { Button } from 'components/Button';
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
+import { Dropdown } from 'components/Dropdown';
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -25,17 +26,31 @@ function App() {
   const logs = useAppSelector(state => state.aquarium.logs)
   const logStatus = useAppSelector(state => state.aquarium.logStatus)
   const updateStatus = useAppSelector(state => state.aquarium.updateStatus)
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const [showModal, setShowModal] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null);
-  const openModal = () => {
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const [showLogs, setShowLogs] = useState(false)
+  const [showArchive, setShowArchive] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const [selectLog, setSelectLog] = useState("System")
+  const [selectArchive, setSelectArchive] = useState("Chip tempurature")
+
+  const openLogs = () => {
     dispatch(getLogs())
     console.log(logs)
-    setShowModal(true);
+    setShowLogs(true);
   }
 
-  const closeModal = () => {
-    setShowModal(false);
+  const closeLogs = () => {
+    setShowLogs(false);
+  }
+  const openArchive = () => {
+    dispatch(getLogs())
+    console.log(logs)
+    setShowArchive(true);
+  }
+
+  const closeArchive = () => {
+    setShowArchive(false);
   }
   useEffect(() => {
     dispatch(getCurrentInfo())
@@ -64,7 +79,7 @@ function App() {
     if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
-  }, [closeModal]);
+  }, [closeLogs]);
 
   return (
     <div className={classNames('app', {}, [theme])}>
@@ -72,7 +87,8 @@ function App() {
       <div className='header'>
         <Logo className='logo' />
         <h1 className='title'>Aquarium</h1>
-        <Button onClick={openModal} theme='clear'>Logs</Button>
+        <Button onClick={openLogs} theme='clear'>Logs</Button>
+        <Button onClick={openArchive} theme='clear'>Archive</Button>
       </div>
       <div className='container'>
         <SystemWidget />
@@ -92,17 +108,79 @@ function App() {
         </div>
       </div>
 
-      <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' className='modal'>
+      <Modal isOpen={showLogs} onClose={closeLogs} iconColor='green' bgWrapper='none' className='modal' >
+        <div className='log-header'>
+          <h2 className='log-title'>Logs</h2>
+          <Dropdown className="" select={selectLog} items={[
+            [{
+              content: 'System',
+              onClick: () => setSelectLog("System")
+            },
+            {
+              content: 'Relay',
+              onClick: () => setSelectLog("Relay")
+            },
+            {
+              content: 'Doser',
+              onClick: () => setSelectLog("Doser")
+            }]
+          ]} />
+        </div>
         <div ref={containerRef} className='log-container'>
-          {logStatus === Status.Succeeded &&
-            <pre className='log'>{logs}</pre>
-          }
           {logStatus === Status.Loading &&
             <Spinner className="spinner" />
           }
+          {selectLog === "System" && logStatus === Status.Succeeded &&
+            <pre className='log'>{logs}</pre>
+          }
+          {selectLog === "Relay" && logStatus === Status.Succeeded &&
+            <pre className='log'>{logs}</pre>
+          }
+          {selectLog === "Doser" && logStatus === Status.Succeeded &&
+            <pre className='log'>{logs}</pre>
+          }
         </div>
       </Modal>
-
+      <Modal isOpen={showArchive} onClose={closeArchive} iconColor='green' bgWrapper='none' className='modal' >
+        <div className='log-header'>
+          <h2 className='log-title'>Archive</h2>
+          <Dropdown className="" select={selectArchive} items={[
+            [{
+              content: 'Chip tempurature',
+              onClick: () => setSelectArchive("Chip tempurature")
+            },
+            {
+              content: 'Water tempurature',
+              onClick: () => setSelectArchive("Water tempurature")
+            },
+            {
+              content: 'Air temperature',
+              onClick: () => setSelectArchive("Air temperature")
+            },
+            {
+              content: 'Humidity',
+              onClick: () => setSelectArchive("Humidity")
+            }]
+          ]} />
+        </div>
+        <div ref={containerRef} className='log-container'>
+          {logStatus === Status.Loading &&
+            <Spinner className="spinner" />
+          }
+          {selectArchive === "Chip tempurature" && logStatus === Status.Succeeded &&
+            <pre className='log'>{logs}</pre>
+          }
+          {selectArchive === "Water tempurature" && logStatus === Status.Succeeded &&
+            <pre className='log'>{logs}</pre>
+          }
+          {selectArchive === "Air temperature" && logStatus === Status.Succeeded &&
+            <pre className='log'>{logs}</pre>
+          }
+          {selectArchive === "Humidity" && logStatus === Status.Succeeded &&
+            <pre className='log'>{logs}</pre>
+          }
+        </div>
+      </Modal>
     </div>
   );
 }

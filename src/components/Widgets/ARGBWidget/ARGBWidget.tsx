@@ -1,8 +1,6 @@
 import React, { ChangeEvent, ChangeEventHandler, FormEvent, InputEvent, MouseEvent, ReactNode, useState } from "react"
 import cls from "./ARGBWidget.module.sass"
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
-import argbIcon from '../../../assets/icons/aquarium/argb.svg'
-import gearIcon from '../../../assets/icons/gear.svg'
 import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
 import { Button } from "components/Button"
@@ -247,7 +245,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                 <>
                   <Button width='170px' size='L' theme='outline' disabled>Cancel</Button>
                   <Button width='170px' size='L' disabled>
-                    <Spinner />
+                    <Spinner className={cls.spinner} />
                     Loading...
                   </Button>
                 </>
@@ -277,7 +275,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
             <>
               <Button width='170px' size='L' theme='outline' onClick={closeApprove} disabled>Cancel</Button>
               <Button width='170px' size='L' onClick={sendARGBState} disabled>
-                <Spinner />
+                <Spinner className={cls.spinner} />
                 Loading...
               </Button>
             </>

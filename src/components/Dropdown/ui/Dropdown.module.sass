@@ -9,7 +9,7 @@
   z-index: 10000
   font: var(--text-md-regular)
   color: var(--text-primary)
-  
+
 .btn
   width: max-content
   background: none
@@ -21,7 +21,6 @@
   .button_option
     width: 100%
     justify-content: start
-
 
 .item
   // padding: 10px 10px
@@ -71,3 +70,20 @@
   margin-top: 5px
 .group:last-child
   margin-bottom: 5px
+
+.button
+  padding: 7px 35px 7px 39px
+  border-radius: var(--radius-md)
+  border: 1px solid var(--border-primary)
+  font: var(--text-md-regular)
+  color: var(--text-primary)
+  background-color: #1E1E1E
+  box-shadow: var(--shadow-xs)
+  transition: box-shadow 0.05s ease-in
+  z-index: 1
+  &::placeholder
+    color: var(--text-placeholder)
+  &:focus
+    outline: none
+    border: 1px solid var(--border-brand)
+    box-shadow: var(--ring-brand-shadow-xs)
