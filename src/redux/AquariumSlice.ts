@@ -8,7 +8,9 @@ interface ISystemInfo {
   uptime: number,
   totalSpace: number,
   usedSpace: number,
-  freeSpace: number
+  freeSpace: number,
+  temp: number,
+  humidity: number
 }
 
 interface IStatusInfo {
@@ -132,7 +134,9 @@ const initialState: IAquarium = {
       uptime: 0,
       totalSpace: 0,
       usedSpace: 0,
-      freeSpace: 0
+      freeSpace: 0,
+      temp: 0,
+      humidity: 0
     },
     doser: [
       {

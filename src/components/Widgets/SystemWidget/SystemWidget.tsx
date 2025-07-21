@@ -8,6 +8,9 @@ import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ReactComponent as ChipIcon } from 'assets/icons/aquarium/chip.svg';
 import { ReactComponent as TimeIcon } from 'assets/icons/aquarium/time.svg';
 import { ReactComponent as SDIcon } from 'assets/icons/aquarium/sd.svg';
+import { ReactComponent as ArrowClockwiseIcon } from 'assets/icons/aquarium/arrow-clockwise.svg';
+import { ReactComponent as TempIcon } from 'assets/icons/aquarium/temp2.svg';
+import { ReactComponent as HumidityIcon } from 'assets/icons/aquarium/humidity.svg';
 import { Status } from "models/Status"
 import { updateSystem } from "../../../redux/AquariumSlice"
 import { Progress } from "components/Progress"
@@ -46,14 +49,7 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
   return (
     <WidgetWrapper color='white' onClickEdit={openModal} className={cls.wrapper}>
       <div className={cls.left}>
-        <div className={cls.text_wrapper}>
-          <ChipIcon className={cls.icon} />
-          <div>
-            <p className={cls.text_header}>Chip temperature</p>
-            <p className={cls.text}>{systemCurrent.chipTemp} ℃</p>
-          </div>
 
-        </div>
         <div className={cls.text_wrapper}>
           <TimeIcon className={cls.icon} />
           <div>
@@ -61,10 +57,8 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
             <p className={cls.text}>{getUptime(systemCurrent.uptime, false)}</p>
           </div>
         </div>
-      </div>
-      <div className={cls.right}>
         <div className={cls.text_wrapper}>
-          <TimeIcon className={cls.icon} />
+          <ArrowClockwiseIcon className={cls.icon} />
           <div>
             <p className={cls.text_header}>Update time</p>
             <p className={cls.text}>{system.update} sec</p>
@@ -81,6 +75,29 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
             </div>
           </div>
 
+        </div>
+      </div>
+      <div className={cls.right}>
+        <div className={cls.text_wrapper}>
+          <ChipIcon className={cls.icon} />
+          <div>
+            <p className={cls.text_header}>Chip temperature</p>
+            <p className={cls.text}>{systemCurrent.chipTemp} ℃</p>
+          </div>
+        </div>
+        <div className={cls.text_wrapper}>
+          <TempIcon className={cls.icon} />
+          <div>
+            <p className={cls.text_header}>Outside temperature</p>
+            <p className={cls.text}>{systemCurrent.temp} ℃</p>
+          </div>
+        </div>
+        <div className={cls.text_wrapper}>
+          <HumidityIcon className={cls.icon} />
+          <div>
+            <p className={cls.text_header}>Outside humidity</p>
+            <p className={cls.text}>{systemCurrent.humidity} %</p>
+          </div>
         </div>
       </div>
 
