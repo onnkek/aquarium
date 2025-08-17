@@ -16,7 +16,7 @@ export default class AquariumService {
 
 
   constructor() {
-    this._apiBase = "http://192.168.0.110"
+    this._apiBase = "http://192.168.1.110"
     this._apiConfig = "config"
     this._apiCurrent = "current"
     this._apiLogs = "logs"

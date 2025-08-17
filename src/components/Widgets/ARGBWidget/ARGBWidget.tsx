@@ -146,6 +146,10 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                   </p>
                   <Dropdown className={cls.dropdown} select={ARGBMode} items={[
                     [{
+                      content: 'Off',
+                      onClick: () => setARGBMode("Off")
+                    },
+                    {
                       content: 'Static',
                       onClick: () => setARGBMode("Static")
                     },
@@ -168,70 +172,72 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                 </div>
               </div>
             </div>
-
-            <div className={cls.text_wrapper}>
-              <p className={cls.edit_text_header}>{ARGBMode} color settings</p>
-              {ARGBMode === "Cycle" &&
-                <div className={cls.grad_item}>
-                  <p className={cls.grad_text}>
-                    Set cycle speed
-                  </p>
-                  <Input type="number"
-                    value={cycleSpeed}
-                    onChange={(e) => setCycleSpeed(Number(e.target.value))}
-                  />
-                </div>}
-              {ARGBMode === "Static" &&
-                <div className={cls.custom}>
-                  <p className={cls.grad_text}>
-                    Color
-                  </p>
-                  <Input
-                    type="color"
-                    value={rgbToHex(staticColor.r, staticColor.g, staticColor.b)}
-                    onChange={(e) => setStaticColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
-                  />
-                </div>}
-              {ARGBMode === "Gradient" &&
-                <div className={cls.custom}>
+            {ARGBMode !== "Off" &&
+              <div className={cls.text_wrapper}>
+                <p className={cls.edit_text_header}>{ARGBMode} color settings</p>
+                {ARGBMode === "Cycle" &&
                   <div className={cls.grad_item}>
                     <p className={cls.grad_text}>
-                      Start color
+                      Set cycle speed
+                    </p>
+                    <Input type="number"
+                      value={cycleSpeed}
+                      onChange={(e) => setCycleSpeed(Number(e.target.value))}
+                    />
+                  </div>}
+                {ARGBMode === "Static" &&
+                  <div className={cls.custom}>
+                    <p className={cls.grad_text}>
+                      Color
                     </p>
                     <Input
                       type="color"
-                      value={rgbToHex(gradientStartColor.r, gradientStartColor.g, gradientStartColor.b)}
-                      onChange={(e) => setGradientStartColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
+                      value={rgbToHex(staticColor.r, staticColor.g, staticColor.b)}
+                      onChange={(e) => setStaticColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
                     />
-                  </div>
-                  <div className={cls.grad_item}>
-                    <p className={cls.grad_text}>
-                      End color
-                    </p>
-                    <Input
-                      type="color"
-                      value={rgbToHex(gradientEndColor.r, gradientEndColor.g, gradientEndColor.b)}
-                      onChange={(e) => setGradientEndColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
-                    />
-                  </div>
-                </div>
-              }
-
-              {ARGBMode === "Custom" &&
-                <div className={cls.custom}>
-                  {argb.custom.map((item, index) =>
-                    <div className={cls.custom_color_item} key={index}>
+                  </div>}
+                {ARGBMode === "Gradient" &&
+                  <div className={cls.custom}>
+                    <div className={cls.grad_item}>
+                      <p className={cls.grad_text}>
+                        Start color
+                      </p>
                       <Input
                         type="color"
-                        value={rgbToHex(customColor[index].r, customColor[index].g, customColor[index].b)}
-                        onChange={(e) => changeCustomColorHandler(e, index)}
+                        value={rgbToHex(gradientStartColor.r, gradientStartColor.g, gradientStartColor.b)}
+                        onChange={(e) => setGradientStartColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
                       />
                     </div>
+                    <div className={cls.grad_item}>
+                      <p className={cls.grad_text}>
+                        End color
+                      </p>
+                      <Input
+                        type="color"
+                        value={rgbToHex(gradientEndColor.r, gradientEndColor.g, gradientEndColor.b)}
+                        onChange={(e) => setGradientEndColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
+                      />
+                    </div>
+                  </div>
+                }
 
-                  )}
-                </div>
-              }
-            </div>
+                {ARGBMode === "Custom" &&
+                  <div className={cls.custom}>
+                    {argb.custom.map((item, index) =>
+                      <div className={cls.custom_color_item} key={index}>
+                        <Input
+                          type="color"
+                          value={rgbToHex(customColor[index].r, customColor[index].g, customColor[index].b)}
+                          onChange={(e) => changeCustomColorHandler(e, index)}
+                        />
+                      </div>
+
+                    )}
+                  </div>
+                }
+              </div>
+            }
+
 
 
 
