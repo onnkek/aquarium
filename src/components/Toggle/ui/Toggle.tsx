@@ -9,10 +9,16 @@ const sizeClasses: Record<ToggleSize, string> = {
   L: cls.l,
   XL: cls.xl
 };
+type ToggleType = 'default' | 'switch';
+const typeClasses: Record<ToggleType, string> = {
+  default: cls.default,
+  switch: cls.switch
+};
 export interface ToggleProps {
   className?: string;
   disabled?: boolean;
   checked?: boolean;
+  type?: ToggleType;
   size?: ToggleSize;
   onClick?: () => void;
   onChange?: () => void;
@@ -23,13 +29,15 @@ export const Toggle = ({
   disabled,
   checked,
   size = 'M',
+  type = 'default',
   onClick,
   onChange
 }: ToggleProps) => {
   const [enabled, setEnabled] = useState(checked);
   const mods: Mods = {
     [cls.disabled]: disabled,
-    [sizeClasses[size]]: true
+    [sizeClasses[size]]: true,
+    [typeClasses[type]]: true
   }
   return (
     <Switch

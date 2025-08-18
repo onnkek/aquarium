@@ -1,4 +1,4 @@
-import { IConfig } from "redux/AquariumSlice"
+import { IConfig, ITimeInfo } from "redux/AquariumSlice"
 
 export default class AquariumService {
 
@@ -6,6 +6,10 @@ export default class AquariumService {
   _apiCurrent: string
   _apiConfig: string
   _apiLogs: string
+  _apiSystemLogs: string
+  _apiRelayLogs: string
+  _apiDoserLogs: string
+  _apiClearLogs: string
   _apiCO2: string
   _apiFilter: string
   _apiO2: string
@@ -13,6 +17,7 @@ export default class AquariumService {
   _apiTemp: string
   _apiARGB: string
   _apiDoser: string
+  _apiDateTime: string
 
 
   constructor() {
@@ -27,6 +32,11 @@ export default class AquariumService {
     this._apiTemp = "temp"
     this._apiARGB = "argb"
     this._apiDoser = "doser"
+    this._apiDateTime = "time"
+    this._apiSystemLogs = "system"
+    this._apiRelayLogs = "relay"
+    this._apiDoserLogs = "doser"
+    this._apiClearLogs = "clear"
   }
 
   getCurrentInfo = async () => {
@@ -47,14 +57,69 @@ export default class AquariumService {
     })
     return await response.json()
   }
-  getLogs = async () => {
-    const response = await fetch(`${this._apiBase}/${this._apiLogs}`, {
+  getSystemLogs = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiSystemLogs}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       },
     })
     return await response.text()
+  }
+  getRelayLogs = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiRelayLogs}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    return await response.text()
+  }
+  getDoserLogs = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiDoserLogs}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    return await response.text()
+  }
+  clearSystemLogs = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiSystemLogs}/${this._apiClearLogs}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    return await response.text()
+  }
+  clearRelayLogs = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiRelayLogs}/${this._apiClearLogs}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    return await response.text()
+  }
+  clearDoserLogs = async () => {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiDoserLogs}/${this._apiClearLogs}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    return await response.text()
+  }
+  updateDateTime = async (dateTime: ITimeInfo) => {
+    const response = await fetch(`${this._apiBase}/${this._apiDateTime}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dateTime)
+    })
+    return await response
   }
   updateConfig = async (data: IConfig) => {
     const response = await fetch(`${this._apiBase}/${this._apiConfig}`, {

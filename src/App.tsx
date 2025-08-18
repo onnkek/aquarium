@@ -11,7 +11,7 @@ import ARGBWidget from 'components/Widgets/ARGBWidget/ARGBWidget';
 import { PumpWidget } from 'components/Widgets/PumpWidget/PumpWidget';
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'models/Hook';
-import { getConfig, getCurrentInfo, getLogs } from './redux/AquariumSlice';
+import { clearDoserLogs, clearRelayLogs, clearSystemLogs, getConfig, getCurrentInfo, getDoserLogs, getRelayLogs, getSystemLogs } from './redux/AquariumSlice';
 import { Status } from 'models/Status';
 import { ReactComponent as Logo } from './assets/logo.svg';
 import { Modal } from 'components/Modal';
@@ -35,7 +35,7 @@ function App() {
   const [selectArchive, setSelectArchive] = useState("Chip tempurature")
 
   const openLogs = () => {
-    dispatch(getLogs())
+    dispatch(getSystemLogs())
     console.log(logs)
     setShowLogs(true);
   }
@@ -44,7 +44,7 @@ function App() {
     setShowLogs(false);
   }
   const openArchive = () => {
-    dispatch(getLogs())
+    // dispatch(getLogs())
     console.log(logs)
     setShowArchive(true);
   }
@@ -56,6 +56,34 @@ function App() {
     dispatch(getCurrentInfo())
     dispatch(getConfig())
   }, [dispatch])
+
+  const selectSystemLogs = () => {
+    dispatch(getSystemLogs());
+    setSelectLog("System");
+  }
+  const selectRelayLogs = () => {
+    dispatch(getRelayLogs());
+    setSelectLog("Relay");
+  }
+  const selectDoserLogs = () => {
+    dispatch(getDoserLogs());
+    setSelectLog("Doser");
+  }
+  const clearLogs = () => {
+    switch (selectLog) {
+      case "System":
+        dispatch(clearSystemLogs());
+        break;
+      case "Relay":
+        dispatch(clearRelayLogs());
+        break;
+      case "Doser":
+        dispatch(clearDoserLogs());
+        break;
+      default:
+        break;
+    }
+  }
 
   useEffect(() => {
     if (updateStatus === Status.Succeeded && system.update > 0) {
@@ -114,30 +142,31 @@ function App() {
           <Dropdown className="" select={selectLog} items={[
             [{
               content: 'System',
-              onClick: () => setSelectLog("System")
+              onClick: selectSystemLogs
             },
             {
               content: 'Relay',
-              onClick: () => setSelectLog("Relay")
+              onClick: selectRelayLogs
             },
             {
               content: 'Doser',
-              onClick: () => setSelectLog("Doser")
+              onClick: selectDoserLogs
             }]
           ]} />
+          <Button theme='clear' onClick={clearLogs}>Clear</Button>
         </div>
         <div ref={containerRef} className='log-container'>
           {logStatus === Status.Loading &&
             <Spinner className="spinner" />
           }
           {selectLog === "System" && logStatus === Status.Succeeded &&
-            <pre className='log'>{logs}</pre>
+            <pre className='log'>{logs.system}</pre>
           }
           {selectLog === "Relay" && logStatus === Status.Succeeded &&
-            <pre className='log'>{logs}</pre>
+            <pre className='log'>{logs.relay}</pre>
           }
           {selectLog === "Doser" && logStatus === Status.Succeeded &&
-            <pre className='log'>{logs}</pre>
+            <pre className='log'>{logs.doser}</pre>
           }
         </div>
       </Modal>
@@ -168,16 +197,16 @@ function App() {
             <Spinner className="spinner" />
           }
           {selectArchive === "Chip tempurature" && logStatus === Status.Succeeded &&
-            <pre className='log'>{logs}</pre>
+            <pre className='log'>Chip tempurature</pre>
           }
           {selectArchive === "Water tempurature" && logStatus === Status.Succeeded &&
-            <pre className='log'>{logs}</pre>
+            <pre className='log'>Water tempurature</pre>
           }
           {selectArchive === "Air temperature" && logStatus === Status.Succeeded &&
-            <pre className='log'>{logs}</pre>
+            <pre className='log'>Air temperature</pre>
           }
           {selectArchive === "Humidity" && logStatus === Status.Succeeded &&
-            <pre className='log'>{logs}</pre>
+            <pre className='log'>Humidity</pre>
           }
         </div>
       </Modal>

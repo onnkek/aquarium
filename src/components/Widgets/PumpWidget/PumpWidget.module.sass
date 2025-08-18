@@ -1,27 +1,56 @@
 @import "../../../variables"
 
-@import "../../../variables"
+.widget_wrapper
+  width: 350px
+  height: 300px
+  padding: 50px 30px
+  flex-wrap: wrap
+
+.wrapper
+  width: 510px
+  height: 100%
+  @media (max-width: 780px)
+    width: 400px
+    height: 100%
+    padding: 60px 30px 30px 30px
 
 .edit
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
-  width: 100%
   input
     background-color: $widget-bgc
 
-.buttons
-  display: flex
-  align-items: center
-  justify-content: center
-  margin-top: 50px
-  button
-    &:not(:last-child)
-      margin-right: 20px
-  @media (max-width: 780px)
-    margin-top: 30px
+.edit_wrapper
+  width: 200px
+  height: 100%
+  flex-shrink: 0
+.edit
+  width: 100%
+  height: 100%
 
+  .edit_icon
+    margin-left: 40px
+    width: 70px
+    height: 100%
+    align-self: center
+    @media (max-width: 780px)
+      margin-left: 20px
+      width: 70px
+      height: 100%
+
+.buttons
+  width: 100%
+  display: flex
+  align-items: flex-end
+  justify-content: space-between
+  margin-top: 30px
+  button
+    width: 150px
+    svg
+      stroke: white
+      color: white
 .icon
   width: 100px
   height: 100px
@@ -33,9 +62,7 @@
   align-items: center
 
 .toggle
-  margin-top: 40px
   flex-shrink: 0
-
 .left
   padding-top: 5px
   height: 100%
@@ -50,6 +77,14 @@
   z-index: 1
   width: 100%
 
+.edit_right
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  z-index: 1
+  height: 100%
+  width: 100%
+
 .right_wrapper
   width: 100%
 
@@ -61,17 +96,12 @@
   background-color: red
 
 .text_wrapper
-  padding: 10px 20px
+  padding: 15px 30px
   background-color: $widget-text-wrapper-bgc
   opacity: 90%
   border-radius: 20px
-  width: 100%
   &:not(:last-child)
     margin-bottom: 10px
-  @media (max-width: 780px)
-    width: 100%
-    input
-      width: 130px
 
 .edit_text_wrapper
   padding: 10px 20px
@@ -83,36 +113,44 @@
     margin-bottom: 10px
   @media (max-width: 780px)
     width: 170px
-    input
-      width: 130px
-
 .volumes
   width: 100%
   display: flex
   align-items: center
   justify-content: space-between
-
+  margin: 10px 0px
+  @media (max-width: 780px)
+    margin-top: -53px
   .text_wrapper
-    margin: 10px
-    @media (max-width: 780px)
-      width: 160px
-      input
-        width: 120px
+    padding: 15px 30px
+    background-color: $widget-text-wrapper-bgc
+    opacity: 90%
+    border-radius: 20px
+    &:not(:last-child)
+      margin-bottom: 10px
 
-.volume_text_wrapper
+.volume_text_wrapper1
   padding: 10px 20px
   background-color: $widget-text-wrapper-bgc
   opacity: 90%
   border-radius: 20px
+  width: 202px
   &:not(:last-child)
-    margin: 10px 0
+    margin-right: 10px
   @media (max-width: 780px)
-    height: 140px
-    width: 50%
-    &:not(:last-child)
-      margin-right: 10px
-    input
-      width: 130px
+    width: 130px
+
+.volume_text_wrapper2
+  padding: 10px 20px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  width: 200px
+  align-self: flex-end
+  &:not(:last-child)
+    margin-right: 10px
+  @media (max-width: 780px)
+    width: 200px
 
 .group_text_wrapper
   margin: 0px
@@ -136,16 +174,6 @@
     button
       width: 45.5px
 
-.edit
-  .edit_icon
-    width: 190px
-    height: 190px
-    margin-right: 50px
-    @media (max-width: 780px)
-      margin-right: 35px
-      width: 140px
-      height: 140px
-
 .text_header
   margin: 0
   color: $widget-text-header
@@ -165,7 +193,6 @@
 
 .text_name_wrapper
   display: flex
-  // justify-content: center
   align-items: center
   width: min-content
   padding: 10px 20px
@@ -203,14 +230,6 @@
   &__input
     display: flex
     flex-direction: column
-
-.wrapper
-  padding: 50px 30px
-  flex-wrap: wrap
-
-.edit_wrapper
-  @media (max-width: 780px)
-    padding: 60px 30px 30px 30px
 
 .body
   display: flex
@@ -254,185 +273,3 @@
   margin: 0
   color: white
   font-size: 16px
-
-// &__text-tag
-//     align-self: flex-start
-//     margin: 0
-//     color: #898989
-//     font-size: 12px
-//   &__text
-//     margin: 0
-//     color: white
-//     font-size: 16px
-//   &__remainder
-//     width: 100%
-
-//   &__dose
-//     width: 100%
-
-//   &__progress
-//     width: 100%
-//     div
-//       background-color: #249afa5c
-//       div
-//         background-color: #249afa
-
-//   &__progress-dose
-//     width: 100%
-//     div
-//       background-color: #fe575744
-//       div
-//         background-color: #c64141
-
-//   &__values
-//     display: flex
-//     justify-content: space-between
-//     align-items: center
-//   &__dose-container
-//     width: 100%
-//     display: flex
-//     flex-direction: column
-//     align-items: center
-//     padding: 10px
-//     background-color: #282828
-//     opacity: 90%
-//     border-radius: 20px
-
-// .pump
-//   padding: 30px
-//   position: relative
-//   display: flex
-//   flex-direction: column
-//   align-items: center
-//   justify-content: center
-//   height: 300px
-//   margin: 10px
-//   background-color: $card-bgc
-//   border-radius: 15px
-//   overflow: hidden
-//   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
-//   width: 350px
-//   @media (max-width: 780px)
-//     width: 100%
-//     justify-content: space-around
-//   &__blur
-//     //260left 125bottom
-
-//     position: absolute
-//     left: calc(80% - 75px)
-//     bottom: calc(70% - 75px)
-//     width: 150px
-//     height: 150px
-//     background: $card-circle-pump
-//     border-radius: 50%
-//     border: 1px solid black
-//     filter: blur(25px)
-//   &__rect
-//     position: absolute
-//     top: 0
-//     left: 0
-//     background: $card-line-pump
-//     height: 100%
-//     width: 6px
-//   &__body
-//     width: 100%
-//     display: flex
-//     justify-content: space-between
-//     align-items: center
-//     margin-bottom: 10px
-//   &__icon
-//     width: 70px
-//     margin-right: 20px
-//   &__edit-btn
-//     position: absolute
-//     display: flex
-//     justify-content: center
-//     align-items: center
-//     top: 7px
-//     right: 7px
-//     background-color: rgba(255, 255, 255, 10%)
-//     border: none
-//     border-radius: 50%
-//     outline: none
-//     width: 46px
-//     height: 46px
-//     z-index: 100
-//     cursor: pointer
-//     transition: 0.1s background-color ease-in-out
-//   &__edit-btn:hover
-//     background-color: rgba(255, 255, 255, 30%)
-//   &__edit-btn-icon
-//     width: 20px
-//     height: 20px
-//   &__left
-//     padding-top: 5px
-//     height: 100%
-//     display: flex
-//     justify-content: center
-//     align-items: center
-//   &__right
-//     display: flex
-//     width: 100%
-//     flex-direction: column
-//     justify-content: center
-//     align-items: flex-start
-//     z-index: 1
-//   &__remainder-container
-//     width: 100%
-//   &__text-container
-//     display: flex
-//     flex-direction: column
-//     align-items: center
-//     padding: 10px
-//     background-color: #282828
-//     // opacity: 90%
-//     border-radius: 20px
-//     &:not(:last-child)
-//       margin-bottom: 10px
-
-//   &__text-tag
-//     align-self: flex-start
-//     margin: 0
-//     color: #898989
-//     font-size: 12px
-//   &__text
-//     margin: 0
-//     color: white
-//     font-size: 16px
-//   &__remainder
-//     width: 100%
-
-//   &__dose
-//     width: 100%
-
-//   &__progress
-//     width: 100%
-//     div
-//       background-color: #249afa5c
-//       div
-//         background-color: #249afa
-
-//   &__progress-dose
-//     width: 100%
-//     div
-//       background-color: #fe575744
-//       div
-//         background-color: #c64141
-
-//   &__values
-//     display: flex
-//     justify-content: space-between
-//     align-items: center
-//   &__dose-container
-//     width: 100%
-//     display: flex
-//     flex-direction: column
-//     align-items: center
-//     padding: 10px
-//     background-color: #282828
-//     opacity: 90%
-//     border-radius: 20px
-
-// .progress-bar
-//   font-size: 12px
-//   max-width: 100%

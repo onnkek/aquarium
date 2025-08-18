@@ -1,4 +1,4 @@
-import { IPumpPeriod } from "redux/AquariumSlice";
+import { IPumpPeriod, ITimeInfo } from "redux/AquariumSlice";
 
 export function getPeriodString(period: IPumpPeriod): string {
 
@@ -11,6 +11,87 @@ export function getPeriodString(period: IPumpPeriod): string {
 
   return `${period.su ? "Su" : ""} ${period.mo ? "Mo" : ""} ${period.tu ? "Tu" : ""} ${period.we ? "We" : ""} ${period.th ? "Th" : ""} ${period.fr ? "Fr" : ""} ${period.sa ? "Sa" : ""}`;
 }
+
+export function getDateString(dateTime: ITimeInfo) {
+  return `${getDayOfWeek(dateTime.dayOfWeek)} ${getMonth(dateTime.month)} ${dateTime.day}`;
+}
+
+export function getTimeString(dateTime: ITimeInfo) {
+  return `${dateTime.hour}:${dateTime.minute}:${dateTime.second}`;
+}
+
+function getDayOfWeek(dayOfWeek: string) {
+  switch (dayOfWeek) {
+    case "su":
+      return "Sun";
+    case "mo":
+      return "Mon";
+    case "tu":
+      return "Tue";
+    case "we":
+      return "Wed";
+    case "th":
+      return "Thu";
+    case "fr":
+      return "Fri";
+    case "sa":
+      return "Sat";
+    default:
+      return "";
+  }
+}
+function getMonth(month: number) {
+  switch (month) {
+    case 1:
+      return "Jan";
+    case 2:
+      return "Feb";
+    case 3:
+      return "Mar";
+    case 4:
+      return "Apr";
+    case 5:
+      return "May";
+    case 6:
+      return "Jun";
+    case 7:
+      return "Jul";
+    case 8:
+      return "Aug";
+    case 9:
+      return "Sep";
+    case 10:
+      return "Oct";
+    case 11:
+      return "Nov";
+    case 12:
+      return "Dec";
+    default:
+      return "";
+  }
+}
+
+export function getDateTimeFromInput(dateString: string) {
+  const date = new Date(dateString);
+  return {
+    day: date.getDate(),
+    month: date.getMonth() + 1,
+    year: date.getFullYear(),
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+    second: date.getSeconds()
+  }
+}
+
+export function getDateTimeISO(dateTime: ITimeInfo) {
+  const month = dateTime.month < 10 ? `0${dateTime.month}` : dateTime.month;
+  const day = dateTime.day < 10 ? `0${dateTime.day}` : dateTime.day;
+  const hour = dateTime.hour < 10 ? `0${dateTime.hour}` : dateTime.hour;
+  const minute = dateTime.minute < 10 ? `0${dateTime.minute}` : dateTime.minute;
+  const second = dateTime.second < 10 ? `0${dateTime.second}` : dateTime.second;
+  return `${dateTime.year}-${month}-${day}T${hour}:${minute}:${second}`
+}
+
 
 export function getUptime(microseconds: number, showms: boolean): string {
 

@@ -13,6 +13,7 @@ import { ReactComponent as CoolIcon } from 'assets/icons/fan.svg';
 import { ReactComponent as HeatIcon } from 'assets/icons/heat.svg';
 import { classNames } from "helpers/classNames"
 import { WidgetWrapper } from "../WidgetWrapper"
+import { Dropdown } from "components/Dropdown"
 
 interface TempWidgetProps {
   prop?: string
@@ -30,6 +31,7 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
   const [k, setK] = useState(temp.k)
   const [hysteresis, setHysteresis] = useState(temp.hysteresis)
   const [timeout, setTimeout] = useState(temp.timeout)
+  const [mode, setMode] = useState("Auto")
 
   const openModal = () => {
     setSetting(temp.setting)
@@ -70,56 +72,78 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
   }
 
   return (
-    <WidgetWrapper color='violet' onClickEdit={openModal}>
+    <WidgetWrapper color='violet' onClickEdit={openModal} className={cls.widget_wrapper} state={tempCurrent.status}>
       <div className={cls.left}>
         <div className={cls.icon_wrapper}>
           <TempIcon className={cls.icon} />
         </div>
-
-        <Toggle className={cls.toggle} size="XL" checked={tempCurrent.status} onClick={openApprove} />
       </div>
       <div className={cls.right}>
         <div>
+          <div className={cls.text_wrapper}>
+            <p className={cls.text_header}>Mode</p>
+            <p className={cls.text}>{mode}</p>
+          </div>
           <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Current</p>
             <p className={cls.text}>{tempCurrent.current} ℃</p>
           </div>
 
-          {tempCurrent.cool && <div className={cls.text_wrapper}>
-            <p className={cls.text_header}>Mode</p>
-            <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: tempCurrent.status }, [])} />
+          {1 && <div className={cls.text_wrapper_status}>
+            
+            <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: true }, [])} />
+            <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: true }, [])} />
           </div>}
 
-          {tempCurrent.heat && <div className={cls.text_wrapper}>
+          {/* {tempCurrent.heat && <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Mode</p>
             <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: tempCurrent.status }, [])} />
-          </div>}
+          </div>} */}
         </div>
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none' >
-        <WidgetWrapper color='violet' type='write' onClickEdit={closeModal} className={cls.wrapper}>
+        <WidgetWrapper color='violet' type='write' onClickEdit={closeModal} className={cls.wrapper} state={tempCurrent.status}>
           <div className={cls.edit}>
-            <div className={cls.right}>
+            <div className={cls.edit_right}>
               <TempIcon className={cls.edit_icon} />
-              <div>
+              <div className={cls.edit_wrapper}>
                 <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>
+                    Mode
+                  </p>
+                  <Dropdown className={cls.dropdown} select={mode} items={[
+                    [{
+                      content: 'Auto',
+                      onClick: () => setMode("Auto")
+                    },
+                    {
+                      content: 'Manual',
+                      onClick: () => setMode("Manual")
+                    }]
+                  ]} />
+                </div>
+                {mode === "Auto" && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set setting</p>
                   <Input type="number" value={setting} onChange={(e) => setSetting(Number(e.target.value))} />
-                </div>
-                <div className={cls.text_wrapper}>
+                </div>}
+                {mode === "Auto" && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set k</p>
                   <Input type="number" value={k} onChange={(e) => setK(Number(e.target.value))} />
-                </div>
-                <div className={cls.text_wrapper}>
+                </div>}
+                {mode === "Auto" && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set hysteresis</p>
 
                   <Input type="number" value={hysteresis} onChange={(e) => setHysteresis(Number(e.target.value))} />
-                </div>
-                <div className={cls.text_wrapper}>
+                </div>}
+                {mode === "Auto" && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set timeout</p>
                   <Input type="number" value={timeout} onChange={(e) => setTimeout(Number(e.target.value))} />
-                </div>
+                </div>}
+                {mode === "Manual" && <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>State</p>
+                  <Toggle className={cls.toggle} size="XL" checked={tempCurrent.status} onClick={() => { }} />
+                </div>}
               </div>
             </div>
             <div className={cls.buttons}>

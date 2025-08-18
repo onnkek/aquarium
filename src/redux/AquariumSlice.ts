@@ -3,7 +3,18 @@ import { Status } from "../models/Status"
 import AquariumService from "../services/AquariumService"
 import { RootState } from "./store"
 
+export interface ITimeInfo {
+  year: number,
+  month: number,
+  day: number,
+  dayOfWeek: string,
+  hour: number,
+  minute: number,
+  second: number
+}
+
 interface ISystemInfo {
+  time: ITimeInfo,
   chipTemp: number,
   uptime: number,
   totalSpace: number,
@@ -74,6 +85,11 @@ interface ILight {
   off: string
 }
 
+interface IFilter {
+  on: string,
+  off: string
+}
+
 export interface IRGB {
   r: number
   g: number
@@ -114,14 +130,19 @@ export interface IConfig {
   co2: ICO2,
   o2: IO2,
   light: ILight,
+  filter: IFilter,
   argb: IARGB,
   temp: ITemp
 }
-
+interface ILogs {
+  system: string,
+  relay: string,
+  doser: string
+}
 interface IAquarium {
   currentInfo: ICurrentInfo,
   config: IConfig,
-  logs: string,
+  logs: ILogs,
   status: Status,
   logStatus: Status,
   updateStatus: Status
@@ -130,6 +151,15 @@ interface IAquarium {
 const initialState: IAquarium = {
   currentInfo: {
     system: {
+      time: {
+        year: 1111,
+        month: 11,
+        day: 11,
+        dayOfWeek: "mo",
+        hour: 11,
+        minute: 11,
+        second: 11
+      },
       chipTemp: 0,
       uptime: 0,
       totalSpace: 0,
@@ -260,6 +290,10 @@ const initialState: IAquarium = {
       on: "null",
       off: "null"
     },
+    filter: {
+      on: "null",
+      off: "null"
+    },
     argb: {
       mode: "static",
       static: {
@@ -295,7 +329,11 @@ const initialState: IAquarium = {
       timeout: 0
     }
   },
-  logs: "",
+  logs: {
+    system: "",
+    relay: "",
+    doser: ""
+  },
   status: Status.Idle,
   logStatus: Status.Idle,
   updateStatus: Status.Idle
@@ -324,12 +362,52 @@ const AquariumSlice = createSlice({
         state.currentInfo = action.payload
       })
 
-      .addCase(getLogs.pending, (state: IAquarium) => {
+      .addCase(getSystemLogs.pending, (state: IAquarium) => {
         state.logStatus = Status.Loading
       })
-      .addCase(getLogs.fulfilled, (state: IAquarium, action) => {
+      .addCase(getSystemLogs.fulfilled, (state: IAquarium, action) => {
         state.logStatus = Status.Succeeded
-        state.logs = action.payload
+        state.logs.system = action.payload
+      })
+
+      .addCase(getRelayLogs.pending, (state: IAquarium) => {
+        state.logStatus = Status.Loading
+      })
+      .addCase(getRelayLogs.fulfilled, (state: IAquarium, action) => {
+        state.logStatus = Status.Succeeded
+        state.logs.relay = action.payload
+      })
+
+      .addCase(getDoserLogs.pending, (state: IAquarium) => {
+        state.logStatus = Status.Loading
+      })
+      .addCase(getDoserLogs.fulfilled, (state: IAquarium, action) => {
+        state.logStatus = Status.Succeeded
+        state.logs.doser = action.payload
+      })
+
+      .addCase(clearSystemLogs.pending, (state: IAquarium) => {
+        state.logStatus = Status.Loading
+      })
+      .addCase(clearSystemLogs.fulfilled, (state: IAquarium, action) => {
+        state.logStatus = Status.Succeeded
+        state.logs.system = ""
+      })
+
+      .addCase(clearRelayLogs.pending, (state: IAquarium) => {
+        state.logStatus = Status.Loading
+      })
+      .addCase(clearRelayLogs.fulfilled, (state: IAquarium, action) => {
+        state.logStatus = Status.Succeeded
+        state.logs.relay = ""
+      })
+
+      .addCase(clearDoserLogs.pending, (state: IAquarium) => {
+        state.logStatus = Status.Loading
+      })
+      .addCase(clearDoserLogs.fulfilled, (state: IAquarium, action) => {
+        state.logStatus = Status.Succeeded
+        state.logs.doser = ""
       })
 
       .addCase(updateSystem.pending, (state: IAquarium) => {
@@ -344,6 +422,14 @@ const AquariumSlice = createSlice({
         state.status = Status.Loading
       })
       .addCase(updateCO2.fulfilled, (state: IAquarium, action) => {
+        state.config = action.payload
+        state.status = Status.Succeeded
+      })
+
+      .addCase(updateFilter.pending, (state: IAquarium) => {
+        state.status = Status.Loading
+      })
+      .addCase(updateFilter.fulfilled, (state: IAquarium, action) => {
         state.config = action.payload
         state.status = Status.Succeeded
       })
@@ -456,11 +542,42 @@ export const getConfig = createAsyncThunk(
     return await new AquariumService().getConfig()
   })
 
-export const getLogs = createAsyncThunk(
-  'aquarium/getLogs',
+export const getSystemLogs = createAsyncThunk(
+  'aquarium/getSystemLogs',
 
   async () => {
-    return await new AquariumService().getLogs()
+    return await new AquariumService().getSystemLogs()
+  })
+export const getRelayLogs = createAsyncThunk(
+  'aquarium/getRelayLogs',
+
+  async () => {
+    return await new AquariumService().getRelayLogs()
+  })
+export const getDoserLogs = createAsyncThunk(
+  'aquarium/getDoserLogs',
+
+  async () => {
+    return await new AquariumService().getDoserLogs()
+  })
+
+export const clearSystemLogs = createAsyncThunk(
+  'aquarium/clearSystemLogs',
+
+  async () => {
+    return await new AquariumService().clearSystemLogs()
+  })
+export const clearRelayLogs = createAsyncThunk(
+  'aquarium/clearRelayLogs',
+
+  async () => {
+    return await new AquariumService().clearRelayLogs()
+  })
+export const clearDoserLogs = createAsyncThunk(
+  'aquarium/clearDoserLogs',
+
+  async () => {
+    return await new AquariumService().getDoserLogs()
   })
 
 export const updateSystem = createAsyncThunk<IConfig, { update: number }, { state: RootState }>(
@@ -482,6 +599,25 @@ export const updateSystem = createAsyncThunk<IConfig, { update: number }, { stat
   }
 )
 
+export const updateDateTime = createAsyncThunk<ICurrentInfo, { dateTime: ITimeInfo }, { state: RootState }>(
+
+  'aquarium/updateDateTime',
+  async (payload: { dateTime: ITimeInfo }, { rejectWithValue, getState, dispatch }) => {
+    const state = getState()
+
+    const newCurrent: ICurrentInfo = { ...state.aquarium.currentInfo }
+    newCurrent.system = { ...state.aquarium.currentInfo.system }
+    newCurrent.system.time = payload.dateTime
+    const response = await new AquariumService().updateDateTime(payload.dateTime)
+
+    if (!response.ok) {
+      return rejectWithValue('Can\'t delete post! Server error!')
+    }
+    return newCurrent
+
+  }
+)
+
 export const updateCO2 = createAsyncThunk<IConfig, { on: string, off: string }, { state: RootState }>(
 
   'aquarium/updateCO2',
@@ -492,6 +628,26 @@ export const updateCO2 = createAsyncThunk<IConfig, { on: string, off: string }, 
     newConfig.co2 = { ...state.aquarium.config.co2 }
     newConfig.co2.on = payload.on
     newConfig.co2.off = payload.off
+    const response = await new AquariumService().updateConfig(newConfig)
+
+    if (!response.ok) {
+      return rejectWithValue('Can\'t delete post! Server error!')
+    }
+    return newConfig
+
+  }
+)
+
+export const updateFilter = createAsyncThunk<IConfig, { on: string, off: string }, { state: RootState }>(
+
+  'aquarium/updateFilter',
+  async (payload: { on: string, off: string }, { rejectWithValue, getState, dispatch }) => {
+    const state = getState()
+
+    const newConfig: IConfig = { ...state.aquarium.config }
+    newConfig.filter = { ...state.aquarium.config.filter }
+    newConfig.filter.on = payload.on
+    newConfig.filter.off = payload.off
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {

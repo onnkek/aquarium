@@ -23,10 +23,11 @@ const colorClasses: Record<WidgetWrapperColor, string> = {
 };
 
 export interface WidgetWrapperProps {
-  className?: string
+  className?: string;
   children?: ReactNode;
-  type?: WidgetWrapperType
-  color?: WidgetWrapperColor
+  type?: WidgetWrapperType;
+  color?: WidgetWrapperColor;
+  state?: boolean;
   onClickEdit?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -35,10 +36,12 @@ export const WidgetWrapper = ({
   children,
   type = 'read',
   color = 'none',
+  state = false,
   onClickEdit
 }: WidgetWrapperProps) => {
 
   const mods: Mods = {
+    [cls.on]: state,
     [typeClasses[type]]: true,
     [colorClasses[color]]: true
   }

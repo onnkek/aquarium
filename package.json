@@ -28,7 +28,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --max_old_space_size=8192",
     "build": "react-scripts build",
     "deploy": "node deploy.js",
     "test": "react-scripts test",

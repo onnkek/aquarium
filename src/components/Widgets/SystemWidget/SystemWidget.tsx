@@ -11,11 +11,13 @@ import { ReactComponent as SDIcon } from 'assets/icons/aquarium/sd.svg';
 import { ReactComponent as ArrowClockwiseIcon } from 'assets/icons/aquarium/arrow-clockwise.svg';
 import { ReactComponent as TempIcon } from 'assets/icons/aquarium/temp2.svg';
 import { ReactComponent as HumidityIcon } from 'assets/icons/aquarium/humidity.svg';
+import { ReactComponent as CalendarIcon } from 'assets/icons/aquarium/calendar.svg';
+import { ReactComponent as UptimeIcon } from 'assets/icons/aquarium/arrow-up.svg';
 import { Status } from "models/Status"
-import { updateSystem } from "../../../redux/AquariumSlice"
+import { updateDateTime, updateSystem } from "../../../redux/AquariumSlice"
 import { Progress } from "components/Progress"
 import { WidgetWrapper } from "../WidgetWrapper"
-import { getUptime } from "helpers/period"
+import { getDateTimeFromInput, getDateTimeISO, getDateString, getTimeString, getUptime } from "helpers/period"
 interface SystemWidgetProps {
   prop?: string
 }
@@ -28,7 +30,8 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
   const status = useAppSelector(state => state.aquarium.status)
 
   const [updateTime, setUpdateTime] = useState(system.update)
-
+  const [dateTime, setDateTime] = useState(systemCurrent.time)
+  const updateStatus = useAppSelector(state => state.aquarium.updateStatus)
 
   const openModal = () => {
     setUpdateTime(system.update)
@@ -41,20 +44,43 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
 
   const sendConfig = async () => {
     await dispatch(updateSystem({ update: updateTime }))
+    await dispatch(updateDateTime({ dateTime: dateTime }))
     if (status === Status.Succeeded) {
       setUpdateTime(system.update)
       closeModal()
     }
   }
   return (
-    <WidgetWrapper color='white' onClickEdit={openModal} className={cls.wrapper}>
+    <WidgetWrapper color='white' onClickEdit={openModal} className={cls.widget_wrapper} state={updateStatus === Status.Succeeded}>
       <div className={cls.left}>
-
+        <div className={cls.text_wrapper}>
+          <CalendarIcon className={cls.icon} />
+          <div>
+            <p className={cls.text_header}>System date</p>
+            <p className={cls.text}>{getDateString(systemCurrent.time)}</p>
+          </div>
+        </div>
         <div className={cls.text_wrapper}>
           <TimeIcon className={cls.icon} />
           <div>
+            <p className={cls.text_header}>System time</p>
+            <p className={cls.text}>{getTimeString(systemCurrent.time)}</p>
+          </div>
+        </div>
+        <div className={cls.text_wrapper}>
+          <UptimeIcon className={cls.icon} />
+          <div>
             <p className={cls.text_header}>Uptime</p>
             <p className={cls.text}>{getUptime(systemCurrent.uptime, false)}</p>
+          </div>
+        </div>
+      </div>
+      <div className={cls.left}>
+        <div className={cls.text_wrapper}>
+          <ChipIcon className={cls.icon} />
+          <div>
+            <p className={cls.text_header}>Chip temperature</p>
+            <p className={cls.text}>{systemCurrent.chipTemp} ℃</p>
           </div>
         </div>
         <div className={cls.text_wrapper}>
@@ -79,13 +105,6 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
       </div>
       <div className={cls.right}>
         <div className={cls.text_wrapper}>
-          <ChipIcon className={cls.icon} />
-          <div>
-            <p className={cls.text_header}>Chip temperature</p>
-            <p className={cls.text}>{systemCurrent.chipTemp} ℃</p>
-          </div>
-        </div>
-        <div className={cls.text_wrapper}>
           <TempIcon className={cls.icon} />
           <div>
             <p className={cls.text_header}>Outside temperature</p>
@@ -102,27 +121,45 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='white' type='write' onClickEdit={closeModal}>
+        <WidgetWrapper color='white' type='write' onClickEdit={closeModal} state={updateStatus === Status.Succeeded} className={cls.wrapper}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
               <ChipIcon className={cls.edit_icon} />
-              <div>
+              <div className={cls.edit_wrapper}>
                 <div className={cls.edit_text_wrapper}>
                   <p className={cls.edit_text_header}>Update time</p>
                   <Input type="number" value={updateTime} onChange={(e) => setUpdateTime(Number(e.target.value))} />
                 </div>
+                <div className={cls.edit_text_wrapper}>
+                  <p className={cls.edit_text_header}>Date</p>
+                  <Input type="datetime-local"
+                    step={1}
+                    value={getDateTimeISO(dateTime)}
+                    onChange={(e) => setDateTime(
+                      {
+                        ...dateTime,
+                        hour: getDateTimeFromInput(e.target.value).hour,
+                        minute: getDateTimeFromInput(e.target.value).minute,
+                        second: getDateTimeFromInput(e.target.value).second,
+                        day: getDateTimeFromInput(e.target.value).day,
+                        month: getDateTimeFromInput(e.target.value).month,
+                        year: getDateTimeFromInput(e.target.value).year
+                      }
+                    )} />
+                </div>
               </div>
+
             </div>
             <div className={cls.buttons}>
               {status !== Status.Loading ? (
                 <>
-                  <Button width='170px' size='L' theme='outline-transp' onClick={closeModal}>Cancel</Button>
-                  <Button width='170px' size='L' onClick={sendConfig}>Confirm</Button>
+                  <Button size='L' theme='outline-transp' onClick={closeModal}>Cancel</Button>
+                  <Button size='L' onClick={sendConfig}>Confirm</Button>
                 </>
               ) : (
                 <>
-                  <Button width='170px' size='L' theme='outline' disabled>Cancel</Button>
-                  <Button width='170px' size='L' disabled>
+                  <Button size='L' theme='outline' disabled>Cancel</Button>
+                  <Button size='L' disabled>
                     <Spinner />
                     Loading...
                   </Button>

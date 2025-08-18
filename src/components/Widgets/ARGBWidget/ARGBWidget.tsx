@@ -101,45 +101,35 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
     }
   }
   return (
-    <WidgetWrapper color='rgb' onClickEdit={openModal}>
+    <WidgetWrapper color='rgb' onClickEdit={openModal} className={cls.widget_wrapper} state={argbCurrent.status}>
       <div className={cls.left}>
         <div className={cls.icon_wrapper}>
           <ARGBIcon className={cls.icon} />
         </div>
-
-        <Toggle className={cls.toggle} size="XL" checked={argbCurrent.status} onClick={openApprove} />
       </div>
       <div className={cls.right}>
         <div>
           <div className={cls.text_wrapper}>
+            <p className={cls.text_header}>Mode</p>
+            <p className={cls.text}>{ARGBMode}</p>
+          </div>
+          {ARGBMode !== "Off" && <div className={cls.text_wrapper}>
             <p className={cls.text_header}>On Time</p>
             <p className={cls.text}>{argb.on}</p>
-          </div>
-          <div className={cls.text_wrapper}>
+          </div>}
+          {ARGBMode !== "Off" && <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Off Time</p>
             <p className={cls.text}>{argb.off}</p>
-          </div>
-          <div className={cls.text_wrapper}>
-            <p className={cls.text_header}>Mode</p>
-            <p className={cls.text}>{argb.mode}</p>
-          </div>
+          </div>}
         </div>
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.wrapper}>
+        <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.wrapper} state={argbCurrent.status}>
           <div className={cls.edit}>
-            <div className={cls.right}>
+            <div className={cls.edit_right}>
               <ARGBIcon className={cls.edit_icon} />
-              <div>
-                <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>On Time</p>
-                  <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
-                </div>
-                <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Off Time</p>
-                  <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
-                </div>
+              <div className={cls.edit_wrapper}>
                 <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>
                     Mode
@@ -166,10 +156,15 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                       onClick: () => setARGBMode("Custom")
                     }]
                   ]} />
-
-
-
                 </div>
+                {ARGBMode != "Off" && <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>On Time</p>
+                  <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
+                </div>}
+                {ARGBMode != "Off" && <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>Off Time</p>
+                  <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+                </div>}
               </div>
             </div>
             {ARGBMode !== "Off" &&
@@ -244,13 +239,13 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
             <div className={cls.buttons}>
               {status !== Status.Loading ? (
                 <>
-                  <Button width='170px' size='L' theme='outline-transp' onClick={closeModal}>Cancel</Button>
-                  <Button width='170px' size='L' onClick={sendConfig}>Confirm</Button>
+                  <Button size='L' theme='outline-transp' onClick={closeModal}>Cancel</Button>
+                  <Button size='L' onClick={sendConfig}>Confirm</Button>
                 </>
               ) : (
                 <>
-                  <Button width='170px' size='L' theme='outline' disabled>Cancel</Button>
-                  <Button width='170px' size='L' disabled>
+                  <Button size='L' theme='outline' disabled>Cancel</Button>
+                  <Button size='L' disabled>
                     <Spinner className={cls.spinner} />
                     Loading...
                   </Button>

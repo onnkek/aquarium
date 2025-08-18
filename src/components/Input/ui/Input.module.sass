@@ -10,6 +10,8 @@
   box-shadow: var(--shadow-xs)
   transition: box-shadow 0.05s ease-in
   z-index: 1
+  display: block
+  width: 100%
   &::placeholder
     color: var(--text-placeholder)
   &:focus
@@ -20,6 +22,7 @@
 .inputContainer
   display: inline-flex
   position: relative
+  width: 100%
 
 .inputContainer.area
   padding: 0
@@ -68,13 +71,14 @@
     &:hover
       stroke: var(--fg-error-primary)
 
-input[type="time"]::-webkit-calendar-picker-indicator
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator
   filter: invert(100%)
 input[type="time"]
   padding: 7px 11px
 input[type="number"]
   padding: 7px 11px
-  width: 100px
+  // width: 100px
 
 input[type="color"]
   padding: 7px
