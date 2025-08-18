@@ -20,6 +20,33 @@ export function getTimeString(dateTime: ITimeInfo) {
   return `${dateTime.hour}:${dateTime.minute}:${dateTime.second}`;
 }
 
+export function getStringMode(mode: number) {
+  switch (mode) {
+    case 0:
+    case 1:
+      return "Manual";
+    case 2:
+      return "Auto";
+    default:
+      return "";
+  }
+}
+
+export function invertMode(mode: number) {
+  console.log(mode)
+  switch (mode) {
+    case 1:
+      console.log(0)
+      return 0;
+    case 0:
+      console.log(1)
+      return 1;
+    default:
+      console.log(-1)
+      return -1;
+  }
+}
+
 function getDayOfWeek(dayOfWeek: string) {
   switch (dayOfWeek) {
     case "su":

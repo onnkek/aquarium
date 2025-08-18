@@ -13,6 +13,11 @@ export interface ITimeInfo {
   second: number
 }
 
+interface IOutside {
+  temp: number,
+  hum: number
+}
+
 interface ISystemInfo {
   time: ITimeInfo,
   chipTemp: number,
@@ -20,8 +25,7 @@ interface ISystemInfo {
   totalSpace: number,
   usedSpace: number,
   freeSpace: number,
-  temp: number,
-  humidity: number
+  outside: IOutside
 }
 
 interface IStatusInfo {
@@ -72,22 +76,26 @@ export interface IPumpStatus {
 
 interface ICO2 {
   on: string,
-  off: string
+  off: string,
+  mode: number
 }
 
 interface IO2 {
   on: string,
-  off: string
+  off: string,
+  mode: number
 }
 
 interface ILight {
   on: string,
-  off: string
+  off: string,
+  mode: number
 }
 
 interface IFilter {
   on: string,
-  off: string
+  off: string,
+  mode: number
 }
 
 export interface IRGB {
@@ -152,21 +160,23 @@ const initialState: IAquarium = {
   currentInfo: {
     system: {
       time: {
-        year: 1111,
-        month: 11,
-        day: 11,
+        year: 0,
+        month: 0,
+        day: 0,
         dayOfWeek: "mo",
-        hour: 11,
-        minute: 11,
-        second: 11
+        hour: 0,
+        minute: 0,
+        second: 0
       },
       chipTemp: 0,
       uptime: 0,
       totalSpace: 0,
       usedSpace: 0,
       freeSpace: 0,
-      temp: 0,
-      humidity: 0
+      outside: {
+        temp: 0,
+        hum: 0
+      }
     },
     doser: [
       {
@@ -280,19 +290,23 @@ const initialState: IAquarium = {
     ],
     co2: {
       on: "null",
-      off: "null"
+      off: "null",
+      mode: 0
     },
     o2: {
       on: "null",
-      off: "null"
+      off: "null",
+      mode: 0
     },
     light: {
       on: "null",
-      off: "null"
+      off: "null",
+      mode: 0
     },
     filter: {
       on: "null",
-      off: "null"
+      off: "null",
+      mode: 0
     },
     argb: {
       mode: "static",
@@ -618,16 +632,17 @@ export const updateDateTime = createAsyncThunk<ICurrentInfo, { dateTime: ITimeIn
   }
 )
 
-export const updateCO2 = createAsyncThunk<IConfig, { on: string, off: string }, { state: RootState }>(
+export const updateCO2 = createAsyncThunk<IConfig, ICO2, { state: RootState }>(
 
   'aquarium/updateCO2',
-  async (payload: { on: string, off: string }, { rejectWithValue, getState, dispatch }) => {
+  async (payload: ICO2, { rejectWithValue, getState, dispatch }) => {
     const state = getState()
 
     const newConfig: IConfig = { ...state.aquarium.config }
     newConfig.co2 = { ...state.aquarium.config.co2 }
     newConfig.co2.on = payload.on
     newConfig.co2.off = payload.off
+    newConfig.co2.mode = payload.mode
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {
@@ -638,16 +653,17 @@ export const updateCO2 = createAsyncThunk<IConfig, { on: string, off: string }, 
   }
 )
 
-export const updateFilter = createAsyncThunk<IConfig, { on: string, off: string }, { state: RootState }>(
+export const updateFilter = createAsyncThunk<IConfig, IFilter, { state: RootState }>(
 
   'aquarium/updateFilter',
-  async (payload: { on: string, off: string }, { rejectWithValue, getState, dispatch }) => {
+  async (payload: IFilter, { rejectWithValue, getState, dispatch }) => {
     const state = getState()
 
     const newConfig: IConfig = { ...state.aquarium.config }
     newConfig.filter = { ...state.aquarium.config.filter }
     newConfig.filter.on = payload.on
     newConfig.filter.off = payload.off
+    newConfig.filter.mode = payload.mode
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {
@@ -658,16 +674,17 @@ export const updateFilter = createAsyncThunk<IConfig, { on: string, off: string 
   }
 )
 
-export const updateO2 = createAsyncThunk<IConfig, { on: string, off: string }, { state: RootState }>(
+export const updateO2 = createAsyncThunk<IConfig, IO2, { state: RootState }>(
 
   'aquarium/updateO2',
-  async (payload: { on: string, off: string }, { rejectWithValue, getState, dispatch }) => {
+  async (payload: IO2, { rejectWithValue, getState, dispatch }) => {
     const state = getState()
 
     const newConfig: IConfig = { ...state.aquarium.config }
     newConfig.o2 = { ...state.aquarium.config.o2 }
     newConfig.o2.on = payload.on
     newConfig.o2.off = payload.off
+    newConfig.o2.mode = payload.mode
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {
@@ -678,16 +695,17 @@ export const updateO2 = createAsyncThunk<IConfig, { on: string, off: string }, {
   }
 )
 
-export const updateLight = createAsyncThunk<IConfig, { on: string, off: string }, { state: RootState }>(
+export const updateLight = createAsyncThunk<IConfig, ILight, { state: RootState }>(
 
   'aquarium/updateLight',
-  async (payload: { on: string, off: string }, { rejectWithValue, getState, dispatch }) => {
+  async (payload: ILight, { rejectWithValue, getState, dispatch }) => {
     const state = getState()
 
     const newConfig: IConfig = { ...state.aquarium.config }
     newConfig.light = { ...state.aquarium.config.light }
     newConfig.light.on = payload.on
     newConfig.light.off = payload.off
+    newConfig.light.mode = payload.mode
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {

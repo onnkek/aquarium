@@ -86,11 +86,11 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
           </div>
           <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Current</p>
-            <p className={cls.text}>{tempCurrent.current} ℃</p>
+            <p className={cls.text}>{tempCurrent.current.toFixed(2)} ℃</p>
           </div>
 
           {1 && <div className={cls.text_wrapper_status}>
-            
+
             <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: true }, [])} />
             <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: true }, [])} />
           </div>}

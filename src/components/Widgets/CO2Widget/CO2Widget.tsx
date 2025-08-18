@@ -5,12 +5,13 @@ import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
 import { Button } from "components/Button"
 import { Input } from "components/Input"
-import { updateCO2, updateCO2State } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, updateCO2, updateCO2State } from "../../../redux/AquariumSlice"
 import { Status } from "models/Status"
 import { ReactComponent as CO2Icon } from 'assets/icons/aquarium/co2.svg';
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { WidgetWrapper } from "../WidgetWrapper"
 import { Dropdown } from "components/Dropdown"
+import { getStringMode, invertMode } from "helpers/period"
 
 interface CO2WidgetProps {
   prop?: string
@@ -19,43 +20,42 @@ interface CO2WidgetProps {
 const CO2Widget = ({ prop }: CO2WidgetProps) => {
   const dispatch = useAppDispatch()
   const [showModal, setShowModal] = useState(false)
-  const [showApprove, setShowApprove] = useState(false)
   const co2 = useAppSelector(state => state.aquarium.config.co2)
   const co2current = useAppSelector(state => state.aquarium.currentInfo.co2.status)
   const status = useAppSelector(state => state.aquarium.status)
 
   const [onTime, setOnTime] = useState(co2.on)
   const [offTime, setOffTime] = useState(co2.off)
-  const [mode, setMode] = useState("Auto")
+  const [mode, setMode] = useState(co2.mode)
 
   const openModal = () => {
-    console.log("test")
     setOnTime(co2.on)
     setOffTime(co2.off)
+    setMode(co2.mode)
     setShowModal(true);
   }
   const closeModal = () => {
     setShowModal(false);
   }
-  const openApprove = () => {
-    setShowApprove(true);
-  }
-  const closeApprove = () => {
-    setShowApprove(false);
-  }
   const sendConfig = async () => {
-    await dispatch(updateCO2({ on: onTime, off: offTime }))
+    await dispatch(updateCO2({ on: onTime, off: offTime, mode: mode }))
     if (status === Status.Succeeded) {
       setOnTime(co2.on)
-      setOnTime(co2.off)
+      setOffTime(co2.off)
       closeModal()
     }
   }
   const sendCO2State = async () => {
-    await dispatch(updateCO2State(!co2current))
+    await dispatch(updateCO2({ on: onTime, off: offTime, mode: invertMode(mode) }))
     if (status === Status.Succeeded) {
-      closeApprove()
+
+      setMode(invertMode(mode))
+      dispatch(getCurrentInfo())
     }
+  }
+  const selectMode = async (mode: number) => {
+    setMode(mode);
+    await dispatch(updateCO2({ on: onTime, off: offTime, mode: mode }))
   }
   return (
     <WidgetWrapper color='yellow' onClickEdit={openModal} className={cls.widget_wrapper} state={co2current}>
@@ -69,13 +69,13 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
         <div>
           <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Mode</p>
-            <p className={cls.text}>{mode}</p>
+            <p className={cls.text}>{getStringMode(co2.mode)}</p>
           </div>
-          {mode === "Auto" && <div className={cls.text_wrapper}>
+          {co2.mode === 2 && <div className={cls.text_wrapper}>
             <p className={cls.text_header}>On Time</p>
             <p className={cls.text}>{co2.on}</p>
           </div>}
-          {mode === "Auto" && <div className={cls.text_wrapper}>
+          {co2.mode === 2 && <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Off Time</p>
             <p className={cls.text}>{co2.off}</p>
           </div>}
@@ -92,28 +92,28 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
                   <p className={cls.edit_text_header}>
                     Mode
                   </p>
-                  <Dropdown className={cls.dropdown} select={mode} items={[
+                  <Dropdown className={cls.dropdown} select={getStringMode(mode)} items={[
                     [{
                       content: 'Auto',
-                      onClick: () => setMode("Auto")
+                      onClick: () => selectMode(2)
                     },
                     {
                       content: 'Manual',
-                      onClick: () => setMode("Manual")
+                      onClick: () => selectMode(Number(co2current))
                     }]
                   ]} />
                 </div>
-                {mode === "Auto" && <div className={cls.text_wrapper}>
+                {mode === 2 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>On Time</p>
                   <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
                 </div>}
-                {mode === "Auto" && <div className={cls.text_wrapper}>
+                {mode === 2 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Off Time</p>
                   <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
                 </div>}
-                {mode === "Manual" && <div className={cls.text_wrapper}>
+                {mode !== 2 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>State</p>
-                  <Toggle className={cls.toggle} size="XL" checked={co2current} onClick={() => { }} />
+                  <Toggle className={cls.toggle} size="XL" checked={co2current} onClick={sendCO2State} />
                 </div>}
               </div>
             </div>
@@ -136,33 +136,6 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
 
           </div>
         </WidgetWrapper>
-      </Modal>
-
-
-      <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div>
-          <div>
-            <p className={cls.agree}>
-              CO2 supply will be {co2current ? 'switched off' : 'switched on'}.
-            </p>
-          </div>
-        </div>
-        <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>
-          {status !== Status.Loading ? (
-            <>
-              <Button width='170px' size='L' theme='outline' onClick={closeApprove}>Cancel</Button>
-              <Button width='170px' size='L' onClick={sendCO2State}>Agree</Button>
-            </>
-          ) : (
-            <>
-              <Button width='170px' size='L' theme='outline' onClick={closeApprove} disabled>Cancel</Button>
-              <Button width='170px' size='L' onClick={sendCO2State} disabled>
-                <Spinner />
-                Loading...
-              </Button>
-            </>
-          )}
-        </div>
       </Modal>
     </WidgetWrapper>
   )

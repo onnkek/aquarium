@@ -14,7 +14,7 @@ import { ReactComponent as HumidityIcon } from 'assets/icons/aquarium/humidity.s
 import { ReactComponent as CalendarIcon } from 'assets/icons/aquarium/calendar.svg';
 import { ReactComponent as UptimeIcon } from 'assets/icons/aquarium/arrow-up.svg';
 import { Status } from "models/Status"
-import { updateDateTime, updateSystem } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, updateDateTime, updateSystem } from "../../../redux/AquariumSlice"
 import { Progress } from "components/Progress"
 import { WidgetWrapper } from "../WidgetWrapper"
 import { getDateTimeFromInput, getDateTimeISO, getDateString, getTimeString, getUptime } from "helpers/period"
@@ -35,6 +35,7 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
 
   const openModal = () => {
     setUpdateTime(system.update)
+    setDateTime(systemCurrent.time)
     setShowModal(true);
   }
   const closeModal = () => {
@@ -47,6 +48,7 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
     await dispatch(updateDateTime({ dateTime: dateTime }))
     if (status === Status.Succeeded) {
       setUpdateTime(system.update)
+      dispatch(getCurrentInfo())
       closeModal()
     }
   }
@@ -108,14 +110,14 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
           <TempIcon className={cls.icon} />
           <div>
             <p className={cls.text_header}>Outside temperature</p>
-            <p className={cls.text}>{systemCurrent.temp} ℃</p>
+            <p className={cls.text}>{systemCurrent.outside.temp.toFixed(2)} ℃</p>
           </div>
         </div>
         <div className={cls.text_wrapper}>
           <HumidityIcon className={cls.icon} />
           <div>
             <p className={cls.text_header}>Outside humidity</p>
-            <p className={cls.text}>{systemCurrent.humidity} %</p>
+            <p className={cls.text}>{systemCurrent.outside.hum.toFixed(2)} %</p>
           </div>
         </div>
       </div>
