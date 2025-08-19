@@ -44,7 +44,7 @@ interface ICurrentInfo {
   light: IStatusInfo,
   argb: IStatusInfo,
   temp: {
-    status: boolean,
+    status: number, // 0 - off, 1 - cool, 2 - heat, 3 - cool+heat
     current: number,
     cool: boolean,
     heat: boolean
@@ -127,7 +127,8 @@ interface ITemp {
   setting: number,
   hysteresis: number,
   k: number,
-  timeout: number
+  timeout: number,
+  mode: number // 0 - off, 1 - cool, 2 - heat, 3 - cool+heat, 4 - auto
 }
 
 export interface IConfig {
@@ -209,7 +210,7 @@ const initialState: IAquarium = {
       status: false
     },
     temp: {
-      status: false,
+      status: 0,
       current: 0,
       cool: false,
       heat: false
@@ -340,7 +341,8 @@ const initialState: IAquarium = {
       setting: 0,
       hysteresis: 0,
       k: 0,
-      timeout: 0
+      timeout: 0,
+      mode: 0
     }
   },
   logs: {
@@ -524,13 +526,13 @@ const AquariumSlice = createSlice({
         state.status = Status.Succeeded
       })
 
-      .addCase(updateTempState.pending, (state: IAquarium) => {
-        state.status = Status.Loading
-      })
-      .addCase(updateTempState.fulfilled, (state: IAquarium, action) => {
-        state.currentInfo.temp.status = action.payload.status
-        state.status = Status.Succeeded
-      })
+      // .addCase(updateTempState.pending, (state: IAquarium) => {
+      //   state.status = Status.Loading
+      // })
+      // .addCase(updateTempState.fulfilled, (state: IAquarium, action) => {
+      //   state.currentInfo.temp.status = action.payload.status
+      //   state.status = Status.Succeeded
+      // })
 
       .addCase(updateARGBState.pending, (state: IAquarium) => {
         state.status = Status.Loading
@@ -854,21 +856,21 @@ export const updateLightState = createAsyncThunk<{ status: boolean }, boolean, {
   }
 )
 
-export const updateTempState = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
+// export const updateTempState = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
 
-  'aquarium/updateTempState',
-  async (payload: boolean, { rejectWithValue, getState, dispatch }) => {
+//   'aquarium/updateTempState',
+//   async (payload: boolean, { rejectWithValue, getState, dispatch }) => {
 
-    const newTempState = { status: payload };
-    const response = await new AquariumService().updateTemp(newTempState)
+//     const newTempState = { status: payload };
+//     const response = await new AquariumService().updateTemp(newTempState)
 
-    if (!response.ok) {
-      return rejectWithValue('Can\'t delete post! Server error!')
-    }
-    return newTempState
+//     if (!response.ok) {
+//       return rejectWithValue('Can\'t delete post! Server error!')
+//     }
+//     return newTempState
 
-  }
-)
+//   }
+// )
 
 export const updateARGBState = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
 
