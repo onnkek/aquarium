@@ -35,14 +35,13 @@ interface IStatusInfo {
 
 interface ICurrentInfo {
   system: ISystemInfo,
-  doser: {
-    status: boolean,
-    current: number
-  }[],
+  doser: IStatusInfo[],
   co2: IStatusInfo,
   o2: IStatusInfo,
   light: IStatusInfo,
-  argb: IStatusInfo,
+  argb: {
+    status: number
+  },
   temp: {
     status: number, // 0 - off, 1 - cool, 2 - heat, 3 - cool+heat
     current: number,
@@ -68,7 +67,9 @@ export interface IPumpConfig {
   period: IPumpPeriod,
   time: string,
   currentVolume: number,
-  maxVolume: number
+  maxVolume: number,
+  mode: number // 0 - off, 1 - on, 2 - auto,
+  status: number
 }
 export interface IPumpStatus {
   status: number
@@ -114,7 +115,8 @@ interface IARGBCycle {
 }
 
 interface IARGB {
-  mode: string,
+  mode: number,
+  brightness: number,
   static: IRGB,
   gradient: IARGBGradient,
   custom: IRGB[],
@@ -181,20 +183,16 @@ const initialState: IAquarium = {
     },
     doser: [
       {
-        status: false,
-        current: 0
+        status: false
       },
       {
-        status: false,
-        current: 0
+        status: false
       },
       {
-        status: false,
-        current: 0
+        status: false
       },
       {
-        status: false,
-        current: 0
+        status: false
       }
     ],
     co2: {
@@ -207,7 +205,7 @@ const initialState: IAquarium = {
       status: false
     },
     argb: {
-      status: false
+      status: 0
     },
     temp: {
       status: 0,
@@ -238,7 +236,9 @@ const initialState: IAquarium = {
         },
         time: "",
         currentVolume: 0,
-        maxVolume: 0
+        maxVolume: 0,
+        mode: 0,
+        status: 0
       },
       {
         name: "",
@@ -254,7 +254,9 @@ const initialState: IAquarium = {
         },
         time: "",
         currentVolume: 0,
-        maxVolume: 0
+        maxVolume: 0,
+        mode: 0,
+        status: 0
       },
       {
         name: "",
@@ -270,7 +272,9 @@ const initialState: IAquarium = {
         },
         time: "",
         currentVolume: 0,
-        maxVolume: 0
+        maxVolume: 0,
+        mode: 0,
+        status: 0
       },
       {
         name: "",
@@ -286,7 +290,9 @@ const initialState: IAquarium = {
         },
         time: "",
         currentVolume: 0,
-        maxVolume: 0
+        maxVolume: 0,
+        mode: 0,
+        status: 0
       }
     ],
     co2: {
@@ -310,7 +316,8 @@ const initialState: IAquarium = {
       mode: 0
     },
     argb: {
-      mode: "static",
+      mode: 0,
+      brightness: 0,
       static: {
         r: 0,
         g: 0,
@@ -526,21 +533,21 @@ const AquariumSlice = createSlice({
         state.status = Status.Succeeded
       })
 
-      // .addCase(updateTempState.pending, (state: IAquarium) => {
-      //   state.status = Status.Loading
-      // })
-      // .addCase(updateTempState.fulfilled, (state: IAquarium, action) => {
-      //   state.currentInfo.temp.status = action.payload.status
-      //   state.status = Status.Succeeded
-      // })
+    // .addCase(updateTempState.pending, (state: IAquarium) => {
+    //   state.status = Status.Loading
+    // })
+    // .addCase(updateTempState.fulfilled, (state: IAquarium, action) => {
+    //   state.currentInfo.temp.status = action.payload.status
+    //   state.status = Status.Succeeded
+    // })
 
-      .addCase(updateARGBState.pending, (state: IAquarium) => {
-        state.status = Status.Loading
-      })
-      .addCase(updateARGBState.fulfilled, (state: IAquarium, action) => {
-        state.currentInfo.argb.status = action.payload.status
-        state.status = Status.Succeeded
-      })
+    // .addCase(updateARGBState.pending, (state: IAquarium) => {
+    //   state.status = Status.Loading
+    // })
+    // .addCase(updateARGBState.fulfilled, (state: IAquarium, action) => {
+    //   state.currentInfo.argb.status = action.payload.status
+    //   state.status = Status.Succeeded
+    // })
   }
 })
 
@@ -730,6 +737,7 @@ export const updateTemp = createAsyncThunk<IConfig, ITemp, { state: RootState }>
     newConfig.temp.k = payload.k
     newConfig.temp.hysteresis = payload.hysteresis
     newConfig.temp.timeout = payload.timeout
+    newConfig.temp.mode = payload.mode
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {
@@ -751,11 +759,13 @@ export const updateARGB = createAsyncThunk<IConfig, IARGB, { state: RootState }>
     newConfig.argb.mode = payload.mode
     newConfig.argb.on = payload.on
     newConfig.argb.off = payload.off
+    newConfig.argb.brightness = payload.brightness
     newConfig.argb.static = payload.static
     newConfig.argb.gradient = payload.gradient
     newConfig.argb.custom = payload.custom
     newConfig.argb.cycle = { ...state.aquarium.config.argb.cycle }
     newConfig.argb.cycle.speed = payload.cycle.speed
+
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {
@@ -781,6 +791,7 @@ export const updateDoser = createAsyncThunk<IConfig, { number: number, config: I
     newConfig.doser[payload.number].currentVolume = payload.config.currentVolume
     newConfig.doser[payload.number].maxVolume = payload.config.maxVolume
     newConfig.doser[payload.number].period = payload.config.period
+    newConfig.doser[payload.number].mode = payload.config.mode
 
     const response = await new AquariumService().updateConfig(newConfig)
 
@@ -872,20 +883,20 @@ export const updateLightState = createAsyncThunk<{ status: boolean }, boolean, {
 //   }
 // )
 
-export const updateARGBState = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
+// export const updateARGBState = createAsyncThunk<{ status: number }, number, { state: RootState }>(
 
-  'aquarium/updateARGBState',
-  async (payload: boolean, { rejectWithValue, getState, dispatch }) => {
+//   'aquarium/updateARGBState',
+//   async (payload: number, { rejectWithValue, getState, dispatch }) => {
 
-    const newARGBState = { status: payload };
-    const response = await new AquariumService().updateARGB(newARGBState)
+//     const newARGBState = { status: payload };
+//     const response = await new AquariumService().updateARGB(newARGBState)
 
-    if (!response.ok) {
-      return rejectWithValue('Can\'t delete post! Server error!')
-    }
-    return newARGBState
+//     if (!response.ok) {
+//       return rejectWithValue('Can\'t delete post! Server error!')
+//     }
+//     return newARGBState
 
-  }
-)
+//   }
+// )
 
 export default AquariumSlice.reducer

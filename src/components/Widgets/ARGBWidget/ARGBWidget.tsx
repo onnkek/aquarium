@@ -8,10 +8,11 @@ import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ReactComponent as ARGBIcon } from 'assets/icons/aquarium/argb.svg';
 import { Status } from "models/Status"
 import { Input } from "components/Input"
-import { updateARGB, updateARGBState } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, updateARGB } from "../../../redux/AquariumSlice"
 import { Dropdown } from "components/Dropdown"
 import { hexToRgb, rgbToHex } from "helpers/colors"
 import { WidgetWrapper } from "../WidgetWrapper"
+import { getStringARGBMode } from "helpers/period"
 
 interface ARGBWidgetProps {
   prop?: string
@@ -20,7 +21,6 @@ interface ARGBWidgetProps {
 const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
   const dispatch = useAppDispatch()
   const [showModal, setShowModal] = useState(false)
-  const [showApprove, setShowApprove] = useState(false)
   const argb = useAppSelector(state => state.aquarium.config.argb)
   const argbCurrent = useAppSelector(state => state.aquarium.currentInfo.argb)
   const status = useAppSelector(state => state.aquarium.status)
@@ -29,6 +29,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
   const [ARGBMode, setARGBMode] = useState(argb.mode)
 
   const [cycleSpeed, setCycleSpeed] = useState(argb.cycle.speed)
+  const [brightness, setBrightness] = useState(argb.brightness)
   const [staticColor, setStaticColor] = useState(argb.static)
   const [gradientStartColor, setGradientStartColor] = useState(argb.gradient.start)
   const [gradientEndColor, setGradientEndColor] = useState(argb.gradient.end)
@@ -52,6 +53,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
     setGradientEndColor(argb.gradient.end)
     setCustomColor(argb.custom)
     setCycleSpeed(argb.cycle.speed)
+    setBrightness(argb.brightness)
     setOnTime(argb.on)
     setOffTime(argb.off)
 
@@ -60,17 +62,12 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
   const closeModal = () => {
     setShowModal(false);
   }
-  const openApprove = () => {
-    setShowApprove(true);
-  }
-  const closeApprove = () => {
-    setShowApprove(false);
-  }
   const sendConfig = async () => {
     await dispatch(updateARGB({
       on: onTime,
       off: offTime,
       mode: ARGBMode,
+      brightness: brightness,
       static: staticColor,
       gradient: {
         start: gradientStartColor,
@@ -90,18 +87,19 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
       setGradientEndColor(argb.gradient.end)
       setCustomColor(argb.custom)
       setCycleSpeed(argb.cycle.speed)
-
+      setBrightness(argb.brightness)
+      dispatch(getCurrentInfo())
       closeModal()
     }
   }
-  const sendARGBState = async () => {
-    await dispatch(updateARGBState(!argbCurrent.status))
-    if (status === Status.Succeeded) {
-      closeApprove()
-    }
-  }
+  // const sendARGBState = async () => {
+  //   // await dispatch(updateARGBState(!argbCurrent.status))
+  //   if (status === Status.Succeeded) {
+
+  //   }
+  // }
   return (
-    <WidgetWrapper color='rgb' onClickEdit={openModal} className={cls.widget_wrapper} state={argbCurrent.status}>
+    <WidgetWrapper color='rgb' onClickEdit={openModal} className={cls.widget_wrapper} state={argbCurrent.status > 0}>
       <div className={cls.left}>
         <div className={cls.icon_wrapper}>
           <ARGBIcon className={cls.icon} />
@@ -111,13 +109,13 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
         <div>
           <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Mode</p>
-            <p className={cls.text}>{ARGBMode}</p>
+            <p className={cls.text}>{getStringARGBMode(argb.mode)}</p>
           </div>
-          {ARGBMode !== "Off" && <div className={cls.text_wrapper}>
+          {argb.mode !== 0 && <div className={cls.text_wrapper}>
             <p className={cls.text_header}>On Time</p>
             <p className={cls.text}>{argb.on}</p>
           </div>}
-          {ARGBMode !== "Off" && <div className={cls.text_wrapper}>
+          {argb.mode !== 0 && <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Off Time</p>
             <p className={cls.text}>{argb.off}</p>
           </div>}
@@ -125,7 +123,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.wrapper} state={argbCurrent.status}>
+        <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.wrapper} state={argbCurrent.status > 0}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
               <ARGBIcon className={cls.edit_icon} />
@@ -134,43 +132,47 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                   <p className={cls.edit_text_header}>
                     Mode
                   </p>
-                  <Dropdown className={cls.dropdown} select={ARGBMode} items={[
+                  <Dropdown className={cls.dropdown} select={getStringARGBMode(ARGBMode)} items={[
                     [{
                       content: 'Off',
-                      onClick: () => setARGBMode("Off")
+                      onClick: () => setARGBMode(0)
                     },
                     {
                       content: 'Static',
-                      onClick: () => setARGBMode("Static")
-                    },
-                    {
-                      content: 'Gradient',
-                      onClick: () => setARGBMode("Gradient")
+                      onClick: () => setARGBMode(1)
                     },
                     {
                       content: 'Cycle',
-                      onClick: () => setARGBMode("Cycle")
+                      onClick: () => setARGBMode(2)
+                    },
+                    {
+                      content: 'Gradient',
+                      onClick: () => setARGBMode(3)
                     },
                     {
                       content: 'Custom',
-                      onClick: () => setARGBMode("Custom")
+                      onClick: () => setARGBMode(4)
                     }]
                   ]} />
                 </div>
-                {ARGBMode != "Off" && <div className={cls.text_wrapper}>
+                {ARGBMode != 0 && <div className={cls.text_wrapper}>
+                  <p className={cls.edit_text_header}>Brightness (0-255)</p>
+                  <Input type="number" value={brightness} onChange={(e) => setBrightness(Number(e.target.value))} />
+                </div>}
+                {ARGBMode != 0 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>On Time</p>
                   <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
                 </div>}
-                {ARGBMode != "Off" && <div className={cls.text_wrapper}>
+                {ARGBMode != 0 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Off Time</p>
                   <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
                 </div>}
               </div>
             </div>
-            {ARGBMode !== "Off" &&
+            {ARGBMode !== 0 &&
               <div className={cls.text_wrapper}>
-                <p className={cls.edit_text_header}>{ARGBMode} color settings</p>
-                {ARGBMode === "Cycle" &&
+                <p className={cls.edit_text_header}>{getStringARGBMode(ARGBMode)} mode settings</p>
+                {ARGBMode === 2 &&
                   <div className={cls.grad_item}>
                     <p className={cls.grad_text}>
                       Set cycle speed
@@ -180,8 +182,8 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                       onChange={(e) => setCycleSpeed(Number(e.target.value))}
                     />
                   </div>}
-                {ARGBMode === "Static" &&
-                  <div className={cls.custom}>
+                {ARGBMode === 1 &&
+                  <div className={cls.gradient}>
                     <p className={cls.grad_text}>
                       Color
                     </p>
@@ -191,8 +193,8 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                       onChange={(e) => setStaticColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
                     />
                   </div>}
-                {ARGBMode === "Gradient" &&
-                  <div className={cls.custom}>
+                {ARGBMode === 3 &&
+                  <div className={cls.gradient}>
                     <div className={cls.grad_item}>
                       <p className={cls.grad_text}>
                         Start color
@@ -216,7 +218,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                   </div>
                 }
 
-                {ARGBMode === "Custom" &&
+                {ARGBMode === 4 &&
                   <div className={cls.custom}>
                     {argb.custom.map((item, index) =>
                       <div className={cls.custom_color_item} key={index}>
@@ -255,33 +257,6 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
 
           </div>
         </WidgetWrapper>
-      </Modal>
-
-
-      <Modal isOpen={showApprove} onClose={closeApprove} iconColor='green' bgWrapper='none'>
-        <div>
-          <div>
-            <p className={cls.agree}>
-              ARGB lighting will be {argbCurrent.status ? 'switched off' : 'switched on'}.
-            </p>
-          </div>
-        </div>
-        <div style={{ display: 'flex', marginTop: '32px', justifyContent: 'space-between' }}>
-          {status !== Status.Loading ? (
-            <>
-              <Button width='170px' size='L' theme='outline' onClick={closeApprove}>Cancel</Button>
-              <Button width='170px' size='L' onClick={sendARGBState}>Agree</Button>
-            </>
-          ) : (
-            <>
-              <Button width='170px' size='L' theme='outline' onClick={closeApprove} disabled>Cancel</Button>
-              <Button width='170px' size='L' onClick={sendARGBState} disabled>
-                <Spinner className={cls.spinner} />
-                Loading...
-              </Button>
-            </>
-          )}
-        </div>
       </Modal>
     </WidgetWrapper>
   )

@@ -27,7 +27,7 @@ const FilterWidget = ({ prop }: FilterWidgetProps) => {
   const [onTime, setOnTime] = useState(filter.on)
   const [offTime, setOffTime] = useState(filter.off)
   const [mode, setMode] = useState(filter.mode)
-
+ 
   const openModal = () => {
     setOnTime(filter.on)
     setOffTime(filter.off)

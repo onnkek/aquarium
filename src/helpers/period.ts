@@ -31,18 +31,74 @@ export function getStringMode(mode: number) {
       return "";
   }
 }
+export function getStringTempMode(mode: number) {
+  switch (mode) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return "Manual";
+    case 4:
+      return "Auto";
+    default:
+      return "";
+  }
+}
+
+export function getStringARGBMode(mode: number) {
+  switch (mode) {
+    case 0:
+      return "Off";
+    case 1:
+      return "Static";
+    case 2:
+      return "Cycle";
+    case 3:
+      return "Gradient";
+    case 4:
+      return "Custom";
+    default:
+      return "";
+  }
+}
 
 export function invertMode(mode: number) {
-  console.log(mode)
   switch (mode) {
     case 1:
-      console.log(0)
       return 0;
     case 0:
-      console.log(1)
       return 1;
     default:
-      console.log(-1)
+      return -1;
+  }
+}
+export function invertCoolMode(mode: number) {
+  console.log(mode)
+  switch (mode) { // 0 - off, 1 - cool, 2 - heat, 3 - cool+heat, 4 - auto
+    case 0:
+      return 1;
+    case 1:
+      return 0;
+    case 2:
+      return 3;
+    case 3:
+      return 2;
+    default:
+      return -1;
+  }
+}
+export function invertHeatMode(mode: number) {
+  console.log(mode)
+  switch (mode) { // 0 - off, 1 - cool, 2 - heat, 3 - cool+heat, 4 - auto
+    case 0:
+      return 2;
+    case 1:
+      return 3;
+    case 2:
+      return 0;
+    case 3:
+      return 1;
+    default:
       return -1;
   }
 }

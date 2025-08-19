@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import cls from './PumpWidget.module.sass'
-import { IPumpPeriod, updateDoser } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, IPumpPeriod, updateDoser } from "../../../redux/AquariumSlice"
 import { useAppDispatch, useAppSelector } from "models/Hook"
 import gearIcon from '../../../assets/icons/gear.svg'
 import pumpIcon from '../../../assets/icons/aquarium/pump.svg'
@@ -11,7 +11,7 @@ import { Button } from "components/Button"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ReactComponent as PumpIcon } from 'assets/icons/aquarium/pump.svg';
 import { ButtonGroup } from "components/ButtonGroup"
-import { getPeriodString } from "helpers/period"
+import { getPeriodString, getStringMode, invertMode } from "helpers/period"
 import { Progress } from "components/Progress"
 import { WidgetWrapper } from "../WidgetWrapper"
 import { Dropdown } from "components/Dropdown"
@@ -34,7 +34,7 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
   const [maxVolume, setMaxVolume] = useState(pump.maxVolume)
   const [dose, setDose] = useState(pump.dose)
   const [period, setPeriod] = useState<IPumpPeriod>(pump.period)
-  const [mode, setMode] = useState("Auto")
+  const [mode, setMode] = useState(pump.mode)
 
 
   const openModal = () => {
@@ -44,13 +44,33 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
     setMaxVolume(pump.maxVolume)
     setDose(pump.dose)
     setPeriod(pump.period)
+    setMode(pump.mode)
     setShowModal(true);
   }
   const closeModal = () => {
     setShowModal(false);
   }
 
+  const sendPumpState = async () => {
+    await dispatch(updateDoser({
+      number: number, config:
+      {
+        name: name,
+        dose: dose,
+        time: time,
+        currentVolume: currentVolume,
+        maxVolume: maxVolume,
+        period: period,
+        mode: invertMode(mode),
+        status: pump.status
+      }
+    }))
+    if (status === Status.Succeeded) {
 
+      setMode(invertMode(mode))
+      dispatch(getCurrentInfo())
+    }
+  }
   const sendConfig = async () => {
     await dispatch(updateDoser({
       number: number, config:
@@ -60,7 +80,9 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
         time: time,
         currentVolume: currentVolume,
         maxVolume: maxVolume,
-        period: period
+        period: period,
+        mode: mode,
+        status: pump.status
       }
     }))
     if (status === Status.Succeeded) {
@@ -70,6 +92,7 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
       setMaxVolume(pump.maxVolume)
       setDose(pump.dose)
       setPeriod(pump.period)
+      setMode(pump.mode)
       closeModal()
     }
   }
@@ -112,7 +135,7 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
             <p className={cls.value}>{pump.dose} ml</p>
             <p className={cls.value}>{pump.time}</p>
           </div>
-          <Progress className={cls.progress_dose} text="none" value={pumpCurrent.current / pump.dose * 100} />
+          <Progress className={cls.progress_dose} text="none" value={pump.status / pump.dose * 100} />
 
         </div>
       </div>
@@ -127,37 +150,37 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
                   <p className={cls.edit_text_header}>
                     Mode
                   </p>
-                  <Dropdown className={cls.dropdown} select={mode} items={[
+                  <Dropdown className={cls.dropdown} select={getStringMode(mode)} items={[
                     [{
                       content: 'Auto',
-                      onClick: () => setMode("Auto")
+                      onClick: () => setMode(2)
                     },
                     {
                       content: 'Manual',
-                      onClick: () => setMode("Manual")
+                      onClick: () => setMode(Number(pumpCurrent.status))
                     }]
                   ]} />
                 </div>
-                {mode === "Auto" && <div className={cls.text_wrapper}>
+                {mode === 2 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set pump name</p>
                   <Input value={name} onChange={(e) => setName(e.target.value)} />
                 </div>}
-                {mode === "Auto" && <div className={cls.text_wrapper}>
+                {mode === 2 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set time the pump will work</p>
                   <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
                 </div>}
-                {mode === "Auto" && <div className={cls.text_wrapper}>
+                {mode === 2 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set the fertilizer dosage</p>
                   <Input type="number" value={dose} onChange={(e) => setDose(Number(e.target.value))} />
                 </div>}
-                {mode === "Manual" && <div className={cls.text_wrapper}>
+                {mode !== 2 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>State</p>
-                  <Toggle className={cls.toggle} size="XL" checked={pumpCurrent.status} onClick={() => { }} />
+                  <Toggle className={cls.toggle} size="XL" checked={pumpCurrent.status} onClick={sendPumpState} />
                 </div>}
               </div>
 
             </div>
-            {mode === "Auto" && <div className={cls.volumes}>
+            {mode === 2 && <div className={cls.volumes}>
               <div className={cls.volume_text_wrapper1}>
                 <p className={cls.edit_text_header}>Set the current volume in the container</p>
                 <Input type="number" value={currentVolume} onChange={(e) => setCurrentVolume(Number(e.target.value))} />
@@ -167,7 +190,7 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
                 <Input type="number" value={maxVolume} onChange={(e) => setMaxVolume(Number(e.target.value))} />
               </div>
             </div>}
-            {mode === "Auto" && <div className={cls.group_text_wrapper}>
+            {mode === 2 && <div className={cls.group_text_wrapper}>
               <p className={cls.edit_text_header}>Set what days the pump will work</p>
               <ButtonGroup className={cls.button_group}>
                 <Button theme={period.su ? 'primary' : 'color-outline'} onClick={(e) => setPeriod({ ...period, su: !period.su })}>Su</Button>

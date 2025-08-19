@@ -48,7 +48,8 @@ function App() {
 
   const openLogs = () => {
     dispatch(getSystemLogs())
-    console.log(logs)
+    dispatch(getRelayLogs())
+    dispatch(getDoserLogs())
     setShowLogs(true);
   }
 

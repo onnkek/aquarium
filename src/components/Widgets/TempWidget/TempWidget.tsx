@@ -6,7 +6,7 @@ import { Modal } from "components/Modal"
 import { Status } from "models/Status"
 import { Button } from "components/Button"
 import { Input } from "components/Input"
-import { updateTemp } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, updateTemp } from "../../../redux/AquariumSlice"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ReactComponent as TempIcon } from 'assets/icons/aquarium/temp.svg';
 import { ReactComponent as CoolIcon } from 'assets/icons/fan.svg';
@@ -14,7 +14,7 @@ import { ReactComponent as HeatIcon } from 'assets/icons/heat.svg';
 import { classNames } from "helpers/classNames"
 import { WidgetWrapper } from "../WidgetWrapper"
 import { Dropdown } from "components/Dropdown"
-import { getStringMode } from "helpers/period"
+import { getStringMode, getStringTempMode, invertCoolMode, invertHeatMode } from "helpers/period"
 
 interface TempWidgetProps {
   prop?: string
@@ -38,34 +38,49 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
     setK(temp.k)
     setHysteresis(temp.hysteresis)
     setTimeout(temp.timeout)
+    setMode(temp.mode)
     setShowModal(true);
   }
   const closeModal = () => {
     setShowModal(false);
   }
   const sendConfig = async () => {
-    // await dispatch(updateTemp({
-    //   setting: setting,
-    //   k: k,
-    //   hysteresis: hysteresis,
-    //   timeout: timeout
-    // }))
+    console.log(mode)
+    await dispatch(updateTemp({
+      setting: setting,
+      k: k,
+      hysteresis: hysteresis,
+      timeout: timeout,
+      mode: mode
+    }))
     if (status === Status.Succeeded) {
       setSetting(temp.setting)
       setK(temp.k)
       setHysteresis(temp.hysteresis)
       setTimeout(temp.timeout)
+      setMode(temp.mode)
       closeModal()
     }
   }
-  // const sendTempState = async () => {
-  //   await dispatch(updateTempState(!tempCurrent.status))
-  //   if (status === Status.Succeeded) {
+  const sendCoolState = async () => {
+    await dispatch(updateTemp({ setting: setting, timeout: timeout, k: k, hysteresis: hysteresis, mode: invertCoolMode(mode) }))
+    if (status === Status.Succeeded) {
+      setMode(invertCoolMode(mode))
+      dispatch(getCurrentInfo())
+    }
+  }
+  const sendHeatState = async () => {
+    await dispatch(updateTemp({ setting: setting, timeout: timeout, k: k, hysteresis: hysteresis, mode: invertHeatMode(mode) }))
+    if (status === Status.Succeeded) {
+      setMode(invertHeatMode(mode))
+      dispatch(getCurrentInfo())
+    }
+  }
 
-  //   }
-  // }
-
-  
+  const selectMode = async (mode: number) => {
+    setMode(mode);
+    await dispatch(updateTemp({ setting: setting, timeout: timeout, k: k, hysteresis: hysteresis, mode: mode }))
+  }
 
   return (
     <WidgetWrapper color='violet' onClickEdit={openModal} className={cls.widget_wrapper} state={tempCurrent.status !== 0}>
@@ -78,18 +93,18 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
         <div>
           <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Mode</p>
-            <p className={cls.text}>{getStringMode(mode)}</p>
+            <p className={cls.text}>{getStringTempMode(temp.mode)}</p>
           </div>
           <div className={cls.text_wrapper}>
             <p className={cls.text_header}>Current</p>
             <p className={cls.text}>{tempCurrent.current.toFixed(2)} ℃</p>
           </div>
 
-          {tempCurrent.status !== 0 && <div className={cls.text_wrapper_status}>
-
-            {tempCurrent.status === 1 || tempCurrent.status === 3 && <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: true }, [])} />}
-            {tempCurrent.status === 2 || tempCurrent.status === 3 && <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: true }, [])} />}
-          </div>}
+          {tempCurrent.status !== 0 &&
+            <div className={cls.text_wrapper_status}>
+              {(tempCurrent.status === 1 || tempCurrent.status === 3) && <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: true }, [])} />}
+              {(tempCurrent.status === 2 || tempCurrent.status === 3) && <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: true }, [])} />}
+            </div>}
         </div>
       </div>
 
@@ -103,41 +118,41 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
                   <p className={cls.edit_text_header}>
                     Mode
                   </p>
-                  <Dropdown className={cls.dropdown} select={getStringMode(mode)} items={[
+                  <Dropdown className={cls.dropdown} select={getStringTempMode(mode)} items={[
                     [{
                       content: 'Auto',
-                      onClick: () => setMode(2)
+                      onClick: () => selectMode(4)
                     },
                     {
                       content: 'Manual',
-                      onClick: () => setMode(Number(tempCurrent.status))
+                      onClick: () => selectMode(Number(tempCurrent.status))
                     }]
                   ]} />
                 </div>
-                {mode === 2 && <div className={cls.text_wrapper}>
+                {mode === 4 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set setting</p>
                   <Input type="number" value={setting} onChange={(e) => setSetting(Number(e.target.value))} />
                 </div>}
-                {mode === 2 && <div className={cls.text_wrapper}>
+                {mode === 4 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set k</p>
                   <Input type="number" value={k} onChange={(e) => setK(Number(e.target.value))} />
                 </div>}
-                {mode === 2 && <div className={cls.text_wrapper}>
+                {mode === 4 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set hysteresis</p>
 
                   <Input type="number" value={hysteresis} onChange={(e) => setHysteresis(Number(e.target.value))} />
                 </div>}
-                {mode === 2 && <div className={cls.text_wrapper}>
+                {mode === 4 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Set timeout</p>
                   <Input type="number" value={timeout} onChange={(e) => setTimeout(Number(e.target.value))} />
                 </div>}
-                {mode !== 2 && <div className={cls.text_wrapper}>
+                {mode !== 4 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Cooling state</p>
-                  <Toggle className={cls.toggle} size="XL" checked={tempCurrent.status === 1 ? true : false} onClick={() => { }} />
+                  <Toggle className={cls.toggle} size="XL" checked={(tempCurrent.status === 1 || tempCurrent.status === 3) ? true : false} onClick={sendCoolState} />
                 </div>}
-                {mode !== 2 && <div className={cls.text_wrapper}>
+                {mode !== 4 && <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>Heating state</p>
-                  <Toggle className={cls.toggle} size="XL" checked={tempCurrent.status === 2 ? true : false} onClick={() => { }} />
+                  <Toggle className={cls.toggle} size="XL" checked={(tempCurrent.status === 2 || tempCurrent.status === 3) ? true : false} onClick={sendHeatState} />
                 </div>}
               </div>
             </div>
