@@ -30,7 +30,7 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
   const [setting, setSetting] = useState(temp.setting)
   const [k, setK] = useState(temp.k)
   const [hysteresis, setHysteresis] = useState(temp.hysteresis)
-  const [timeout, setTimeout] = useState(temp.timeout)
+  const [PIDTimeout, setPIDTimeout] = useState(temp.timeout)
   const [mode, setMode] = useState(0)
 
   const openModal = () => {
@@ -38,7 +38,7 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
     setSetting(temp.setting)
     setK(temp.k)
     setHysteresis(temp.hysteresis)
-    setTimeout(temp.timeout)
+    setPIDTimeout(temp.timeout)
     setMode(temp.mode)
     setShowModal(true);
   }
@@ -52,36 +52,40 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
       setting: setting,
       k: k,
       hysteresis: hysteresis,
-      timeout: timeout,
+      timeout: PIDTimeout,
       mode: mode
     }))
     if (status === Status.Succeeded) {
       setSetting(temp.setting)
       setK(temp.k)
       setHysteresis(temp.hysteresis)
-      setTimeout(temp.timeout)
+      setPIDTimeout(temp.timeout)
       setMode(temp.mode)
       closeModal()
     }
   }
   const sendCoolState = async () => {
-    await dispatch(updateTemp({ setting: setting, timeout: timeout, k: k, hysteresis: hysteresis, mode: invertCoolMode(mode) }))
+    await dispatch(updateTemp({ setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertCoolMode(mode) }))
     if (status === Status.Succeeded) {
       setMode(invertCoolMode(mode))
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, temp.timeout * 1000 + 200);
     }
   }
   const sendHeatState = async () => {
-    await dispatch(updateTemp({ setting: setting, timeout: timeout, k: k, hysteresis: hysteresis, mode: invertHeatMode(mode) }))
+    await dispatch(updateTemp({ setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertHeatMode(mode) }))
     if (status === Status.Succeeded) {
       setMode(invertHeatMode(mode))
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, temp.timeout * 1000 + 200);
     }
   }
 
   const selectMode = async (mode: number) => {
     setMode(mode);
-    await dispatch(updateTemp({ setting: setting, timeout: timeout, k: k, hysteresis: hysteresis, mode: mode }))
+    await dispatch(updateTemp({ setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: mode }))
   }
 
   return (
@@ -153,7 +157,7 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
                   </div>
                   <div className={cls.edit_text_wrapper}>
                     <p className={cls.edit_text_header}>Set timeout</p>
-                    <Input type="number" value={timeout} onChange={(e) => setTimeout(Number(e.target.value))} />
+                    <Input type="number" value={PIDTimeout} onChange={(e) => setPIDTimeout(Number(e.target.value))} />
                   </div>
                 </div>}
 

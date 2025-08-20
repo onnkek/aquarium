@@ -1,11 +1,11 @@
-import React, { MouseEvent, ReactNode, useState } from "react"
+import React, { useState } from "react"
 import cls from './O2Widget.module.sass'
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
 import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
 import { Status } from "models/Status"
 import { Button } from "components/Button"
-import { getCurrentInfo, switchModal, updateO2, updateO2State } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateO2 } from "../../../redux/AquariumSlice"
 import { ReactComponent as O2Icon } from 'assets/icons/aquarium/o2.svg';
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { Input } from "components/Input"
@@ -54,7 +54,9 @@ const O2Widget = ({ prop }: O2WidgetProps) => {
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
     }
   }
   const selectMode = async (mode: number) => {

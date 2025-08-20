@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactNode, useState } from "react"
+import React, { useState } from "react"
 import cls from './FilterWidget.module.sass'
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
 import { Toggle } from "components/Toggle"
@@ -7,7 +7,7 @@ import { Status } from "models/Status"
 import { Button } from "components/Button"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ReactComponent as FilterIcon } from 'assets/icons/aquarium/filter.svg';
-import { getCurrentInfo, switchModal, updateFilter, updateFilterState } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateFilter } from "../../../redux/AquariumSlice"
 import { WidgetWrapper } from "../WidgetWrapper"
 import { Dropdown } from "components/Dropdown"
 import { Input } from "components/Input"
@@ -44,7 +44,10 @@ const FilterWidget = ({ prop }: FilterWidgetProps) => {
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
+
     }
   }
   const sendConfig = async () => {

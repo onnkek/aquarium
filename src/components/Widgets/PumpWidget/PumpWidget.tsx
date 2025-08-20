@@ -70,7 +70,9 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
     }
   }
   const sendConfig = async () => {

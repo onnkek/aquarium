@@ -18,21 +18,9 @@ import { Modal } from 'components/Modal';
 import { Button } from 'components/Button';
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { Dropdown } from 'components/Dropdown';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, Tooltip, Legend, LinearScale, CategoryScale, PointElement, LineElement, Title } from "chart.js";
 import { ReactComponent as LogsIcon } from 'assets/icons/aquarium/journal.svg';
 import { ReactComponent as ArchiveIcon } from 'assets/icons/aquarium/archive.svg';
 import { ReactComponent as DashboardIcon } from 'assets/icons/aquarium/dashboard.svg';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -42,7 +30,6 @@ function App() {
   const logs = useAppSelector(state => state.aquarium.logs)
   const logStatus = useAppSelector(state => state.aquarium.logStatus)
   const updateStatus = useAppSelector(state => state.aquarium.updateStatus)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
   const [showLogs, setShowLogs] = useState(false)
   const [showArchive, setShowArchive] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -120,18 +107,12 @@ function App() {
 
   useEffect(() => {
     if (updateStatus === Status.Succeeded && system.update > 0 && !openModal) {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-      timerRef.current = setInterval(() => {
+
+      const interval = setInterval(() => {
         dispatch(getCurrentInfo())
       }, 1000 * system.update)
 
-      return () => {
-        if (timerRef.current) {
-          clearInterval(timerRef.current);
-        }
-      };
+      return () => clearInterval(interval);
     }
 
   }, [updateStatus, system.update, dispatch, openModal])

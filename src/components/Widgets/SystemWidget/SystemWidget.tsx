@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactNode, useState } from "react"
+import React, { useEffect, useState } from "react"
 import cls from './SystemWidget.module.sass'
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
 import { Modal } from "components/Modal"
@@ -28,10 +28,13 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
   const system = useAppSelector(state => state.aquarium.config.system)
   const systemCurrent = useAppSelector(state => state.aquarium.currentInfo.system)
   const status = useAppSelector(state => state.aquarium.status)
+  const lastSuccess = useAppSelector(state => state.aquarium.lastSuccess)
 
   const [updateTime, setUpdateTime] = useState(system.update)
   const [dateTime, setDateTime] = useState(systemCurrent.time)
   const updateStatus = useAppSelector(state => state.aquarium.updateStatus)
+
+  const [isAlive, setIsAlive] = useState(true)
 
   const openModal = () => {
     dispatch(switchModal(true));
@@ -50,12 +53,23 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
     await dispatch(updateDateTime({ dateTime: dateTime }))
     if (status === Status.Succeeded) {
       setUpdateTime(system.update)
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
       closeModal()
     }
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAlive(Date.now() - lastSuccess <= system.update * 2 * 1000);
+    }, 500)
+
+    return () => clearInterval(interval);
+  }, [lastSuccess, system.update])
+
   return (
-    <WidgetWrapper color='white' onClickEdit={openModal} className={cls.widget_wrapper} state={updateStatus === Status.Succeeded}>
+    <WidgetWrapper color='white' onClickEdit={openModal} className={cls.widget_wrapper} state={isAlive}>
       <div className={cls.left}>
         <div className={cls.text_wrapper}>
           <CalendarIcon className={cls.icon} />
@@ -96,7 +110,7 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
         </div>
         <div className={cls.text_wrapper}>
           <SDIcon className={cls.icon} />
-          <div>
+          <div className={cls.space_right}>
             <p className={cls.text_header}>Space</p>
             <Progress className={cls.progress} text="none" value={systemCurrent.usedSpace / systemCurrent.totalSpace * 100} />
             <div className={cls.space_items}>
@@ -125,7 +139,7 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' style='none'>
-        <WidgetWrapper color='white' type='write' onClickEdit={closeModal} state={updateStatus === Status.Succeeded} className={cls.wrapper}>
+        <WidgetWrapper color='white' type='write' onClickEdit={closeModal} state={isAlive} className={cls.wrapper}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
               <div className={cls.edit_header}>

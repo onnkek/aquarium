@@ -157,9 +157,9 @@ interface IAquarium {
   status: Status,
   logStatus: Status,
   updateStatus: Status,
-  modal: boolean
+  modal: boolean,
+  lastSuccess: number
 }
-
 const initialState: IAquarium = {
   currentInfo: {
     system: {
@@ -361,7 +361,8 @@ const initialState: IAquarium = {
   status: Status.Idle,
   logStatus: Status.Idle,
   updateStatus: Status.Idle,
-  modal: false
+  modal: false,
+  lastSuccess: Date.now()
 }
 
 const AquariumSlice = createSlice({
@@ -389,6 +390,7 @@ const AquariumSlice = createSlice({
       .addCase(getCurrentInfo.fulfilled, (state: IAquarium, action) => {
         state.updateStatus = Status.Succeeded
         state.currentInfo = action.payload
+        state.lastSuccess = Date.now()
       })
 
       .addCase(getSystemLogs.pending, (state: IAquarium) => {
@@ -503,57 +505,6 @@ const AquariumSlice = createSlice({
         state.status = Status.Succeeded
       })
 
-
-
-
-
-      .addCase(updateCO2State.pending, (state: IAquarium) => {
-        state.status = Status.Loading
-      })
-      .addCase(updateCO2State.fulfilled, (state: IAquarium, action) => {
-        state.currentInfo.co2.status = action.payload.status
-        state.status = Status.Succeeded
-      })
-
-      .addCase(updateFilterState.pending, (state: IAquarium) => {
-        state.status = Status.Loading
-      })
-      .addCase(updateFilterState.fulfilled, (state: IAquarium, action) => {
-        state.currentInfo.filter.status = action.payload.status
-        state.status = Status.Succeeded
-      })
-
-      .addCase(updateO2State.pending, (state: IAquarium) => {
-        state.status = Status.Loading
-      })
-      .addCase(updateO2State.fulfilled, (state: IAquarium, action) => {
-        state.currentInfo.o2.status = action.payload.status
-        state.status = Status.Succeeded
-      })
-
-      .addCase(updateLightState.pending, (state: IAquarium) => {
-        state.status = Status.Loading
-      })
-      .addCase(updateLightState.fulfilled, (state: IAquarium, action) => {
-        state.currentInfo.light.status = action.payload.status
-        state.status = Status.Succeeded
-      })
-
-    // .addCase(updateTempState.pending, (state: IAquarium) => {
-    //   state.status = Status.Loading
-    // })
-    // .addCase(updateTempState.fulfilled, (state: IAquarium, action) => {
-    //   state.currentInfo.temp.status = action.payload.status
-    //   state.status = Status.Succeeded
-    // })
-
-    // .addCase(updateARGBState.pending, (state: IAquarium) => {
-    //   state.status = Status.Loading
-    // })
-    // .addCase(updateARGBState.fulfilled, (state: IAquarium, action) => {
-    //   state.currentInfo.argb.status = action.payload.status
-    //   state.status = Status.Succeeded
-    // })
   }
 })
 
@@ -808,104 +759,6 @@ export const updateDoser = createAsyncThunk<IConfig, { number: number, config: I
 
   }
 )
-
-export const updateCO2State = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
-
-  'aquarium/updateCO2State',
-  async (payload: boolean, { rejectWithValue, getState, dispatch }) => {
-
-    const newCO2State = { status: payload };
-    const response = await new AquariumService().updateCO2(newCO2State)
-
-    if (!response.ok) {
-      return rejectWithValue('Can\'t delete post! Server error!')
-    }
-    return newCO2State
-
-  }
-)
-
-export const updateFilterState = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
-
-  'aquarium/updateFilterState',
-  async (payload: boolean, { rejectWithValue, getState, dispatch }) => {
-
-    const newFilterState = { status: payload };
-    const response = await new AquariumService().updateFilter(newFilterState)
-
-    if (!response.ok) {
-      return rejectWithValue('Can\'t delete post! Server error!')
-    }
-    return newFilterState
-
-  }
-)
-
-export const updateO2State = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
-
-  'aquarium/updateO2State',
-  async (payload: boolean, { rejectWithValue, getState, dispatch }) => {
-
-    const newO2State = { status: payload };
-    const response = await new AquariumService().updateO2(newO2State)
-
-    if (!response.ok) {
-      return rejectWithValue('Can\'t delete post! Server error!')
-    }
-    return newO2State
-
-  }
-)
-
-export const updateLightState = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
-
-  'aquarium/updateLightState',
-  async (payload: boolean, { rejectWithValue, getState, dispatch }) => {
-
-    const newLightState = { status: payload };
-    const response = await new AquariumService().updateLight(newLightState)
-
-    if (!response.ok) {
-      return rejectWithValue('Can\'t delete post! Server error!')
-    }
-    return newLightState
-
-  }
-)
-
-// export const updateTempState = createAsyncThunk<{ status: boolean }, boolean, { state: RootState }>(
-
-//   'aquarium/updateTempState',
-//   async (payload: boolean, { rejectWithValue, getState, dispatch }) => {
-
-//     const newTempState = { status: payload };
-//     const response = await new AquariumService().updateTemp(newTempState)
-
-//     if (!response.ok) {
-//       return rejectWithValue('Can\'t delete post! Server error!')
-//     }
-//     return newTempState
-
-//   }
-// )
-
-// export const updateARGBState = createAsyncThunk<{ status: number }, number, { state: RootState }>(
-
-//   'aquarium/updateARGBState',
-//   async (payload: number, { rejectWithValue, getState, dispatch }) => {
-
-//     const newARGBState = { status: payload };
-//     const response = await new AquariumService().updateARGB(newARGBState)
-
-//     if (!response.ok) {
-//       return rejectWithValue('Can\'t delete post! Server error!')
-//     }
-//     return newARGBState
-
-//   }
-// )
-
-
 
 export const {
   switchModal

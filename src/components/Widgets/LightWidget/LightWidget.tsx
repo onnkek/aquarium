@@ -1,10 +1,10 @@
-import React, { MouseEvent, ReactNode, useState } from "react"
+import React, { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
 import { ReactComponent as LightIcon } from '../../../assets/icons/aquarium/light.svg'
 import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
 import cls from './LightWidget.module.sass'
-import { getCurrentInfo, switchModal, updateLight, updateLightState } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateLight } from "../../../redux/AquariumSlice"
 import { Status } from "models/Status"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { Button } from "components/Button"
@@ -53,7 +53,9 @@ const LightWidget = ({ prop }: LightWidgetProps) => {
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
     }
   }
   const selectMode = async (mode: number) => {

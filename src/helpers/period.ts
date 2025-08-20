@@ -16,8 +16,10 @@ export function getDateString(dateTime: ITimeInfo) {
   return `${getDayOfWeek(dateTime.dayOfWeek)} ${getMonth(dateTime.month)} ${dateTime.day}`;
 }
 
+const pad = (n: number, len: number = 2) => n.toString().padStart(len, '0');
+
 export function getTimeString(dateTime: ITimeInfo) {
-  return `${dateTime.hour}:${dateTime.minute}:${dateTime.second}`;
+  return `${pad(dateTime.hour)}:${pad(dateTime.minute)}:${pad(dateTime.second)}`;
 }
 
 export function getStringMode(mode: number) {
@@ -167,12 +169,7 @@ export function getDateTimeFromInput(dateString: string) {
 }
 
 export function getDateTimeISO(dateTime: ITimeInfo) {
-  const month = dateTime.month < 10 ? `0${dateTime.month}` : dateTime.month;
-  const day = dateTime.day < 10 ? `0${dateTime.day}` : dateTime.day;
-  const hour = dateTime.hour < 10 ? `0${dateTime.hour}` : dateTime.hour;
-  const minute = dateTime.minute < 10 ? `0${dateTime.minute}` : dateTime.minute;
-  const second = dateTime.second < 10 ? `0${dateTime.second}` : dateTime.second;
-  return `${dateTime.year}-${month}-${day}T${hour}:${minute}:${second}`
+  return `${dateTime.year}-${pad(dateTime.month)}-${pad(dateTime.day)}T${pad(dateTime.hour)}:${pad(dateTime.minute)}:${pad(dateTime.second)}`
 }
 
 
@@ -192,7 +189,6 @@ export function getUptime(microseconds: number, showms: boolean): string {
 
   const days = Math.floor(totalHours / 24);
 
-  const pad = (n: number, len: number = 2) => n.toString().padStart(len, '0');
   const padMs = (n: number) => n.toString().padStart(3, '0');
 
   return `${days}d ${pad(hours)}:${pad(min)}:${pad(sec)}${showms ? `.${padMs(ms)}` : ''}`;

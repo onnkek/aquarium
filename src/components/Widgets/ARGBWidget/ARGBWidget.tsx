@@ -91,7 +91,9 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
       setCustomColor(argb.custom)
       setCycleSpeed(argb.cycle.speed)
       setBrightness(argb.brightness)
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
       closeModal()
     }
   }

@@ -1,11 +1,11 @@
-import React, { MouseEvent, ReactNode, useState } from "react"
+import React, { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
 import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
 import cls from "./CO2Widget.module.sass"
 import { Button } from "components/Button"
 import { Input } from "components/Input"
-import { getCurrentInfo, switchModal, updateCO2, updateCO2State } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateCO2 } from "../../../redux/AquariumSlice"
 import { Status } from "models/Status"
 import { ReactComponent as CO2Icon } from 'assets/icons/aquarium/co2.svg';
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
@@ -53,7 +53,9 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
-      dispatch(getCurrentInfo())
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
     }
   }
   const selectMode = async (mode: number) => {
