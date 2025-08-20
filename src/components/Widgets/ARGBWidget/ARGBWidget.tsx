@@ -8,7 +8,7 @@ import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ReactComponent as ARGBIcon } from 'assets/icons/aquarium/argb.svg';
 import { Status } from "models/Status"
 import { Input } from "components/Input"
-import { getCurrentInfo, updateARGB } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateARGB } from "../../../redux/AquariumSlice"
 import { Dropdown } from "components/Dropdown"
 import { hexToRgb, rgbToHex } from "helpers/colors"
 import { WidgetWrapper } from "../WidgetWrapper"
@@ -47,6 +47,7 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
     setCustomColor(newColors)
   }
   const openModal = () => {
+    dispatch(switchModal(true));
     setARGBMode(argb.mode)
     setStaticColor(argb.static)
     setGradientStartColor(argb.gradient.start)
@@ -60,8 +61,10 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
     setShowModal(true);
   }
   const closeModal = () => {
+    dispatch(switchModal(false));
     setShowModal(false);
   }
+
   const sendConfig = async () => {
     await dispatch(updateARGB({
       on: onTime,
@@ -126,89 +129,88 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
         <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.wrapper} state={argbCurrent.status > 0}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
-              <ARGBIcon className={cls.edit_icon} />
-              <div className={cls.edit_wrapper}>
-                <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>
-                    Mode
-                  </p>
-                  <Dropdown className={cls.dropdown} select={getStringARGBMode(ARGBMode)} items={[
-                    [{
-                      content: 'Off',
-                      onClick: () => setARGBMode(0)
-                    },
-                    {
-                      content: 'Static',
-                      onClick: () => setARGBMode(1)
-                    },
-                    {
-                      content: 'Cycle',
-                      onClick: () => setARGBMode(2)
-                    },
-                    {
-                      content: 'Gradient',
-                      onClick: () => setARGBMode(3)
-                    },
-                    {
-                      content: 'Custom',
-                      onClick: () => setARGBMode(4)
-                    }]
-                  ]} />
-                </div>
-                {ARGBMode != 0 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Brightness (0-255)</p>
-                  <Input type="number" value={brightness} onChange={(e) => setBrightness(Number(e.target.value))} />
-                </div>}
-                {ARGBMode != 0 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>On Time</p>
-                  <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
-                </div>}
-                {ARGBMode != 0 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Off Time</p>
-                  <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
-                </div>}
+              <div className={cls.edit_header}>
+                <ARGBIcon className={cls.edit_icon} />
+                <div className={cls.edit_header_text}>ARGB settings</div>
               </div>
-            </div>
-            {ARGBMode !== 0 &&
-              <div className={cls.text_wrapper}>
-                <p className={cls.edit_text_header}>{getStringARGBMode(ARGBMode)} mode settings</p>
-                {ARGBMode === 2 &&
-                  <div className={cls.grad_item}>
-                    <p className={cls.grad_text}>
-                      Set cycle speed
+              <div className={cls.edit_wrapper}>
+                <div className={cls.edit_group_dropdown}>
+                  <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>
+                      Mode
                     </p>
-                    <Input type="number"
-                      value={cycleSpeed}
-                      onChange={(e) => setCycleSpeed(Number(e.target.value))}
-                    />
+                    <Dropdown className={cls.dropdown} select={getStringARGBMode(ARGBMode)} items={[
+                      [{
+                        content: 'Off',
+                        onClick: () => setARGBMode(0)
+                      },
+                      {
+                        content: 'Static',
+                        onClick: () => setARGBMode(1)
+                      },
+                      {
+                        content: 'Cycle',
+                        onClick: () => setARGBMode(2)
+                      },
+                      {
+                        content: 'Gradient',
+                        onClick: () => setARGBMode(3)
+                      },
+                      {
+                        content: 'Custom',
+                        onClick: () => setARGBMode(4)
+                      }]
+                    ]} />
+                  </div>
+                  {ARGBMode !== 0 &&
+                    <div className={cls.edit_text_wrapper}>
+                      <p className={cls.edit_text_header}>Brightness</p>
+                      <Input type="number" value={brightness} onChange={(e) => setBrightness(Number(e.target.value))} />
+                    </div>}
+                </div>
+
+                <div className={cls.edit_group}>
+                  {ARGBMode != 0 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>On Time</p>
+                    <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
                   </div>}
+                  {ARGBMode != 0 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Off Time</p>
+                    <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+                  </div>}
+                </div>
+
                 {ARGBMode === 1 &&
-                  <div className={cls.gradient}>
-                    <p className={cls.grad_text}>
-                      Color
-                    </p>
+                  <div className={cls.edit_text_wrapper_last}>
+                    <p className={cls.edit_text_header}>Color</p>
                     <Input
                       type="color"
                       value={rgbToHex(staticColor.r, staticColor.g, staticColor.b)}
                       onChange={(e) => setStaticColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
                     />
-                  </div>}
+                  </div>
+                }
+                {ARGBMode === 2 &&
+                  <div className={cls.edit_text_wrapper_last}>
+                    <p className={cls.edit_text_header}>Cycle speed</p>
+                    <Input type="number"
+                      value={cycleSpeed}
+                      onChange={(e) => setCycleSpeed(Number(e.target.value))}
+                    />
+                  </div>
+                }
                 {ARGBMode === 3 &&
-                  <div className={cls.gradient}>
-                    <div className={cls.grad_item}>
-                      <p className={cls.grad_text}>
-                        Start color
-                      </p>
+                  <div className={cls.edit_group}>
+                    <div className={cls.edit_text_wrapper}>
+                      <p className={cls.edit_text_header}>Start color</p>
                       <Input
                         type="color"
                         value={rgbToHex(gradientStartColor.r, gradientStartColor.g, gradientStartColor.b)}
                         onChange={(e) => setGradientStartColor({ r: hexToRgb(e.target.value).r, g: hexToRgb(e.target.value).g, b: hexToRgb(e.target.value).b })}
                       />
                     </div>
-                    <div className={cls.grad_item}>
-                      <p className={cls.grad_text}>
-                        End color
-                      </p>
+                    <div className={cls.edit_text_wrapper}>
+                      <p className={cls.edit_text_header}>End color</p>
                       <Input
                         type="color"
                         value={rgbToHex(gradientEndColor.r, gradientEndColor.g, gradientEndColor.b)}
@@ -219,21 +221,25 @@ const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
                 }
 
                 {ARGBMode === 4 &&
-                  <div className={cls.custom}>
-                    {argb.custom.map((item, index) =>
-                      <div className={cls.custom_color_item} key={index}>
-                        <Input
-                          type="color"
-                          value={rgbToHex(customColor[index].r, customColor[index].g, customColor[index].b)}
-                          onChange={(e) => changeCustomColorHandler(e, index)}
-                        />
-                      </div>
-
-                    )}
+                  <div className={cls.edit_text_wrapper_custom}>
+                    <p className={cls.edit_text_header}>Colors</p>
+                    <div className={cls.custom_color}>
+                      {argb.custom.map((item, index) =>
+                        <div className={cls.custom_color_item} key={index}>
+                          <Input
+                            type="color"
+                            value={rgbToHex(argb.custom[index].r, argb.custom[index].g, argb.custom[index].b)}
+                            onChange={(e) => changeCustomColorHandler(e, index)}
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 }
+
               </div>
-            }
+            </div>
+
 
 
 

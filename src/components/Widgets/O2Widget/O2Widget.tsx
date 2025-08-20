@@ -5,7 +5,7 @@ import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
 import { Status } from "models/Status"
 import { Button } from "components/Button"
-import { getCurrentInfo, updateO2, updateO2State } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateO2, updateO2State } from "../../../redux/AquariumSlice"
 import { ReactComponent as O2Icon } from 'assets/icons/aquarium/o2.svg';
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { Input } from "components/Input"
@@ -29,12 +29,14 @@ const O2Widget = ({ prop }: O2WidgetProps) => {
   const [mode, setMode] = useState(o2.mode)
 
   const openModal = () => {
+    dispatch(switchModal(true));
     setOnTime(o2.on)
     setOffTime(o2.off)
     setMode(o2.mode)
     setShowModal(true);
   }
   const closeModal = () => {
+    dispatch(switchModal(false));
     setShowModal(false);
   }
 
@@ -88,7 +90,10 @@ const O2Widget = ({ prop }: O2WidgetProps) => {
         <WidgetWrapper color='blue' type='write' onClickEdit={closeModal} className={cls.wrapper} state={o2current}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
-              <O2Icon className={cls.edit_icon} />
+              <div className={cls.edit_header}>
+                <O2Icon className={cls.edit_icon} />
+                <div className={cls.edit_header_text}>O2 settings</div>
+              </div>
               <div className={cls.edit_wrapper}>
                 <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>
@@ -105,18 +110,20 @@ const O2Widget = ({ prop }: O2WidgetProps) => {
                     }]
                   ]} />
                 </div>
-                {mode === 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>On Time</p>
-                  <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
-                </div>}
-                {mode === 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Off Time</p>
-                  <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
-                </div>}
-                {mode !== 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>State</p>
-                  <Toggle className={cls.toggle} size="XL" checked={o2current} onClick={sendO2State} />
-                </div>}
+                <div className={cls.edit_group}>
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>On Time</p>
+                    <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
+                  </div>}
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Off Time</p>
+                    <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+                  </div>}
+                  {mode !== 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>State</p>
+                    <Toggle className={cls.toggle} size="XL" checked={o2current} onClick={sendO2State} />
+                  </div>}
+                </div>
               </div>
             </div>
             <div className={cls.buttons}>

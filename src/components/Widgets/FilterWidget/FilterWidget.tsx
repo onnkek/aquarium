@@ -7,7 +7,7 @@ import { Status } from "models/Status"
 import { Button } from "components/Button"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ReactComponent as FilterIcon } from 'assets/icons/aquarium/filter.svg';
-import { getCurrentInfo, updateFilter, updateFilterState } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateFilter, updateFilterState } from "../../../redux/AquariumSlice"
 import { WidgetWrapper } from "../WidgetWrapper"
 import { Dropdown } from "components/Dropdown"
 import { Input } from "components/Input"
@@ -27,21 +27,23 @@ const FilterWidget = ({ prop }: FilterWidgetProps) => {
   const [onTime, setOnTime] = useState(filter.on)
   const [offTime, setOffTime] = useState(filter.off)
   const [mode, setMode] = useState(filter.mode)
- 
+
   const openModal = () => {
+    dispatch(switchModal(true));
     setOnTime(filter.on)
     setOffTime(filter.off)
     setMode(filter.mode)
     setShowModal(true);
   }
   const closeModal = () => {
+    dispatch(switchModal(false));
     setShowModal(false);
   }
   const sendFilterState = async () => {
     await dispatch(updateFilter({ on: onTime, off: offTime, mode: invertMode(mode) }))
     if (status === Status.Succeeded) {
 
-      setMode(invertMode(mode)) 
+      setMode(invertMode(mode))
       dispatch(getCurrentInfo())
     }
   }
@@ -86,7 +88,10 @@ const FilterWidget = ({ prop }: FilterWidgetProps) => {
         <WidgetWrapper color='tiffany' type='write' onClickEdit={closeModal} className={cls.wrapper} state={filterCurrent}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
-              <FilterIcon className={cls.edit_icon} />
+              <div className={cls.edit_header}>
+                <FilterIcon className={cls.edit_icon} />
+                <div className={cls.edit_header_text}>Filter settings</div>
+              </div>
               <div className={cls.edit_wrapper}>
                 <div className={cls.text_wrapper}>
                   <p className={cls.edit_text_header}>
@@ -103,18 +108,20 @@ const FilterWidget = ({ prop }: FilterWidgetProps) => {
                     }]
                   ]} />
                 </div>
-                {mode === 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>On Time</p>
-                  <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
-                </div>}
-                {mode === 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Off Time</p>
-                  <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
-                </div>}
-                {mode !== 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>State</p>
-                  <Toggle className={cls.toggle} size="XL" checked={filterCurrent} onClick={sendFilterState} />
-                </div>}
+                <div className={cls.edit_group}>
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>On Time</p>
+                    <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
+                  </div>}
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Off Time</p>
+                    <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+                  </div>}
+                  {mode !== 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>State</p>
+                    <Toggle className={cls.toggle} size="XL" checked={filterCurrent} onClick={sendFilterState} />
+                  </div>}
+                </div>
               </div>
             </div>
             <div className={cls.buttons}>

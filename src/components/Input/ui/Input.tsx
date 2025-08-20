@@ -23,9 +23,31 @@ export interface InputProps {
   value?: string | number;
   type?: string;
   step?: number;
+  max?: number;
+  min?: number;
 }
 
-export const Input = ({ type, step, className, value, placeholder, Icon, disabled, descr, error, area = false, areaResize = false, areaCols = 30, areaRows = 4, maxLength, onChange, inputRef, ...otherProps }: InputProps) => {
+export const Input = ({
+  type,
+  step,
+  max,
+  min,
+  className,
+  value,
+  placeholder,
+  Icon,
+  disabled,
+  descr,
+  error,
+  area = false,
+  areaResize = false,
+  areaCols = 30,
+  areaRows = 4,
+  maxLength,
+  onChange,
+  inputRef,
+  ...otherProps
+}: InputProps) => {
 
   const mods: Mods = {
     [cls.area]: area,
@@ -40,7 +62,7 @@ export const Input = ({ type, step, className, value, placeholder, Icon, disable
       {area ?
         <HTextarea cols={areaCols} rows={areaRows} disabled={disabled} className={classNames(cls.input, {}, [className])} placeholder={placeholder} name="description"></HTextarea>
         :
-        <HInput step={step} type={type} value={value} ref={inputRef} {...otherProps} onChange={onChange} maxLength={maxLength} disabled={disabled} className={classNames(cls.input, {}, [className])} placeholder={placeholder} name="full_name" />
+        <HInput min={min} max={max} step={step} type={type} value={value} ref={inputRef} {...otherProps} onChange={onChange} maxLength={maxLength} disabled={disabled} className={classNames(cls.input, {}, [className])} placeholder={placeholder} name="full_name" />
       }
       {(!area && descr && !error) && <QuestionIcon className={cls.info} />}
       {!area && error && <AlertIcon className={cls.info} />}

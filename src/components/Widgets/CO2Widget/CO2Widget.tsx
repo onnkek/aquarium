@@ -1,11 +1,11 @@
 import React, { MouseEvent, ReactNode, useState } from "react"
-import cls from "./CO2Widget.module.sass"
 import { useAppDispatch, useAppSelector } from "../../../models/Hook"
 import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
+import cls from "./CO2Widget.module.sass"
 import { Button } from "components/Button"
 import { Input } from "components/Input"
-import { getCurrentInfo, updateCO2, updateCO2State } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateCO2, updateCO2State } from "../../../redux/AquariumSlice"
 import { Status } from "models/Status"
 import { ReactComponent as CO2Icon } from 'assets/icons/aquarium/co2.svg';
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
@@ -29,12 +29,14 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
   const [mode, setMode] = useState(co2.mode)
 
   const openModal = () => {
+    dispatch(switchModal(true));
     setOnTime(co2.on)
     setOffTime(co2.off)
     setMode(co2.mode)
     setShowModal(true);
   }
   const closeModal = () => {
+    dispatch(switchModal(false));
     setShowModal(false);
   }
   const sendConfig = async () => {
@@ -42,6 +44,7 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
     if (status === Status.Succeeded) {
       setOnTime(co2.on)
       setOffTime(co2.off)
+      setMode(co2.mode)
       closeModal()
     }
   }
@@ -63,7 +66,6 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
         <div className={cls.icon_wrapper}>
           <CO2Icon className={cls.icon} />
         </div>
-        {/* <Toggle className={cls.toggle} size="XL" checked={co2current} onClick={openApprove} /> */}
       </div>
       <div className={cls.right}>
         <div>
@@ -86,9 +88,12 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
         <WidgetWrapper color='yellow' type='write' onClickEdit={closeModal} className={cls.wrapper} state={co2current}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
-              <CO2Icon className={cls.edit_icon} />
+              <div className={cls.edit_header}>
+                <CO2Icon className={cls.edit_icon} />
+                <div className={cls.edit_header_text}>CO2 settings</div>
+              </div>
               <div className={cls.edit_wrapper}>
-                <div className={cls.text_wrapper}>
+                <div className={cls.edit_text_wrapper}>
                   <p className={cls.edit_text_header}>
                     Mode
                   </p>
@@ -103,18 +108,21 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
                     }]
                   ]} />
                 </div>
-                {mode === 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>On Time</p>
-                  <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
-                </div>}
-                {mode === 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Off Time</p>
-                  <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
-                </div>}
-                {mode !== 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>State</p>
-                  <Toggle className={cls.toggle} size="XL" checked={co2current} onClick={sendCO2State} />
-                </div>}
+                <div className={cls.edit_group}>
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>On Time</p>
+                    <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
+                  </div>}
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Off Time</p>
+                    <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+                  </div>}
+                  {mode !== 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>State</p>
+                    <Toggle className={cls.toggle} size="XL" checked={co2current} onClick={sendCO2State} />
+                  </div>}
+                </div>
+
               </div>
             </div>
             <div className={cls.buttons}>
@@ -127,7 +135,7 @@ const CO2Widget = ({ prop }: CO2WidgetProps) => {
                 <>
                   <Button size='L' theme='outline' disabled>Cancel</Button>
                   <Button size='L' disabled>
-                    <Spinner />
+                    <Spinner width={10} height={10} />
                     Loading...
                   </Button>
                 </>

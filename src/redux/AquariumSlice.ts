@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Status } from "../models/Status"
 import AquariumService from "../services/AquariumService"
 import { RootState } from "./store"
@@ -156,7 +156,8 @@ interface IAquarium {
   logs: ILogs,
   status: Status,
   logStatus: Status,
-  updateStatus: Status
+  updateStatus: Status,
+  modal: boolean
 }
 
 const initialState: IAquarium = {
@@ -359,13 +360,18 @@ const initialState: IAquarium = {
   },
   status: Status.Idle,
   logStatus: Status.Idle,
-  updateStatus: Status.Idle
+  updateStatus: Status.Idle,
+  modal: false
 }
 
 const AquariumSlice = createSlice({
   name: 'aquarium',
   initialState,
-  reducers: {},
+  reducers: {
+    switchModal(state, action: PayloadAction<boolean>) {
+      state.modal = action.payload
+    },
+  },
   extraReducers(builder) {
     builder
 
@@ -898,5 +904,11 @@ export const updateLightState = createAsyncThunk<{ status: boolean }, boolean, {
 
 //   }
 // )
+
+
+
+export const {
+  switchModal
+} = AquariumSlice.actions
 
 export default AquariumSlice.reducer

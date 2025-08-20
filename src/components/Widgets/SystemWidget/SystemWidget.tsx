@@ -14,7 +14,7 @@ import { ReactComponent as HumidityIcon } from 'assets/icons/aquarium/humidity.s
 import { ReactComponent as CalendarIcon } from 'assets/icons/aquarium/calendar.svg';
 import { ReactComponent as UptimeIcon } from 'assets/icons/aquarium/arrow-up.svg';
 import { Status } from "models/Status"
-import { getCurrentInfo, updateDateTime, updateSystem } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateDateTime, updateSystem } from "../../../redux/AquariumSlice"
 import { Progress } from "components/Progress"
 import { WidgetWrapper } from "../WidgetWrapper"
 import { getDateTimeFromInput, getDateTimeISO, getDateString, getTimeString, getUptime } from "helpers/period"
@@ -34,11 +34,13 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
   const updateStatus = useAppSelector(state => state.aquarium.updateStatus)
 
   const openModal = () => {
+    dispatch(switchModal(true));
     setUpdateTime(system.update)
     setDateTime(systemCurrent.time)
     setShowModal(true);
   }
   const closeModal = () => {
+    dispatch(switchModal(false));
     setShowModal(false);
   }
 
@@ -82,7 +84,7 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
           <ChipIcon className={cls.icon} />
           <div>
             <p className={cls.text_header}>Chip temperature</p>
-            <p className={cls.text}>{systemCurrent.chipTemp} ℃</p>
+            <p className={cls.text}>{systemCurrent.chipTemp.toFixed(2)} ℃</p>
           </div>
         </div>
         <div className={cls.text_wrapper}>
@@ -126,7 +128,11 @@ const SystemWidget = ({ prop }: SystemWidgetProps) => {
         <WidgetWrapper color='white' type='write' onClickEdit={closeModal} state={updateStatus === Status.Succeeded} className={cls.wrapper}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
-              <ChipIcon className={cls.edit_icon} />
+              <div className={cls.edit_header}>
+                <ChipIcon className={cls.edit_icon} />
+                <div className={cls.edit_header_text}>System settings</div>
+              </div>
+
               <div className={cls.edit_wrapper}>
                 <div className={cls.edit_text_wrapper}>
                   <p className={cls.edit_text_header}>Update time</p>

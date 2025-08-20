@@ -4,7 +4,7 @@ import { ReactComponent as LightIcon } from '../../../assets/icons/aquarium/ligh
 import { Toggle } from "components/Toggle"
 import { Modal } from "components/Modal"
 import cls from './LightWidget.module.sass'
-import { getCurrentInfo, updateLight, updateLightState } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateLight, updateLightState } from "../../../redux/AquariumSlice"
 import { Status } from "models/Status"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { Button } from "components/Button"
@@ -28,12 +28,14 @@ const LightWidget = ({ prop }: LightWidgetProps) => {
   const [offTime, setOffTime] = useState(light.off)
   const [mode, setMode] = useState(light.mode)
   const openModal = () => {
+    dispatch(switchModal(true));
     setOnTime(light.on)
     setOffTime(light.off)
     setMode(light.mode)
     setShowModal(true);
   }
   const closeModal = () => {
+    dispatch(switchModal(false));
     setShowModal(false);
   }
 
@@ -86,9 +88,12 @@ const LightWidget = ({ prop }: LightWidgetProps) => {
         <WidgetWrapper color='red' type='write' onClickEdit={closeModal} className={cls.wrapper} state={lightCurrent}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
-              <LightIcon className={cls.edit_icon} />
+              <div className={cls.edit_header}>
+                <LightIcon className={cls.edit_icon} />
+                <div className={cls.edit_header_text}>Light settings</div>
+              </div>
               <div className={cls.edit_wrapper}>
-                <div className={cls.text_wrapper}>
+                <div className={cls.edit_text_wrapper}>
                   <p className={cls.edit_text_header}>
                     Mode
                   </p>
@@ -103,18 +108,20 @@ const LightWidget = ({ prop }: LightWidgetProps) => {
                     }]
                   ]} />
                 </div>
-                {light.mode === 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>On Time</p>
-                  <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
-                </div>}
-                {light.mode === 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Off Time</p>
-                  <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
-                </div>}
-                {light.mode !== 2 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>State</p>
-                  <Toggle className={cls.toggle} size="XL" checked={lightCurrent} onClick={sendLightState} />
-                </div>}
+                <div className={cls.edit_group}>
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>On Time</p>
+                    <Input type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
+                  </div>}
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Off Time</p>
+                    <Input type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+                  </div>}
+                  {mode !== 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>State</p>
+                    <Toggle className={cls.toggle} size="XL" checked={lightCurrent} onClick={sendLightState} />
+                  </div>}
+                </div>
               </div>
             </div>
             <div className={cls.buttons}>

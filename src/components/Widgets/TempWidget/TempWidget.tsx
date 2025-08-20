@@ -6,7 +6,7 @@ import { Modal } from "components/Modal"
 import { Status } from "models/Status"
 import { Button } from "components/Button"
 import { Input } from "components/Input"
-import { getCurrentInfo, updateTemp } from "../../../redux/AquariumSlice"
+import { getCurrentInfo, switchModal, updateTemp } from "../../../redux/AquariumSlice"
 import { ReactComponent as Spinner } from 'assets/icons/spinner.svg';
 import { ReactComponent as TempIcon } from 'assets/icons/aquarium/temp.svg';
 import { ReactComponent as CoolIcon } from 'assets/icons/fan.svg';
@@ -34,6 +34,7 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
   const [mode, setMode] = useState(0)
 
   const openModal = () => {
+    dispatch(switchModal(true));
     setSetting(temp.setting)
     setK(temp.k)
     setHysteresis(temp.hysteresis)
@@ -42,6 +43,7 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
     setShowModal(true);
   }
   const closeModal = () => {
+    dispatch(switchModal(false));
     setShowModal(false);
   }
   const sendConfig = async () => {
@@ -112,9 +114,13 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
         <WidgetWrapper color='violet' type='write' onClickEdit={closeModal} className={cls.wrapper} state={tempCurrent.status !== 0}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
-              <TempIcon className={cls.edit_icon} />
+              <div className={cls.edit_header}>
+                <TempIcon className={cls.edit_icon} />
+                <div className={cls.edit_header_text}>Water control settings</div>
+              </div>
+
               <div className={cls.edit_wrapper}>
-                <div className={cls.text_wrapper}>
+                <div className={cls.edit_text_wrapper}>
                   <p className={cls.edit_text_header}>
                     Mode
                   </p>
@@ -129,43 +135,52 @@ const TempWidget = ({ prop }: TempWidgetProps) => {
                     }]
                   ]} />
                 </div>
-                {mode === 4 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Set setting</p>
-                  <Input type="number" value={setting} onChange={(e) => setSetting(Number(e.target.value))} />
+                {mode === 4 && <div className={cls.edit_group}>
+                  <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Set setting</p>
+                    <Input type="number" value={setting} onChange={(e) => setSetting(Number(e.target.value))} />
+                  </div>
+                  <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Set k</p>
+                    <Input type="number" value={k} onChange={(e) => setK(Number(e.target.value))} />
+                  </div>
                 </div>}
-                {mode === 4 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Set k</p>
-                  <Input type="number" value={k} onChange={(e) => setK(Number(e.target.value))} />
-                </div>}
-                {mode === 4 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Set hysteresis</p>
+                {mode === 4 && <div className={cls.edit_group}>
+                  <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Set hysteresis</p>
 
-                  <Input type="number" value={hysteresis} onChange={(e) => setHysteresis(Number(e.target.value))} />
+                    <Input type="number" value={hysteresis} onChange={(e) => setHysteresis(Number(e.target.value))} />
+                  </div>
+                  <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Set timeout</p>
+                    <Input type="number" value={timeout} onChange={(e) => setTimeout(Number(e.target.value))} />
+                  </div>
                 </div>}
-                {mode === 4 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Set timeout</p>
-                  <Input type="number" value={timeout} onChange={(e) => setTimeout(Number(e.target.value))} />
+
+
+                {mode !== 4 && <div className={cls.edit_group}>
+                  <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Cooling state</p>
+                    <Toggle className={cls.toggle} size="XL" checked={(tempCurrent.status === 1 || tempCurrent.status === 3) ? true : false} onClick={sendCoolState} />
+                  </div>
+                  <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Heating state</p>
+                    <Toggle className={cls.toggle} size="XL" checked={(tempCurrent.status === 2 || tempCurrent.status === 3) ? true : false} onClick={sendHeatState} />
+                  </div>
                 </div>}
-                {mode !== 4 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Cooling state</p>
-                  <Toggle className={cls.toggle} size="XL" checked={(tempCurrent.status === 1 || tempCurrent.status === 3) ? true : false} onClick={sendCoolState} />
-                </div>}
-                {mode !== 4 && <div className={cls.text_wrapper}>
-                  <p className={cls.edit_text_header}>Heating state</p>
-                  <Toggle className={cls.toggle} size="XL" checked={(tempCurrent.status === 2 || tempCurrent.status === 3) ? true : false} onClick={sendHeatState} />
-                </div>}
+
               </div>
             </div>
             <div className={cls.buttons}>
               {status !== Status.Loading ? (
                 <>
-                  <Button width='170px' size='L' theme='outline-transp' onClick={closeModal}>Cancel</Button>
-                  <Button width='170px' size='L' onClick={sendConfig}>Confirm</Button>
+                  <Button size='L' theme='outline-transp' onClick={closeModal}>Cancel</Button>
+                  <Button size='L' onClick={sendConfig}>Confirm</Button>
                 </>
               ) : (
                 <>
-                  <Button width='170px' size='L' theme='outline' disabled>Cancel</Button>
-                  <Button width='170px' size='L' disabled>
+                  <Button size='L' theme='outline' disabled>Cancel</Button>
+                  <Button size='L' disabled>
                     <Spinner />
                     Loading...
                   </Button>
