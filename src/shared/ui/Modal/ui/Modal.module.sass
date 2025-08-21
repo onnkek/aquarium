@@ -10,7 +10,6 @@
   pointer-events: auto
   z-index: 999
   overflow: hidden
-  
 
 .overlay
   width: 100%
@@ -19,9 +18,9 @@
   display: flex
   justify-content: center
   align-items: center
-  
 
 .content
+
   min-width: 400px
   padding: 24px
   border-radius: var(--radius-xl)
@@ -29,7 +28,9 @@
   border: 1px solid var(--border-primary)
   box-shadow: var(--shadow-xl)
   overflow: hidden
-  
+  margin: 50px 0 0 0
+  @media (max-width: 780px)
+    margin: 0 0 80px 0
 
 .none
   .overlay
@@ -38,8 +39,6 @@
       border: none
       box-shadow: none
       padding: 0
-      
-
 
 .header
   background-color: transparent

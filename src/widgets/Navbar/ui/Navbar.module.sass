@@ -7,7 +7,7 @@
   top: 0
   position: fixed
   color: white
-  background-color: #15192e
+  background-color: #1a1a1a
   z-index: 1000
   width: 100%
   height: 50px
@@ -18,6 +18,7 @@
     top: auto
     height: 80px
     bottom: 0
+    border-top: 1px solid var(--border-primary)
 
   .header_button_text
     @media (max-width: 780px)
@@ -27,6 +28,7 @@
 .header_icon
   width: 20px
   height: 20px
+  
 
 .title
   font-size: 20px
@@ -45,7 +47,7 @@
     display: none
 
 .link
-  color: white
+  color: var(--fg-tertiary)
   font-weight: 600
   text-decoration: none
   margin-right: 10px
@@ -54,6 +56,9 @@
   flex-direction: column
   justify-content: center
   align-items: center
+  -webkit-tap-highlight-color: transparent
+  &:hover
+    color: var(--fg-secondary_hover)
   svg
     display: none
     margin: 0
@@ -61,3 +66,8 @@
     margin: 0
     svg
       display: block
+
+.active
+  color: #3d88f5
+  &:hover
+    color: #3d88f5
