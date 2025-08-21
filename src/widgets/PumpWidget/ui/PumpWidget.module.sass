@@ -1,0 +1,518 @@
+@import "app/styles/variables"
+
+div
+  .wrapper
+    width: 500px
+    height: 100%
+    @media (max-width: 780px)
+      width: 350px
+      height: 100%
+      padding: 20px 25px// 20.08
+
+.edit_group
+  display: flex
+  margin-top: 10px
+
+.edit
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  input
+    background-color: $widget-bgc
+
+.edit_wrapper
+  width: 100%
+  height: 100%
+  flex-shrink: 0
+  @media (max-width: 780px)
+    width: 100%
+
+.edit
+  width: 100%
+  height: 100%
+  .edit_icon
+    margin-right: 20px
+    width: 70px
+    height: 70px
+    align-self: center
+    @media (max-width: 780px)
+      margin-right: 10px
+      width: 40px
+      height: 40px
+  .edit_header
+    margin-bottom: 20px
+    display: flex
+    align-items: center
+    justify-content: flex-start
+  .edit_header_text
+    color: white
+    font-size: 30px
+    @media (max-width: 780px)
+      font-size: 20px
+
+.buttons
+  width: 100%
+  display: flex
+  align-items: flex-end
+  justify-content: space-between
+  margin-top: 20px
+  button
+    width: 100%
+    &:not(:last-child)
+      margin-right: 10px
+    svg
+      stroke: white
+      color: white
+
+.icon
+  width: 80px
+  // margin-right: 10px
+
+.icon_wrapper
+  height: 100%
+  display: flex
+  align-items: center
+
+.toggle
+  flex-shrink: 0
+
+.left
+  // padding-top: 5px
+  width: 100%
+  display: flex
+  // flex-direction: column
+  justify-content: center
+  align-items: center
+
+.right
+  display: flex
+  justify-content: center
+  align-items: center
+  z-index: 1
+  width: 100%
+.edit_right
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: flex-start
+  z-index: 1
+  height: 100%
+  width: 100%
+
+.text_wrapper
+  padding: 15px 30px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  width: 100%
+  &:not(:last-child)
+    margin-bottom: 10px
+
+.text_wrapper_status
+  padding: 15px 30px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  display: flex
+  justify-content: center
+  align-items: center
+  &:not(:last-child)
+    margin-bottom: 10px
+
+.text_header
+  margin: 0
+  color: $widget-text-header
+  font-size: 12px
+
+.edit_text_header
+  margin: 0
+  color: $widget-text
+  font-size: 16px
+  margin-bottom: 10px
+  @media (max-width: 780px)
+    margin-bottom: 5px
+
+.text
+  margin: 0
+  color: white
+  font-size: 22px
+  font-weight: bold
+
+.agree
+  font-weight: bold
+  color: white
+  margin: 10px 0
+  width: 300px
+
+.button_group
+  button
+    height: 40px
+    width: 100%
+    padding: 5px
+
+.edit_text_wrapper,
+.edit_text_wrapper_week
+  padding: 15px 30px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  width: 100%
+  height: 105px
+  &:not(:last-child)
+    margin-right: 10px
+  @media (max-width: 780px)
+    padding: 10px 15px // 20.08
+    margin: 0
+    height: 90px
+    // width: 100%
+
+.edit_text_wrapper_week
+  margin-top: 10px
+  &:not(:last-child)
+    margin-right: 0
+
+div
+  .pumpWidget
+    width: 350px
+    height: 300px
+    // flex-direction: column
+    justify-content: space-between
+    padding: 30px
+    flex-wrap: wrap
+
+.body
+  display: flex
+  width: 100%
+
+.footer
+  display: flex
+  width: 100%
+
+.right_wrapper
+  width: 100%
+
+.text_name_wrapper
+  display: flex
+  align-items: center
+  width: min-content
+  padding: 10px 20px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  &:not(:last-child)
+    margin-bottom: 10px
+
+.text_name
+  margin: 0
+  color: white
+  font-size: 22px
+  font-weight: bold
+  max-width: 120px
+  overflow: hidden
+  height: 30px
+
+.remainder
+  flex-shrink: 0
+
+.dose_wrapper
+  width: 100%
+  margin-top: 10px
+  padding: 10px 20px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  &:not(:last-child)
+    margin-bottom: 10px
+
+.values
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+.progress
+  width: 130px
+  div
+    background-color: #249afa5c
+    div
+      background-color: #249afa
+
+.progress_dose
+  width: 100%
+  div
+    background-color: #fe575744
+    div
+      background-color: #c64141
+
+.value
+  margin: 0
+  color: white
+  font-size: 16px
+
+// .wrapper
+//   width: 510px
+//   height: 100% 
+//   @media (max-width: 780px)
+//     width: 400px
+//     height: 100%
+//     padding: 60px 30px 30px 30px
+
+// .edit
+//   display: flex
+//   flex-direction: column
+//   justify-content: center
+//   align-items: center
+//   input
+//     background-color: $widget-bgc
+
+// .edit_wrapper
+//   width: 200px
+//   height: 100%
+//   flex-shrink: 0
+// .edit
+//   width: 100%
+//   height: 100%
+
+//   .edit_icon
+//     margin-left: 40px
+//     width: 70px
+//     height: 100%
+//     align-self: center
+//     @media (max-width: 780px)
+//       margin-left: 20px
+//       width: 70px
+//       height: 100%
+
+// .buttons
+//   width: 100%
+//   display: flex
+//   align-items: flex-end
+//   justify-content: space-between
+//   margin-top: 30px
+//   button
+//     width: 150px
+//     svg
+//       stroke: white
+//       color: white
+// .icon
+//   width: 100px
+//   height: 100px
+//   margin-right: 10px
+
+// .icon_wrapper
+//   height: 100%
+//   display: flex
+//   align-items: center
+
+// .toggle
+//   flex-shrink: 0
+// .left
+//   padding-top: 5px
+//   height: 100%
+//   display: flex
+//   flex-direction: column
+//   justify-content: space-between
+//   align-items: center
+// .right
+//   display: flex
+//   justify-content: center
+//   align-items: center
+//   z-index: 1
+//   width: 100%
+
+// .edit_right
+//   display: flex
+//   justify-content: space-between
+//   align-items: flex-start
+//   z-index: 1
+//   height: 100%
+//   width: 100%
+
+// .right_wrapper
+//   width: 100%
+
+// .work
+//   display: block
+//   width: 10px
+//   height: 10px
+//   border-radius: 50%
+//   background-color: red
+
+// .text_wrapper
+//   padding: 15px 30px
+//   background-color: $widget-text-wrapper-bgc
+//   opacity: 90%
+//   border-radius: 20px
+//   &:not(:last-child)
+//     margin-bottom: 10px
+
+// .edit_text_wrapper
+//   padding: 10px 20px
+//   background-color: $widget-text-wrapper-bgc
+//   opacity: 90%
+//   border-radius: 20px
+//   width: 100%
+//   &:not(:last-child)
+//     margin-bottom: 10px
+//   @media (max-width: 780px)
+//     width: 170px
+// .volumes
+//   width: 100%
+//   display: flex
+//   align-items: center
+//   justify-content: space-between
+//   margin: 10px 0px
+//   @media (max-width: 780px)
+//     margin-top: -53px
+//   .text_wrapper
+//     padding: 15px 30px
+//     background-color: $widget-text-wrapper-bgc
+//     opacity: 90%
+//     border-radius: 20px
+//     &:not(:last-child)
+//       margin-bottom: 10px
+
+// .volume_text_wrapper1
+//   padding: 10px 20px
+//   background-color: $widget-text-wrapper-bgc
+//   opacity: 90%
+//   border-radius: 20px
+//   width: 202px
+//   &:not(:last-child)
+//     margin-right: 10px
+//   @media (max-width: 780px)
+//     width: 130px
+
+// .volume_text_wrapper2
+//   padding: 10px 20px
+//   background-color: $widget-text-wrapper-bgc
+//   opacity: 90%
+//   border-radius: 20px
+//   width: 200px
+//   align-self: flex-end
+//   &:not(:last-child)
+//     margin-right: 10px
+//   @media (max-width: 780px)
+//     width: 200px
+
+// .group_text_wrapper
+//   margin: 0px
+//   width: 100%
+//   padding: 10px 20px
+//   background-color: $widget-text-wrapper-bgc
+//   opacity: 90%
+//   border-radius: 20px
+
+//   &:not(:last-child)
+//     margin-bottom: 10px
+
+//   @media (max-width: 780px)
+//     width: 100%
+
+// .button_group
+//   button
+//     width: 25%
+//   @media (max-width: 780px)
+//     width: 100%
+//     button
+//       width: 45.5px
+
+// .text_header
+//   margin: 0
+//   color: $widget-text-header
+//   font-size: 12px
+
+// .edit_text_header
+//   margin: 0
+//   color: $widget-text
+//   font-size: 16px
+//   margin-bottom: 10px
+
+// .text
+//   margin: 0
+//   color: white
+//   font-size: 22px
+//   font-weight: bold
+
+// .text_name_wrapper
+//   display: flex
+//   align-items: center
+//   width: min-content
+//   padding: 10px 20px
+//   background-color: $widget-text-wrapper-bgc
+//   opacity: 90%
+//   border-radius: 20px
+//   &:not(:last-child)
+//     margin-bottom: 10px
+
+// .text_name
+//   margin: 0
+//   color: white
+//   font-size: 22px
+//   font-weight: bold
+//   max-width: 120px
+//   overflow: hidden
+//   height: 30px
+
+// .work
+//   display: block
+//   flex-shrink: 0
+//   margin-right: 10px
+//   width: 10px
+//   height: 10px
+//   border-radius: 50%
+//   background-color: red
+
+// .co2
+//   &__form
+//     padding-right: 30px
+//     display: flex
+//     justify-content: space-between
+//   &__label
+//     margin-right: 20px
+//   &__input
+//     display: flex
+//     flex-direction: column
+
+// .body
+//   display: flex
+//   justify-content: center
+//   align-items: center
+//   width: 100%
+
+// .remainder
+//   width: 100%
+
+// .dose_wrapper
+//   width: 100%
+//   margin-top: 10px
+//   padding: 10px 20px
+//   background-color: $widget-text-wrapper-bgc
+//   opacity: 90%
+//   border-radius: 20px
+//   &:not(:last-child)
+//     margin-bottom: 10px
+
+// .values
+//   display: flex
+//   justify-content: space-between
+//   align-items: center
+
+// .progress
+//   width: 130px
+//   div
+//     background-color: #249afa5c
+//     div
+//       background-color: #249afa
+
+// .progress_dose
+//   width: 100%
+//   div
+//     background-color: #fe575744
+//     div
+//       background-color: #c64141
+
+// .value
+//   margin: 0
+//   color: white
+//   font-size: 16px

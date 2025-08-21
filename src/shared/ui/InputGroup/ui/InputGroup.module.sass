@@ -1,0 +1,56 @@
+@import "app/styles/variables"
+
+.inputGroup
+  display: block,
+.inputGroup.group
+
+  div:not(:first-child),
+  input:not(:first-child),
+  button:not(:first-child)
+    --bs-border-width: 1px
+    margin-left: calc(var(--bs-border-width)* -1)
+  div,
+  button
+    &:first-child:not(:last-child),
+    *:first-child:not(:last-child) input
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+  div,
+  button
+    &:last-child:not(:first-child),
+    *:last-child:not(:first-child) input
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
+  div,
+  button
+    &:not(:last-child):not(:first-child),
+    *:not(:last-child):not(:first-child) input
+      border-radius: 0
+
+.input
+  margin-top: 6px
+  display: flex
+
+  button
+    height: 40px
+
+.label
+  font: var(--text-sm-medium)
+  color: var(--text-secondary)
+
+.descr,
+.error
+  margin-top: 6px
+  font: var(--text-sm-regular)
+  color: var(--text-tertiary)
+
+.error
+  color: var(--text-error-primary)
+
+.parentError
+  input,
+  textarea
+    border-color: var(--border-error)
+    &:focus
+      border-color: var(--border-error)
+      box-shadow: var(--ring-error)

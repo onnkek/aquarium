@@ -1,0 +1,185 @@
+@import "app/styles/variables"
+
+div
+  .wrapper
+    width: 500px
+    height: 100%
+    @media (max-width: 780px)
+      width: 350px
+      height: 100%
+      padding: 20px 25px// 20.08
+
+.edit_group
+  display: flex
+  margin-top: 10px
+
+.edit_text_wrapper
+  padding: 15px 30px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  width: 100%
+  height: 105px
+  &:not(:last-child)
+    margin-right: 10px
+  @media (max-width: 780px)
+    padding: 10px 15px // 20.08
+    margin: 0
+    height: 90px
+    // width: 100%
+
+.edit
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  input
+    background-color: $widget-bgc
+
+.edit_wrapper
+  width: 100%
+  height: 100%
+  flex-shrink: 0
+  @media (max-width: 780px)
+    width: 100%
+
+.edit
+  width: 100%
+  height: 100%
+  .edit_icon
+    margin-right: 20px
+    width: 70px
+    height: 70px
+    align-self: center
+    @media (max-width: 780px)
+      margin-right: 10px
+      width: 40px
+      height: 40px
+  .edit_header
+    margin-bottom: 20px
+    display: flex
+    align-items: center
+    justify-content: flex-start
+  .edit_header_text
+    color: white
+    font-size: 30px
+    @media (max-width: 780px)
+      font-size: 20px
+
+.buttons
+  width: 100%
+  display: flex
+  align-items: flex-end
+  justify-content: space-between
+  margin-top: 20px
+  button
+    width: 100%
+    &:not(:last-child)
+      margin-right: 10px
+    svg
+      stroke: white
+      color: white
+
+.icon
+  width: 70px
+  margin-right: 10px
+
+.icon_wrapper
+  height: 100%
+  display: flex
+  align-items: center
+
+.toggle
+  flex-shrink: 0
+
+.left
+  padding-top: 5px
+  height: 100%
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+.right
+  display: flex
+  justify-content: space-between
+  align-items: center
+  z-index: 1
+  height: 100%
+.edit_right
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: flex-start
+  z-index: 1
+  height: 100%
+  width: 100%
+
+.text_wrapper
+  padding: 15px 30px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  &:not(:last-child)
+    margin-bottom: 10px
+
+.text_wrapper_status
+  padding: 15px 30px
+  background-color: $widget-text-wrapper-bgc
+  opacity: 90%
+  border-radius: 20px
+  display: flex
+  justify-content: center
+  align-items: center
+  &:not(:last-child)
+    margin-bottom: 10px
+
+.text_header
+  margin: 0
+  color: $widget-text-header
+  font-size: 12px
+
+.edit_text_header
+  margin: 0
+  color: $widget-text
+  font-size: 16px
+  margin-bottom: 10px
+  @media (max-width: 780px)
+    margin-bottom: 5px
+
+.text
+  margin: 0
+  color: white
+  font-size: 22px
+  font-weight: bold
+
+.agree
+  font-weight: bold
+  color: white
+  margin: 10px 0
+  width: 300px
+
+.cool
+  width: 40px
+  height: 40px
+
+.heat
+  width: 40px
+  height: 40px
+
+.cool_animation
+  animation: 2s linear 0s infinite normal coolan
+
+.heat_animation
+  animation: 1s ease-in-out 0s infinite alternate-reverse heatan
+
+@keyframes coolan
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+
+@keyframes heatan
+  from
+    transform: scale(0.9)
+  to
+    transform: scale(1)

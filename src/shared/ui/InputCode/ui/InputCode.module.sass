@@ -1,0 +1,43 @@
+@import "app/styles/variables"
+  
+.inputCode
+  display: flex
+  justify-content: center
+  input
+    text-align: center
+    font-weight: 500
+    &::placeholder
+      color: var(--text-placeholder_subtle)
+.divide
+  text-align: center
+  font: var(--display-xl-medium)
+  color: var(--text-placeholder_subtle)
+
+.s
+  input
+    margin-right: 8px
+    padding: 2px 8px
+    width: 64px
+    height: 64px
+    font: var(--display-lg-medium)
+  .divide
+    margin: -6px 8px 0px 0px
+
+.m
+  input
+    padding: 10px 8px
+    width: 80px
+    height: 80px
+    margin-right: 12px
+    font: var(--display-lg-medium)
+  .divide
+    margin: 2px 12px 0px 0px
+.l
+  input
+    padding: 12px 8px
+    width: 96px
+    height: 96px
+    margin-right: 12px
+    font: var(--display-xl-medium)
+  .divide
+    margin: 10px 12px 0px 0px

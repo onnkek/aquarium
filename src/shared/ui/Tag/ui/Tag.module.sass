@@ -1,0 +1,115 @@
+@import "app/styles/variables"
+  
+.tag
+  display: inline-flex
+  align-items: center
+  background-color: var(--bg-primary)
+  border: 1px solid var(--border-primary)
+  border-radius: var(--radius-sm)
+  color: var(--text-secondary)
+  user-select: none
+
+.tag.s
+  padding: 3px 8px
+  font: var(--text-xs-medium)
+  .counter
+    padding: 0px 4.7px
+  .cross
+    padding: 1.5px
+    width: 10px
+    height: 10px
+    margin-left: 5px
+  .dot,
+  .icon
+    margin-left: 0px
+    margin-right: 4px
+
+.tag.m
+  padding: 2px 9px
+  font: var(--text-sm-medium)
+  .counter
+    padding: 0px 5.7px
+  .cross
+    padding: 2px
+    width: 12px
+    height: 12px
+    margin-left: 5px
+  .dot,
+  .icon
+    margin-left: 1px
+    margin-right: 5px
+.tag.l
+  padding: 3px 10px
+  font: var(--text-sm-medium)
+  .counter
+    padding: 0px 6.1px
+  .cross
+    padding: 2.5px
+    width: 14px
+    height: 14px
+    margin-left: 6px
+  .dot,
+  .icon
+    margin-left: 2px
+    margin-right: 6px
+
+.tag.s.parentCross
+  padding-right: 6px
+.tag.m.parentCross
+  padding-right: 6px
+.tag.l.parentCross
+  padding-right: 7px
+
+.tag.s.parentCounter,
+.tag.m.parentCounter,
+.tag.l.parentCounter
+  padding-right: 4px
+
+.tag.s.parentDot
+  padding-left: 6px
+.tag.m.parentDot
+  padding-left: 7px
+.tag.l.parentDot
+  padding-left: 9px
+
+.tag.parentCounter
+  padding-right: 4px
+
+.tag.parentCheckbox,
+.tag.parentCheckbox.parentIcon,
+.tag.parentCheckbox.parentDot
+  padding-left: 5px
+
+.tag.parentIcon
+  padding-left: 4px
+
+.tag.parentDot
+  padding-left: 6px
+
+.cross
+  stroke: #98A2B3
+
+.counter
+  display: flex
+  align-items: center
+  justify-content: center
+  background-color: var(--bg-tertiary)
+  border-radius: 3px
+  margin-left: 4px
+  color: var(--text-secondary)
+  font-weight: 500
+
+.checkbox
+  margin-right: 4px
+
+.icon
+  width: 16px
+  height: 16px
+
+.dot
+  padding: 1px
+  width: 8px
+  height: 8px
+  border-radius: var(--radius-full)
+  background-color: var(--fg-success-primary)
+  margin-right: 4px
