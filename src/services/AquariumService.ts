@@ -85,7 +85,7 @@ export default class AquariumService {
     return await response.text()
   }
   clearSystemLogs = async () => {
-    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiSystemLogs}/${this._apiClearLogs}`, {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiClearLogs}/${this._apiSystemLogs}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -94,7 +94,7 @@ export default class AquariumService {
     return await response.text()
   }
   clearRelayLogs = async () => {
-    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiRelayLogs}/${this._apiClearLogs}`, {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiClearLogs}/${this._apiRelayLogs}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -103,7 +103,7 @@ export default class AquariumService {
     return await response.text()
   }
   clearDoserLogs = async () => {
-    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiDoserLogs}/${this._apiClearLogs}`, {
+    const response = await fetch(`${this._apiBase}/${this._apiLogs}/${this._apiClearLogs}/${this._apiDoserLogs}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"

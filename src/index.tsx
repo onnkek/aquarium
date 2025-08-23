@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import 'app/styles/index.sass';
 import App from 'app/App';
@@ -11,11 +11,21 @@ import ThemeProvider from 'app/providers/ThemeProvider/ui/ThemeProvider';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const RootComponent = () => {
+  useEffect(() => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+      preloader.style.display = 'none'; // Hide the preloader
+    }
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+  return <App />;
+};
 root.render(
   <BrowserRouter>
     <Provider store={store}>
       <ThemeProvider>
-        <App />
+        <RootComponent />
       </ThemeProvider>
     </Provider>
   </BrowserRouter>

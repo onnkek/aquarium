@@ -68,18 +68,18 @@ export const TempWidget = ({ prop }: TempWidgetProps) => {
     await dispatch(updateTemp({ setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertCoolMode(mode) }))
     if (status === Status.Succeeded) {
       setMode(invertCoolMode(mode))
-      setTimeout(() => {
+      // setTimeout(() => {
         dispatch(getCurrentInfo())
-      }, temp.timeout * 1000 + 200);
+      // }, temp.timeout * 1000 + 200);
     }
   }
   const sendHeatState = async () => {
     await dispatch(updateTemp({ setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertHeatMode(mode) }))
     if (status === Status.Succeeded) {
       setMode(invertHeatMode(mode))
-      setTimeout(() => {
+      // setTimeout(() => {
         dispatch(getCurrentInfo())
-      }, temp.timeout * 1000 + 200);
+      // }, temp.timeout * 1000 + 200);
     }
   }
 

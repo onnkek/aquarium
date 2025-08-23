@@ -52,38 +52,40 @@ export const LogsPage = ({ className }: LogsPageProps) => {
   }
 
   useEffect(() => {
-    dispatch(switchModal(true));
     dispatch(getSystemLogs())
-    dispatch(getRelayLogs())
-    dispatch(getDoserLogs())
   }, [dispatch])
-  // useEffect(() => {
-  //   if (containerRef.current) {
-  //     containerRef.current.scrollTop = containerRef.current.scrollHeight;
-  //   }
-  // }, [closeLogs]);
+
+  useEffect(() => {
+    if (containerRef.current && logStatus) {
+      console.log("test")
+      containerRef.current.scrollIntoView({ behavior: "auto" });
+    }
+  }, [logStatus]);
+
   return (
     <Page className={classNames(cls.logsPage, {}, [className])}>
       <div className={cls.log_body}>
         <div className={cls.log_header}>
-          <h2 className={cls.log_title}>Logs</h2>
-          <Dropdown className="" select={selectLog} items={[
-            [{
-              content: 'System',
-              onClick: selectSystemLogs
-            },
-            {
-              content: 'Relay',
-              onClick: selectRelayLogs
-            },
-            {
-              content: 'Doser',
-              onClick: selectDoserLogs
-            }]
-          ]} />
-          <Button theme='clear' onClick={clearLogs}>Clear</Button>
+          <div className={cls.buttons}>
+            <Dropdown select={selectLog} items={[
+              [{
+                content: 'System',
+                onClick: selectSystemLogs
+              },
+              {
+                content: 'Relay',
+                onClick: selectRelayLogs
+              },
+              {
+                content: 'Doser',
+                onClick: selectDoserLogs
+              }]
+            ]} />
+            <Button theme='clear' onClick={clearLogs}>Clear</Button>
+          </div>
+
         </div>
-        <div ref={containerRef} className={cls.log_container}>
+        <div className={cls.log_container}>
           {logStatus === Status.Loading &&
             <div className={cls.spinner_container}>
               <Spinner className={cls.spinner} />
@@ -99,6 +101,7 @@ export const LogsPage = ({ className }: LogsPageProps) => {
             <pre className={cls.log_text}>{logs.doser}</pre>
           }
         </div>
+        <div ref={containerRef} />
       </div>
     </Page>
   );

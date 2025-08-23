@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import cls from './PumpWidget.module.sass'
-import { getCurrentInfo, IPumpPeriod, switchModal, updateDoser } from "../../../redux/AquariumSlice"
+import { getConfig, getCurrentInfo, IPumpPeriod, resetPump, switchModal, updateDoser } from "../../../redux/AquariumSlice"
 import { useAppDispatch, useAppSelector } from "models/Hook"
 import { Modal } from "shared/ui/Modal"
 import { Input } from "shared/ui/Input"
@@ -30,10 +30,10 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
   const [time, setTime] = useState(pump.time)
   const [currentVolume, setCurrentVolume] = useState(pump.currentVolume)
   const [maxVolume, setMaxVolume] = useState(pump.maxVolume)
-  const [dose, setDose] = useState(pump.dose)
+  const [dosage, setDosage] = useState(pump.dosage)
+  const [rate, setRate] = useState(pump.rate)
   const [period, setPeriod] = useState<IPumpPeriod>(pump.period)
   const [mode, setMode] = useState(pump.mode)
-
 
   const openModal = () => {
     dispatch(switchModal(true));
@@ -41,7 +41,8 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
     setTime(pump.time)
     setCurrentVolume(pump.currentVolume)
     setMaxVolume(pump.maxVolume)
-    setDose(pump.dose)
+    setDosage(pump.dosage)
+    setRate(pump.rate)
     setPeriod(pump.period)
     setMode(pump.mode)
     setShowModal(true);
@@ -56,13 +57,15 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
       number: number, config:
       {
         name: name,
-        dose: dose,
+        dosage: dosage,
         time: time,
         currentVolume: currentVolume,
         maxVolume: maxVolume,
         period: period,
         mode: invertMode(mode),
-        status: pump.status
+        status: pump.status,
+        rate: rate,
+        hasRunToday: pump.hasRunToday
       }
     }))
     if (status === Status.Succeeded) {
@@ -73,18 +76,29 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
       }, 200);
     }
   }
+
+  const resetPumpHandler = () => {
+    dispatch(resetPump({ number: number }));
+    closeModal();
+    setTimeout(() => {
+      dispatch(getConfig())
+    }, 500);
+  }
+
   const sendConfig = async () => {
     await dispatch(updateDoser({
       number: number, config:
       {
         name: name,
-        dose: dose,
+        dosage: dosage,
         time: time,
         currentVolume: currentVolume,
         maxVolume: maxVolume,
         period: period,
         mode: mode,
-        status: pump.status
+        status: pump.status,
+        rate: rate,
+        hasRunToday: pump.hasRunToday
       }
     }))
     if (status === Status.Succeeded) {
@@ -92,7 +106,8 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
       setTime(pump.time)
       setCurrentVolume(pump.currentVolume)
       setMaxVolume(pump.maxVolume)
-      setDose(pump.dose)
+      setDosage(pump.dosage)
+      setRate(pump.rate)
       setPeriod(pump.period)
       setMode(pump.mode)
       closeModal()
@@ -112,7 +127,6 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
           <div className={cls.right_wrapper}>
 
             <div className={cls.text_name_wrapper}>
-              {/* {pumpCurrent.status ? <span className={cls.work} /> : <></>} */}
               <p className={cls.text_name}>{pump.name}</p>
             </div>
             <div className={cls.text_wrapper}>
@@ -120,7 +134,7 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
               <div className={cls.remainder}>
                 <p className={cls.text_header}>Remainder</p>
                 <div className={cls.values}>
-                  <p className={cls.value}>{(pump.currentVolume / pump.dose).toFixed(0)} days</p>
+                  <p className={cls.value}>{(pump.currentVolume / pump.dosage).toFixed(0)} days</p>
                   <p className={cls.value}>{pump.currentVolume.toFixed(0)} ml</p>
                 </div>
                 <Progress className={cls.progress} text="none" value={pump.currentVolume / pump.maxVolume * 100} />
@@ -135,10 +149,10 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
           <p className={cls.text_header}>Dose</p>
           <p className={cls.value}>{getPeriodString(pump.period)}</p>
           <div className={cls.values}>
-            <p className={cls.value}>{pump.status} / {pump.dose} ml</p>
+            <p className={cls.value}>{pump.dosage * pumpCurrent.introduced / 100} / {pump.dosage} ml</p>
             <p className={cls.value}>{pump.time}</p>
           </div>
-          <Progress className={cls.progress_dose} text="none" value={pump.status / pump.dose * 100} />
+          <Progress className={cls.progress_dose} text="none" value={pumpCurrent.introduced} />
         </div>
       </div>
 
@@ -170,22 +184,31 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
                     ]} />
                   </div>
                   {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Reset day</p>
+                    <Button onClick={resetPumpHandler} className={cls.resetButton}>Reset</Button>
+                  </div>}
+                </div>
+
+                <div className={cls.edit_group}>
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
                     <p className={cls.edit_text_header}>Name</p>
                     <Input value={name} onChange={(e) => setName(e.target.value)} />
+                  </div>}
+                  {mode === 2 && <div className={cls.edit_text_wrapper}>
+                    <p className={cls.edit_text_header}>Pump will work</p>
+                    <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
                   </div>}
                 </div>
 
                 <div className={cls.edit_group}>
                   {mode === 2 && <div className={cls.edit_text_wrapper}>
                     <p className={cls.edit_text_header}>Dosage</p>
-                    <Input type="number" value={dose} onChange={(e) => setDose(Number(e.target.value))} />
+                    <Input type="number" value={dosage} onChange={(e) => setDosage(Number(e.target.value))} />
                   </div>}
-
                   {mode === 2 && <div className={cls.edit_text_wrapper}>
-                    <p className={cls.edit_text_header}>Pump will work</p>
-                    <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+                    <p className={cls.edit_text_header}>Rate (ml/sec)</p>
+                    <Input type="number" value={rate} onChange={(e) => setRate(Number(e.target.value))} />
                   </div>}
-
                   {mode !== 2 && <div className={cls.edit_text_wrapper}>
                     <p className={cls.edit_text_header}>State</p>
                     <Toggle className={cls.toggle} size="XL" checked={pumpCurrent.status} onClick={sendPumpState} />

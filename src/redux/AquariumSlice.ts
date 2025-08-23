@@ -31,11 +31,14 @@ interface ISystemInfo {
 interface IStatusInfo {
   status: boolean
 }
-
+interface IPunpInfo {
+  status: boolean,
+  introduced: number
+}
 
 interface ICurrentInfo {
   system: ISystemInfo,
-  doser: IStatusInfo[],
+  doser: IPunpInfo[],
   co2: IStatusInfo,
   o2: IStatusInfo,
   light: IStatusInfo,
@@ -63,13 +66,15 @@ export interface IPumpPeriod {
 
 export interface IPumpConfig {
   name: string,
-  dose: number,
+  dosage: number,
+  rate: number,
   period: IPumpPeriod,
   time: string,
   currentVolume: number,
   maxVolume: number,
-  mode: number // 0 - off, 1 - on, 2 - auto,
-  status: number
+  mode: number, // 0 - off, 1 - on, 2 - auto,
+  status: number,
+  hasRunToday: boolean
 }
 export interface IPumpStatus {
   status: number
@@ -184,16 +189,20 @@ const initialState: IAquarium = {
     },
     doser: [
       {
-        status: false
+        status: false,
+        introduced: 0
       },
       {
-        status: false
+        status: false,
+        introduced: 0
       },
       {
-        status: false
+        status: false,
+        introduced: 0
       },
       {
-        status: false
+        status: false,
+        introduced: 0
       }
     ],
     co2: {
@@ -225,7 +234,6 @@ const initialState: IAquarium = {
     doser: [
       {
         name: "",
-        dose: 0,
         period: {
           su: false,
           mo: false,
@@ -239,11 +247,13 @@ const initialState: IAquarium = {
         currentVolume: 0,
         maxVolume: 0,
         mode: 0,
-        status: 0
+        status: 0,
+        dosage: 0,
+        rate: 0,
+        hasRunToday: false
       },
       {
         name: "",
-        dose: 0,
         period: {
           su: false,
           mo: false,
@@ -257,11 +267,13 @@ const initialState: IAquarium = {
         currentVolume: 0,
         maxVolume: 0,
         mode: 0,
-        status: 0
+        status: 0,
+        dosage: 0,
+        rate: 0,
+        hasRunToday: false
       },
       {
         name: "",
-        dose: 0,
         period: {
           su: false,
           mo: false,
@@ -275,11 +287,13 @@ const initialState: IAquarium = {
         currentVolume: 0,
         maxVolume: 0,
         mode: 0,
-        status: 0
+        status: 0,
+        dosage: 0,
+        rate: 0,
+        hasRunToday: false
       },
       {
         name: "",
-        dose: 0,
         period: {
           su: false,
           mo: false,
@@ -293,7 +307,10 @@ const initialState: IAquarium = {
         currentVolume: 0,
         maxVolume: 0,
         mode: 0,
-        status: 0
+        status: 0,
+        dosage: 0,
+        rate: 0,
+        hasRunToday: false
       }
     ],
     co2: {
@@ -505,6 +522,14 @@ const AquariumSlice = createSlice({
         state.status = Status.Succeeded
       })
 
+      .addCase(resetPump.pending, (state: IAquarium) => {
+        state.status = Status.Loading
+      })
+      .addCase(resetPump.fulfilled, (state: IAquarium, action) => {
+        state.config = action.payload
+        state.status = Status.Succeeded
+      })
+
   }
 })
 
@@ -557,7 +582,7 @@ export const clearDoserLogs = createAsyncThunk(
   'aquarium/clearDoserLogs',
 
   async () => {
-    return await new AquariumService().getDoserLogs()
+    return await new AquariumService().clearDoserLogs()
   })
 
 export const updateSystem = createAsyncThunk<IConfig, { update: number }, { state: RootState }>(
@@ -743,12 +768,35 @@ export const updateDoser = createAsyncThunk<IConfig, { number: number, config: I
     newConfig.doser = { ...state.aquarium.config.doser }
     newConfig.doser[payload.number] = { ...state.aquarium.config.doser[payload.number] }
     newConfig.doser[payload.number].name = payload.config.name
-    newConfig.doser[payload.number].dose = payload.config.dose
+    newConfig.doser[payload.number].dosage = payload.config.dosage
+    newConfig.doser[payload.number].rate = payload.config.rate
+    newConfig.doser[payload.number].hasRunToday = payload.config.hasRunToday
     newConfig.doser[payload.number].time = payload.config.time
     newConfig.doser[payload.number].currentVolume = payload.config.currentVolume
     newConfig.doser[payload.number].maxVolume = payload.config.maxVolume
     newConfig.doser[payload.number].period = payload.config.period
     newConfig.doser[payload.number].mode = payload.config.mode
+
+    const response = await new AquariumService().updateConfig(newConfig)
+
+    if (!response.ok) {
+      return rejectWithValue('Can\'t delete post! Server error!')
+    }
+    return newConfig
+
+  }
+)
+
+export const resetPump = createAsyncThunk<IConfig, { number: number }, { state: RootState }>(
+
+  'aquarium/resetPump',
+  async (payload: { number: number }, { rejectWithValue, getState, dispatch }) => {
+    const state = getState()
+
+    const newConfig: IConfig = { ...state.aquarium.config }
+    newConfig.doser = { ...state.aquarium.config.doser }
+    newConfig.doser[payload.number] = { ...state.aquarium.config.doser[payload.number] }
+    newConfig.doser[payload.number].hasRunToday = !newConfig.doser[payload.number].hasRunToday
 
     const response = await new AquariumService().updateConfig(newConfig)
 

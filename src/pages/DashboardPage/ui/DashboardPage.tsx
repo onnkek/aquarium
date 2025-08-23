@@ -3,7 +3,7 @@ import cls from './DashboardPage.module.sass';
 import { useAppDispatch, useAppSelector } from "models/Hook";
 import { Status } from "models/Status";
 import { useEffect } from "react";
-import { getCurrentInfo } from "../../../redux/AquariumSlice";
+import { getConfig, getCurrentInfo } from "../../../redux/AquariumSlice";
 import { PumpWidget } from "widgets/PumpWidget/";
 import { Page } from "widgets/Page";
 import { ARGBWidget } from "widgets/ARGBWidget";
@@ -25,12 +25,12 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   const updateStatus = useAppSelector(state => state.aquarium.updateStatus)
 
 
-  // useEffect(() => {
-  //   dispatch(getCurrentInfo())
-  //   dispatch(getConfig())
-  // }, [dispatch])
+  useEffect(() => {
+    dispatch(getCurrentInfo())
+    dispatch(getConfig())
+  }, [dispatch])
 
-
+ console.log(openModal)
   useEffect(() => {
     if (updateStatus === Status.Succeeded && system.update > 0 && !openModal) {
 

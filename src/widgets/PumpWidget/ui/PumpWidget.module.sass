@@ -78,8 +78,9 @@ div
   flex-shrink: 0
 
 .left
+  padding: 0px 15px 0px 10px
   // padding-top: 5px
-  width: 100%
+  // width: 100%
   display: flex
   // flex-direction: column
   justify-content: center
@@ -91,6 +92,7 @@ div
   align-items: center
   z-index: 1
   width: 100%
+
 .edit_right
   display: flex
   flex-direction: column
@@ -201,7 +203,7 @@ div
   opacity: 90%
   border-radius: 20px
   &:not(:last-child)
-    margin-bottom: 10px
+    margin-bottom: 6px
 
 .text_name
   margin: 0
@@ -249,270 +251,16 @@ div
   color: white
   font-size: 16px
 
-// .wrapper
-//   width: 510px
-//   height: 100% 
-//   @media (max-width: 780px)
-//     width: 400px
-//     height: 100%
-//     padding: 60px 30px 30px 30px
+.resetButton
+  width: 100%
+  background-color: var(--bg-error-primary)
+  border-color: var(--border-error)
 
-// .edit
-//   display: flex
-//   flex-direction: column
-//   justify-content: center
-//   align-items: center
-//   input
-//     background-color: $widget-bgc
+  &:hover
+    background-color: var(--bg-error-solid)
+    border-color: var(--border-error-solid)
+  &:active,
+  &:focus-visible
+    box-shadow: var(--ring-error-shadow-xs)
 
-// .edit_wrapper
-//   width: 200px
-//   height: 100%
-//   flex-shrink: 0
-// .edit
-//   width: 100%
-//   height: 100%
-
-//   .edit_icon
-//     margin-left: 40px
-//     width: 70px
-//     height: 100%
-//     align-self: center
-//     @media (max-width: 780px)
-//       margin-left: 20px
-//       width: 70px
-//       height: 100%
-
-// .buttons
-//   width: 100%
-//   display: flex
-//   align-items: flex-end
-//   justify-content: space-between
-//   margin-top: 30px
-//   button
-//     width: 150px
-//     svg
-//       stroke: white
-//       color: white
-// .icon
-//   width: 100px
-//   height: 100px
-//   margin-right: 10px
-
-// .icon_wrapper
-//   height: 100%
-//   display: flex
-//   align-items: center
-
-// .toggle
-//   flex-shrink: 0
-// .left
-//   padding-top: 5px
-//   height: 100%
-//   display: flex
-//   flex-direction: column
-//   justify-content: space-between
-//   align-items: center
-// .right
-//   display: flex
-//   justify-content: center
-//   align-items: center
-//   z-index: 1
-//   width: 100%
-
-// .edit_right
-//   display: flex
-//   justify-content: space-between
-//   align-items: flex-start
-//   z-index: 1
-//   height: 100%
-//   width: 100%
-
-// .right_wrapper
-//   width: 100%
-
-// .work
-//   display: block
-//   width: 10px
-//   height: 10px
-//   border-radius: 50%
-//   background-color: red
-
-// .text_wrapper
-//   padding: 15px 30px
-//   background-color: $widget-text-wrapper-bgc
-//   opacity: 90%
-//   border-radius: 20px
-//   &:not(:last-child)
-//     margin-bottom: 10px
-
-// .edit_text_wrapper
-//   padding: 10px 20px
-//   background-color: $widget-text-wrapper-bgc
-//   opacity: 90%
-//   border-radius: 20px
-//   width: 100%
-//   &:not(:last-child)
-//     margin-bottom: 10px
-//   @media (max-width: 780px)
-//     width: 170px
-// .volumes
-//   width: 100%
-//   display: flex
-//   align-items: center
-//   justify-content: space-between
-//   margin: 10px 0px
-//   @media (max-width: 780px)
-//     margin-top: -53px
-//   .text_wrapper
-//     padding: 15px 30px
-//     background-color: $widget-text-wrapper-bgc
-//     opacity: 90%
-//     border-radius: 20px
-//     &:not(:last-child)
-//       margin-bottom: 10px
-
-// .volume_text_wrapper1
-//   padding: 10px 20px
-//   background-color: $widget-text-wrapper-bgc
-//   opacity: 90%
-//   border-radius: 20px
-//   width: 202px
-//   &:not(:last-child)
-//     margin-right: 10px
-//   @media (max-width: 780px)
-//     width: 130px
-
-// .volume_text_wrapper2
-//   padding: 10px 20px
-//   background-color: $widget-text-wrapper-bgc
-//   opacity: 90%
-//   border-radius: 20px
-//   width: 200px
-//   align-self: flex-end
-//   &:not(:last-child)
-//     margin-right: 10px
-//   @media (max-width: 780px)
-//     width: 200px
-
-// .group_text_wrapper
-//   margin: 0px
-//   width: 100%
-//   padding: 10px 20px
-//   background-color: $widget-text-wrapper-bgc
-//   opacity: 90%
-//   border-radius: 20px
-
-//   &:not(:last-child)
-//     margin-bottom: 10px
-
-//   @media (max-width: 780px)
-//     width: 100%
-
-// .button_group
-//   button
-//     width: 25%
-//   @media (max-width: 780px)
-//     width: 100%
-//     button
-//       width: 45.5px
-
-// .text_header
-//   margin: 0
-//   color: $widget-text-header
-//   font-size: 12px
-
-// .edit_text_header
-//   margin: 0
-//   color: $widget-text
-//   font-size: 16px
-//   margin-bottom: 10px
-
-// .text
-//   margin: 0
-//   color: white
-//   font-size: 22px
-//   font-weight: bold
-
-// .text_name_wrapper
-//   display: flex
-//   align-items: center
-//   width: min-content
-//   padding: 10px 20px
-//   background-color: $widget-text-wrapper-bgc
-//   opacity: 90%
-//   border-radius: 20px
-//   &:not(:last-child)
-//     margin-bottom: 10px
-
-// .text_name
-//   margin: 0
-//   color: white
-//   font-size: 22px
-//   font-weight: bold
-//   max-width: 120px
-//   overflow: hidden
-//   height: 30px
-
-// .work
-//   display: block
-//   flex-shrink: 0
-//   margin-right: 10px
-//   width: 10px
-//   height: 10px
-//   border-radius: 50%
-//   background-color: red
-
-// .co2
-//   &__form
-//     padding-right: 30px
-//     display: flex
-//     justify-content: space-between
-//   &__label
-//     margin-right: 20px
-//   &__input
-//     display: flex
-//     flex-direction: column
-
-// .body
-//   display: flex
-//   justify-content: center
-//   align-items: center
-//   width: 100%
-
-// .remainder
-//   width: 100%
-
-// .dose_wrapper
-//   width: 100%
-//   margin-top: 10px
-//   padding: 10px 20px
-//   background-color: $widget-text-wrapper-bgc
-//   opacity: 90%
-//   border-radius: 20px
-//   &:not(:last-child)
-//     margin-bottom: 10px
-
-// .values
-//   display: flex
-//   justify-content: space-between
-//   align-items: center
-
-// .progress
-//   width: 130px
-//   div
-//     background-color: #249afa5c
-//     div
-//       background-color: #249afa
-
-// .progress_dose
-//   width: 100%
-//   div
-//     background-color: #fe575744
-//     div
-//       background-color: #c64141
-
-// .value
-//   margin: 0
-//   color: white
-//   font-size: 16px
+    
