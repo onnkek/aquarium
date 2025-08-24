@@ -12,6 +12,7 @@ import { ReactComponent as TempIcon } from 'shared/assets/icons/aquarium/temp2.s
 import { ReactComponent as HumidityIcon } from 'shared/assets/icons/aquarium/humidity.svg';
 import { ReactComponent as CalendarIcon } from 'shared/assets/icons/aquarium/calendar.svg';
 import { ReactComponent as UptimeIcon } from 'shared/assets/icons/aquarium/arrow-up.svg';
+import { ReactComponent as RAMIcon } from 'shared/assets/icons/aquarium/ram.svg';
 import { Status } from "models/Status"
 import { getCurrentInfo, switchModal, updateDateTime, updateSystem } from "../../../redux/AquariumSlice"
 import { Progress } from "shared/ui/Progress"
@@ -93,13 +94,6 @@ export const SystemWidget = ({ prop }: SystemWidgetProps) => {
       </div>
       <div className={cls.left}>
         <div className={cls.text_wrapper}>
-          <ChipIcon className={cls.icon} />
-          <div>
-            <p className={cls.text_header}>Chip temperature</p>
-            <p className={cls.text}>{systemCurrent.chipTemp.toFixed(2)} ℃</p>
-          </div>
-        </div>
-        <div className={cls.text_wrapper}>
           <ArrowClockwiseIcon className={cls.icon} />
           <div>
             <p className={cls.text_header}>Update time</p>
@@ -116,10 +110,27 @@ export const SystemWidget = ({ prop }: SystemWidgetProps) => {
               <p className={cls.space_item}>{(systemCurrent.freeSpace / 1024 / 1024 / 1024).toFixed(1)} GB</p>
             </div>
           </div>
-
+        </div>
+        <div className={cls.text_wrapper}>
+          <RAMIcon className={cls.icon} />
+          <div className={cls.space_right}>
+            <p className={cls.text_header}>RAM</p>
+            <Progress className={cls.progress} text="none" value={(systemCurrent.heapSize - systemCurrent.freeHeap) / systemCurrent.heapSize * 100} />
+            <div className={cls.space_items}>
+              <p className={cls.space_item}>{((systemCurrent.heapSize - systemCurrent.freeHeap) / 1024).toFixed(1)} KB</p>
+              <p className={cls.space_item}>{(systemCurrent.heapSize / 1024).toFixed(1)} KB</p>
+            </div>
+          </div>
         </div>
       </div>
       <div className={cls.right}>
+        <div className={cls.text_wrapper}>
+          <ChipIcon className={cls.icon} />
+          <div>
+            <p className={cls.text_header}>Chip temperature</p>
+            <p className={cls.text}>{systemCurrent.chipTemp.toFixed(2)} ℃</p>
+          </div>
+        </div>
         <div className={cls.text_wrapper}>
           <TempIcon className={cls.icon} />
           <div>

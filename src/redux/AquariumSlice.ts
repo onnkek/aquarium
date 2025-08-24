@@ -25,7 +25,9 @@ interface ISystemInfo {
   totalSpace: number,
   usedSpace: number,
   freeSpace: number,
-  outside: IOutside
+  outside: IOutside,
+  freeHeap: number,
+  heapSize: number
 }
 
 interface IStatusInfo {
@@ -185,7 +187,9 @@ const initialState: IAquarium = {
       outside: {
         temp: 0,
         hum: 0
-      }
+      },
+      freeHeap: 0,
+      heapSize: 0
     },
     doser: [
       {

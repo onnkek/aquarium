@@ -4,12 +4,10 @@
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Aquarium admin panel" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-visual">
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -26,7 +24,6 @@
     -->
   <title>Aquarium</title>
   <style>
-    /* Basic styling for the preloader */
     #preloader {
       position: fixed;
       top: 0;
@@ -41,31 +38,219 @@
       z-index: 9999;
     }
 
-    .spinner {
-      /* Add your spinner styles here (e.g., CSS animations for a loading spinner) */
-      border: 4px solid rgba(0, 0, 0, 0.1);
-      border-top: 4px solid #3498db;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
+    .container-loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
 
-    @keyframes spin {
+    .bowl {
+      height: 200px;
+      width: 200px;
+      border-radius: 50%;
+      border: 2px solid white;
+      position: relative;
+      animation: move 8s infinite;
+    }
+
+    @keyframes move {
       0% {
-        transform: rotate(0deg);
+        transform: rotate(0);
+      }
+
+      33% {
+        transform: rotate(-20deg);
+      }
+
+      67% {
+        transform: rotate(20deg);
       }
 
       100% {
-        transform: rotate(360deg);
+        transform: rotate(0);
       }
+    }
+
+    .bowl:after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 26px;
+      border-radius: 50%;
+      background: #060b18;
+      border: 2px solid white;
+      left: 50%;
+      top: -4px;
+      transform: translatex(-50%);
+      z-index: 100;
+    }
+
+    .water {
+      height: 190px;
+      width: 190px;
+      background: linear-gradient(to bottom, #060b18 0% 50%, #2389da 50% 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: 7px;
+      left: 7px;
+      animation: move1 8s infinite;
+      z-index: -100;
+    }
+
+    @keyframes move1 {
+      0% {
+        transform: rotate(0);
+      }
+
+      33% {
+        transform: rotate(20deg);
+      }
+
+      67% {
+        transform: rotate(-20deg);
+      }
+
+      100% {
+        transform: rotate(0);
+      }
+    }
+
+    .water:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 30px;
+      background: #0f5e9c;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .body {
+      width: 70px;
+      height: 36px;
+      background: orange;
+      border-radius: 40% 50% 50% 40%;
+      bottom: 30px;
+      right: 60px;
+      position: absolute;
+    }
+
+    .fin {
+      width: 40px;
+      height: 24px;
+      position: absolute;
+      background: #ef8a1f;
+      border-radius: 50%;
+    }
+
+    .fin.top {
+      z-index: -100;
+      transform: rotate(-20deg);
+      left: 14px;
+      bottom: 24px;
+      border-radius: 50% 50% 0% 0%;
+    }
+
+    .fin.bottom {
+      z-index: -100;
+      transform: rotate(20deg);
+      left: 14px;
+      bottom: -12px;
+      border-radius: 50% 0% 50% 50%;
+    }
+
+    .fin-center {
+      height: 10px;
+      width: 12px;
+      background: #ef8a1f;
+      border-radius: 50% 0 0 50%;
+      position: absolute;
+      left: 30px;
+      top: 12px;
+    }
+
+    .eye {
+      height: 16px;
+      width: 16px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      left: 2px;
+      top: 10px;
+    }
+
+    .eye:before {
+      content: "";
+      background: black;
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      position: absolute;
+      left: 2px;
+      top: 4px;
+    }
+
+    .eye:after {
+      content: "";
+      background: white;
+      height: 4px;
+      width: 4px;
+      border-radius: 50%;
+      position: absolute;
+      left: 4px;
+      top: 5px;
+    }
+
+    .tail {
+      width: 32px;
+      height: 72px;
+      position: absolute;
+      right: -20px;
+      bottom: -42px;
+      z-index: -200;
+    }
+
+    .tail::before {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ef8a1f;
+      transform: rotate(-30deg);
+      top: -10px;
+    }
+
+    .tail::after {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ef8a1f;
+      transform: rotate(30deg);
+      top: 10px;
     }
   </style>
 </head>
 
 <body>
   <div id="preloader">
-    <div class="spinner"></div>
+    <div class="container-loader">
+      <div class="bowl"></div>
+      <div class="water">
+        <div class="body">
+          <div class="eye"></div>
+          <div class="fin-center"></div>
+          <div class="fin top"></div>
+          <div class="fin bottom"></div>
+          <div class="tail"></div>
+        </div>
+      </div>
+    </div>
   </div>
   <div id="root"></div>
   <!--
