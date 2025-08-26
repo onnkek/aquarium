@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/Cog-Creators/Red-DiscordBot/tree/V3/develop"><img src="https://i.imgur.com/TIpY3Ut.jpeg" alt="Aquarium"></a>
+  <a href="https://github.com/onnkek/aquarium"><img src="https://i.imgur.com/TIpY3Ut.jpeg" alt="Aquarium"></a>
   <br>
   Aquarium
   <br>
@@ -16,17 +16,23 @@
 
 # Overview
 
-Aquarium - web-based management of a smart aquarium.
+Aquarium - web-based management of a smart aquarium. Allows you to fully control all aquarium systems in real time. The main module (Dashboard) is built on the basis of widgets. Each piece of equipment has its own widget
 
 This is the UI/UX of the smart aquarium. The server part on ESP32 is in the [repository](https://github.com/onnkek/aquarium-backend).
 
 **The default set of modules includes:**
 
-- Live display (system info, sensor readings, equipment states)
-- Equipment state management
-- Changing settings (times, coefficients, etc.)
+- Dashboard (Live display, managment and settings)
 - Log viewing system (system, relay, doser)
-- Archive viewing system (system info, sensor readings, equipment states)
+- Archive viewing system (system readings, sensor readings, equipment states)
+
+**The default set of widgets:**
+
+- System
+- Temp: COOL and HEAT relays and PID control
+- Relays: CO2, O2, Filter and Light
+- ARGB
+- Doser: 4 pumps
 
 **The following platforms are supported this UI/UX:**
 
