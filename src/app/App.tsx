@@ -39,6 +39,29 @@ export function useAbsoluteFooter(footerHeight: number) {
 }
 
 
+export function useAutoHideFooter() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY + 1) {
+        setVisible(false);
+      } else if (currentScrollY < lastScrollY - 1) {
+        setVisible(true);
+      }
+      lastScrollY = currentScrollY;
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    }
+  }, [])
+  return visible;
+}
+
 
 function App() {
   const { theme } = useTheme();
@@ -46,13 +69,14 @@ function App() {
   const openModal = useAppSelector(state => state.aquarium.modal)
 
   const { top } = useAbsoluteFooter(80);
+  const footerVisible = useAutoHideFooter();
+
 
   return (
-
-    <div className='test-app'>
-      <div className='test-content'>
+    <div className='test-app-auto'>
+      <div className='test-content-auto'>
         {/* <AppRouter />
-        <Navbar /> */}
+         <Navbar /> */}
         <Input type=''></Input>
         <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
         <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
@@ -67,11 +91,31 @@ function App() {
         <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
         <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
       </div>
-      {/* <div className='footer-wrapper'> */}
-      <div className='test-footer' style={{ top: top }}></div>
-      {/* </div> */}
-      {/* <div className='test-footer'></div> */}
+      <div className='test-footer-auto' style={{ transform: footerVisible ? "translateY(0)" : "translateY(100%)" }}></div>
     </div>
+    // <div className='test-app'>
+    //   <div className='test-content'>
+    //     {/* <AppRouter />
+    //     <Navbar /> */}
+    //     <Input type=''></Input>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //     <div className='test-inner'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque quam totam tempore odit nemo numquam quas impedit eius dolorem libero hic enim dolore ea saepe, laborum optio id minus soluta!<br /><br /></div>
+    //   </div>
+    //   {/* <div className='footer-wrapper'> */}
+    //   <div className='test-footer' style={{ top: top }}></div>
+    //   {/* </div> */}
+    //   {/* <div className='test-footer'></div> */}
+    // </div>
 
     // <div className={classNames('app', {}, [theme])}>
     //   <Suspense fallback="">
