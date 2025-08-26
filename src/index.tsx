@@ -15,9 +15,9 @@ const RootComponent = () => {
   useEffect(() => {
     const preloader = document.getElementById('preloader');
     if (preloader) {
-      preloader.style.display = 'none'; // Hide the preloader
+      preloader.style.display = 'none';
     }
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
   return <App />;
 };

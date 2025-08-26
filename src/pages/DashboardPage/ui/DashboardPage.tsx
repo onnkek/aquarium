@@ -30,7 +30,6 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
     dispatch(getConfig())
   }, [dispatch])
 
-  console.log(openModal)
   useEffect(() => {
     if (updateStatus === Status.Succeeded && system.update > 0 && !openModal) {
 
@@ -43,43 +42,9 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
   }, [updateStatus, system.update, dispatch, openModal])
 
-  console.log("Render dashboard")
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
-      <div style={{ color: "white" }}>
-        <p>visualViewport.height {window.visualViewport?.height}</p>
-        <p>visualViewport.width {window.visualViewport?.width}</p>
-
-        <p>html.height {document.getElementsByTagName("html")[0].clientHeight}</p>
-        <p>html.width {document.getElementsByTagName("html")[0].clientWidth}</p>
-
-        {/* eslint-disable-next-line */}
-        <p>screen.height {screen.height}</p>
-        {/* eslint-disable-next-line */}
-        <p>screen.width {screen.width}</p>
-        {/* eslint-disable-next-line */}
-        <p>screen.availHeight {screen.availHeight}</p>
-        {/* eslint-disable-next-line */}
-        <p>screen.availWidth {screen.availWidth}</p>
-
-
-        <p>document.documentElement.clientHeight {document.documentElement.clientHeight}</p>
-        <p>document.documentElement.clientWidth {document.documentElement.clientWidth}</p>
-
-        <p>html.offsetHeight {document.getElementsByTagName("html")[0].offsetHeight}</p>
-        <p>html.offsetWidth {document.getElementsByTagName("html")[0].offsetWidth}</p>
-
-        <p>window.innerHeight {window.innerHeight}</p>
-        <p>window.innerWidth {window.innerWidth}</p>
-        <p>window.outerHeight {window.outerHeight}</p>
-        <p>window.outerWidth {window.outerWidth}</p>
-
-        <p>visualViewport.offsetTop {window.visualViewport?.offsetTop}</p>
-        <p>visualViewport.pageTop {window.visualViewport?.pageTop}</p>
-        <p>visualViewport.scale {window.visualViewport?.scale}</p>
-        <p>window.pageYOffset {window.pageYOffset}</p>
-      </div>
-
+      
       <SystemWidget />
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <TempWidget />

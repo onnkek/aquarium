@@ -6,14 +6,15 @@ import { ReactComponent as ArchiveIcon } from 'shared/assets/icons/aquarium/arch
 import { ReactComponent as DashboardIcon } from 'shared/assets/icons/aquarium/dashboard.svg';
 import { Link, useLocation } from "react-router-dom";
 import { AppRoutes, RoutePath } from "shared/config/routeConfig/routeConfig";
-import { LegacyRef, useEffect, useState } from "react";
+import { CSSProperties, LegacyRef, useEffect, useState } from "react";
 
 interface NavbarProps {
   className?: string;
   ref?: LegacyRef<HTMLElement> | undefined
+  style?: CSSProperties
 }
 
-export const Navbar = ({ className, ref }: NavbarProps) => {
+export const Navbar = ({ className, ref, style }: NavbarProps) => {
   const location = useLocation();
   const [active, setActive] = useState("/")
   
@@ -27,7 +28,7 @@ export const Navbar = ({ className, ref }: NavbarProps) => {
   }
 
   return (
-    <nav ref={ref} className={classNames(cls.header, {}, [className])}>
+    <nav ref={ref} className={classNames(cls.header, {}, [className])} style={style}>
 
       <Logo className={cls.logo} />
       <h1 className={cls.title}>Aquarium</h1>

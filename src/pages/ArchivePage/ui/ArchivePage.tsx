@@ -43,7 +43,7 @@ export const ArchivePage = ({ className }: ArchivePageProps) => {
 
 
   useEffect(() => {
-    dispatch(switchModal(true));
+    // dispatch(switchModal(true));
     // fetch archive
   }, [dispatch])
 
