@@ -1,14 +1,54 @@
 @import 'app/styles/variables.sass'
 
+.test-app
+  display: flex
+  flex-direction: column
+  height: 100dvh
+  overflow: hidden //
+
+.test-content
+  position: absolute
+  top: 0px
+  bottom: 80px
+  left: 0
+  right: 0
+  overflow-y: auto
+  z-index: 100
+
+.footer-wrapper
+  position: relative
+  height: 100dvh
+  width: 100%
+  top: calc(100% - 80px)
+.test-footer
+  position: absolute
+  background-color: red
+  height: 80px
+  width: 100%
+
+// .test-footer
+//   position: fixed
+//   bottom: 0
+//   right: 0
+//   left: 0
+//   background-color: red
+//   height: 80px
+
+.test-inner
+  color: white
+
 html
-  // height: 100dvh
+  height: 100%
+  margin: 0
+  padding: 0
   background-color: #060b18
-  padding-top: env(safe-area-inset-top)
+  // padding-top: env(safe-area-inset-top)
 
 body
   background-color: #060b18
   margin: 0
-  // height: 100dvh
+  padding: 0
+  height: 100%
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
