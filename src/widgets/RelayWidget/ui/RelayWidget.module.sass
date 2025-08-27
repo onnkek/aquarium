@@ -1,0 +1,82 @@
+@import "app/styles/variables"
+// https://www.figma.com/design/VQkvi8nz0yMvMFbAtCJeDN/Wonderful--Digital-Smart-Home-App---Admin-Web-UI-Template-with-Premium-Screens--Preview-?node-id=303-77172&p=f&t=BgKUyM2OnRjlWgwL-0
+// https://www.figma.com/design/4tSIGK2jgAvZeYtqmpwidF/Smart-Home-App--Community-?node-id=0-1&p=f&t=e1AjXd5DFal2UQUq-0
+// https://www.figma.com/design/lTmB7xyMB22SLlDhziuqbS/Smart-Home-UI-Kit--Community-?node-id=8-22&p=f&t=N0gr9T40G6zFMJIO-0
+// https://www.figma.com/design/Mab5lExCjwoqF11NjHkBT5/iBank---Banking---E-Money-Management-App-%7C-FinPay-%7C-Digital-%7C-Finance-Mobile-Banking-App-Ui-Kit--Community-?node-id=2-20347&p=f&t=OTkwNBjhEN3BC4X5-0
+// https://www.figma.com/design/Zoo9isFazS9N35qfj8z2mX/Smart-Home-App-UI-Kit--Community-?node-id=345-36561&p=f&t=GADxCIB5IxrANLV3-0
+// https://www.figma.com/design/1TF2va27NDOxYXOxP863SN/Smartify---Smart-Home-App-UI-Kit--Preview-?node-id=8236-535&t=lfHvJMHt8CptYNC3-0
+.relayWidget
+  display: none
+@media (max-width: 780px)
+  .relayWidget
+    position: relative
+    padding: 5%
+    color: white
+    font-weight: 100
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    aspect-ratio: 1
+    width: 100%
+    background-color: #1f222a
+    margin: 5px
+    border-radius: 10px
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    align-items: flex-start
+    overflow: hidden
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
+  .icon
+    width: 30%
+    height: 30%
+    position: absolute
+    top: 10%
+    left: 10%
+  .name
+    margin-bottom: 10px
+  .mode
+    margin: 0
+    display: flex
+    align-items: center
+    padding: 7px 14px
+    background-color: rgba(255, 255, 255, 0.07)
+    border-radius: 999px
+    p
+      margin: 0
+    svg
+      width: 15px
+      height: 15px
+      margin-right: 7px
+
+  .toggle
+    position: absolute
+    top: 10%
+    right: 10%
+  .blur
+    position: absolute
+    right: calc(80% - 75px)
+    bottom: calc(70% - 75px)
+    width: 150px
+    height: 150px
+    border-radius: 50%
+    border: 1px solid black
+    filter: blur(25px)
+  .light
+    .blur
+      background-color: $widget-blur-red
+    .icon
+      stroke: $widget-icon-red
+  .o2
+    .blur
+      background-color: $widget-blur-blue
+    .icon
+      stroke: $widget-icon-blue
+  .co2
+    .blur
+      background-color: $widget-blur-yellow
+    .icon
+      stroke: $widget-icon-yellow
+  .filter
+    .blur
+      background-color: $widget-blur-tiffany
+    .icon
+      stroke: $widget-icon-tiffany

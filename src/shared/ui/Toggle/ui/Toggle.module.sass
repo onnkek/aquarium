@@ -1,4 +1,9 @@
 .toggleContainer
+
+  --toggle-fg: #34C759
+  --toggle-bg: rgb(120 120 120 / 36%)
+  // --toggle-bg: #333
+  // --toggle-fg: #7f56d9
   --toggle-button-fg_disabled: var(--bg-disabled_subtle)
   --animation-duration: 0.2s
   --animation-timing: cubic-bezier(0.76,0.05,0.24,0.95)
@@ -8,7 +13,7 @@
   min-width: 36px
   width: 36px
   height: 20px
-  background-color: #7f56d9
+  background-color: var(--toggle-fg)
   outline: none
   border: none
   border-radius: 9999px
@@ -21,7 +26,7 @@
   border-radius: 9999px
   background-color: white
   transition: transform var(--animation-duration) var(--animation-timing)
-  box-shadow: 0px 1px 2px 0px #1018280f, 0px 1px 3px 0px #1018281a
+  // box-shadow: 0px 4px 4px 0px #1018280f, 0px 1px 3px 0px #1018281a
 .disabled
   cursor: default
   .toggle
@@ -32,14 +37,14 @@
 
 .toggleContainer[aria-checked="true"]
   transition: background-color var(--animation-duration) var(--animation-timing)
-  background-color: #7f56d9
+  background-color: var(--toggle-fg)
   .toggle
-    transform: translateX(100%)
+    transform: translateX(53%)
   &:focus-visible
     box-shadow: var(--ring-brand)
 .toggleContainer[aria-checked="false"]
   transition: background-color var(--animation-duration) var(--animation-timing)
-  background-color: #333
+  background-color: var(--toggle-bg)
   &:focus-visible
     box-shadow: var(--ring-gray-secondary)
 
@@ -53,14 +58,14 @@
     height: 20px
 
 .toggleContainer.xl
-  width: 66px
-  min-width: 66px
-  height: 36px
+  width: 64px
+  min-width: 64px
+  height: 28px
 
   .toggle
-    width: 30px
-    height: 30px
-    margin: 0px 3px
+    width: 39px
+    height: 24px
+    margin: 0px 2px
 
 .toggleContainer.switch
   background-color: #ff2859

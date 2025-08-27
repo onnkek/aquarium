@@ -30,7 +30,7 @@ interface ISystemInfo {
   heapSize: number
 }
 
-interface IStatusInfo {
+export interface IStatusInfo {
   status: boolean
 }
 interface IPunpInfo {
@@ -82,29 +82,13 @@ export interface IPumpStatus {
   status: number
 }
 
-interface ICO2 {
+export interface IRelay {
+  name: string,
   on: string,
   off: string,
   mode: number
 }
 
-interface IO2 {
-  on: string,
-  off: string,
-  mode: number
-}
-
-interface ILight {
-  on: string,
-  off: string,
-  mode: number
-}
-
-interface IFilter {
-  on: string,
-  off: string,
-  mode: number
-}
 
 export interface IRGB {
   r: number
@@ -145,10 +129,10 @@ export interface IConfig {
     update: number
   },
   doser: IPumpConfig[],
-  co2: ICO2,
-  o2: IO2,
-  light: ILight,
-  filter: IFilter,
+  co2: IRelay,
+  o2: IRelay,
+  light: IRelay,
+  filter: IRelay,
   argb: IARGB,
   temp: ITemp
 }
@@ -318,21 +302,25 @@ const initialState: IAquarium = {
       }
     ],
     co2: {
+      name: "CO2 System",
       on: "null",
       off: "null",
       mode: 0
     },
     o2: {
+      name: "O2 System",
       on: "null",
       off: "null",
       mode: 0
     },
     light: {
+      name: "Lightning",
       on: "null",
       off: "null",
       mode: 0
     },
     filter: {
+      name: "Filterting",
       on: "null",
       off: "null",
       mode: 0
@@ -627,10 +615,10 @@ export const updateDateTime = createAsyncThunk<ICurrentInfo, { dateTime: ITimeIn
   }
 )
 
-export const updateCO2 = createAsyncThunk<IConfig, ICO2, { state: RootState }>(
+export const updateCO2 = createAsyncThunk<IConfig, IRelay, { state: RootState }>(
 
   'aquarium/updateCO2',
-  async (payload: ICO2, { rejectWithValue, getState, dispatch }) => {
+  async (payload: IRelay, { rejectWithValue, getState, dispatch }) => {
     const state = getState()
 
     const newConfig: IConfig = { ...state.aquarium.config }
@@ -648,10 +636,10 @@ export const updateCO2 = createAsyncThunk<IConfig, ICO2, { state: RootState }>(
   }
 )
 
-export const updateFilter = createAsyncThunk<IConfig, IFilter, { state: RootState }>(
+export const updateFilter = createAsyncThunk<IConfig, IRelay, { state: RootState }>(
 
   'aquarium/updateFilter',
-  async (payload: IFilter, { rejectWithValue, getState, dispatch }) => {
+  async (payload: IRelay, { rejectWithValue, getState, dispatch }) => {
     const state = getState()
 
     const newConfig: IConfig = { ...state.aquarium.config }
@@ -669,10 +657,10 @@ export const updateFilter = createAsyncThunk<IConfig, IFilter, { state: RootStat
   }
 )
 
-export const updateO2 = createAsyncThunk<IConfig, IO2, { state: RootState }>(
+export const updateO2 = createAsyncThunk<IConfig, IRelay, { state: RootState }>(
 
   'aquarium/updateO2',
-  async (payload: IO2, { rejectWithValue, getState, dispatch }) => {
+  async (payload: IRelay, { rejectWithValue, getState, dispatch }) => {
     const state = getState()
 
     const newConfig: IConfig = { ...state.aquarium.config }
@@ -690,10 +678,10 @@ export const updateO2 = createAsyncThunk<IConfig, IO2, { state: RootState }>(
   }
 )
 
-export const updateLight = createAsyncThunk<IConfig, ILight, { state: RootState }>(
+export const updateLight = createAsyncThunk<IConfig, IRelay, { state: RootState }>(
 
   'aquarium/updateLight',
-  async (payload: ILight, { rejectWithValue, getState, dispatch }) => {
+  async (payload: IRelay, { rejectWithValue, getState, dispatch }) => {
     const state = getState()
 
     const newConfig: IConfig = { ...state.aquarium.config }

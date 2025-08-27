@@ -40,7 +40,7 @@ export const FilterWidget = ({ prop }: FilterWidgetProps) => {
     setShowModal(false);
   }
   const sendFilterState = async () => {
-    await dispatch(updateFilter({ on: onTime, off: offTime, mode: invertMode(mode) }))
+    await dispatch(updateFilter({ on: onTime, off: offTime, mode: invertMode(mode), name: filter.name }))
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
@@ -51,7 +51,7 @@ export const FilterWidget = ({ prop }: FilterWidgetProps) => {
     }
   }
   const sendConfig = async () => {
-    await dispatch(updateFilter({ on: onTime, off: offTime, mode: mode }))
+    await dispatch(updateFilter({ on: onTime, off: offTime, mode: mode, name: filter.name }))
     if (status === Status.Succeeded) {
       setOnTime(filter.on)
       setOffTime(filter.off)
@@ -61,7 +61,7 @@ export const FilterWidget = ({ prop }: FilterWidgetProps) => {
   }
   const selectMode = async (mode: number) => {
     setMode(mode);
-    await dispatch(updateFilter({ on: onTime, off: offTime, mode: mode }))
+    await dispatch(updateFilter({ on: onTime, off: offTime, mode: mode, name: filter.name }))
   }
 
   return (

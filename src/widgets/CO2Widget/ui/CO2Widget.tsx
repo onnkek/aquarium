@@ -40,7 +40,7 @@ export const CO2Widget = ({ prop }: CO2WidgetProps) => {
     setShowModal(false);
   }
   const sendConfig = async () => {
-    await dispatch(updateCO2({ on: onTime, off: offTime, mode: mode }))
+    await dispatch(updateCO2({ on: onTime, off: offTime, mode: mode, name: co2.name }))
     if (status === Status.Succeeded) {
       setOnTime(co2.on)
       setOffTime(co2.off)
@@ -49,7 +49,7 @@ export const CO2Widget = ({ prop }: CO2WidgetProps) => {
     }
   }
   const sendCO2State = async () => {
-    await dispatch(updateCO2({ on: onTime, off: offTime, mode: invertMode(mode) }))
+    await dispatch(updateCO2({ on: onTime, off: offTime, mode: invertMode(mode), name: co2.name }))
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
@@ -60,7 +60,7 @@ export const CO2Widget = ({ prop }: CO2WidgetProps) => {
   }
   const selectMode = async (mode: number) => {
     setMode(mode);
-    await dispatch(updateCO2({ on: onTime, off: offTime, mode: mode }))
+    await dispatch(updateCO2({ on: onTime, off: offTime, mode: mode, name: co2.name }))
   }
   return (
     <WidgetWrapper color='yellow' onClickEdit={openModal} className={cls.co2Widget} state={co2current}>

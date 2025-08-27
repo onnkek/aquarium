@@ -41,7 +41,7 @@ export const O2Widget = ({ prop }: O2WidgetProps) => {
   }
 
   const sendConfig = async () => {
-    await dispatch(updateO2({ on: onTime, off: offTime, mode: mode }))
+    await dispatch(updateO2({ on: onTime, off: offTime, mode: mode, name: o2.name }))
     if (status === Status.Succeeded) {
       setOnTime(o2.on)
       setOffTime(o2.off)
@@ -50,7 +50,7 @@ export const O2Widget = ({ prop }: O2WidgetProps) => {
     }
   }
   const sendO2State = async () => {
-    await dispatch(updateO2({ on: onTime, off: offTime, mode: invertMode(mode) }))
+    await dispatch(updateO2({ on: onTime, off: offTime, mode: invertMode(mode), name: o2.name }))
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
@@ -61,7 +61,7 @@ export const O2Widget = ({ prop }: O2WidgetProps) => {
   }
   const selectMode = async (mode: number) => {
     setMode(mode);
-    await dispatch(updateO2({ on: onTime, off: offTime, mode: mode }))
+    await dispatch(updateO2({ on: onTime, off: offTime, mode: mode, name: o2.name }))
   }
 
   return (

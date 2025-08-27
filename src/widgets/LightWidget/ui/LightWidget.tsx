@@ -40,7 +40,7 @@ export const LightWidget = ({ prop }: LightWidgetProps) => {
   }
 
   const sendConfig = async () => {
-    await dispatch(updateLight({ on: onTime, off: offTime, mode: mode }))
+    await dispatch(updateLight({ on: onTime, off: offTime, mode: mode, name: light.name }))
     if (status === Status.Succeeded) {
       setOnTime(light.on)
       setOffTime(light.off)
@@ -49,7 +49,7 @@ export const LightWidget = ({ prop }: LightWidgetProps) => {
     }
   }
   const sendLightState = async () => {
-    await dispatch(updateLight({ on: onTime, off: offTime, mode: invertMode(mode) }))
+    await dispatch(updateLight({ on: onTime, off: offTime, mode: invertMode(mode), name: light.name }))
     if (status === Status.Succeeded) {
 
       setMode(invertMode(mode))
@@ -60,7 +60,7 @@ export const LightWidget = ({ prop }: LightWidgetProps) => {
   }
   const selectMode = async (mode: number) => {
     setMode(mode);
-    await dispatch(updateLight({ on: onTime, off: offTime, mode: mode }))
+    await dispatch(updateLight({ on: onTime, off: offTime, mode: mode, name: light.name }))
   }
   return (
     <WidgetWrapper color='red' onClickEdit={openModal} className={cls.lightWidget} state={lightCurrent}>
