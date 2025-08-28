@@ -18,6 +18,7 @@ import { PIDWidget } from "widgets/PIDWidget";
 import { RGBWidget } from "widgets/RGBWidget";
 import { PumpNewWidget } from "widgets/PumpNewWidget";
 import { StartWidget } from "widgets/StartWidget";
+import BG from 'shared/assets/img/bg4.jpg';
 
 export interface DashboardPageProps {
   className?: string;
@@ -50,6 +51,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
+      <img className={cls.background} src={BG}></img>
       <div style={{ display: "flex", width: "100%" }}>
         <StartWidget config={config} currentInfo={currentInfo} />
       </div>

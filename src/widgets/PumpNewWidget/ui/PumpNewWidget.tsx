@@ -55,7 +55,7 @@ export const PumpNewWidget = ({
       </div>
       <div className={cls.mode}>
         <DropIcon className={cls.modeIcon} />
-        <p>{currentInfo.introduced.toFixed(0)}/{pump.dosage.toFixed(0)} ml</p>
+        <p>{(currentInfo.introduced / 100 * pump.dosage).toFixed(0)}/{pump.dosage.toFixed(0)} ml</p>
         <Progress className={cls.progress_dose} text="none" value={currentInfo.introduced} />
       </div>
       <div className={cls.mode}>

@@ -43,7 +43,7 @@ export const PIDWidget = ({
 
         <div className={cls.right}>
           <h2 className={cls.name}>{temp.name}</h2>
-          <p className={cls.status}>{currentInfo.current} ℃</p>
+          <p className={cls.status}>{currentInfo.current.toFixed(2)} ℃</p>
         </div>
       </div>
 
