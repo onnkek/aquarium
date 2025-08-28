@@ -33,26 +33,29 @@ interface ISystemInfo {
 export interface IStatusInfo {
   status: boolean
 }
-interface IPunpInfo {
+export interface IPunpInfo {
   status: boolean,
   introduced: number
 }
 
-interface ICurrentInfo {
+export interface ITempStatusInfo {
+  status: number, // 0 - off, 1 - cool, 2 - heat, 3 - cool+heat
+  current: number,
+  cool: boolean,
+  heat: boolean
+}
+export interface IARGBStatusInfo {
+  status: number
+}
+
+export interface ICurrentInfo {
   system: ISystemInfo,
   doser: IPunpInfo[],
   co2: IStatusInfo,
   o2: IStatusInfo,
   light: IStatusInfo,
-  argb: {
-    status: number
-  },
-  temp: {
-    status: number, // 0 - off, 1 - cool, 2 - heat, 3 - cool+heat
-    current: number,
-    cool: boolean,
-    heat: boolean
-  },
+  argb: IARGBStatusInfo,
+  temp: ITempStatusInfo,
   filter: IStatusInfo
 }
 
@@ -105,7 +108,8 @@ interface IARGBCycle {
   speed: number
 }
 
-interface IARGB {
+export interface IARGB {
+  name: string,
   mode: number,
   brightness: number,
   static: IRGB,
@@ -116,7 +120,8 @@ interface IARGB {
   off: string
 }
 
-interface ITemp {
+export interface ITemp {
+  name: string,
   setting: number,
   hysteresis: number,
   k: number,
@@ -158,7 +163,7 @@ const initialState: IAquarium = {
         year: 0,
         month: 0,
         day: 0,
-        dayOfWeek: "mo",
+        dayOfWeek: "",
         hour: 0,
         minute: 0,
         second: 0
@@ -221,7 +226,7 @@ const initialState: IAquarium = {
     },
     doser: [
       {
-        name: "",
+        name: "Pump 1",
         period: {
           su: false,
           mo: false,
@@ -241,7 +246,7 @@ const initialState: IAquarium = {
         hasRunToday: false
       },
       {
-        name: "",
+        name: "Pump 2",
         period: {
           su: false,
           mo: false,
@@ -261,7 +266,7 @@ const initialState: IAquarium = {
         hasRunToday: false
       },
       {
-        name: "",
+        name: "Pump 3",
         period: {
           su: false,
           mo: false,
@@ -281,7 +286,7 @@ const initialState: IAquarium = {
         hasRunToday: false
       },
       {
-        name: "",
+        name: "Pump 4",
         period: {
           su: false,
           mo: false,
@@ -326,6 +331,7 @@ const initialState: IAquarium = {
       mode: 0
     },
     argb: {
+      name: "Backlighting",
       mode: 0,
       brightness: 0,
       static: {
@@ -355,6 +361,7 @@ const initialState: IAquarium = {
       off: "null"
     },
     temp: {
+      name: "Termostat",
       setting: 0,
       hysteresis: 0,
       k: 0,

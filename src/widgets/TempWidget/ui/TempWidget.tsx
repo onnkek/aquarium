@@ -49,6 +49,7 @@ export const TempWidget = ({ prop }: TempWidgetProps) => {
   const sendConfig = async () => {
     console.log(mode)
     await dispatch(updateTemp({
+      name: temp.name,
       setting: setting,
       k: k,
       hysteresis: hysteresis,
@@ -65,27 +66,27 @@ export const TempWidget = ({ prop }: TempWidgetProps) => {
     }
   }
   const sendCoolState = async () => {
-    await dispatch(updateTemp({ setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertCoolMode(mode) }))
+    await dispatch(updateTemp({ name: temp.name, setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertCoolMode(mode) }))
     if (status === Status.Succeeded) {
       setMode(invertCoolMode(mode))
       // setTimeout(() => {
-        dispatch(getCurrentInfo())
+      dispatch(getCurrentInfo())
       // }, temp.timeout * 1000 + 200);
     }
   }
   const sendHeatState = async () => {
-    await dispatch(updateTemp({ setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertHeatMode(mode) }))
+    await dispatch(updateTemp({ name: temp.name, setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertHeatMode(mode) }))
     if (status === Status.Succeeded) {
       setMode(invertHeatMode(mode))
       // setTimeout(() => {
-        dispatch(getCurrentInfo())
+      dispatch(getCurrentInfo())
       // }, temp.timeout * 1000 + 200);
     }
   }
 
   const selectMode = async (mode: number) => {
     setMode(mode);
-    await dispatch(updateTemp({ setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: mode }))
+    await dispatch(updateTemp({ name: temp.name, setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: mode }))
   }
 
   return (
@@ -106,7 +107,7 @@ export const TempWidget = ({ prop }: TempWidgetProps) => {
             <p className={cls.text}>{tempCurrent.current.toFixed(2)} ℃</p>
           </div>
 
-          {tempCurrent.status !== 0 &&
+          {tempCurrent.status !== 0 && 
             <div className={cls.text_wrapper_status}>
               {(tempCurrent.status === 1 || tempCurrent.status === 3) && <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: true }, [])} />}
               {(tempCurrent.status === 2 || tempCurrent.status === 3) && <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: true }, [])} />}

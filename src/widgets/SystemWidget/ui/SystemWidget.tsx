@@ -72,7 +72,7 @@ export const SystemWidget = ({ prop }: SystemWidgetProps) => {
       <div className={cls.left}>
         <div className={cls.text_wrapper}>
           <CalendarIcon className={cls.icon} />
-          <div>
+          <div> 
             <p className={cls.text_header}>System date</p>
             <p className={cls.text}>{getDateString(systemCurrent.time)}</p>
           </div>

@@ -13,7 +13,7 @@ export function getPeriodString(period: IPumpPeriod): string {
 }
 
 export function getDateString(dateTime: ITimeInfo) {
-  return `${getDayOfWeek(dateTime.dayOfWeek)} ${getMonth(dateTime.month)} ${dateTime.day}`;
+  return `${getDayOfWeek(dateTime.dayOfWeek)} ${getMonth(dateTime.month)} ${dateTime.day == 0 ? "" : dateTime.day}`;
 }
 
 const pad = (n: number, len: number = 2) => n.toString().padStart(len, '0');
@@ -122,7 +122,7 @@ function getDayOfWeek(dayOfWeek: string) {
     case "sa":
       return "Sat";
     default:
-      return "";
+      return "Unknown data";
   }
 }
 function getMonth(month: number) {

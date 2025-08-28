@@ -66,6 +66,7 @@ export const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
 
   const sendConfig = async () => {
     await dispatch(updateARGB({
+      name: argb.name,
       on: onTime,
       off: offTime,
       mode: ARGBMode,

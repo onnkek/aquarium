@@ -14,6 +14,10 @@ import { LightWidget } from "widgets/LightWidget";
 import { FilterWidget } from "widgets/FilterWidget";
 import { CO2Widget } from "widgets/CO2Widget";
 import { RelayWidget } from "widgets/RelayWidget";
+import { PIDWidget } from "widgets/PIDWidget";
+import { RGBWidget } from "widgets/RGBWidget";
+import { PumpNewWidget } from "widgets/PumpNewWidget";
+import { StartWidget } from "widgets/StartWidget";
 
 export interface DashboardPageProps {
   className?: string;
@@ -47,12 +51,27 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
       <div style={{ display: "flex", width: "100%" }}>
+        <StartWidget config={config} currentInfo={currentInfo} />
+      </div>
+      <div style={{ display: "flex", width: "100%" }}>
         <RelayWidget relay={config.light} currentInfo={currentInfo.light} type="light" />
         <RelayWidget relay={config.co2} currentInfo={currentInfo.co2} type="co2" />
       </div>
       <div style={{ display: "flex", width: "100%" }}>
         <RelayWidget relay={config.o2} currentInfo={currentInfo.o2} type="o2" />
         <RelayWidget relay={config.filter} currentInfo={currentInfo.filter} type="filter" />
+      </div>
+      <div style={{ display: "flex", width: "100%" }}>
+        <PIDWidget temp={config.temp} currentInfo={currentInfo.temp} />
+        <RGBWidget argb={config.argb} currentInfo={currentInfo.argb} />
+      </div>
+      <div style={{ display: "flex", width: "100%" }}>
+        <PumpNewWidget pump={config.doser[0]} currentInfo={currentInfo.doser[0]} />
+        <PumpNewWidget pump={config.doser[1]} currentInfo={currentInfo.doser[1]} />
+      </div>
+      <div style={{ display: "flex", width: "100%" }}>
+        <PumpNewWidget pump={config.doser[2]} currentInfo={currentInfo.doser[2]} />
+        <PumpNewWidget pump={config.doser[3]} currentInfo={currentInfo.doser[3]} />
       </div>
       <SystemWidget />
       <div style={{ display: "flex", flexWrap: "wrap" }}>

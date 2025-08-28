@@ -1,14 +1,9 @@
 @import "app/styles/variables"
-// https://www.figma.com/design/VQkvi8nz0yMvMFbAtCJeDN/Wonderful--Digital-Smart-Home-App---Admin-Web-UI-Template-with-Premium-Screens--Preview-?node-id=303-77172&p=f&t=BgKUyM2OnRjlWgwL-0
-// https://www.figma.com/design/4tSIGK2jgAvZeYtqmpwidF/Smart-Home-App--Community-?node-id=0-1&p=f&t=e1AjXd5DFal2UQUq-0
-// https://www.figma.com/design/lTmB7xyMB22SLlDhziuqbS/Smart-Home-UI-Kit--Community-?node-id=8-22&p=f&t=N0gr9T40G6zFMJIO-0
-// https://www.figma.com/design/Mab5lExCjwoqF11NjHkBT5/iBank---Banking---E-Money-Management-App-%7C-FinPay-%7C-Digital-%7C-Finance-Mobile-Banking-App-Ui-Kit--Community-?node-id=2-20347&p=f&t=OTkwNBjhEN3BC4X5-0
-// https://www.figma.com/design/Zoo9isFazS9N35qfj8z2mX/Smart-Home-App-UI-Kit--Community-?node-id=345-36561&p=f&t=GADxCIB5IxrANLV3-0
-// https://www.figma.com/design/1TF2va27NDOxYXOxP863SN/Smartify---Smart-Home-App-UI-Kit--Preview-?node-id=8236-535&t=lfHvJMHt8CptYNC3-0
-.relayWidget
+
+.rgbWidget
   display: none
 @media (max-width: 780px)
-  .relayWidget
+  .rgbWidget
     position: relative
     padding: 3% 3%
     color: white
@@ -23,7 +18,7 @@
     border-radius: 10px
     display: flex
     flex-direction: column
-    justify-content: center
+    justify-content: space-around
     align-items: flex-start
     overflow: hidden
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
@@ -41,6 +36,7 @@
     width: 70%
     height: 70%
     aspect-ratio: 1
+    stroke: white
     // position: absolute
     // top: 10%
     // left: 10%
@@ -83,31 +79,7 @@
     border: 1px solid black
     filter: blur(25px)
     display: none
-  .light
-    .blur
-      background-color: $widget-blur-red
-  .o2
-    .blur
-      background-color: $widget-blur-blue
-  .co2
-    .blur
-      background-color: $widget-blur-yellow
-  .filter
-    .blur
-      background-color: $widget-blur-tiffany
-  .on.light
-    .icon
-      stroke: $widget-icon-red
-  .on.o2
-    .icon
-      stroke: $widget-icon-blue
-  .on.co2
-    .icon
-      stroke: $widget-icon-yellow
-  .on.filter
-    .icon
-      stroke: $widget-icon-tiffany
-
+    background: $widget-blur-rgb
   .on
     background-color: #1a1a1a
     .blur

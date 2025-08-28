@@ -38,7 +38,6 @@ export interface RelayWidgetProps {
   className?: string;
   children?: ReactNode;
   color?: RelayWidgetColor;
-  state?: boolean;
   onClickEdit?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   relay: IRelay;
   currentInfo: IStatusInfo
@@ -49,7 +48,6 @@ export const RelayWidget = ({
   className,
   children,
   color = 'none',
-  state = false,
   relay,
   onClickEdit,
   type,
@@ -57,9 +55,9 @@ export const RelayWidget = ({
 }: RelayWidgetProps) => {
 
   const mods: Mods = {
-    [cls.on]: state,
+    [cls.on]: currentInfo.status,
     [relayWidgetTypeClasses[type]]: true,
-    [colorClasses[color]]: true
+    [colorClasses[color]]: true,
   }
 
   const getIcon = () => {
@@ -77,12 +75,21 @@ export const RelayWidget = ({
 
   return (
     <div className={classNames(cls.relayWidget, mods, [className])}>
-      {getIcon()}
+      <div className={cls.body}>
+
+
+        {getIcon()}
+        <div className={cls.right}>
+          <h2 className={cls.name}>{relay.name}</h2>
+          <p className={cls.status}>{currentInfo.status ? "On" : "Off"}</p>
+        </div>
+      </div>
+
       <span className={cls.blur}></span>
-      <Toggle className={cls.toggle} size='XL' checked={currentInfo.status}></Toggle>
-      <h2 className={cls.name}>{relay.name}</h2>
+
       <div className={cls.mode}>
         {relay.mode !== 2 ? <ManualIcon /> : <ScheduleIcon />}
+
         <p>{relay.mode !== 2 ? "Manual" : `${relay.on} - ${relay.off}`}</p>
       </div>
     </div>
