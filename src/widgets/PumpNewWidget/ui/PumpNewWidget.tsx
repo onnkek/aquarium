@@ -15,7 +15,7 @@ import { IPumpConfig, IPumpStatus, IPunpInfo, IRelay, IStatusInfo } from 'redux/
 import { Progress } from 'shared/ui/Progress';
 
 
-export interface PumpNewWidgetProps {
+export interface PumpNewWidgetProps { 
   className?: string;
   children?: ReactNode;
   onClickEdit?: (e: React.MouseEvent<HTMLButtonElement>) => void;

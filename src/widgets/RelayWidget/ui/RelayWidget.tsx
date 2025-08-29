@@ -83,7 +83,7 @@ export const RelayWidget = ({
           <h2 className={cls.name}>{relay.name}</h2>
           <p className={cls.status}>{currentInfo.status ? "On" : "Off"}</p>
         </div>
-      </div>
+      </div> 
 
       <span className={cls.blur}></span>
 

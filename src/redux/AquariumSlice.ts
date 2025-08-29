@@ -48,16 +48,6 @@ export interface IARGBStatusInfo {
   status: number
 }
 
-export interface ICurrentInfo {
-  system: ISystemInfo,
-  doser: IPunpInfo[],
-  co2: IStatusInfo,
-  o2: IStatusInfo,
-  light: IStatusInfo,
-  argb: IARGBStatusInfo,
-  temp: ITempStatusInfo,
-  filter: IStatusInfo
-}
 
 export interface IPumpPeriod {
   su: boolean
@@ -141,6 +131,18 @@ export interface IConfig {
   argb: IARGB,
   temp: ITemp
 }
+export interface ICurrentInfo {
+  system: ISystemInfo,
+  doser: IPunpInfo[],
+  co2: IStatusInfo,
+  o2: IStatusInfo,
+  light: IStatusInfo,
+  filter: IStatusInfo
+  argb: IARGBStatusInfo,
+  temp: ITempStatusInfo,
+}
+
+
 interface ILogs {
   system: string,
   relay: string,

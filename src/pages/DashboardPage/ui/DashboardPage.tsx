@@ -19,6 +19,7 @@ import { RGBWidget } from "widgets/RGBWidget";
 import { PumpNewWidget } from "widgets/PumpNewWidget";
 import { StartWidget } from "widgets/StartWidget";
 import BG from 'shared/assets/img/bg4.jpg';
+import { Dashboard } from "features/Dashboard";
 
 export interface DashboardPageProps {
   className?: string;
@@ -51,22 +52,29 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
-      <img className={cls.background} src={BG}></img>
+      {/* <img className={cls.background} src={BG}></img> */}
+
+
+
+      <Dashboard config={config} current={currentInfo} />
+
+
+
       <div style={{ display: "flex", width: "100%" }}>
         <StartWidget config={config} currentInfo={currentInfo} />
       </div>
-      <div style={{ display: "flex", width: "100%" }}>
+      {/* <div style={{ display: "flex", width: "100%" }}>
         <RelayWidget relay={config.light} currentInfo={currentInfo.light} type="light" />
         <RelayWidget relay={config.co2} currentInfo={currentInfo.co2} type="co2" />
       </div>
       <div style={{ display: "flex", width: "100%" }}>
         <RelayWidget relay={config.o2} currentInfo={currentInfo.o2} type="o2" />
         <RelayWidget relay={config.filter} currentInfo={currentInfo.filter} type="filter" />
-      </div>
-      <div style={{ display: "flex", width: "100%" }}>
+      </div> */}
+      {/* <div style={{ display: "flex", width: "100%" }}>
         <PIDWidget temp={config.temp} currentInfo={currentInfo.temp} />
         <RGBWidget argb={config.argb} currentInfo={currentInfo.argb} />
-      </div>
+      </div> */}
       <div style={{ display: "flex", width: "100%" }}>
         <PumpNewWidget pump={config.doser[0]} currentInfo={currentInfo.doser[0]} />
         <PumpNewWidget pump={config.doser[1]} currentInfo={currentInfo.doser[1]} />

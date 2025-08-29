@@ -29,7 +29,7 @@ export const PIDWidget = ({
 
   const mods: Mods = {
     [cls.on]: currentInfo.status !== 0,
-    // [cls.on]: currentInfo.status,
+    // [cls.on]: currentInfo.status, 
     // [PIDWidgetTypeClasses[type]]: true
   }
 

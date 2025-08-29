@@ -1,0 +1,1 @@
+export { TempCard } from "./TempCard";
