@@ -16,7 +16,7 @@ import { ReactComponent as RAMIcon } from 'shared/assets/icons/aquarium/ram.svg'
 import { Status } from "models/Status"
 import { getCurrentInfo, switchModal, updateDateTime, updateSystem } from "../../../redux/AquariumSlice"
 import { Progress } from "shared/ui/Progress"
-import { getDateTimeFromInput, getDateTimeISO, getDateString, getTimeString, getUptime } from "shared/lib/period"
+import { getDateTimeISO, getDateString, getTimeString, getUptime, getDateTimeFromInput } from "shared/lib/period"
 import { useAppDispatch, useAppSelector } from "models/Hook"
 import { WidgetWrapper } from "widgets/WidgetWrapper"
 interface SystemWidgetProps {
@@ -70,20 +70,20 @@ export const SystemWidget = ({ prop }: SystemWidgetProps) => {
   return (
     <WidgetWrapper color='white' onClickEdit={openModal} className={cls.systemWidget} state={isAlive}>
       <div className={cls.left}>
-        <div className={cls.text_wrapper}>
+        {/* <div className={cls.text_wrapper}>
           <CalendarIcon className={cls.icon} />
           <div> 
             <p className={cls.text_header}>System date</p>
             <p className={cls.text}>{getDateString(systemCurrent.time)}</p>
           </div>
-        </div>
-        <div className={cls.text_wrapper}>
+        </div> */}
+        {/* <div className={cls.text_wrapper}>
           <TimeIcon className={cls.icon} />
           <div>
             <p className={cls.text_header}>System time</p>
             <p className={cls.text}>{getTimeString(systemCurrent.time)}</p>
           </div>
-        </div>
+        </div> */}
         <div className={cls.text_wrapper}>
           <UptimeIcon className={cls.icon} />
           <div>
@@ -131,7 +131,7 @@ export const SystemWidget = ({ prop }: SystemWidgetProps) => {
             <p className={cls.text}>{systemCurrent.chipTemp.toFixed(2)} ℃</p>
           </div>
         </div>
-        <div className={cls.text_wrapper}>
+        {/* <div className={cls.text_wrapper}>
           <TempIcon className={cls.icon} />
           <div>
             <p className={cls.text_header}>Outside temperature</p>
@@ -144,7 +144,7 @@ export const SystemWidget = ({ prop }: SystemWidgetProps) => {
             <p className={cls.text_header}>Outside humidity</p>
             <p className={cls.text}>{systemCurrent.outside.hum.toFixed(2)} %</p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' modalStyle='none'>

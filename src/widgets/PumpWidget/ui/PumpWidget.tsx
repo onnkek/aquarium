@@ -35,7 +35,7 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
   const [period, setPeriod] = useState<IPumpPeriod>(pump.period)
   const [mode, setMode] = useState(pump.mode)
 
-  const openModal = () => {
+  const openModal = () => { 
     dispatch(switchModal(true));
     setName(pump.name)
     setTime(pump.time)
@@ -85,7 +85,7 @@ export const PumpWidget = ({ number }: PumpWidgetProps) => {
     }, 500);
   }
 
-  const sendConfig = async () => {
+  const sendConfig = async () => { 
     await dispatch(updateDoser({
       number: number, config:
       {

@@ -26,10 +26,10 @@ export const RGBWidget = ({
 }: RGBWidgetProps) => {
 
   const mods: Mods = {
-    [cls.on]: currentInfo.status !== 0,
+    [cls.on]: currentInfo.status,
     // [cls.on]: currentInfo.status,
     // [RGBWidgetTypeClasses[type]]: true
-  } 
+  }
 
   return (
     <div className={classNames(cls.rgbWidget, mods, [className])}>

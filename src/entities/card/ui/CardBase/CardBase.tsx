@@ -7,17 +7,20 @@ interface CardBaseProps {
   children: React.ReactNode;
   className?: string;
   cardId: string;
+  flexBasis?: string;
 }
 console.log("test")
 export const CardBase = ({
   children,
   className,
-  cardId
+  cardId,
+  flexBasis = "calc(50% - 10px)"
 }: CardBaseProps) => {
   return (
     <motion.div
       layoutId={`card-${cardId}`}
       className={classNames(cls.cardBase, {}, [className])}
+      style={{ flexBasis: flexBasis }}
       transition={{
         // duration: 0.25
         type: "spring",

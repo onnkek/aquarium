@@ -18,7 +18,7 @@ interface IOutside {
   hum: number
 }
 
-interface ISystemInfo {
+export interface ISystemInfo {
   time: ITimeInfo,
   chipTemp: number,
   uptime: number,
@@ -45,7 +45,7 @@ export interface ITempStatusInfo {
   heat: boolean
 }
 export interface IARGBStatusInfo {
-  status: number
+  status: boolean
 }
 
 
@@ -119,10 +119,13 @@ export interface ITemp {
   mode: number // 0 - off, 1 - cool, 2 - heat, 3 - cool+heat, 4 - auto
 }
 
+export interface ISystem {
+  name: string,
+  update: number
+}
+
 export interface IConfig {
-  system: {
-    update: number
-  },
+  system: ISystem,
   doser: IPumpConfig[],
   co2: IRelay,
   o2: IRelay,
@@ -210,7 +213,7 @@ const initialState: IAquarium = {
       status: false
     },
     argb: {
-      status: 0
+      status: false
     },
     temp: {
       status: 0,
@@ -224,6 +227,7 @@ const initialState: IAquarium = {
   },
   config: {
     system: {
+      name: "System",
       update: 0
     },
     doser: [
@@ -499,6 +503,15 @@ const AquariumSlice = createSlice({
         state.status = Status.Succeeded
       })
 
+      .addCase(updateRelay.pending, (state: IAquarium) => {
+        state.status = Status.Loading
+      })
+      .addCase(updateRelay.fulfilled, (state: IAquarium, action) => {
+        state.config = action.payload
+        state.status = Status.Succeeded
+      })
+
+
       .addCase(updateTemp.pending, (state: IAquarium) => {
         state.status = Status.Loading
       })
@@ -635,6 +648,49 @@ export const updateCO2 = createAsyncThunk<IConfig, IRelay, { state: RootState }>
     newConfig.co2.on = payload.on
     newConfig.co2.off = payload.off
     newConfig.co2.mode = payload.mode
+    const response = await new AquariumService().updateConfig(newConfig)
+
+    if (!response.ok) {
+      return rejectWithValue('Can\'t delete post! Server error!')
+    }
+    return newConfig
+
+  }
+)
+
+export const updateRelay = createAsyncThunk<IConfig, { subtype: string, relay: IRelay }, { state: RootState }>(
+  'aquarium/updateRelay',
+  async (payload: { subtype: string, relay: IRelay }, { rejectWithValue, getState, dispatch }) => {
+    const state = getState()
+
+    const newConfig: IConfig = { ...state.aquarium.config }
+    switch (payload.subtype) {
+      case "co2":
+        newConfig.co2 = { ...state.aquarium.config.co2 }
+        newConfig.co2.on = payload.relay.on
+        newConfig.co2.off = payload.relay.off
+        newConfig.co2.mode = payload.relay.mode
+        break;
+      case "o2":
+        newConfig.o2 = { ...state.aquarium.config.o2 }
+        newConfig.o2.on = payload.relay.on
+        newConfig.o2.off = payload.relay.off
+        newConfig.o2.mode = payload.relay.mode
+        break;
+      case "light":
+        newConfig.light = { ...state.aquarium.config.light }
+        newConfig.light.on = payload.relay.on
+        newConfig.light.off = payload.relay.off
+        newConfig.light.mode = payload.relay.mode
+        break;
+      case "filter":
+        newConfig.filter = { ...state.aquarium.config.filter }
+        newConfig.filter.on = payload.relay.on
+        newConfig.filter.off = payload.relay.off
+        newConfig.filter.mode = payload.relay.mode
+        break;
+    }
+
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {

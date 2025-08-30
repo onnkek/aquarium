@@ -167,9 +167,32 @@ export function getDateTimeFromInput(dateString: string) {
     second: date.getSeconds()
   }
 }
+export function getDateFromInput(dateString: string) {
+  const date = new Date(dateString);
+  return {
+    day: date.getDate(),
+    month: date.getMonth() + 1,
+    year: date.getFullYear()
+  }
+}
+export function getTimeFromInput(dateString: string) {
+  const date = new Date(`2000-01-01T${dateString}`);
+  console.log(date)
+  return {
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+    second: date.getSeconds()
+  }
+}
 
 export function getDateTimeISO(dateTime: ITimeInfo) {
   return `${dateTime.year}-${pad(dateTime.month)}-${pad(dateTime.day)}T${pad(dateTime.hour)}:${pad(dateTime.minute)}:${pad(dateTime.second)}`
+}
+export function getDateISO(dateTime: ITimeInfo) {
+  return `${dateTime.year}-${pad(dateTime.month)}-${pad(dateTime.day)}`
+}
+export function getTimeISO(dateTime: ITimeInfo) {
+  return `${pad(dateTime.hour)}:${pad(dateTime.minute)}:${pad(dateTime.second)}`
 }
 
 

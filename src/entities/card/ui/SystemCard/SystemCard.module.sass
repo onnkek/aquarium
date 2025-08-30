@@ -1,0 +1,104 @@
+@import "app/styles/variables"
+
+.systemCard
+  padding: 5% 5%
+  flex-basis: 100%
+  width: 100%
+  height: 100%
+  aspect-ratio: 2 / 0.7
+  .startWidget
+    position: relative
+    padding: 3% 3%
+    color: white
+    font-weight: 100
+    font-family: "Open Sans", sans-serif
+    font-size: 15px
+
+    width: 100%
+    backdrop-filter: blur(20px)
+    background-color: rgb(37 37 37 / 55%)
+    margin: 5px
+    border-radius: 10px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    overflow: hidden
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
+  .date
+    font-size: 30px
+    font-weight: 600
+  .body
+    padding: 20px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    width: 100%
+    h2, p
+      margin: 0
+  .header
+    width: 100%
+    display: flex
+    justify-content: space-between
+    align-items: center
+  .time
+    margin: 0
+    font-size: 24px
+  .temp
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-top: 16px
+  .tempItem
+    display: flex
+    justify-content: center
+    align-items: center
+    p
+      line-height: 16px
+      font-size: 16px
+    svg
+      margin-right: 7px
+    &:not(:last-child)
+      margin-right: 20px
+
+  .right
+    margin-left: 10%
+    width: 100%
+
+  .icon
+    width: 70%
+    height: 70%
+    aspect-ratio: 1
+    // position: absolute
+    // top: 10%
+    // left: 10%
+  .name
+    // margin-bottom: 10px
+    font-size: 15px
+    font-weight: 500
+    margin: 0
+    width: 100%
+    white-space: nowrap
+  .status
+    margin: 0
+    color: #C2C2C2
+  .mode
+    margin: 0
+    display: flex
+    align-items: center
+    color: #C2C2C2
+    padding: 5px 10px
+    background-color: rgba(255, 255, 255, 0.07)
+    border-radius: 999px
+    p
+      margin: 0
+    svg
+      width: 15px
+      height: 15px
+      margin-right: 7px
+
+  .toggle
+    position: absolute
+    top: 10%
+    right: 10%

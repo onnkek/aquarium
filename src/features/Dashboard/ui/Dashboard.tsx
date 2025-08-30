@@ -11,6 +11,10 @@ import { TempSettings } from 'features/CardSettings/TempSettings';
 import { ArgbSettings } from 'features/CardSettings/ArgbSettings';
 import { PumpSettings } from 'features/CardSettings/PumpSettings';
 import React, { useState } from 'react';
+import { SystemCard } from 'entities/card/ui/SystemCard';
+import { SystemSettings } from 'features/CardSettings/SystemSettings';
+import { ServerCard } from 'entities/card/ui/ServerCard';
+import { ServerSettings } from 'features/CardSettings/ServerSettings';
 
 interface DashboardProps {
   config: IConfig;
@@ -29,11 +33,26 @@ export const Dashboard = ({
 
   return (
     <div className={classNames(cls.dashboard, {}, [className])}>
+
       <div className={cls.cardList}>
         {cards.map((card) => {
           const open = openCardId === card.id;
 
           switch (card.type) {
+            case "system":
+              return (
+                <React.Fragment key={card.id}>
+                  <SystemCard card={card} onToggle={() => toggleCard(card.id)} />
+                  <SystemSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
+                </React.Fragment>
+              )
+            case "server":
+              return (
+                <React.Fragment key={card.id}>
+                  <ServerCard card={card} onToggle={() => toggleCard(card.id)} />
+                  {/* <ServerSettings card={card} open={false} onClose={() => { }} /> */}
+                </React.Fragment>
+              )
             case "relay":
               return (
                 <React.Fragment key={card.id}>

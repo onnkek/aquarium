@@ -5,7 +5,14 @@ import { CardType, ICard, RelaySubtype } from "../model/types";
 export function mapConfigToCards(config: IConfig, current: ICurrentInfo): ICard[] {
 
   const cards: ICard[] = [];
-
+  if (current.system && config.system) {
+    cards.push({
+      id: "system",
+      type: "system",
+      config: config.system,
+      current: current.system
+    });
+  }
   const relayKeys: RelaySubtype[] = ["co2", "o2", "filter", "light"];
   relayKeys.forEach(key => {
     if (current[key] && config[key]) {
@@ -39,9 +46,18 @@ export function mapConfigToCards(config: IConfig, current: ICurrentInfo): ICard[
       cards.push({
         id: `pump-${index}`,
         type: "pump",
+        number: index,
         config: config.doser[index],
         current: currentPump
       });
+    });
+  }
+  if (current.system && config.system) {
+    cards.push({
+      id: "server",
+      type: "server",
+      config: config.system,
+      current: current.system
     });
   }
   return cards;

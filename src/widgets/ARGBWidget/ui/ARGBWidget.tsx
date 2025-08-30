@@ -104,7 +104,7 @@ export const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
   //   }
   // }
   return (
-    <WidgetWrapper color='rgb' onClickEdit={openModal} className={cls.argbWidget} state={argbCurrent.status > 0}>
+    <WidgetWrapper color='rgb' onClickEdit={openModal} className={cls.argbWidget} state={!argbCurrent.status}>
       <div className={cls.left}>
         <div className={cls.icon_wrapper}>
           <ARGBIcon className={cls.icon} />
@@ -128,7 +128,7 @@ export const ARGBWidget = ({ prop }: ARGBWidgetProps) => {
       </div>
 
       <Modal isOpen={showModal} onClose={closeModal} iconColor='green' bgWrapper='none' modalStyle='none'>
-        <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.wrapper} state={argbCurrent.status > 0}>
+        <WidgetWrapper color='rgb' type='write' onClickEdit={closeModal} className={cls.wrapper} state={!argbCurrent.status}>
           <div className={cls.edit}>
             <div className={cls.edit_right}>
               <div className={cls.edit_header}>

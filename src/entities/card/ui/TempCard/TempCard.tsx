@@ -36,7 +36,7 @@ export const TempCard = ({
 
           <div className={cls.right}>
             <h2 className={cls.name}>{card.config.name}</h2>
-            <p className={cls.status}>{card.current.current.toFixed(2)} ℃</p>
+            <p className={cls.status}>{card.current.current.toFixed(2)} °C</p>
           </div>
         </div>
 

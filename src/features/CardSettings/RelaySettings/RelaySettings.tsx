@@ -14,9 +14,11 @@ import { ReactComponent as PowerIcon } from 'shared/assets/icons/aquarium/power.
 import { ReactComponent as TimeIcon } from 'shared/assets/icons/aquarium/time.svg'
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'models/Hook';
-import { getCurrentInfo, updateCO2, updateFilter, updateLight, updateO2 } from '../../../redux/AquariumSlice';
+import { getCurrentInfo, updateCO2, updateFilter, updateLight, updateO2, updateRelay } from '../../../redux/AquariumSlice';
 import { invertMode } from 'shared/lib/period';
 import { Status } from 'models/Status';
+import { SettingsSection } from 'shared/ui/settings/SettingsSection';
+import { SettingsItem } from 'shared/ui/settings/SettingsItem';
 
 interface RelaySettingsProps {
   className?: string;
@@ -60,20 +62,15 @@ export const RelaySettings = ({
     }
   }
   const changeState = async () => {
-    switch (card.subtype) {
-      case "co2":
-        await dispatch(updateCO2({ on: onTime, off: offTime, mode: invertMode(mode), name: card.config.name }));
-        break;
-      case "o2":
-        await dispatch(updateO2({ on: onTime, off: offTime, mode: invertMode(mode), name: card.config.name }));
-        break;
-      case "light":
-        await dispatch(updateLight({ on: onTime, off: offTime, mode: invertMode(mode), name: card.config.name }));
-        break;
-      case "filter":
-        await dispatch(updateFilter({ on: onTime, off: offTime, mode: invertMode(mode), name: card.config.name }));
-        break;
-    }
+    await dispatch(updateRelay({
+      subtype: card.subtype,
+      relay: {
+        on: onTime,
+        off: offTime,
+        mode: invertMode(mode),
+        name: card.config.name
+      }
+    }));
 
     if (status === Status.Succeeded) {
       setMode(invertMode(mode))
@@ -83,20 +80,15 @@ export const RelaySettings = ({
     }
   }
   const onSendConfig = async () => {
-    switch (card.subtype) {
-      case "co2":
-        await dispatch(updateCO2({ on: onTime, off: offTime, mode: mode, name: card.config.name }));
-        break;
-      case "o2":
-        await dispatch(updateO2({ on: onTime, off: offTime, mode: mode, name: card.config.name }));
-        break;
-      case "light":
-        await dispatch(updateLight({ on: onTime, off: offTime, mode: mode, name: card.config.name }));
-        break;
-      case "filter":
-        await dispatch(updateFilter({ on: onTime, off: offTime, mode: mode, name: card.config.name }));
-        break;
-    }
+    await dispatch(updateRelay({
+      subtype: card.subtype,
+      relay: {
+        on: onTime,
+        off: offTime,
+        mode: mode,
+        name: card.config.name
+      }
+    }));
     if (status === Status.Succeeded) {
       setOnTime(card.config.on)
       setOffTime(card.config.off)
@@ -107,20 +99,15 @@ export const RelaySettings = ({
 
   const selectMode = async (mode: number) => {
     setMode(mode);
-    switch (card.subtype) {
-      case "co2":
-        await dispatch(updateCO2({ on: onTime, off: offTime, mode: mode, name: card.config.name }));
-        break;
-      case "o2":
-        await dispatch(updateO2({ on: onTime, off: offTime, mode: mode, name: card.config.name }));
-        break;
-      case "light":
-        await dispatch(updateLight({ on: onTime, off: offTime, mode: mode, name: card.config.name }));
-        break;
-      case "filter":
-        await dispatch(updateFilter({ on: onTime, off: offTime, mode: mode, name: card.config.name }));
-        break;
-    }
+    await dispatch(updateRelay({
+      subtype: card.subtype,
+      relay: {
+        on: onTime,
+        off: offTime,
+        mode: mode,
+        name: card.config.name
+      }
+    }));
   }
 
   const mods: Mods = {
@@ -143,29 +130,23 @@ export const RelaySettings = ({
             >Schedule</Button>
           </ButtonGroup>
           {getRelayIcon()}
-          <div className={cls.props}>
-            <div className={cls.prop}>
-              <div className={cls.propType}>
-                <PowerIcon />
-                <div className={cls.propTitle}>State</div>
-              </div>
-              <Toggle size='XL' className={cls.toggle} checked={card.current.status} onClick={changeState} />
-            </div>
-            <div className={cls.prop}>
-              <div className={cls.propType}>
-                <TimeIcon />
-                <div className={cls.propTitle}>On</div>
-              </div>
-              <Input className={cls.propInput} type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)}></Input>
-            </div>
-            <div className={cls.prop}>
-              <div className={cls.propType}>
-                <TimeIcon />
-                <div className={cls.propTitle}>Off</div>
-              </div>
-              <Input className={cls.propInput} type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)}></Input>
-            </div>
-          </div>
+          <SettingsSection>
+            <SettingsItem
+              label="State"
+              icon={<PowerIcon />}
+              control={<Toggle size='XL' checked={card.current.status} onClick={changeState} />}
+            />
+            <SettingsItem
+              label="On"
+              icon={<TimeIcon />}
+              control={<Input className={cls.input} type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)}></Input>}
+            />
+            <SettingsItem
+              label="Off"
+              icon={<TimeIcon />}
+              control={<Input className={cls.input} type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)}></Input>}
+            />
+          </SettingsSection>
         </div>
       </div>
     </SettingsWrapper>

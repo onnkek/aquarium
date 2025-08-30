@@ -45,8 +45,10 @@ export const SettingsWrapper = ({
               <CheckIcon />
             </Button>
           </div>
+          <div className={cls.content}>
+            {children}
+          </div>
 
-          {children}
         </motion.div>
       )}
     </AnimatePresence>

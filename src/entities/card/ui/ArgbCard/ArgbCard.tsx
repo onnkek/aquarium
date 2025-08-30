@@ -21,7 +21,7 @@ export const ArgbCard = ({
 
 
   const mods: Mods = {
-    [cls.on]: card.current.status !== 0
+    [cls.on]: card.current.status
   }
 
 
@@ -33,7 +33,7 @@ export const ArgbCard = ({
 
           <div className={cls.right}>
             <h2 className={cls.name}>{card.config.name}</h2>
-            <p className={cls.status}>{getStringARGBMode(card.config.mode)}</p>
+            <p className={cls.status}>{card.current.status ? getStringARGBMode(card.config.mode) : "Off"}</p>
           </div>
         </div>
 

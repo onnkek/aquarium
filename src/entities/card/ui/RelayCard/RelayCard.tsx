@@ -46,7 +46,7 @@ export const RelayCard = ({
   return (
     <CardBase cardId={card.id}>
       <div className={classNames(cls.relayCard, mods, [className])} onClick={onToggle}>
-        <div className={cls.body}>
+        <div className={cls.body}> 
 
  
           {getRelayIcon()}

@@ -164,7 +164,7 @@ export const TempWidget = ({ prop }: TempWidgetProps) => {
 
 
                 {mode !== 4 && <div className={cls.edit_group}>
-                  <div className={cls.edit_text_wrapper}>
+                  <div className={cls.edit_text_wrapper}> r
                     <p className={cls.edit_text_header}>Cooling state</p>
                     <Toggle className={cls.toggle} size="XL" checked={(tempCurrent.status === 1 || tempCurrent.status === 3) ? true : false} onClick={sendCoolState} />
                   </div>

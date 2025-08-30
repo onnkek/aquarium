@@ -52,55 +52,8 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
-
-
-      {/* <img className={cls.background} src={BG}></img> */}
-
-      <div style={{ display: "flex", width: "100%" }}>
-        <StartWidget config={config} currentInfo={currentInfo} />
-      </div>
-
+      <img className={cls.background} src={BG}></img>
       <Dashboard config={config} current={currentInfo} />
-
-
-
-
-      {/* <div style={{ display: "flex", width: "100%" }}>
-        <RelayWidget relay={config.light} currentInfo={currentInfo.light} type="light" />
-        <RelayWidget relay={config.co2} currentInfo={currentInfo.co2} type="co2" />
-      </div>
-      <div style={{ display: "flex", width: "100%" }}>
-        <RelayWidget relay={config.o2} currentInfo={currentInfo.o2} type="o2" />
-        <RelayWidget relay={config.filter} currentInfo={currentInfo.filter} type="filter" />
-      </div> */}
-      {/* <div style={{ display: "flex", width: "100%" }}>
-        <PIDWidget temp={config.temp} currentInfo={currentInfo.temp} />
-        <RGBWidget argb={config.argb} currentInfo={currentInfo.argb} />
-      </div> */}
-      {/* <div style={{ display: "flex", width: "100%" }}>
-        <PumpNewWidget pump={config.doser[0]} currentInfo={currentInfo.doser[0]} />
-        <PumpNewWidget pump={config.doser[1]} currentInfo={currentInfo.doser[1]} />
-      </div>
-      <div style={{ display: "flex", width: "100%" }}>
-        <PumpNewWidget pump={config.doser[2]} currentInfo={currentInfo.doser[2]} />
-        <PumpNewWidget pump={config.doser[3]} currentInfo={currentInfo.doser[3]} />
-      </div> */}
-      <SystemWidget />
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-
-        <TempWidget />
-        <LightWidget />
-        <CO2Widget />
-        <O2Widget />
-        <FilterWidget />
-        <ARGBWidget />
-      </div>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <PumpWidget number={0} />
-        <PumpWidget number={1} />
-        <PumpWidget number={2} />
-        <PumpWidget number={3} />
-      </div>
     </Page>
   );
 };

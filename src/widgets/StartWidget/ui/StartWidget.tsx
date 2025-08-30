@@ -55,6 +55,11 @@ export const StartWidget = ({
             <HumidityIcon />
             <p className={cls.text}>{currentInfo.system.outside.hum.toFixed(2)} %</p>
           </div>
+          <div className={cls.tempItem}>
+            <HumidityIcon />
+            <p className={cls.text}>{currentInfo.system.outside.hum.toFixed(2)} %</p>
+          </div>
+          
         </div>
 
 
