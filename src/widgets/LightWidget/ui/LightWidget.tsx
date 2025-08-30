@@ -122,7 +122,7 @@ export const LightWidget = ({ prop }: LightWidgetProps) => {
                   {mode !== 2 && <div className={cls.edit_text_wrapper}>
                     <p className={cls.edit_text_header}>State</p>
                     <Toggle className={cls.toggle} size="XL" checked={lightCurrent} onClick={sendLightState} />
-                  </div>}
+                  </div>} 
                 </div>
               </div>
             </div>

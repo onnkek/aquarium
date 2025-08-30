@@ -12,6 +12,7 @@ import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/arr
 interface RelayCardProps {
   className?: string;
   card: RelayCardType;
+  onToggle: () => void;
 }
 const relaySubtypeClasses: Record<RelaySubtype, string> = {
   light: cls.light,
@@ -21,7 +22,8 @@ const relaySubtypeClasses: Record<RelaySubtype, string> = {
 };
 export const RelayCard = ({
   className,
-  card
+  card,
+  onToggle
 }: RelayCardProps) => {
 
   const getRelayIcon = () => {
@@ -42,11 +44,11 @@ export const RelayCard = ({
   }
 
   return (
-    <CardBase>
-      <div className={classNames(cls.relayCard, mods, [className])}>
+    <CardBase cardId={card.id}>
+      <div className={classNames(cls.relayCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}>
 
-
+ 
           {getRelayIcon()}
           <div className={cls.right}>
             <h2 className={cls.name}>{card.config.name}</h2>

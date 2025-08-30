@@ -1,0 +1,117 @@
+@import "app/styles/variables"
+
+.relaySettings
+  height: calc(100% - 44px)
+  padding-top: 40px
+  .body
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-between
+    height: 100%
+
+  .icon
+    width: 50%
+    height: 50%
+
+  .group
+    width: 100%
+    padding: 4px 5px
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 25px
+    backdrop-filter: blur(20px)
+    background-color: rgb(37 37 37 / 55%)
+    border: 1px solid rgb(67 67 67 / 55%)
+    -webkit-tap-highlight-color: transparent
+    -webkit-user-select: none
+    -webkit-touch-callout: none
+    button
+      padding: 5px 17px
+      width: 100%
+      background-color: transparent
+      border-radius: 25px
+      border: none
+      height: 28px
+      font-size: 14px
+      line-height: 18px
+      font-weight: 500
+    .active
+      background-color: rgb(137 137 137 / 55%)
+
+  .props
+    background-color: rgb(37 37 37 / 55%)
+    border-radius: 22px
+    width: 100%
+
+  .prop
+    position: relative
+    height: 55px
+    padding: 0 20px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    font-size: 16px
+    font-weight: 500
+    &:not(:last-child)
+      &::after
+        content: ''
+        position: absolute
+        display: block
+        width: calc(100% - 85px)
+        height: 1px
+        left: 65px
+        top: 100%
+        background-color: rgb(67 67 67 / 55%)
+  .propTitle
+    font-weight: 400
+  .propType
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-right: 50px
+    svg
+      height: 30px
+      width: 30px
+      margin-right: 15px
+  .propInput
+    width: min-content
+
+    input
+      // padding: 2px 5px
+      border-radius: 25px
+      background-color: rgb(37 37 37 / 55%)
+      border-color: rgb(67 67 67 / 55%)
+      font-family: "Open Sans", sans-serif
+
+  .blur
+    position: absolute
+    right: -80%
+    top: 30%
+    width: 150%
+    height: 90%
+    border-radius: 50%
+    border: 1px solid black
+    filter: blur(50px)
+
+.light
+  .blur
+    background-color: $widget-blur-red
+  .icon
+    stroke: $widget-icon-red
+.o2
+  .blur
+    background-color: $widget-blur-blue
+  .icon
+    stroke: $widget-icon-blue
+.co2
+  .blur
+    background-color: $widget-blur-yellow
+  .icon
+    stroke: $widget-icon-yellow
+.filter
+  .blur
+    background-color: $widget-blur-tiffany
+  .icon
+    stroke: $widget-icon-tiffany

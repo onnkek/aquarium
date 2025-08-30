@@ -1,0 +1,1 @@
+export { TempSettings } from "./TempSettings";

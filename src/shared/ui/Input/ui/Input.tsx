@@ -57,12 +57,12 @@ export const Input = ({
     [cls.resize]: areaResize
   }
   return (
-    <div className={classNames(cls.inputContainer, mods)}>
+    <div className={classNames(cls.inputContainer, mods, [className])}>
       {Icon && <Icon className={cls.icon} />}
       {area ?
-        <HTextarea cols={areaCols} rows={areaRows} disabled={disabled} className={classNames(cls.input, {}, [className])} placeholder={placeholder} name="description"></HTextarea>
+        <HTextarea cols={areaCols} rows={areaRows} disabled={disabled} className={classNames(cls.input, {})} placeholder={placeholder} name="description"></HTextarea>
         :
-        <HInput min={min} max={max} step={step} type={type} value={value} ref={inputRef} {...otherProps} onChange={onChange} maxLength={maxLength} disabled={disabled} className={classNames(cls.input, {}, [className])} placeholder={placeholder} name="full_name" />
+        <HInput min={min} max={max} step={step} type={type} value={value} ref={inputRef} {...otherProps} onChange={onChange} maxLength={maxLength} disabled={disabled} className={classNames(cls.input, {})} placeholder={placeholder} name="full_name" />
       }
       {(!area && descr && !error) && <QuestionIcon className={cls.info} />}
       {!area && error && <AlertIcon className={cls.info} />}

@@ -11,11 +11,13 @@ import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/lig
 interface TempCardProps {
   className?: string;
   card: TempCardType;
+  onToggle: () => void;
 }
 
 export const TempCard = ({
   className,
-  card
+  card,
+  onToggle
 }: TempCardProps) => {
 
 
@@ -24,8 +26,8 @@ export const TempCard = ({
   }
 
   return (
-    <CardBase>
-      <div className={classNames(cls.tempCard, mods, [className])}>
+    <CardBase cardId={card.id}>
+      <div className={classNames(cls.tempCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}>
 
           {(card.current.status === 1 || card.current.status === 3) && <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: true }, [])} />}

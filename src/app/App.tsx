@@ -77,15 +77,20 @@ function App() {
   const { theme } = useTheme();
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const openModal = useAppSelector(state => state.aquarium.modal)
-  const top = useAbsoluteFooter(80);
-  const scrollRef = useScrollableRef<HTMLDivElement>();
+  // const top = useAbsoluteFooter(80);
+  // const scrollRef = useScrollableRef<HTMLDivElement>();
   return (
     <div className={classNames('app', {}, [theme])}>
       <Suspense fallback="">
         <div className='navbar'>
-          {!openModal && <Navbar style={{ top: isIOS() ? top : 0 }} className='test-footer' />}
+          {/* {!openModal &&  */}
+          <Navbar
+            // style={{ top: isIOS() ? top : 0 }}
+            className='test-footer'
+          />
+           {/* } */}
         </div>
-        <div className='container' ref={scrollRef}>
+        <div className='container'>
           <AppRouter />
         </div>
       </Suspense>

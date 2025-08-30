@@ -10,6 +10,7 @@ export function mapConfigToCards(config: IConfig, current: ICurrentInfo): ICard[
   relayKeys.forEach(key => {
     if (current[key] && config[key]) {
       cards.push({
+        id: `relay-${key}`,
         type: "relay",
         subtype: key,
         config: config[key],
@@ -19,6 +20,7 @@ export function mapConfigToCards(config: IConfig, current: ICurrentInfo): ICard[
   });
   if (current.temp && config.temp) {
     cards.push({
+      id: "temp",
       type: "temp",
       config: config.temp,
       current: current.temp
@@ -26,6 +28,7 @@ export function mapConfigToCards(config: IConfig, current: ICurrentInfo): ICard[
   }
   if (current.argb && config.argb) {
     cards.push({
+      id: "argb",
       type: "argb",
       config: config.argb,
       current: current.argb
@@ -34,6 +37,7 @@ export function mapConfigToCards(config: IConfig, current: ICurrentInfo): ICard[
   if (current.doser && config.doser) {
     current.doser.forEach((currentPump, index) => {
       cards.push({
+        id: `pump-${index}`,
         type: "pump",
         config: config.doser[index],
         current: currentPump

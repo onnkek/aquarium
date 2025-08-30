@@ -10,11 +10,13 @@ import { getStringARGBMode } from 'shared/lib/period';
 interface ArgbCardProps {
   className?: string;
   card: ArgbCardType;
+  onToggle: () => void;
 }
 
 export const ArgbCard = ({
   className,
-  card
+  card,
+  onToggle
 }: ArgbCardProps) => {
 
 
@@ -24,8 +26,8 @@ export const ArgbCard = ({
 
 
   return (
-    <CardBase>
-      <div className={classNames(cls.argbCard, mods, [className])}>
+    <CardBase cardId={card.id}>
+      <div className={classNames(cls.argbCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}>
           <ARGBIcon className={cls.icon} />
 

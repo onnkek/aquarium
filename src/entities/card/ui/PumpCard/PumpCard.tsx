@@ -11,12 +11,14 @@ import { CardBase } from '../CardBase';
 
 interface PumpCardProps {
   className?: string;
-  card: PumpCardType
+  card: PumpCardType;
+  onToggle: () => void;
 }
 
 export const PumpCard = ({
   className,
-  card
+  card,
+  onToggle
 }: PumpCardProps) => {
 
   const mods: Mods = {
@@ -24,8 +26,8 @@ export const PumpCard = ({
   }
 
   return (
-    <CardBase>
-      <div className={classNames(cls.pumpCard, mods, [className])}>
+    <CardBase cardId={card.id}>
+      <div className={classNames(cls.pumpCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}>
 
 
