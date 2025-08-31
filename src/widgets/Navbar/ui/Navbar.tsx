@@ -7,6 +7,8 @@ import { ReactComponent as DashboardIcon } from 'shared/assets/icons/aquarium/da
 import { Link, useLocation } from "react-router-dom";
 import { AppRoutes, RoutePath } from "shared/config/routeConfig/routeConfig";
 import { CSSProperties, LegacyRef, useEffect, useState } from "react";
+import { ButtonGroup } from "shared/ui/ButtonGroup";
+import { Button } from "@headlessui/react";
 
 interface NavbarProps {
   className?: string;
@@ -17,7 +19,7 @@ interface NavbarProps {
 export const Navbar = ({ className, ref, style }: NavbarProps) => {
   const location = useLocation();
   const [active, setActive] = useState("/")
-  
+
 
   useEffect(() => {
     setActive(location.pathname);
@@ -32,7 +34,7 @@ export const Navbar = ({ className, ref, style }: NavbarProps) => {
 
       <Logo className={cls.logo} />
       <h1 className={cls.title}>Aquarium</h1>
-      <Link
+      {/* <Link
         to={RoutePath.dashboard}
         className={classNames(cls.link, {}, [isActive(RoutePath.dashboard)])}
       >
@@ -45,14 +47,30 @@ export const Navbar = ({ className, ref, style }: NavbarProps) => {
       >
         <LogsIcon className={cls.header_icon} />
         <div className={cls.header_button_text}>Logs</div>
-      </Link>
-      <Link
+      </Link> */}
+      <ButtonGroup className={cls.group}>
+        <Link
+          to={RoutePath.dashboard}
+          className={classNames(cls.link, {}, [isActive(RoutePath.dashboard)])}
+        >
+          <DashboardIcon className={cls.header_icon} />
+          <div className={cls.header_button_text}>Dashboard</div>
+        </Link>
+        <Link
+          to={RoutePath.logs}
+          className={classNames(cls.link, {}, [isActive(RoutePath.logs)])}
+        >
+          <LogsIcon className={cls.header_icon} />
+          <div className={cls.header_button_text}>Logs</div>
+        </Link>
+      </ButtonGroup>
+      {/* <Link
         to={RoutePath.archive}
         className={classNames(cls.link, {}, [isActive(RoutePath.archive)])}
       >
         <ArchiveIcon className='header_icon' />
         <div className={cls.header_button_text}>Archive</div>
-      </Link>
+      </Link> */}
     </nav>
   );
 };

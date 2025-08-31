@@ -103,7 +103,6 @@ export const TempSettings = ({
   return (
     <SettingsWrapper open={open} onClose={onClose} card={card} onCofirm={sendConfig}>
       <div className={classNames(cls.tempSettings, {}, [className])}>
-        <span className={cls.blur}></span>
         <div className={cls.body}>
           <ButtonGroup className={cls.group}>
             <Button
@@ -120,12 +119,12 @@ export const TempSettings = ({
             <SettingsItem
               label="Cooling state"
               icon={<PowerIcon />}
-              control={<Toggle size='XL' checked={(card.current.status === 1 || card.current.status === 3) ? true : false} onClick={toggleCoolState} />}
+              control={<Toggle size='XL' disabled={mode === 4} checked={(card.current.status === 1 || card.current.status === 3) ? true : false} onClick={toggleCoolState} />}
             />
             <SettingsItem
               label="Heating state"
               icon={<PowerIcon />}
-              control={<Toggle size='XL' checked={(card.current.status === 2 || card.current.status === 3) ? true : false} onClick={toggleHeatState} />}
+              control={<Toggle size='XL' disabled={mode === 4} checked={(card.current.status === 2 || card.current.status === 3) ? true : false} onClick={toggleHeatState} />}
             />
             <SettingsItem
               label="Setting"

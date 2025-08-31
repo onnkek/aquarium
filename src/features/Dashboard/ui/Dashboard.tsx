@@ -32,58 +32,59 @@ export const Dashboard = ({
   const toggleCard = (id: string) => setOpenCardId(prev => (prev === id ? null : id));
 
   return (
-    <div className={classNames(cls.dashboard, {}, [className])}>
+    <></>
+    // <div className={classNames(cls.dashboard, {}, [className])}>
 
-      <div className={cls.cardList}>
-        {cards.map((card) => {
-          const open = openCardId === card.id;
+    //   <div className={cls.cardList}>
+    //     {cards.map((card) => {
+    //       const open = openCardId === card.id;
 
-          switch (card.type) {
-            case "system":
-              return (
-                <React.Fragment key={card.id}>
-                  <SystemCard card={card} onToggle={() => toggleCard(card.id)} />
-                  <SystemSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
-                </React.Fragment>
-              )
-            case "server":
-              return (
-                <React.Fragment key={card.id}>
-                  <ServerCard card={card} onToggle={() => toggleCard(card.id)} />
-                  {/* <ServerSettings card={card} open={false} onClose={() => { }} /> */}
-                </React.Fragment>
-              )
-            case "relay":
-              return (
-                <React.Fragment key={card.id}>
-                  <RelayCard card={card} onToggle={() => toggleCard(card.id)} />
-                  <RelaySettings card={card} open={open} onClose={() => setOpenCardId(null)} />
-                </React.Fragment>
-              )
-            case "temp":
-              return (
-                <React.Fragment key={card.id}>
-                  <TempCard card={card} onToggle={() => toggleCard(card.id)} />
-                  <TempSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
-                </React.Fragment>
-              )
-            case "argb":
-              return (
-                <React.Fragment key={card.id}>
-                  <ArgbCard card={card} onToggle={() => toggleCard(card.id)} />
-                  <ArgbSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
-                </React.Fragment>
-              )
-            case "pump":
-              return (
-                <React.Fragment key={card.id}>
-                  <PumpCard card={card} onToggle={() => toggleCard(card.id)} />
-                  <PumpSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
-                </React.Fragment>
-              )
-          }
-        })}
-      </div>
-    </div>
+    //       switch (card.type) {
+    //         case "system":
+    //           return (
+    //             <React.Fragment key={card.id}>
+    //               <SystemCard card={card} onToggle={() => toggleCard(card.id)} />
+    //               <SystemSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
+    //             </React.Fragment>
+    //           )
+    //         case "server":
+    //           return (
+    //             <React.Fragment key={card.id}>
+    //               <ServerCard card={card} onToggle={() => toggleCard(card.id)} />
+    //               {/* <ServerSettings card={card} open={false} onClose={() => { }} /> */}
+    //             </React.Fragment>
+    //           )
+    //         case "relay":
+    //           return (
+    //             <React.Fragment key={card.id}>
+    //               <RelayCard card={card} onToggle={() => toggleCard(card.id)} />
+    //               <RelaySettings card={card} open={open} onClose={() => setOpenCardId(null)} />
+    //             </React.Fragment>
+    //           )
+    //         case "temp":
+    //           return (
+    //             <React.Fragment key={card.id}>
+    //               <TempCard card={card} onToggle={() => toggleCard(card.id)} />
+    //               <TempSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
+    //             </React.Fragment>
+    //           )
+    //         case "argb":
+    //           return (
+    //             <React.Fragment key={card.id}>
+    //               <ArgbCard card={card} onToggle={() => toggleCard(card.id)} />
+    //               <ArgbSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
+    //             </React.Fragment>
+    //           )
+    //         case "pump":
+    //           return (
+    //             <React.Fragment key={card.id}>
+    //               <PumpCard card={card} onToggle={() => toggleCard(card.id)} />
+    //               <PumpSettings card={card} open={open} onClose={() => setOpenCardId(null)} />
+    //             </React.Fragment>
+    //           )
+    //       }
+    //     })}
+    //   </div>
+    // </div>
   );
 }

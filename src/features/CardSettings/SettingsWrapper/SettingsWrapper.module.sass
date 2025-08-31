@@ -1,16 +1,78 @@
+@import "app/styles/variables"
+
 .settingsWrapper
   position: fixed
-  left: 0
-  top: 0
-  width: 100%
-  height: 100vh
+  inset: 0
   z-index: 100
   background-color: #060b18
   color: white
-  padding: 20px 20px 0 20px
-  height: calc(100% - 80px)
-  z-index: 1000
+  width: 100.2%
+  height: 100vh
+  overflow-x: hidden
+  overflow-y: auto
+
+.blur
+  position: fixed
+  display: block
+  width: 101%
+  height: 100%
   overflow: hidden
+  z-index: 0
+  &::after
+    content: ""
+    position: absolute
+    right: -80%
+    top: 30%
+    width: 150%
+    height: 90%
+    border-radius: 50%
+    border: 1px solid black
+    filter: blur(50px)
+
+.temp
+  .blur
+    &::after
+      background-color: $widget-blur-violet
+
+.argb
+  .blur
+    &::after
+      background: $widget-blur-rgb2
+
+.pump
+  .blur
+    &::after
+      background-color: $widget-blur-green
+
+.server
+  .blur
+    &::after
+      background-color: $widget-blur-white
+
+.system
+  .blur
+    &::after
+      background-color: $widget-blur-white
+
+.light
+  .blur
+    &::after
+      background-color: $widget-blur-red
+
+.co2
+  .blur
+    &::after
+      background-color: $widget-blur-yellow
+
+.o2
+  .blur
+    &::after
+      background-color: $widget-blur-blue
+
+.filter
+  .blur
+    &::after
+      background-color: $widget-blur-tiffany
 
 .button,
 .otherButton
@@ -44,7 +106,7 @@
   align-items: center
   z-index: 1000
   background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(6, 11, 24, 1))
-  &::before
+  &::before 
     content: ''
     position: absolute
     inset: 0
@@ -56,9 +118,10 @@
     z-index: -1
 
 .content
-  padding: 64px 0 20px 0
-  overflow-y: auto
-  height: 100%
+  padding: 84px 20px 20px 20px
+  width: 100%
+  position: relative
+  padding-bottom: env(safe-area-inset-bottom)
 
 .title
   font-size: 17px

@@ -61,7 +61,6 @@ export const SystemSettings = ({
   return (
     <SettingsWrapper open={open} onClose={onClose} card={card} onCofirm={onSendConfig}>
       <div className={classNames(cls.systemSettings, mods, [className])}>
-        <span className={cls.blur}></span>
         <div className={cls.body}>
 
           {<ChipIcon className={cls.icon} />}

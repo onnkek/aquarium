@@ -124,7 +124,6 @@ export const ArgbSettings = ({
   return (
     <SettingsWrapper open={open} onClose={onClose} card={card} onCofirm={sendConfig}>
       <div className={classNames(cls.argbSettings, {}, [className])}>
-        <span className={cls.blur}></span>
         <div className={cls.body}>
           <ButtonGroup className={cls.group}>
             <Button

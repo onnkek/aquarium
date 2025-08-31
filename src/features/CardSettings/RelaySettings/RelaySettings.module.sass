@@ -1,15 +1,13 @@
 @import "app/styles/variables"
 
 .relaySettings
-  // height: calc(100vh - 244px)
-  // overflow: hidden
-  // padding-top: 40px
+  padding-bottom: calc(env(safe-area-inset-bottom) + 20px)
   .body
     display: flex
     flex-direction: column
     align-items: center
     justify-content: space-between
-    height: calc(100vh - 80px - 64px - 40px)
+    height: calc(100dvh - 80px - 25px)
 
   .icon
     padding: 40px 0
@@ -42,38 +40,20 @@
     .active
       background-color: rgb(137 137 137 / 55%)
 
-  .blur
-    position: absolute
-    right: -80%
-    top: 30%
-    width: 150%
-    height: 90%
-    border-radius: 50%
-    border: 1px solid black
-    filter: blur(50px)
-
   .input
     width: 75%
     input
       width: 100%
 
 .light
-  .blur
-    background-color: $widget-blur-red
   .icon
     stroke: $widget-icon-red
 .o2
-  .blur
-    background-color: $widget-blur-blue
   .icon
     stroke: $widget-icon-blue
 .co2
-  .blur
-    background-color: $widget-blur-yellow
   .icon
     stroke: $widget-icon-yellow
 .filter
-  .blur
-    background-color: $widget-blur-tiffany
   .icon
     stroke: $widget-icon-tiffany

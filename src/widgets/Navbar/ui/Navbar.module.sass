@@ -6,30 +6,64 @@
   position: fixed
   top: 0
   color: white
-  background-color: #1a1a1a
-  z-index: 1000
-  width: 100%
+  background-color: transparent
+  z-index: 10
+  width: 100% 
   height: 50px
   overflow: hidden
   @media (max-width: 780px)
     position: fixed
     top: auto
     bottom: 0
-    height: 80px
+    height: 100px
     width: 100%
-    justify-content: space-around
-    align-items: flex-start
-    border-top: 1px solid var(--border-primary)
+    justify-content: center
+    align-items: flex-end
+    // border-top: 1px solid var(--border-primary)
 
   .header_button_text
     @media (max-width: 780px)
-      font-size: 14px
+      font-size: 10px
       line-height: 20px
 
 .header_icon
   width: 20px
   height: 20px
 
+.group
+  width: auto
+  padding: 4px 5px
+  display: flex
+  justify-content: center
+  align-items: center
+  border-radius: 100px
+  backdrop-filter: blur(2px)
+  background-color: rgb(37 37 37 / 55%)
+  border: 1px solid rgb(67 67 67 / 55%)
+  box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 50%)
+  -webkit-tap-highlight-color: transparent
+  -webkit-user-select: none
+  -webkit-touch-callout: none
+  a
+    font-family: "Open Sans", sans-serif
+    color: white
+    height: 54px
+    padding: 5px 17px
+    width: 100%
+    background-color: transparent
+    border-radius: 100px
+    border: none
+    // height: 28px
+    font-size: 10px
+    line-height: 18px
+    font-weight: 500
+.group .active
+  background-color: rgb(137 137 137 / 55%)
+  color: #0088FF
+  backdrop-filter: blur(20px)
+
+.clearButton
+  
 .title
   font-size: 20px
   margin: 0
@@ -52,6 +86,7 @@
   text-decoration: none
   margin-right: 10px
   padding: 0
+  min-width: 100px
   display: flex
   flex-direction: column
   justify-content: center
@@ -67,7 +102,7 @@
     svg
       display: block
 
-.active
-  color: #3d88f5
-  &:hover
-    color: #3d88f5
+// .active
+//   color: #3d88f5
+//   &:hover
+//     color: #3d88f5

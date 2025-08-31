@@ -9,7 +9,6 @@ interface CardBaseProps {
   cardId: string;
   flexBasis?: string;
 }
-console.log("test")
 export const CardBase = ({
   children,
   className,

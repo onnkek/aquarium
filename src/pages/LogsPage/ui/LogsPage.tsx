@@ -9,6 +9,9 @@ import { clearDoserLogs, clearRelayLogs, clearSystemLogs, getDoserLogs, getRelay
 import { Button } from "shared/ui/Button";
 import { Status } from "models/Status";
 import { ReactComponent as Spinner } from 'shared/assets/icons/spinner.svg';
+import { ReactComponent as TrashIcon } from 'shared/assets/icons/aquarium/trash.svg';
+import { Navbar } from "widgets/Navbar";
+import { ButtonGroup } from "shared/ui/ButtonGroup";
 
 export interface LogsPageProps {
   className?: string;
@@ -57,7 +60,6 @@ export const LogsPage = ({ className }: LogsPageProps) => {
 
   useEffect(() => {
     if (containerRef.current && logStatus) {
-      console.log("test")
       containerRef.current.scrollIntoView({ behavior: "auto" });
     }
   }, [logStatus]);
@@ -66,24 +68,23 @@ export const LogsPage = ({ className }: LogsPageProps) => {
     <Page className={classNames(cls.logsPage, {}, [className])}>
       <div className={cls.log_body}>
         <div className={cls.log_header}>
-          <div className={cls.buttons}>
-            <Dropdown select={selectLog} items={[
-              [{
-                content: 'System',
-                onClick: selectSystemLogs
-              },
-              {
-                content: 'Relay',
-                onClick: selectRelayLogs
-              },
-              {
-                content: 'Doser',
-                onClick: selectDoserLogs
-              }]
-            ]} />
-            <Button theme='clear' onClick={clearLogs}>Clear</Button>
-          </div>
-
+          <ButtonGroup className={cls.group}>
+            <Button
+              className={classNames(cls.groupButton, { [cls.active]: selectLog === "System" }, [])}
+              onClick={selectSystemLogs}
+            >System</Button>
+            <Button
+              className={classNames(cls.groupButton, { [cls.active]: selectLog === "Relay" }, [])}
+              onClick={selectRelayLogs}
+            >Relay</Button>
+            <Button
+              className={classNames(cls.groupButton, { [cls.active]: selectLog === "Doser" }, [])}
+              onClick={selectDoserLogs}
+            >Doser</Button>
+          </ButtonGroup>
+          <Button theme='clear' className={cls.clearButton} onClick={clearLogs}>
+            <TrashIcon />
+          </Button>
         </div>
         <div className={cls.log_container}>
           {logStatus === Status.Loading &&
@@ -103,6 +104,7 @@ export const LogsPage = ({ className }: LogsPageProps) => {
         </div>
         <div ref={containerRef} />
       </div>
+      <Navbar className={cls.navbar} />
     </Page>
   );
 };

@@ -32,10 +32,10 @@
 .disabled
   cursor: default
   .toggle
-    color: var(--toggle-button-fg_disabled)
+    filter: grayscale(60%) brightness(60%)
 
 .toggleContainer[aria-checked="true"].disabled
-  background-color: white
+  filter: grayscale(60%) brightness(60%)
 
 .toggleContainer[aria-checked="true"]
   transition: background-color var(--animation-duration) var(--animation-timing)

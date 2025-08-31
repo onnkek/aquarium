@@ -117,7 +117,6 @@ export const RelaySettings = ({
   return (
     <SettingsWrapper open={open} onClose={onClose} card={card} onCofirm={onSendConfig}>
       <div className={classNames(cls.relaySettings, mods, [className])}>
-        <span className={cls.blur}></span>
         <div className={cls.body}>
           <ButtonGroup className={cls.group}>
             <Button
@@ -134,7 +133,7 @@ export const RelaySettings = ({
             <SettingsItem
               label="State"
               icon={<PowerIcon />}
-              control={<Toggle size='XL' checked={card.current.status} onClick={changeState} />}
+              control={<Toggle size='XL' checked={card.current.status} disabled={mode === 2} onClick={changeState} />}
             />
             <SettingsItem
               label="On"

@@ -139,9 +139,7 @@ export const PumpSettings = ({
   return (
     <SettingsWrapper open={open} onClose={onClose} card={card} onCofirm={sendConfig}>
       <div className={classNames(cls.pumpSettings, {}, [className])}>
-        <span className={cls.blur}></span>
         <div className={cls.body}>
-
           <ButtonGroup className={cls.group}>
             <Button
               className={classNames(cls.groupButton, { [cls.active]: mode !== 2 }, [])}
@@ -167,7 +165,7 @@ export const PumpSettings = ({
             <SettingsItem
               label="State"
               icon={<PowerIcon />}
-              control={<Toggle size='XL' checked={card.current.status} onClick={sendPumpState} />}
+              control={<Toggle disabled={mode === 2} size='XL' checked={card.current.status} onClick={sendPumpState} />}
             />
             <SettingsItem
               label="Name"

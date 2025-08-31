@@ -1,6 +1,6 @@
 import { IARGB, IARGBStatusInfo, IPumpConfig, IPumpStatus, IPunpInfo, IRelay, IStatusInfo, ISystem, ISystemInfo, ITemp, ITempStatusInfo } from "redux/AquariumSlice"
 
-export type CardType = "relay" | "pump" | "argb" | "temp";
+export type CardType = "relay" | "pump" | "argb" | "temp" | "system" | "server";
 export type RelaySubtype = "light" | "co2" | "o2" | "filter";
 
 export type SystemCardType = {
