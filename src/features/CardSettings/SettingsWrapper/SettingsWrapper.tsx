@@ -1,6 +1,6 @@
 import cls from './SettingsWrapper.module.sass';
 import { classNames, Mods } from "shared/lib/classNames";
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "motion/react";
 import { Button } from 'shared/ui/Button';
 import { CardType, ICard, RelayCardType, RelaySubtype } from 'entities/card/model/types';
 import { ReactComponent as BackIcon } from 'shared/assets/icons/aquarium/back.svg'
@@ -9,6 +9,7 @@ import { Portal } from 'shared/ui/Portal';
 import { useTheme } from 'app/providers/ThemeProvider/lib/useTheme';
 import { switchModal } from '../../../redux/AquariumSlice';
 import { useAppDispatch } from 'models/Hook';
+import React from 'react';
 
 interface SettingsWrapperProps {
   open: boolean;
@@ -16,7 +17,7 @@ interface SettingsWrapperProps {
   children: React.ReactNode;
   className?: string;
   card: ICard;
-  onCofirm: () => void;
+  onConfirm?: () => void;
 }
 const typeClasses: Record<CardType, string> = {
   temp: cls.temp,
@@ -32,13 +33,13 @@ const relaySubtypeClasses: Record<RelaySubtype, string> = {
   o2: cls.o2,
   filter: cls.filter
 };
-export const SettingsWrapper = ({
+export const SettingsWrapper = React.memo(({
   children,
   className,
   open,
   onClose,
   card,
-  onCofirm
+  onConfirm
 }: SettingsWrapperProps) => {
   const dispatch = useAppDispatch()
   const { theme } = useTheme();
@@ -52,39 +53,40 @@ export const SettingsWrapper = ({
     onClose();
   }
   const onConfirmHandler = () => {
-    dispatch(switchModal(false));
-    onCofirm();
+    if (onConfirm) {
+      dispatch(switchModal(false));
+      onConfirm();
+    }
   }
 
   return (
     <Portal>
-      <AnimatePresence>
-        <motion.div
-          className={classNames(cls.settingsWrapper, mods, [theme, className])}
-          layoutId={`card-${card.id}`}
-          transition={{
-            // duration: 0.25 
-            type: "spring",
-            stiffness: 400,
-            damping: 30
-          }}
-        >
-          <span className={cls.blur}></span>
-          <div className={cls.header}>
-            <Button theme='clear' className={cls.button} onClick={onCloseHandler}>
-              <BackIcon />
-            </Button>
-            <h2 className={cls.title}>{card.config.name}</h2>
-            <Button theme='clear' className={cls.otherButton} onClick={onConfirmHandler}>
+      <motion.div
+        className={classNames(cls.settingsWrapper, mods, [theme, className])}
+        layoutId={`card-${card.id}`}
+        transition={{
+          // duration: 0.25 
+          type: "spring",
+          stiffness: 1000,
+          damping: 50
+        }}
+      >
+        <span className={cls.blur}></span>
+        <div className={cls.header}>
+          <Button theme='clear' className={cls.button} onClick={onCloseHandler}>
+            <BackIcon />
+          </Button>
+          <h2 className={cls.title}>{card.config.name}</h2>
+          <div className={cls.other}>
+            <Button theme='clear' className={classNames(cls.otherButton, {}, [onConfirm && cls.otherButtonShow])} onClick={onConfirmHandler}>
               <CheckIcon />
             </Button>
           </div>
-          <div className={cls.content}>
-            {children}
-          </div>
-
-        </motion.div>
-      </AnimatePresence>
+        </div>
+        <div className={cls.content}>
+          {children}
+        </div>
+      </motion.div>
     </Portal>
   );
-}
+})

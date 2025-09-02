@@ -5,6 +5,7 @@
   height: calc(var(--progress-radius) + var(--stroke-width))
   justify-content: end
 .wrapper
+  font-family: "Open Sans", sans-serif
   position: relative
   display: flex
   align-items: center
@@ -17,51 +18,73 @@
   .progress
     stroke-width: var(--stroke-width)
   .text
+    font-family: "Open Sans", sans-serif
     color: var(--text-primary)
 
   .title
+    font-family: "Open Sans", sans-serif
     margin-bottom: 1px
     color: var(--text-tertiary)
+
+.wrapper.s
+  --progress-radius: 75px
+  --stroke-width: 12px
+  .text
+    font: var(--display-xs-semibold)
+    font-family: "Open Sans", sans-serif
+  .title
+    font: var(--text-xs-medium)
+    font-family: "Open Sans", sans-serif
 
 .wrapper.xxs
   --progress-radius: 32px
   --stroke-width: 6px
   .text
     font: var(--text-sm-semibold)
+    font-family: "Open Sans", sans-serif
   .title
     position: absolute
     bottom: -20px
     font: var(--text-xs-medium)
+    font-family: "Open Sans", sans-serif
 .wrapper.m
   --progress-radius: 80px
   --stroke-width: 16px
   .text
     font: var(--display-xs-semibold)
+    font-family: "Open Sans", sans-serif
   .title
     font: var(--text-xs-medium)
+    font-family: "Open Sans", sans-serif
 .wrapper.l
   --progress-radius: 100px
   --stroke-width: 20px
   .text
     font: var(--display-sm-semibold)
+    font-family: "Open Sans", sans-serif
   .title
     font: var(--text-xs-medium)
+    font-family: "Open Sans", sans-serif
 
 .wrapper.xl
   --progress-radius: 120px
   --stroke-width: 24px
   .text
     font: var(--display-md-semibold)
+    font-family: "Open Sans", sans-serif
   .title
     font: var(--text-sm-medium)
+    font-family: "Open Sans", sans-serif
 
 .wrapper.xxl
   --progress-radius: 140px
   --stroke-width: 28px
   .text
     font: var(--display-lg-semibold)
+    font-family: "Open Sans", sans-serif
   .title
     font: var(--text-sm-medium)
+    font-family: "Open Sans", sans-serif
 
 .svg
   position: absolute
@@ -86,6 +109,7 @@
   transform: rotate(-90deg)
   stroke-dasharray: var(--progress-length)
   stroke-linecap: round
+  transition: stroke-dashoffset 1.2s ease
 
 .half
   .progressContainer

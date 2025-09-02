@@ -13,7 +13,7 @@ interface ServerCardProps {
   className?: string;
   card: SystemCardType;
   onToggle: () => void;
-}
+} 
 
 export const ServerCard = ({
   className,

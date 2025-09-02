@@ -137,7 +137,7 @@ export const PumpSettings = ({
     onClose();
   }
   return (
-    <SettingsWrapper open={open} onClose={onClose} card={card} onCofirm={sendConfig}>
+    <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={sendConfig}>
       <div className={classNames(cls.pumpSettings, {}, [className])}>
         <div className={cls.body}>
           <ButtonGroup className={cls.group}>

@@ -65,18 +65,18 @@ export const TempSettings = ({
     await dispatch(updateTemp({ name: card.config.name, setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertCoolMode(mode) }))
     if (status === Status.Succeeded) {
       setMode(invertCoolMode(mode))
-      // setTimeout(() => {
-      dispatch(getCurrentInfo())
-      // }, card.config.timeout * 1000 + 200);
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
     }
   }
   const toggleHeatState = async () => {
     await dispatch(updateTemp({ name: card.config.name, setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertHeatMode(mode) }))
     if (status === Status.Succeeded) {
       setMode(invertHeatMode(mode))
-      // setTimeout(() => {
-      dispatch(getCurrentInfo())
-      // }, card.config.timeout * 1000 + 200);
+      setTimeout(() => {
+        dispatch(getCurrentInfo())
+      }, 200);
     }
   }
 
@@ -101,7 +101,7 @@ export const TempSettings = ({
   }
 
   return (
-    <SettingsWrapper open={open} onClose={onClose} card={card} onCofirm={sendConfig}>
+    <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={sendConfig}>
       <div className={classNames(cls.tempSettings, {}, [className])}>
         <div className={cls.body}>
           <ButtonGroup className={cls.group}>

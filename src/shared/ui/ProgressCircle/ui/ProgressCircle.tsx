@@ -2,17 +2,18 @@ import { useState } from 'react';
 import cls from './ProgressCircle.module.sass';
 import { Mods, classNames } from 'shared/lib/classNames';
 
-type ProgressCircleSize = 'XXS' | 'M' | 'L' | 'XL' | '2XL';
+type ProgressCircleSize = 'XXS' | 'M' | 'L' | 'S' | 'XL' | '2XL';
 const sizeClasses: Record<ProgressCircleSize, string> = {
   XXS: cls.xxs,
   M: cls.m,
   L: cls.l,
   XL: cls.xl,
+  S: cls.s,
   '2XL': cls.xxl
 };
 export interface ProgressCircleProps {
   className?: string;
-  value?: string;
+  value?: number;
   size?: ProgressCircleSize;
   title?: string;
   half?: boolean;
@@ -20,7 +21,7 @@ export interface ProgressCircleProps {
 
 export const ProgressCircle = ({
   className,
-  value = '0',
+  value = 0,
   size = 'M',
   title,
   half = false
@@ -28,7 +29,7 @@ export const ProgressCircle = ({
   const [progress, setProgress] = useState(value);
   const mods: Mods = {
     [sizeClasses[size]]: true,
-    [cls.half]: half
+    [cls.half]: half 
   }
   return (
     <div className={classNames(cls.wrapper, mods, [className])}>
@@ -41,7 +42,7 @@ export const ProgressCircle = ({
         }
       </svg>
       {title && <div className={cls.title}>{title}</div>}
-      <div className={cls.text}>{`${progress}%`}</div>
+      <div className={cls.text}>{`${Number(progress).toFixed(1)}%`}</div>
 
     </div >
   );

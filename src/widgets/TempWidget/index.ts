@@ -1,1 +1,0 @@
-export { TempWidget } from './ui/TempWidget';

@@ -29,11 +29,11 @@ export const TempCard = ({
     <CardBase cardId={card.id}>
       <div className={classNames(cls.tempCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}>
-
-          {(card.current.status === 1 || card.current.status === 3) && <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: true }, [])} />}
-          {(card.current.status === 2 || card.current.status === 3) && <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: true }, [])} />}
-          {card.current.status === 0 && <TempIcon className={cls.icon} />}
-
+          <div className={cls.statusIcons}>
+            {(card.current.status === 1 || card.current.status === 3) && <CoolIcon className={classNames(cls.cool, { [cls.cool_animation]: true }, [])} />}
+            {(card.current.status === 2 || card.current.status === 3) && <HeatIcon className={classNames(cls.heat, { [cls.heat_animation]: true }, [])} />}
+            {card.current.status === 0 && <TempIcon className={cls.icon} />}
+          </div>
           <div className={cls.right}>
             <h2 className={cls.name}>{card.config.name}</h2>
             <p className={cls.status}>{card.current.current.toFixed(2)} °C</p>

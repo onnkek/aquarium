@@ -1,7 +1,8 @@
 import cls from './CardBase.module.sass';
 import { classNames } from "shared/lib/classNames";
-import { motion } from 'framer-motion';
+import { motion } from "motion/react";
 import { ICard } from 'entities/card/model/types';
+import React from 'react';
 
 interface CardBaseProps {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ interface CardBaseProps {
   cardId: string;
   flexBasis?: string;
 }
-export const CardBase = ({
+export const CardBase = React.memo(({
   children,
   className,
   cardId,
@@ -21,13 +22,13 @@ export const CardBase = ({
       className={classNames(cls.cardBase, {}, [className])}
       style={{ flexBasis: flexBasis }}
       transition={{
-        // duration: 0.25
+        // duration: 0.15
         type: "spring",
-        stiffness: 400,
-        damping: 30
+        stiffness: 600,
+        damping: 40
       }}
     >
       {children}
     </motion.div>
   );
-}
+})

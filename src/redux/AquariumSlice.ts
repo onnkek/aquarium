@@ -27,7 +27,8 @@ export interface ISystemInfo {
   freeSpace: number,
   outside: IOutside,
   freeHeap: number,
-  heapSize: number
+  heapSize: number,
+  frequency: number
 }
 
 export interface IStatusInfo {
@@ -183,7 +184,8 @@ const initialState: IAquarium = {
         hum: 0
       },
       freeHeap: 0,
-      heapSize: 0
+      heapSize: 0,
+      frequency: 0
     },
     doser: [
       {
@@ -216,7 +218,7 @@ const initialState: IAquarium = {
       status: false
     },
     temp: {
-      status: 0,
+      status: 3,
       current: 0,
       cool: false,
       heat: false

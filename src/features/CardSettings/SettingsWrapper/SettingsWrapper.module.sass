@@ -106,7 +106,7 @@
   align-items: center
   z-index: 1000
   background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(6, 11, 24, 1))
-  &::before 
+  &::before
     content: ''
     position: absolute
     inset: 0
@@ -135,8 +135,13 @@
   padding: 12px
   background-color: rgb(225 173 2 / 100%)
   border-color: #fef128
-
-  &:hover
-    border-color: #fef128
+  display: none
   svg
     fill: #faf554
+  @media (hover: hover)
+    &:hover
+      border-color: #fef128
+.otherButtonShow
+  display: block
+.other
+  width: 44px

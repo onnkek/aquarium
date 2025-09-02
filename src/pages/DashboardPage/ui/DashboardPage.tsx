@@ -20,6 +20,10 @@ import { Navbar } from "widgets/Navbar";
 import { ServerCard } from "entities/card/ui/ServerCard";
 import { SystemCard } from "entities/card/ui/SystemCard";
 import { SystemSettings } from "features/CardSettings/SystemSettings";
+import { ServerSettings } from "features/CardSettings/ServerSettings";
+import { Toggle } from "shared/ui/Toggle";
+import { ProgressCircle } from "shared/ui/ProgressCircle";
+import { Button } from "shared/ui/Button";
 
 export interface DashboardPageProps {
   className?: string;
@@ -70,6 +74,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   }
   const getSettingsComponent = (card: ICard) => {
     switch (card.type) {
+      case "server": return <ServerSettings open={true} card={card} onClose={() => setSelectCard(null)} />
       case "system": return <SystemSettings open={true} card={card} onClose={() => setSelectCard(null)} />
       case "relay": return <RelaySettings open={true} card={card} onClose={() => setSelectCard(null)} />
       case "temp": return <TempSettings open={true} card={card} onClose={() => setSelectCard(null)} />
@@ -77,10 +82,12 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
       case "pump": return <PumpSettings open={true} card={card} onClose={() => setSelectCard(null)} />
     }
   }
-
+  const [test, setTest] = useState(false)
+  const [k, setK] = useState(0)
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
       <img className={cls.background} src={BG}></img>
+
       <div className={cls.dashboardContent}>
         {cards.map(card => (
           <React.Fragment key={card.id}>

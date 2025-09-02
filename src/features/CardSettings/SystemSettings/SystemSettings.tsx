@@ -59,7 +59,7 @@ export const SystemSettings = ({
   }
 
   return (
-    <SettingsWrapper open={open} onClose={onClose} card={card} onCofirm={onSendConfig}>
+    <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={onSendConfig}>
       <div className={classNames(cls.systemSettings, mods, [className])}>
         <div className={cls.body}>
 

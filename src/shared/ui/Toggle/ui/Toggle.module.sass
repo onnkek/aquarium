@@ -1,4 +1,5 @@
 .toggleContainer
+  position: relative
   -webkit-tap-highlight-color: transparent
   -webkit-user-select: none
   -webkit-touch-callout: none
@@ -20,35 +21,43 @@
   border: none
   border-radius: 9999px
   cursor: pointer
+  transition: none
 .toggle
+  top: 2px
+  left: 0.5%
   margin: 0px 2px
   display: block
+  position: absolute
   width: 16px
   height: 16px
   border-radius: 9999px
   background-color: white
-  transition: transform var(--animation-duration) var(--animation-timing)
+  transition: none
+  // transition: transform var(--animation-duration) var(--animation-timing)
   // box-shadow: 0px 4px 4px 0px #1018280f, 0px 1px 3px 0px #1018281a
 .disabled
   cursor: default
   .toggle
-    filter: grayscale(60%) brightness(60%)
+    filter: brightness(80%) contrast(90%) grayscale(30%)
 
 .toggleContainer[aria-checked="true"].disabled
-  filter: grayscale(60%) brightness(60%)
+  filter: brightness(80%) contrast(90%) grayscale(30%)
 
 .toggleContainer[aria-checked="true"]
-  transition: background-color var(--animation-duration) var(--animation-timing)
+  // transition: background-color var(--animation-duration) var(--animation-timing)
   background-color: var(--toggle-fg)
   .toggle
-    transform: translateX(53%)
+    // transform: translateX(53%)
+    animation: moveRight var(--animation-duration) forwards
   &:focus-visible
     box-shadow: var(--ring-brand)
 .toggleContainer[aria-checked="false"]
-  transition: background-color var(--animation-duration) var(--animation-timing)
+  // transition: background-color var(--animation-duration) var(--animation-timing)
   background-color: var(--toggle-bg)
   &:focus-visible
     box-shadow: var(--ring-gray-secondary)
+  .toggle
+    animation: moveLeft var(--animation-duration) forwards
 
 .toggleContainer.l
   width: 44px
@@ -73,3 +82,43 @@
   background-color: #ff2859
 .toggleContainer.switch[aria-checked="true"]
   background-color: #00be5e
+
+@keyframes moveRight
+  0%
+    transform: scale(1)
+    left: 0px
+    backdrop-filter: blur(0px)
+    background-color: rgb(255 255 255 / 100%)
+    border: 1px solid rgb(255 255 255 / 100%)
+  50%
+    transform: scale(2)
+    left: 10px
+    backdrop-filter: blur(2px)
+    background-color: rgb(37 37 37 / 55%)
+    border: 1px solid rgb(67 67 67 / 55%)
+  100%
+    transform: scale(1)
+    left: 21px
+    backdrop-filter: blur(0px)
+    background-color: rgb(255 255 255 / 100%)
+    border: 1px solid rgb(255 255 255 / 100%)
+
+@keyframes moveLeft
+  0%
+    transform: scale(1)
+    left: 21px
+    backdrop-filter: blur(0px)
+    background-color: rgb(255 255 255 / 100%)
+    border: 1px solid rgb(255 255 255 / 100%)
+  50%
+    transform: scale(2)
+    left: 10px
+    backdrop-filter: blur(2px)
+    background-color: rgb(37 37 37 / 55%)
+    border: 1px solid rgb(67 67 67 / 55%)
+  100%
+    transform: scale(1)
+    left: 0px
+    backdrop-filter: blur(0px)
+    background-color: rgb(255 255 255 / 100%)
+    border: 1px solid rgb(255 255 255 / 100%)

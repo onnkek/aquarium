@@ -1,1 +1,0 @@
-export { RGBWidget } from './ui/RGBWidget';

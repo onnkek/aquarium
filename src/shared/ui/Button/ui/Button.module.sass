@@ -53,9 +53,7 @@
   box-shadow: var(--shadow-xs)
   svg
     fill: var(--button-primary-fg)
-  &:hover
-    background-color: var(--button-primary-bg_hover)
-    border-color: var(--bg-brand-solid_hover)
+
   &:active,
   &:focus-visible
     box-shadow: var(--ring-gray-shadow-xs)
@@ -67,7 +65,10 @@
       fill: var(--fg-disabled)
     &:active
       box-shadow: var(--shadow-xs)
-
+  @media (hover: hover)
+    &:hover
+      background-color: var(--button-primary-bg_hover)
+      border-color: var(--bg-brand-solid_hover)
 .outline
   background-color: var(--button-secondary-bg)
   border: 1px solid var(--button-secondary-border)
@@ -140,13 +141,15 @@
   color: var(--button-tertiary-fg)
   svg
     fill: var(--button-tertiary-fg)
-  &:hover
-    background-color: var(--button-tertiary-bg_hover)
+
   &:disabled
     background-color: var(--transparent)
     color: var(--fg-disabled)
     svg
       fill: var(--fg-disabled)
+  @media (hover: hover)
+    &:hover
+      background-color: var(--button-tertiary-bg_hover)
 
 .colorClear
   color: var(--button-tertiary-color-fg)
