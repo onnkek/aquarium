@@ -2,7 +2,7 @@ import { classNames } from "shared/lib/classNames";
 import cls from './DashboardPage.module.sass';
 import { useAppDispatch, useAppSelector } from "models/Hook";
 import { Status } from "models/Status";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { getConfig, getCurrentInfo, switchModal } from "../../../redux/AquariumSlice";
 import { Page } from "widgets/Page";
 import BG from 'shared/assets/img/bg4.jpg';
@@ -36,7 +36,6 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   const updateStatus = useAppSelector(state => state.aquarium.updateStatus)
   const config = useAppSelector(state => state.aquarium.config)
   const current = useAppSelector(state => state.aquarium.currentInfo)
-  const currentInfo = useAppSelector(state => state.aquarium.currentInfo)
   const [selectCard, setSelectCard] = useState<ICard | null>(null);
   const cards = mapConfigToCards(config, current);
 
@@ -59,8 +58,16 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
   const onOpenCard = (card: ICard) => {
     setSelectCard(card);
-    dispatch(switchModal(true));
+    if (card.type !== "server") {
+      dispatch(switchModal(true));
+    }
   }
+
+  const mappedCard = useMemo(() => {
+    if (!selectCard) return;
+    const cards = mapConfigToCards(config, current);
+    return cards.find(card => card.id === selectCard.id);
+  }, [config, current, selectCard?.id])
 
   const getCardComponent = (card: ICard) => {
     switch (card.type) {
@@ -73,13 +80,14 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
     }
   }
   const getSettingsComponent = (card: ICard) => {
-    switch (card.type) {
+    switch (card!.type) {
+      case "pump": return <PumpSettings open={true} card={card} onClose={() => setSelectCard(null)} />
       case "server": return <ServerSettings open={true} card={card} onClose={() => setSelectCard(null)} />
       case "system": return <SystemSettings open={true} card={card} onClose={() => setSelectCard(null)} />
       case "relay": return <RelaySettings open={true} card={card} onClose={() => setSelectCard(null)} />
       case "temp": return <TempSettings open={true} card={card} onClose={() => setSelectCard(null)} />
       case "argb": return <ArgbSettings open={true} card={card} onClose={() => setSelectCard(null)} />
-      case "pump": return <PumpSettings open={true} card={card} onClose={() => setSelectCard(null)} />
+
     }
   }
   const [test, setTest] = useState(false)
@@ -96,7 +104,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
         ))}
       </div>
       <Navbar />
-      {selectCard && getSettingsComponent(selectCard)}
+      {selectCard && getSettingsComponent(mappedCard!)}
     </Page>
   );
 };

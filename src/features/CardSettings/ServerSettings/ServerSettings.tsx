@@ -15,7 +15,7 @@ import { getUptime } from 'shared/lib/period';
 interface ServerSettingsProps {
   className?: string;
   open: boolean;
-  onClose: () => void;
+  onClose: () => void; 
   card: SystemCardType;
 }
 
@@ -58,15 +58,15 @@ export const ServerSettings = ({
             <div className={cls.info}>
               <div className={cls.text}>
                 <p>Total space:</p>
-                <p>{card.current.totalSpace / 1024 / 1024 / 1024} MB</p>
+                <p>{(card.current.totalSpace / 1024 / 1024 / 1024).toFixed(1)} GB</p>
               </div>
               <div className={cls.text}>
                 <p>Used space:</p>
-                <p>{card.current.usedSpace / 1024 / 1024 / 1024} MB</p>
+                <p>{(card.current.usedSpace / 1024 / 1024).toFixed(1)} MB</p>
               </div>
               <div className={cls.text}>
                 <p>Free space:</p>
-                <p>{card.current.freeSpace / 1024 / 1024 / 1024} MB</p>
+                <p>{(card.current.freeSpace / 1024 / 1024 / 1024).toFixed(1)} GB</p>
               </div>
             </div>
           </div>
@@ -75,15 +75,15 @@ export const ServerSettings = ({
             <div className={cls.info}>
               <div className={cls.text}>
                 <p>Total RAM:</p>
-                <p>{card.current.heapSize / 1024} KB</p>
+                <p>{(card.current.heapSize / 1024).toFixed(1)} KB</p>
               </div>
               <div className={cls.text}>
                 <p>Used RAM:</p>
-                <p>{(card.current.heapSize - card.current.freeHeap) / 1024} KB</p>
+                <p>{((card.current.heapSize - card.current.freeHeap) / 1024).toFixed(1)} KB</p>
               </div>
               <div className={cls.text}>
                 <p>Free RAM:</p>
-                <p>{card.current.freeHeap / 1024} KB</p>
+                <p>{(card.current.freeHeap / 1024).toFixed(1)} KB</p>
               </div>
             </div>
           </div>

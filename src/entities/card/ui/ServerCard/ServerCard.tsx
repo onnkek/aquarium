@@ -25,7 +25,7 @@ export const ServerCard = ({
   const mods: Mods = {
     // [cls.on]: card.current.status !== 0
   }
-
+  
   return (
     <CardBase cardId={card.id}>
       <div className={classNames(cls.serverCard, mods, [className])} onClick={onToggle}>

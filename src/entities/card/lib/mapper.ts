@@ -1,5 +1,5 @@
 import { IConfig, ICurrentInfo } from "redux/AquariumSlice";
-import { CardType, ICard, RelaySubtype } from "../model/types";
+import { ArgbCardType, CardType, ICard, PumpCardType, RelayCardType, RelaySubtype, SystemCardType, TempCardType } from "../model/types";
 
 
 export function mapConfigToCards(config: IConfig, current: ICurrentInfo): ICard[] {
