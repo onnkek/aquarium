@@ -2,21 +2,33 @@
   display: flex
   flex-direction: column
   height: 100dvh
-
+  background-color: white
+  z-index: 100
   .background
+    filter: brightness(100%)
     position: fixed
     top: 0
     left: 0
     width: 100%
     height: 100vh
     object-fit: cover
+    z-index: -1
 
 .dashboardContent
+  padding: 10px 10px 10px calc(10% + 10px)
   width: 100%
   height: 100%
   display: flex
-  flex-wrap: wrap
-  padding: 10px
+  flex-direction: column
+  // flex-wrap: wrap
   overflow-x: hidden
   overflow-y: auto
-  padding-bottom: calc(env(safe-area-inset-bottom) + 80px)
+  @media (max-width: 780px)
+    padding: 10px
+    padding-bottom: calc(env(safe-area-inset-bottom) + 80px)
+
+.systemContainer
+  display: flex
+  width: 33%
+  @media (max-width: 780px)
+    width: 100%

@@ -21,9 +21,8 @@ import { ServerCard } from "entities/card/ui/ServerCard";
 import { SystemCard } from "entities/card/ui/SystemCard";
 import { SystemSettings } from "features/CardSettings/SystemSettings";
 import { ServerSettings } from "features/CardSettings/ServerSettings";
-import { Toggle } from "shared/ui/Toggle";
-import { ProgressCircle } from "shared/ui/ProgressCircle";
-import { Button } from "shared/ui/Button";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
+import { Collapse } from "shared/ui/Collapse";
 
 export interface DashboardPageProps {
   className?: string;
@@ -90,21 +89,49 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
     }
   }
-  const [test, setTest] = useState(false)
-  const [k, setK] = useState(0)
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
       <img className={cls.background} src={BG}></img>
-
       <div className={cls.dashboardContent}>
-        {cards.map(card => (
-          <React.Fragment key={card.id}>
-            {getCardComponent(card)}
-          </React.Fragment>
-        ))}
+        <div className={cls.systemContainer}>
+          {cards.filter(x => x.type === "system").map(card => (
+            <React.Fragment key={card.id}>
+              {getCardComponent(card)}
+            </React.Fragment>
+          ))}
+        </div>
+
+        <Collapse buttonText="Other">
+          {cards.filter(x => x.type === "argb" || x.type === "temp").map(card => (
+            <React.Fragment key={card.id}>
+              {getCardComponent(card)}
+            </React.Fragment>
+          ))}
+        </Collapse>
+        <Collapse buttonText="Relays">
+          {cards.filter(x => x.type === "relay").map(card => (
+            <React.Fragment key={card.id}>
+              {getCardComponent(card)}
+            </React.Fragment>
+          ))}
+        </Collapse>
+        <Collapse buttonText="Doser">
+          {cards.filter(x => x.type === "pump").map(card => (
+            <React.Fragment key={card.id}>
+              {getCardComponent(card)}
+            </React.Fragment>
+          ))}
+        </Collapse>
+        <Collapse buttonText="Server" defaultOpen={false}>
+          {cards.filter(x => x.type === "server").map(card => (
+            <React.Fragment key={card.id}>
+              {getCardComponent(card)}
+            </React.Fragment>
+          ))}
+        </Collapse>
       </div>
       <Navbar />
       {selectCard && getSettingsComponent(mappedCard!)}
-    </Page>
+    </Page >
   );
 };

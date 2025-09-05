@@ -1,16 +1,19 @@
 .header
   display: flex
   justify-content: flex-start
-  align-items: center
+  align-items: flex-start
   padding: 10px
   position: fixed
   top: 0
   color: white
   background-color: transparent
-  z-index: 10
-  width: 100%
-  height: 50px
+  z-index: 1000
+  width: 10%
+  height: 100%
   overflow: hidden
+  backdrop-filter: blur(10px)
+  background-color: rgb(37 37 37 / 55%)
+
   @media (max-width: 780px)
     position: fixed
     top: auto
@@ -19,48 +22,49 @@
     width: 100%
     justify-content: center
     align-items: flex-end
-    // border-top: 1px solid var(--border-primary)
-
-  .header_button_text
-    @media (max-width: 780px)
-      font-size: 10px
-      line-height: 20px
+    background-color: transparent
+    backdrop-filter: none
+.header_button_text
+  @media (max-width: 780px)
+    font-size: 10px
+    line-height: 20px
 
 .header_icon
-  width: 20px
-  height: 20px
+  width: 14px
+  height: 14px
+  margin-right: 10px
+  @media (max-width: 780px)
+    margin: 0
+    width: 20px
+    height: 20px
 
 .group
-  width: auto
-  padding: 4px 5px
   display: flex
-  justify-content: center
-  align-items: center
-  border-radius: 100px
-  backdrop-filter: blur(2px)
-  background-color: rgb(37 37 37 / 55%)
-  border: 1px solid rgb(67 67 67 / 55%)
-  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 30%)
-  -webkit-tap-highlight-color: transparent
-  -webkit-user-select: none
-  -webkit-touch-callout: none
-  a
-    font-family: "Open Sans", sans-serif
-    color: white
-    height: 54px
-    padding: 5px 17px
-    width: 100%
-    background-color: transparent
+  flex-direction: column
+  width: 100%
+  @media (max-width: 780px)
+    width: auto
+    padding: 4px 5px
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
     border-radius: 100px
-    border: none
-    // height: 28px
-    font-size: 10px
-    line-height: 18px
-    font-weight: 500
+    backdrop-filter: blur(2px)
+    background-color: rgb(37 37 37 / 55%)
+    border: 1px solid rgb(67 67 67 / 55%)
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 30%)
+    -webkit-tap-highlight-color: transparent
+    -webkit-user-select: none
+    -webkit-touch-callout: none
 .group .active
-  background-color: rgb(137 137 137 / 55%)
-  color: #0088FF
-  backdrop-filter: blur(20px)
+  background-color: rgb(37 37 37 / 55%)
+  border-radius: 4px
+  @media (max-width: 780px)
+    background-color: rgb(137 137 137 / 55%)
+    color: #0088FF
+    backdrop-filter: blur(20px)
+    border-radius: 100px
 
 .clearButton
 
@@ -81,29 +85,36 @@
     display: none
 
 .link
-  color: var(--fg-tertiary)
-  font-weight: 600
-  text-decoration: none
-  margin-right: 10px
-  padding: 0
-  min-width: 100px
   display: flex
-  flex-direction: column
-  justify-content: center
+  justify-content: flex-start
   align-items: center
-  -webkit-tap-highlight-color: transparent
+  text-decoration: none
+  font-family: "Open Sans", sans-serif
+  color: white
+  padding: 5px 17px
+  width: 100%
+  background-color: transparent
+  border-radius: 100px
+  border: none
+  font-size: 10px
+  line-height: 18px
+  font-weight: 500
   @media (hover: hover)
     &:hover
       color: var(--fg-secondary_hover)
-  svg
-    display: none
-    margin: 0
+  // svg
+  //   display: none
+  //   margin: 0
   @media (max-width: 780px)
+    color: var(--fg-tertiary)
+    font-weight: 600
+    margin-right: 10px
+    padding: 0
+    min-width: 100px
+    flex-direction: column
+    justify-content: center
+    -webkit-tap-highlight-color: transparent
     margin: 0
+    height: 54px
     svg
       display: block
-
-// .active
-//   color: #3d88f5
-//   &:hover
-//     color: #3d88f5

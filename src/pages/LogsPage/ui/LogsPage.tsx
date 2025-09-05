@@ -12,6 +12,7 @@ import { ReactComponent as Spinner } from 'shared/assets/icons/spinner.svg';
 import { ReactComponent as TrashIcon } from 'shared/assets/icons/aquarium/trash.svg';
 import { Navbar } from "widgets/Navbar";
 import { ButtonGroup } from "shared/ui/ButtonGroup";
+import BG from 'shared/assets/img/bg4.jpg';
 
 export interface LogsPageProps {
   className?: string;
@@ -66,6 +67,7 @@ export const LogsPage = ({ className }: LogsPageProps) => {
 
   return (
     <Page className={classNames(cls.logsPage, {}, [className])}>
+      <img className={cls.background} src={BG}></img>
       <div className={cls.log_body}>
         <div className={cls.log_header}>
           <ButtonGroup className={cls.group}>

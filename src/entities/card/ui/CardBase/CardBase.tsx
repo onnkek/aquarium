@@ -14,7 +14,7 @@ export const CardBase = React.memo(({
   children,
   className,
   cardId,
-  flexBasis = "calc(50% - 10px)"
+  flexBasis
 }: CardBaseProps) => {
   return (
     <motion.div

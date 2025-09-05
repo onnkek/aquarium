@@ -29,7 +29,7 @@ export const SystemCard = ({
   }
 
   return (
-    <CardBase cardId={card.id} flexBasis="100%">
+    <CardBase cardId={card.id} flexBasis='100%'>
       <div className={classNames(cls.systemCard, mods, [className])} onClick={onToggle}>
 
         <div className={cls.body}>

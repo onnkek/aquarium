@@ -12,11 +12,10 @@ import { Button } from "@headlessui/react";
 
 interface NavbarProps {
   className?: string;
-  ref?: LegacyRef<HTMLElement> | undefined
   style?: CSSProperties
 }
 
-export const Navbar = ({ className, ref, style }: NavbarProps) => {
+export const Navbar = ({ className, style }: NavbarProps) => {
   const location = useLocation();
   const [active, setActive] = useState("/")
 
@@ -25,29 +24,14 @@ export const Navbar = ({ className, ref, style }: NavbarProps) => {
     setActive(location.pathname);
   }, [location.pathname])
 
-  const isActive = (route: string) => {
+  const isActive = (route: string) => { 
     return active === route ? cls.active : ""
   }
 
   return (
-    <nav ref={ref} className={classNames(cls.header, {}, [className])} style={style}>
-
-      <Logo className={cls.logo} />
-      <h1 className={cls.title}>Aquarium</h1>
-      {/* <Link
-        to={RoutePath.dashboard}
-        className={classNames(cls.link, {}, [isActive(RoutePath.dashboard)])}
-      >
-        <DashboardIcon className={cls.header_icon} />
-        <div className={cls.header_button_text}>Dashboard</div>
-      </Link>
-      <Link
-        to={RoutePath.logs}
-        className={classNames(cls.link, {}, [isActive(RoutePath.logs)])}
-      >
-        <LogsIcon className={cls.header_icon} />
-        <div className={cls.header_button_text}>Logs</div>
-      </Link> */}
+    <nav className={classNames(cls.header, {}, [className])} style={style}>
+      {/* <Logo className={cls.logo} /> */}
+      {/* <h1 className={cls.title}>Aquarium</h1> */}
       <ButtonGroup className={cls.group}>
         <Link
           to={RoutePath.dashboard}
@@ -64,13 +48,6 @@ export const Navbar = ({ className, ref, style }: NavbarProps) => {
           <div className={cls.header_button_text}>Logs</div>
         </Link>
       </ButtonGroup>
-      {/* <Link
-        to={RoutePath.archive}
-        className={classNames(cls.link, {}, [isActive(RoutePath.archive)])}
-      >
-        <ArchiveIcon className='header_icon' />
-        <div className={cls.header_button_text}>Archive</div>
-      </Link> */}
     </nav>
   );
 };
