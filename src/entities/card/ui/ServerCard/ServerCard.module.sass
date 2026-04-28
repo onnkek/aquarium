@@ -1,86 +1,134 @@
 @use "app/styles/variables" as *
 
+.span6
+  grid-column: span 6
+
 .serverCard
-  padding: 5% 5%
-  width: 100%
-  height: 100%
-  aspect-ratio: 1.3 / 1
-  @media (max-width: 780px)
-    aspect-ratio: 1.07 / 1
-  .body
+  &:hover
+    cursor: pointer
+  .section
+    padding: 10px 12px
+  .device
+    display: grid
+    gap: 8px
+  .deviceTop
     display: flex
-    justify-content: center
-    align-items: center
-    width: 100%
-
-  .right
-    margin-left: 10%
-    width: 100%
-
-  .icon
-    padding: 5%
-    width: 60%
-    height: 60%
-    aspect-ratio: 1
-  .name
-    font-size: 15px
-    font-weight: 500
-    margin: 0
-    width: 100%
-    white-space: nowrap
-  .status
-    margin: 0
-    color: #C2C2C2
-  .progress
-    width: 100%
-    // flex-shrink: 0
-    margin-left: 7px
-  .progress_dose
-    width: 100%
-    // flex-shrink: 0
-    margin-left: 7px
-  .modeIcon
-    flex-shrink: 0
-  .mode
-    margin: 0
-    display: flex
-    align-items: center
-    color: #C2C2C2
-    padding: 5px 10px
-    background-color: rgba(255, 255, 255, 0.07)
-    border-radius: 999px
-    width: fit-content
-    &:not(:nth-last-child(3))
-      width: 100%
-    &:not(:last-child)
-      margin-bottom: 5px
-    p
-      margin: 0
-      flex-shrink: 0
-    svg
-      width: 15px
-      height: 15px
-      margin-right: 7px
-
-  .toggle
-    position: absolute
-    top: 10%
-    right: 10%
-  .blur
-    position: absolute
-    right: calc(30%)
-    bottom: calc(30%)
-    width: 90%
-    height: 90%
-    border-radius: 50%
-    border: 1px solid black
-    filter: blur(25px)
-    display: none
-
-.on
-  background-color: #1a1a1a
-  .blur
-    background-color: $widget-blur-white
+    justify-content: space-between
+    align-items: flex-start
+    gap: 10px
+  .pair
+    display: grid
+    grid-template-columns: repeat(2,1fr)
+    gap: 8px
+  .metric
+    padding: 10px
+    border-radius: 10px
+    border: 1px solid rgba(48,54,61,.9)
+    background: #0d1117
+  .metric span
     display: block
-  .icon
-    stroke: $widget-icon-white
+    font-size: 10px
+    color: var(--muted)
+    margin-bottom: 4px
+
+  .metric strong
+    color: #fff
+    font-size: 14px
+    font-variant-numeric: tabular-nums
+  .deviceName h4
+    margin: 0 0 2px
+    color: #fff
+    font-size: 14px
+
+  .deviceName p
+    margin: 0
+    color: var(--muted)
+    font-size: 11px
+  .chips
+    display: flex
+    flex-wrap: wrap
+    gap: 6px
+    justify-content: flex-end
+//   padding: 5% 5%
+//   width: 100%
+//   height: 100%
+//   aspect-ratio: 1.3 / 1
+//   @media (max-width: 780px)
+//     aspect-ratio: 1.07 / 1
+//   .body
+//     display: flex
+//     justify-content: center
+//     align-items: center
+//     width: 100%
+
+//   .right
+//     margin-left: 10%
+//     width: 100%
+
+//   .icon
+//     padding: 5%
+//     width: 60%
+//     height: 60%
+//     aspect-ratio: 1
+//   .name
+//     font-size: 15px
+//     font-weight: 500
+//     margin: 0
+//     width: 100%
+//     white-space: nowrap
+//   .status
+//     margin: 0
+//     color: #C2C2C2
+//   .progress
+//     width: 100%
+//     // flex-shrink: 0
+//     margin-left: 7px
+//   .progress_dose
+//     width: 100%
+//     // flex-shrink: 0
+//     margin-left: 7px
+//   .modeIcon
+//     flex-shrink: 0
+//   .mode
+//     margin: 0
+//     display: flex
+//     align-items: center
+//     color: #C2C2C2
+//     padding: 5px 10px
+//     background-color: rgba(255, 255, 255, 0.07)
+//     border-radius: 999px
+//     width: fit-content
+//     &:not(:nth-last-child(3))
+//       width: 100%
+//     &:not(:last-child)
+//       margin-bottom: 5px
+//     p
+//       margin: 0
+//       flex-shrink: 0
+//     svg
+//       width: 15px
+//       height: 15px
+//       margin-right: 7px
+
+//   .toggle
+//     position: absolute
+//     top: 10%
+//     right: 10%
+//   .blur
+//     position: absolute
+//     right: calc(30%)
+//     bottom: calc(30%)
+//     width: 90%
+//     height: 90%
+//     border-radius: 50%
+//     border: 1px solid black
+//     filter: blur(25px)
+//     display: none
+
+// .on
+//   background-color: #1a1a1a
+//   .blur
+//     background-color: $widget-blur-white
+//     display: block
+//   .icon
+//     stroke: $widget-icon-white

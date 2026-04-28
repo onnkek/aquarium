@@ -3,6 +3,7 @@ import { CardBase } from '../CardBase';
 import cls from './SystemCard.module.sass';
 import { classNames, Mods } from "shared/lib/classNames";
 import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/chip.svg';
+import { ReactComponent as SystemIcon } from 'shared/assets/icons/gear.svg';
 import { ReactComponent as SDIcon } from 'shared/assets/icons/aquarium/sd.svg';
 import { ReactComponent as RAMIcon } from 'shared/assets/icons/aquarium/ram.svg';
 import { Progress } from 'shared/ui/Progress';
@@ -29,8 +30,27 @@ export const SystemCard = ({
   }
 
   return (
-    <CardBase cardId={card.id} flexBasis='100%'>
-      <div className={classNames(cls.systemCard, mods, [className])} onClick={onToggle}>
+    <CardBase
+      cardId={card.id}
+      className={classNames(cls.systemCard + " " + cls.span6, {}, [className])}
+      onToggle={onToggle}
+      header={"Environment overview"}
+      // subheader={"Date, time, temperature and humidity"}
+      badge={"Live"}
+      indication
+      icon={<SystemIcon className={cls.icon} />}
+    >
+      <div className={cls.section + " " + cls.device}>
+        <div className={cls.pair}>
+          <div className={cls.metric}><span>Date</span><strong id="date">2026-04-27</strong></div>
+          <div className={cls.metric}><span>Time</span><strong id="time">08:31:00</strong></div>
+        </div>
+        <div className={cls.pair}>
+          <div className={cls.metric}><span>Temperature</span><strong>24.6 °C</strong></div>
+          <div className={cls.metric}><span>Humidity</span><strong>51 %</strong></div>
+        </div>
+      </div>
+      {/* <div className={classNames(cls.systemCard, mods, [className])} onClick={onToggle}>
 
         <div className={cls.body}>
           <div className={cls.header}>
@@ -53,7 +73,7 @@ export const SystemCard = ({
 
           </div>
         </div>
-      </div>
+      </div> */}
     </CardBase>
   );
 }

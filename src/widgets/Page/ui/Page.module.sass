@@ -1,6 +1,59 @@
 .page
   margin: 0
-  // padding: 20px
-  @media (max-width: 780px)
+  .topbar
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: 12px
+    padding: 14px 18px
+    border-bottom: 1px solid var(--border)
+    background: rgba(13,17,23,.96)
+    position: sticky
+    top: 0
+    z-index: 5
+
+  .crumbs h2
     margin: 0
-    // padding: 10px
+    color: #fff
+    font-size: 18px
+
+  .crumbs p
+    margin: 2px 0 0
+    color: var(--muted)
+    font-size: 12px
+
+  .topright
+    display: flex
+    gap: 8px
+    align-items: center
+    flex-wrap: wrap
+
+  .search,
+  .clock
+    padding: 9px 12px
+    border: 1px solid var(--border)
+    border-radius: 10px
+    background: var(--panel)
+    font-size: 12px
+
+  .search
+    color: var(--muted)
+    min-width: 160px
+
+  .clock
+    color: var(--text)
+    white-space: nowrap
+    font-variant-numeric: tabular-nums
+  @media (max-width: 900px)
+    .topbar
+      display: none
+    main
+      padding-bottom: 87px
+      
+main
+  width: 100%
+  flex: 1
+  min-width: 0
+  display: flex
+  flex-direction: column
+  overflow: hidden

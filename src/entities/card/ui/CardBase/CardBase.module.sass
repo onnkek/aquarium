@@ -1,37 +1,101 @@
 .cardBase
-  position: relative
-  color: white
-  font-weight: 100
-  font-family: "Open Sans", sans-serif
-  font-size: 15px
-  width: max-content
-  backdrop-filter: blur(20px)
-  background-color: rgb(37 37 37 / 55%)
-  margin: 5px
-  border-radius: 10px
-  display: flex
-  flex-basis: calc(16.5% - 10px)
-  flex-direction: column
-  justify-content: center
-  align-items: flex-start
+  --bg: #0d1117
+  --sidebar: #0d1117
+  --panel: #161b22
+  --border: #30363d
+  --text: #c9d1d9
+  --muted: #8b949e
+  --green: #2ea043
+  --green2: #238636
+  --blue: #58a6ff
+  --yellow: #d29922
+  --red: #f85149
+  --r: 10px
+  --navw: 240px
+  --font: Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif
+  background: var(--panel)
+  border: 1px solid var(--border)
+  border-radius: var(--r)
   overflow: hidden
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
-  height: max-content
-  @media (max-width: 780px)
-    position: relative
-    color: white
-    font-weight: 100
-    font-family: "Open Sans", sans-serif
-    font-size: 15px
-    width: 100%
-    backdrop-filter: blur(20px)
-    background-color: rgb(37 37 37 / 55%)
-    margin: 5px
-    border-radius: 10px
+  .title
     display: flex
-    flex-basis: calc(50% - 10px)
     flex-direction: column
     justify-content: center
-    align-items: flex-start
-    overflow: hidden
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
+
+    h3
+      margin: 0
+      color: #fff
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      font-size: 13px
+      line-height: 1.4
+    p
+      color: var(--muted)
+      font-size: 11px
+      margin: 0
+      line-height: 1.4
+
+  .header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: 10px
+    padding: 12px 12px
+    // border-bottom: 1px solid rgba(48,54,61,.8)
+    // background: rgba(255,255,255,.02) 
+    .dot
+      display: block
+      margin-right: 5px
+      width: 7px
+      height: 7px
+      border-radius: 50%
+      background: var(--green)
+    .indicator
+      display: flex
+      justify-content: center
+      align-items: center
+    .headerLeft
+      display: flex
+      align-items: center
+      gap: 8px
+      .icon
+        svg
+          width: 23px
+          height: 23px
+  // position: relative
+  // color: white
+  // font-weight: 100
+  // font-family: "Open Sans", sans-serif
+  // font-size: 15px
+  // width: max-content
+  // backdrop-filter: blur(20px)
+  // background-color: rgb(37 37 37 / 55%)
+  // margin: 5px
+  // border-radius: 10px
+  // display: flex
+  // flex-basis: calc(16.5% - 10px)
+  // flex-direction: column
+  // justify-content: center
+  // align-items: flex-start
+  // overflow: hidden
+  // box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)
+  // height: max-content
+  // @media (max-width: 780px)
+  //   position: relative
+  //   color: white
+  //   font-weight: 100
+  //   font-family: "Open Sans", sans-serif
+  //   font-size: 15px
+  //   width: 100%
+  //   backdrop-filter: blur(20px)
+  //   background-color: rgb(37 37 37 / 55%)
+  //   margin: 5px
+  //   border-radius: 10px
+  //   display: flex
+  //   flex-basis: calc(50% - 10px)
+  //   flex-direction: column
+  //   justify-content: center
+  //   align-items: flex-start
+  //   overflow: hidden
+  //   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 25%)

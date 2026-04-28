@@ -6,6 +6,7 @@ import { ReactComponent as ARGBIcon } from 'shared/assets/icons/aquarium/argb.sv
 import { ReactComponent as ManualIcon } from 'shared/assets/icons/aquarium/hand.svg'
 import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/arrow-up.svg'
 import { getStringARGBMode } from 'shared/lib/period';
+import { Badge } from 'shared/ui/Badge';
 
 interface ArgbCardProps {
   className?: string;
@@ -26,8 +27,39 @@ export const ArgbCard = ({
 
 
   return (
-    <CardBase cardId={card.id}>
-      <div className={classNames(cls.argbCard, mods, [className])} onClick={onToggle}>
+    <CardBase
+      cardId={card.id}
+      className={classNames(cls.argbCard + " " + cls.span6, {}, [className])}
+      onToggle={onToggle}
+      header={"Backlight"}
+      badge={"ARGB"}
+      icon={<ARGBIcon className={cls.icon} />}
+    >
+      <div className={cls.section + " " + cls.device}>
+        <div className={cls.deviceTop}>
+          {/* <div className={cls.deviceName}><h4>Backlight</h4><p>Visual effect system</p></div> */}
+          <div className={cls.chips}>
+            <Badge theme='outline' color='black'>STATIC</Badge>
+            {/* <Badge theme='outline' color='blue-light'>GRADIENT</Badge>
+            <Badge theme='outline' color='warning'>CYCLE</Badge>
+            <Badge theme='outline' color='gray'>CUSTOM</Badge> */}
+            <div className={cls.state}>
+              <Badge theme='outline' color='success'>ON</Badge>
+              <Badge theme='outline' color='success'>AUTO</Badge>
+            </div>
+          </div>
+        </div>
+        {/* <div className={cls.deviceTop}>
+          <div className={cls.deviceName}><h4>Style</h4><p>Current profile</p></div>
+          <div className={cls.chips}>
+            <Badge theme='outline' color='black'>STATIC</Badge>
+            <Badge theme='outline' color='blue-light'>GRADIENT</Badge>
+            <Badge theme='outline' color='warning'>CYCLE</Badge>
+            <Badge theme='outline' color='gray'>CUSTOM</Badge>
+          </div>
+        </div> */}
+      </div>
+      {/* <div className={classNames(cls.argbCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}>
           <ARGBIcon className={cls.icon} />
 
@@ -44,7 +76,7 @@ export const ArgbCard = ({
 
           <p>{card.config.mode === 0 ? "Manual" : `${card.config.on} - ${card.config.off}`}</p>
         </div>
-      </div>
+      </div> */}
     </CardBase>
   );
 }

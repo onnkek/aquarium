@@ -1,102 +1,154 @@
 @use "app/styles/variables" as *
-
+.span6
+  grid-column: span 6
 .tempCard
-  padding: 5% 5%
-  width: 100%
-  height: 100%
-  aspect-ratio: 1.85 / 1
-  @media (max-width: 780px)
-    aspect-ratio: 1.65 / 1
-  .body
+  &:hover
+    cursor: pointer
+  .section
+    padding: 10px 12px
+  .device
+    display: grid
+    gap: 8px
+  .deviceTop
     display: flex
-    justify-content: center
-    align-items: center
+    flex-direction: column
+    justify-content: space-between
+    align-items: flex-end
+    gap: 10px
     width: 100%
 
-  .right
-    margin-left: 10%
-    width: 100%
+  .deviceName h4
+    margin: 0 0 2px
+    color: #fff
+    font-size: 14px
 
-  .statusIcons
+  .deviceName p
+    margin: 0
+    color: var(--muted)
+    font-size: 11px
+  .chips
     display: flex
-    justify-content: center
-    align-items: center
-    // padding: 5%
-    width: 60%
-    aspect-ratio: 1 / 1.1
-    height: 60%
-  .icon
-    // padding: 5%
-    width: 80%
-    height: 80%
-    aspect-ratio: 1
-    stroke: white
-  .name
-    font-size: 15px
-    font-weight: 500
-    margin: 0
-    width: 100%
-    white-space: nowrap
-  .status
-    margin: 0
-    color: #C2C2C2
-  .mode
-    margin: 0
-    display: flex
-    align-items: center
-    color: #C2C2C2
-    padding: 5px 10px
-    background-color: rgba(255, 255, 255, 0.07)
-    border-radius: 999px
-    width: min-content
-    p
-      margin: 0
-    svg
-      width: 15px
-      height: 15px
-      margin-right: 7px
+    flex-wrap: wrap
+    gap: 6px
+    justify-content: flex-end
+  .pair
+    display: grid
+    grid-template-columns: repeat(2,1fr)
+    gap: 8px
 
-  .toggle
-    position: absolute
-    top: 10%
-    right: 10%
-  .blur
-    position: absolute
-    right: calc(30%)
-    bottom: calc(30%)
-    width: 90%
-    height: 90%
-    border-radius: 50%
-    border: 1px solid black
-    filter: blur(25px)
-    display: none
-    background-color: $widget-blur-violet
-  .on
-    background-color: #1a1a1a
-    .blur
-      display: block
-  .cool
-    width: 80%
-    height: 80%
+  .metric
+    padding: 10px
+    border-radius: 10px
+    border: 1px solid rgba(48,54,61,.9)
+    background: #0d1117
 
-  .heat
-    width: 80%
-    height: 80%
+  .metric span
+    display: block
+    font-size: 10px
+    color: var(--muted)
+    margin-bottom: 4px
 
-  .cool_animation
-    animation: 3s linear 0s infinite normal coolan
+  .metric strong
+    color: #fff
+    font-size: 14px
+    font-variant-numeric: tabular-nums
 
-  .heat_animation
-    animation: 1s ease-in-out 0s infinite alternate-reverse heatan
+  // padding: 5% 5%
+  // width: 100%
+  // height: 100%
+  // aspect-ratio: 1.85 / 1
+  // @media (max-width: 780px)
+  //   aspect-ratio: 1.65 / 1
+  // .body
+  //   display: flex
+  //   justify-content: center
+  //   align-items: center
+  //   width: 100%
 
-  @keyframes coolan
-    from
-      transform: rotate(0)
-    to
-      transform: rotate(360deg)
+  // .right
+  //   margin-left: 10%
+  //   width: 100%
 
-  @keyframes heatan
-    from
-      transform: scale(0.85)
-    to
-      transform: scale(1.05)
+  // .statusIcons
+  //   display: flex
+  //   justify-content: center
+  //   align-items: center
+  //   // padding: 5%
+  //   width: 60%
+  //   aspect-ratio: 1 / 1.1
+  //   height: 60%
+  // .icon
+  //   // padding: 5%
+  //   width: 80%
+  //   height: 80%
+  //   aspect-ratio: 1
+  //   stroke: white
+  // .name
+  //   font-size: 15px
+  //   font-weight: 500
+  //   margin: 0
+  //   width: 100%
+  //   white-space: nowrap
+  // .status
+  //   margin: 0
+  //   color: #C2C2C2
+  // .mode
+  //   margin: 0
+  //   display: flex
+  //   align-items: center
+  //   color: #C2C2C2
+  //   padding: 5px 10px
+  //   background-color: rgba(255, 255, 255, 0.07)
+  //   border-radius: 999px
+  //   width: min-content
+  //   p
+  //     margin: 0
+  //   svg
+  //     width: 15px
+  //     height: 15px
+  //     margin-right: 7px
+
+  // .toggle
+  //   position: absolute
+  //   top: 10%
+  //   right: 10%
+  // .blur
+  //   position: absolute
+  //   right: calc(30%)
+  //   bottom: calc(30%)
+  //   width: 90%
+  //   height: 90%
+  //   border-radius: 50%
+  //   border: 1px solid black
+  //   filter: blur(25px)
+  //   display: none
+  //   background-color: $widget-blur-violet
+  // .on
+  //   background-color: #1a1a1a
+  //   .blur
+  //     display: block
+  // .cool
+  //   width: 80%
+  //   height: 80%
+
+  // .heat
+  //   width: 80%
+  //   height: 80%
+
+  // .cool_animation
+  //   animation: 3s linear 0s infinite normal coolan
+
+  // .heat_animation
+  //   animation: 1s ease-in-out 0s infinite alternate-reverse heatan
+
+  // @keyframes coolan
+  //   from
+  //     transform: rotate(0)
+  //   to
+  //     transform: rotate(360deg)
+
+  // @keyframes heatan
+  //   from
+  //     transform: scale(0.85)
+  //   to
+  //     transform: scale(1.05)

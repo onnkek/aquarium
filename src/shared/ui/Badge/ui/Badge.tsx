@@ -8,7 +8,7 @@ type BadgeColor =
   'gray' | 'brand' | 'error' |
   'warning' | 'success' | 'gray-blue' |
   'blue-light' | 'blue' | 'indigo' |
-  'purple' | 'pink' | 'orange';
+  'purple' | 'pink' | 'orange' | 'black' | 'light-gray';
 const sizeClasses: Record<BadgeSize, string> = {
   S: cls.s,
   M: cls.m,
@@ -27,12 +27,14 @@ const colorClasses: Record<BadgeColor, string> = {
   warning: cls.warning,
   success: cls.success,
   "gray-blue": cls.grayBlue,
+  "light-gray": cls.lightGray,
   "blue-light": cls.blueLight,
   blue: cls.blue,
   indigo: cls.indigo,
   purple: cls.purple,
   pink: cls.pink,
-  orange: cls.orange
+  orange: cls.orange,
+  black: cls.black
 };
 export interface BadgeProps {
   className?: string;
@@ -57,11 +59,9 @@ export const Badge = ({
     [themeClasses[theme]]: true
   }
   return (
-    <div className={classNames(cls.badge, mods, [className])}>
+    <span className={classNames(cls.badge, mods, [className])}>
       {dot && <div className={cls.dot} />}
-      <div>
-        {children}
-      </div>
-    </div>
+      {children}
+    </span>
   );
 };

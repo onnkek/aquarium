@@ -8,6 +8,7 @@ import { ReactComponent as ManualIcon } from 'shared/assets/icons/aquarium/hand.
 import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/arrow-up.svg'
 import { Progress } from 'shared/ui/Progress';
 import { CardBase } from '../CardBase';
+import { Badge } from 'shared/ui/Badge';
 
 interface PumpCardProps {
   className?: string;
@@ -26,8 +27,41 @@ export const PumpCard = ({
   }
 
   return (
-    <CardBase cardId={card.id}>
-      <div className={classNames(cls.pumpCard, mods, [className])} onClick={onToggle}>
+    <div className={classNames(cls.pumpCard, {}, [className])} onClick={onToggle}>
+      <div className={cls.section + " " + cls.device}>
+        <div className={cls.deviceTop}>
+          <div className={cls.deviceLeft}>
+            <PumpIcon className={cls.icon} />
+            <div className={cls.deviceName}>
+              <h4>Pump 1</h4>
+              <div className={cls.chips}>
+                <Badge theme='outline' color='success'>ON</Badge>
+                <Badge theme='outline' color='success'>AUTO</Badge>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div className={cls.metric}>
+          <span>Added Fertilizer</span>
+          <strong>120 / 200 ml</strong>
+          <div className={cls.progress}>
+            <div className={cls.bar} style={{ width: "60%" }}></div>
+          </div>
+          <div className={cls.sub}>
+            <span>60% completed</span>
+            <span>80 ml left</span>
+          </div>
+        </div>
+        <div className={cls.metric}>
+          <span>Fertilizer Left in Tank</span>
+          <strong>780 / 1000 ml</strong>
+          <div className={cls.progress}><div className={cls.bar} style={{ width: "78%" }}></div></div>
+          <div className={cls.sub}><span>78% remaining</span><span>220 ml used</span></div>
+        </div>
+      </div>
+      {/* <div className={classNames(cls.pumpCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}>
 
 
@@ -54,7 +88,7 @@ export const PumpCard = ({
           <p>{(card.config.currentVolume / card.config.dosage).toFixed(0)} days</p>
           <Progress className={cls.progress} text="none" value={card.config.currentVolume / card.config.maxVolume * 100} />
         </div>
-      </div>
-    </CardBase>
+      </div> */}
+    </div>
   );
 }

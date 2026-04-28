@@ -2,8 +2,9 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "module": "ESNext",
-    "target": "es2025",
+    "target": "esnext",
     "jsx": "react-jsx",
+    "moduleResolution": "node",
     "allowJs": true,
     "strict": true,
     "paths": {

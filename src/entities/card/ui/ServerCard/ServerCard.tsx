@@ -13,7 +13,7 @@ interface ServerCardProps {
   className?: string;
   card: SystemCardType;
   onToggle: () => void;
-} 
+}
 
 export const ServerCard = ({
   className,
@@ -25,14 +25,29 @@ export const ServerCard = ({
   const mods: Mods = {
     // [cls.on]: card.current.status !== 0
   }
-  
+ 
   return (
-    <CardBase cardId={card.id}>
-      <div className={classNames(cls.serverCard, mods, [className])} onClick={onToggle}>
+    <CardBase 
+    cardId={card.id} 
+    className={classNames(cls.serverCard + " " + cls.span6, {}, [className])} 
+    onToggle={onToggle} 
+    header={"Server"} 
+    badge={"Hardware"}
+    icon={<ChipIcon className={cls.icon} />}
+    >
+      <div className={cls.section + " " + cls.device}>
+        <div className={cls.pair}>
+          <div className={cls.metric}><span>Chip Temp</span><strong>43.2 °C</strong></div>
+          <div className={cls.metric}><span>Fan Speed</span><strong>2100 RPM</strong></div>
+        </div>
+        <div className={cls.pair}>
+          <div className={cls.metric}><span>SD Usage</span><strong>12.8 / 32 GB</strong></div>
+          <div className={cls.metric}><span>RAM</span><strong>78 / 320 KB</strong></div>
+        </div>
+      </div>
 
+      {/* <div className={classNames(cls.serverCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}>
-
-
           {<ChipIcon className={cls.icon} />}
           <div className={cls.right}>
             <h2 className={cls.name}>{card.config.name}</h2>
@@ -47,15 +62,14 @@ export const ServerCard = ({
         </div>
         <div className={cls.mode}>
           <SDIcon className={cls.modeIcon} />
-          {/* <p>{(card.current.usedSpace / 1024 / 1024).toFixed(0)}/{(card.current.freeSpace / 1024 / 1024 / 1024).toFixed(0)} MB</p> */}
           <Progress className={cls.progress} text="none" value={card.current.usedSpace / card.current.totalSpace * 100} />
         </div>
         <div className={cls.mode}>
           <RAMIcon className={cls.modeIcon} />
-          {/* <p>{((card.current.heapSize - card.current.freeHeap) / 1024).toFixed(0)}/{(card.current.heapSize / 1024).toFixed(0)} KB</p> */}
           <Progress className={cls.progress} text="none" value={(card.current.heapSize - card.current.freeHeap) / card.current.heapSize * 100} />
         </div>
-      </div>
+      </div> */}
+
     </CardBase>
   );
 }

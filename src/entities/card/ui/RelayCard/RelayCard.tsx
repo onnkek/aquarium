@@ -8,6 +8,7 @@ import { ReactComponent as CO2Icon } from 'shared/assets/icons/aquarium/co2short
 import { ReactComponent as FilterIcon } from 'shared/assets/icons/aquarium/filter.svg'
 import { ReactComponent as ManualIcon } from 'shared/assets/icons/aquarium/hand.svg'
 import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/arrow-up.svg'
+import { Badge } from 'shared/ui/Badge';
 
 interface RelayCardProps {
   className?: string;
@@ -44,8 +45,28 @@ export const RelayCard = ({
   }
 
   return (
-    <CardBase cardId={card.id}>
-      <div className={classNames(cls.relayCard, mods, [className])} onClick={onToggle}>
+    <CardBase
+      cardId={card.id}
+      className={classNames(cls.relayCard + " " + cls.span3, {}, [className])}
+      onToggle={onToggle}
+      header={card.config.name}
+      badge={"Relay"}
+      icon={getRelayIcon()}
+    >
+      <div className={cls.section + " " + cls.device}>
+        <div className={cls.deviceTop}>
+          {/* <div className={cls.deviceName}><h4>CO2 System</h4><p>Gas dosing controller</p></div> */}
+          {/* <div className={cls.icon}>{getRelayIcon()}</div> */}
+          <div className={cls.chips}>
+            <Badge theme='outline' color='gray'>14:00-21:00</Badge>
+            <div className={cls.state}>
+              <Badge theme='outline' color='success'>ON</Badge>
+              <Badge theme='outline' color='success'>AUTO</Badge>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className={classNames(cls.relayCard, mods, [className])} onClick={onToggle}>
         <div className={cls.body}> 
 
  
@@ -63,7 +84,7 @@ export const RelayCard = ({
 
           <p>{card.config.mode !== 2 ? "Manual" : `${card.config.on} - ${card.config.off}`}</p>
         </div>
-      </div>
+      </div> */}
     </CardBase>
   );
 }

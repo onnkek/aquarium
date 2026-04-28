@@ -1,34 +1,444 @@
+:root
+  --bg: #0d1117
+  --sidebar: #0d1117
+  --panel: #161b22
+  --border: #30363d
+  --text: #c9d1d9
+  --muted: #8b949e
+  --green: #2ea043
+  --green2: #238636
+  --blue: #58a6ff
+  --yellow: #d29922
+  --red: #f85149
+  --r: 10px
+  --navw: 240px
+  --font: Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif
+
+*
+  box-sizing: border-box
+body
+  margin: 0
+  font-family: var(--font)
+  background: var(--bg)
+  color: var(--text)
+  line-height: 1
+
 .dashboardPage
-  display: flex
-  flex-direction: column
-  height: 100dvh
-  background-color: white
-  z-index: 100
-  .background
-    filter: brightness(100%)
-    position: fixed
+  .app
+    display: flex
+    min-height: 100vh 
+  .sidebar
+    width: var(--navw)
+    background: var(--sidebar)
+    border-right: 1px solid var(--border)
+    padding: 16px 14px
+    position: sticky
     top: 0
-    left: 0
-    width: 100%
     height: 100vh
-    object-fit: cover
-    z-index: -1
 
-.dashboardContent
-  padding: 10px 10px 10px calc(10% + 10px)
-  width: 100%
-  height: 100%
-  display: flex
-  flex-direction: column
-  // flex-wrap: wrap
-  overflow-x: hidden
-  overflow-y: auto
-  @media (max-width: 780px)
+  .brand
+    display: flex
+    gap: 10px
+    align-items: center
+    margin-bottom: 14px
+
+  .logo
+    width: 36px
+    height: 36px
+    border-radius: 12px
+    background: linear-gradient(145deg,var(--green),var(--green2))
+
+  .brand h1
+    margin: 0
+    color: #fff
+    font-size: 16px
+    line-height: 1.1
+    font-weight: 700
+
+  .brand p
+    margin: 2px 0 0
+    color: var(--muted)
+    font-size: 11px
+
+  .nav
+    display: grid
+    gap: 6px
+
+  .nav a
+    text-decoration: none
+    color: var(--text)
+    padding: 9px 10px
+    border-radius: 10px
+    border: 1px solid transparent
+    display: flex
+    justify-content: space-between
+    align-items: center
+    font-size: 13px
+
+  .nav a.active,
+  .nav a:hover
+    background: rgba(46,160,67,.08)
+    border-color: rgba(46,160,67,.22)
+    color: #fff
+
+  .sidebox
+    margin-top: 12px
+    padding: 10px 11px
+    border-radius: 10px
+    border: 1px solid var(--border)
+    background: rgba(255,255,255,.02)
+
+  .sidebox span
+    display: block
+    color: var(--muted)
+    font-size: 11px
+
+  .sidebox strong
+    display: block
+    margin-top: 4px
+    color: #fff
+    font-size: 13px
+    font-variant-numeric: tabular-nums
+
+  .main
+    flex: 1
+    min-width: 0
+
+  .topbar
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: 12px
+    padding: 14px 18px
+    border-bottom: 1px solid var(--border)
+    background: rgba(13,17,23,.96)
+    position: sticky
+    top: 0
+    z-index: 5
+
+  .crumbs h2
+    margin: 0
+    color: #fff
+    font-size: 18px
+
+  .crumbs p
+    margin: 2px 0 0
+    color: var(--muted)
+    font-size: 12px
+
+  .topright
+    display: flex
+    gap: 8px
+    align-items: center
+    flex-wrap: wrap
+
+  .search,
+  .clock
+    padding: 9px 12px
+    border: 1px solid var(--border)
+    border-radius: 10px
+    background: var(--panel)
+    font-size: 12px
+
+  .search
+    color: var(--muted)
+    min-width: 160px
+
+  .clock
+    color: var(--text)
+    white-space: nowrap
+    font-variant-numeric: tabular-nums
+
+  .content
+    padding: 16px
+    width: 80%
+
+  .grid
+    display: grid
+    grid-template-columns: repeat(12,1fr)
+    gap: 22px
+
+  .card
+    background: var(--panel)
+    border: 1px solid var(--border)
+    border-radius: var(--r)
+    overflow: hidden
+
+  .cardHead
+    display: flex
+    justify-content: space-between
+    align-items: center
+    gap: 10px
+    padding: 10px 12px
+    border-bottom: 1px solid rgba(48,54,61,.8)
+    background: rgba(255,255,255,.02)
+
+  .cardHead h3
+    margin: 0
+    color: #fff
+    font-size: 14px
+
+  .pill
+    display: inline-flex
+    align-items: center
+    gap: 6px
+    border: 1px solid var(--border)
+    border-radius: 999px
+    padding: 5px 9px
+    font-size: 11px
+    color: var(--muted)
+    background: rgba(255,255,255,.02)
+
+  .dot
+    width: 7px
+    height: 7px
+    border-radius: 50%
+    background: var(--green)
+
+  .section
+    padding: 0px 12px 12px 12px
+
+  .kpis
+    display: grid
+    grid-template-columns: repeat(4,1fr)
+    gap: 10px
+
+  .kpi
+    padding: 12px
+    border-radius: 10px
+    border: 1px solid rgba(48,54,61,.9)
+    background: rgba(255,255,255,.02)
+
+  .kpi span
+    display: block
+    font-size: 11px
+    color: var(--muted)
+    margin-bottom: 6px
+
+  .kpi strong
+    display: block
+    font-size: 20px
+    color: #fff
+    line-height: 1
+    font-variant-numeric: tabular-nums
+
+  .kpi small
+    display: block
+    margin-top: 6px
+    color: var(--muted)
+    font-size: 11px
+
+  .device
+    display: grid
+    gap: 8px
+
+  .deviceTop
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    gap: 10px
+
+  .deviceName h4
+    margin: 0 0 2px
+    color: #fff
+    font-size: 14px
+
+  .deviceName p
+    margin: 0
+    color: var(--muted)
+    font-size: 11px
+
+  .chips
+    display: flex
+    flex-wrap: wrap
+    gap: 6px
+    justify-content: flex-end
+
+  .chip
+    padding: 5px 8px
+    border-radius: 999px
+    border: 1px solid var(--border)
+    background: #0f1720
+    color: var(--text)
+    font-size: 11px
+    white-space: nowrap
+
+  .on,.auto,.heating,.cooling
+    border-color: rgba(46,160,67,.35)
+    color: #7ee787
+    background: rgba(46,160,67,.10)
+
+  .off,.manual,.static
+    border-color: rgba(139,148,158,.35)
+    color: #c9d1d9
+
+  .gradient
+    border-color: rgba(88,166,255,.35)
+    color: #79c0ff
+    background: rgba(88,166,255,.10)
+
+  .cycle
+    border-color: rgba(210,153,34,.35)
+    color: #e3b341
+    background: rgba(210,153,34,.10)
+
+  .custom
+    border-color: rgba(201,209,217,.35)
+    color: #f0f6fc
+    background: rgba(255,255,255,.04)
+
+  .pair
+    display: grid
+    grid-template-columns: repeat(2,1fr)
+    gap: 8px
+
+  .metric
     padding: 10px
-    padding-bottom: calc(env(safe-area-inset-bottom) + 80px)
+    border-radius: 10px
+    border: 1px solid rgba(48,54,61,.9)
+    background: rgba(255,255,255,.02)
 
-.systemContainer
-  display: flex
-  width: 33%
-  @media (max-width: 780px)
-    width: 100%
+  .metric span
+    display: block
+    font-size: 10px
+    color: var(--muted)
+    margin-bottom: 4px
+
+  .metric strong
+    color: #fff
+    font-size: 14px
+    font-variant-numeric: tabular-nums
+
+  .progress
+    margin-top: 8px
+    height: 8px
+    border-radius: 999px
+    background: #0b1220
+    border: 1px solid rgba(48,54,61,.9)
+    overflow: hidden
+
+  .bar
+    height: 100%
+    border-radius: inherit
+    background: linear-gradient(90deg,var(--green),var(--green2))
+
+  .sub
+    display: flex
+    justify-content: space-between
+    gap: 10px
+    margin-top: 5px
+    color: var(--muted)
+    font-size: 10px
+
+  .span12
+    grid-column: span 12
+  .span6
+    grid-column: span 6
+  .span3
+    grid-column: span 3
+
+  .fourUp
+    display: grid
+    grid-template-columns: repeat(12,1fr)
+    gap: 12px
+
+  .fourUp .span3
+    grid-column: span 3
+
+  .pumpsRow
+    display: grid
+    grid-template-columns: repeat(12,1fr)
+    gap: 10px
+
+  .pumpCard
+    grid-column: span 3
+
+  .pumpCard .section
+    padding: 10px 10px
+
+  .pumpCard .metric
+    padding: 9px
+
+  .pumpCard .device
+    gap: 7px
+
+  @media (max-width:1100px)
+    .kpis
+      grid-template-columns: repeat(2,1fr)
+    .span6
+      grid-column: span 12
+    .fourUp .span3,
+    .pumpCard
+      grid-column: span 6
+    .content
+      width: 100%
+
+  @media (max-width:900px)
+    .content,.topbar
+      padding: 12px
+    .kpis,.pair
+      grid-template-columns: 1fr
+    .deviceTop
+      flex-direction: column
+    .chips
+      justify-content: flex-start
+    .search
+      min-width: 100%
+    .topright
+      width: 100%
+    .clock,.search
+      width: 100%
+    .fourUp .span3,
+    .pumpCard
+      grid-column: span 12
+    .grid
+      gap: 12px
+    .sidebar, .topbar
+      display: none
+    .content
+      width: 100%
+      height: 100vh
+      overflow: scroll
+      scrollbar-width: none
+      scroll-snap-type: x mandatory
+    .system
+      grid-column: span 12
+    .server
+      grid-column: span 12
+      order: 10
+    .relay
+      grid-column: span 6
+
+//    display: flex
+//   flex-direction: column
+//   height: 100dvh
+//   background-color: white
+//   z-index: 100
+//   .background
+//     filter: brightness(100%)
+//     position: fixed
+//     top: 0
+//     left: 0
+//     width: 100%
+//     height: 100vh
+//     object-fit: cover
+//     z-index: -1
+
+// .dashboardContent
+//   padding: 10px 10px 10px calc(10% + 10px)
+//   width: 100%
+//   height: 100%
+//   display: flex
+//   flex-direction: column
+//   // flex-wrap: wrap
+//   overflow-x: hidden
+//   overflow-y: auto
+//   @media (max-width: 780px)
+//     padding: 10px
+//     padding-bottom: calc(env(safe-area-inset-bottom) + 80px)
+
+// .systemContainer
+//   display: flex
+//   width: 33%
+//   @media (max-width: 780px)
+//     width: 100%
