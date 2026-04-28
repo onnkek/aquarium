@@ -14,7 +14,7 @@
     overflow: hidden
     height: 100%
     min-height: 0
-  
+
   .cardHead
     display: flex
     justify-content: space-between
@@ -94,11 +94,13 @@
   .line
     display: flex
     gap: 10px
-    padding: 6px 12px
+    padding: 6px 12px 2px 12px
     border-bottom: 1px solid rgba(48, 54, 61, .22)
     white-space: pre-wrap
     word-break: break-word
     align-items: center
+    &:hover
+      background-color: rgba(56, 139, 253, 0.16)
   .time
     color: #79c0ff
     min-width: 60px
@@ -109,7 +111,7 @@
     color: #7ee787
   .relay
     color: #e3b341
-  .dispenser
+  .doser
     color: #f85149
 
   .msg
@@ -123,6 +125,19 @@
     color: var(--text)
     height: auto
 
+@media (max-width:720px)
+  .logsPage
+    .line
+      padding: 6px 12px 2px 12px
+    .content
+      padding: 10px
+    .viewer
+      font-size: 12px
+      line-height: 12px
+    .time
+      max-width: 80px
+    .type
+      min-width: 45px
 //   overflow: auto
 //   z-index: 100
 //   .background

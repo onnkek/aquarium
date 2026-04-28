@@ -25,6 +25,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react
 import { Collapse } from "shared/ui/Collapse";
 import { RelayCard } from "entities/card/ui/RelayCard";
 import { ReactComponent as DoserIcon } from 'shared/assets/icons/aquarium/doser.svg';
+import { getDateTimeISO } from "shared/lib/period";
 
 export interface DashboardPageProps {
   className?: string;
@@ -39,17 +40,33 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   const current = useAppSelector(state => state.aquarium.currentInfo)
   const [selectCard, setSelectCard] = useState<ICard | null>(null);
   const cards = mapConfigToCards(config, current);
+  const [now, setNow] = useState(Date.now());
+  const [lastHeartbeatReceivedAt, setLastHeartbeatReceivedAt] = useState<number>(0);
 
   useEffect(() => {
     dispatch(getCurrentInfo())
+    if (current.system.time) {
+      setLastHeartbeatReceivedAt(Date.now());
+    }
     dispatch(getConfig())
   }, [dispatch])
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const online = lastHeartbeatReceivedAt !== null &&
+    now - lastHeartbeatReceivedAt <= config.system.update * 1000 * 2;
 
   useEffect(() => {
     if (updateStatus === Status.Succeeded && system.update > 0 && !openModal) {
 
       const interval = setInterval(() => {
         dispatch(getCurrentInfo())
+        if (current.system.time) {
+          setLastHeartbeatReceivedAt(Date.now());
+        }
       }, 1000 * system.update)
 
       return () => clearInterval(interval);
@@ -73,7 +90,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   const getCardComponent = (card: ICard) => {
     switch (card.type) {
       case "server": return <ServerCard className={cls.server} card={card} onToggle={() => onOpenCard(card)} />
-      case "system": return <SystemCard className={cls.system} card={card} onToggle={() => onOpenCard(card)} />
+      case "system": return <SystemCard indicationState={online} className={cls.system} card={card} onToggle={() => onOpenCard(card)} />
       case "relay": return <RelayCard className={cls.relay} card={card} onToggle={() => onOpenCard(card)} />
       case "temp": return <TempCard className={cls.temp} card={card} onToggle={() => onOpenCard(card)} />
       case "argb": return <ArgbCard className={cls.argb} card={card} onToggle={() => onOpenCard(card)} />
@@ -91,6 +108,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
     }
   }
+  console.log(online)
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
 
@@ -122,10 +140,10 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
           </div>
         </aside> */}
 
-          {/* <Navbar /> */}
+        {/* <Navbar /> */}
 
         <main className={cls.main}>
-          
+
 
           <section className={cls.content}>
             <div className={cls.grid}>
@@ -253,12 +271,12 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                   {getCardComponent(card)}
                 </React.Fragment>
               ))}
-              <CardBase 
-              cardId={"1"} 
-              header={"Doser"} 
-              className={cls.span12} 
-              badge={"4 Channels"}
-              icon={<DoserIcon className={cls.icon} />}
+              <CardBase
+                cardId={"1"}
+                header={"Doser"}
+                className={cls.span12}
+                badge={"4 Channels"}
+                icon={<DoserIcon className={cls.icon} />}
               >
                 <div className={cls.section}>
                   <div className={cls.pumpsRow}>

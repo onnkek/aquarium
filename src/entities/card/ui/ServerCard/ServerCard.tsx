@@ -37,12 +37,12 @@ export const ServerCard = ({
     >
       <div className={cls.section + " " + cls.device}>
         <div className={cls.pair}>
-          <div className={cls.metric}><span>Chip Temp</span><strong>43.2 °C</strong></div>
-          <div className={cls.metric}><span>Fan Speed</span><strong>2100 RPM</strong></div>
+          <div className={cls.metric}><span>Chip Temp</span><strong>{card.current.chipTemp} °C</strong></div>
+          <div className={cls.metric}><span>Fan Speed</span><strong>{card.current.fan} RPM</strong></div>
         </div>
         <div className={cls.pair}>
-          <div className={cls.metric}><span>SD Usage</span><strong>12.8 / 32 GB</strong></div>
-          <div className={cls.metric}><span>RAM</span><strong>78 / 320 KB</strong></div>
+          <div className={cls.metric}><span>SD Usage</span><strong>{(card.current.usedSpace / 1024 / 1024).toFixed(2)} MB / {(card.current.totalSpace / 1024 / 1024 / 1024).toFixed(2)} GB</strong></div>
+          <div className={cls.metric}><span>RAM</span><strong>{((card.current.heapSize - card.current.freeHeap) / 1024).toFixed(2)} / {(card.current.heapSize / 1024).toFixed(2)} KB</strong></div>
         </div>
       </div>
 

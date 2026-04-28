@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Status } from "../models/Status"
 import AquariumService from "../services/AquariumService"
 import { RootState } from "./store"
+import { LogEntry, parseLogs } from "shared/lib/logs"
 
 export interface ITimeInfo {
   year: number,
@@ -151,9 +152,9 @@ export interface ICurrentInfo {
 
 
 interface ILogs {
-  system: string,
-  relay: string,
-  doser: string
+  system: LogEntry[],
+  relay: LogEntry[],
+  doser: LogEntry[]
 }
 interface IAquarium {
   currentInfo: ICurrentInfo,
@@ -384,9 +385,9 @@ const initialState: IAquarium = {
     }
   },
   logs: {
-    system: "",
-    relay: "",
-    doser: ""
+    system: [],
+    relay: [],
+    doser: []
   },
   status: Status.Idle,
   logStatus: Status.Idle,
@@ -427,24 +428,27 @@ const AquariumSlice = createSlice({
         state.logStatus = Status.Loading
       })
       .addCase(getSystemLogs.fulfilled, (state: IAquarium, action) => {
+        
+        state.logs.system = parseLogs(action.payload, "system")
         state.logStatus = Status.Succeeded
-        state.logs.system = action.payload
       })
 
       .addCase(getRelayLogs.pending, (state: IAquarium) => {
         state.logStatus = Status.Loading
       })
       .addCase(getRelayLogs.fulfilled, (state: IAquarium, action) => {
+        
+        state.logs.relay = parseLogs(action.payload, "relay")
         state.logStatus = Status.Succeeded
-        state.logs.relay = action.payload
       })
 
       .addCase(getDoserLogs.pending, (state: IAquarium) => {
         state.logStatus = Status.Loading
       })
       .addCase(getDoserLogs.fulfilled, (state: IAquarium, action) => {
+        
+        state.logs.doser = parseLogs(action.payload, "doser")
         state.logStatus = Status.Succeeded
-        state.logs.doser = action.payload
       })
 
       .addCase(clearSystemLogs.pending, (state: IAquarium) => {
@@ -452,7 +456,7 @@ const AquariumSlice = createSlice({
       })
       .addCase(clearSystemLogs.fulfilled, (state: IAquarium, action) => {
         state.logStatus = Status.Succeeded
-        state.logs.system = ""
+        state.logs.system = []
       })
 
       .addCase(clearRelayLogs.pending, (state: IAquarium) => {
@@ -460,7 +464,7 @@ const AquariumSlice = createSlice({
       })
       .addCase(clearRelayLogs.fulfilled, (state: IAquarium, action) => {
         state.logStatus = Status.Succeeded
-        state.logs.relay = ""
+        state.logs.relay = []
       })
 
       .addCase(clearDoserLogs.pending, (state: IAquarium) => {
@@ -468,7 +472,7 @@ const AquariumSlice = createSlice({
       })
       .addCase(clearDoserLogs.fulfilled, (state: IAquarium, action) => {
         state.logStatus = Status.Succeeded
-        state.logs.doser = ""
+        state.logs.doser = []
       })
 
       .addCase(updateSystem.pending, (state: IAquarium) => {

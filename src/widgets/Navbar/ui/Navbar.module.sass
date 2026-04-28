@@ -60,9 +60,10 @@
 
   .nav a.active,
   .nav a:hover
-    background: rgba(46,160,67,.08)
-    border-color: rgba(46,160,67,.22)
-    color: #fff
+    background: rgba(56, 139, 253, 0.16)
+    border-color: rgba(56, 139, 253, 0.45)
+    color: #ffffff
+    box-shadow: 0 0 0 0.5px rgba(56, 139, 253, 0.15), 0 2px 7px rgba(56, 139, 253, 0.18)
   .nav
     .link
       justify-content: flex-start
@@ -87,11 +88,16 @@
     font-variant-numeric: tabular-nums
 @media (max-width:900px)
   .sidebar
-    height: 87px
+    height: 70px
+    padding: 0 60px
     order: 1
+    border: none
     border-top: 1px solid var(--border)
     width: 100%
+    display: flex
+    align-items: center
     .nav
+      width: 100%
       display: flex
       justify-content: space-around
     .brand,

@@ -33,10 +33,12 @@ export const PumpCard = ({
           <div className={cls.deviceLeft}>
             <PumpIcon className={cls.icon} />
             <div className={cls.deviceName}>
-              <h4>Pump 1</h4>
+              <h4>{card.config.name}</h4>
               <div className={cls.chips}>
-                <Badge theme='outline' color='success'>ON</Badge>
-                <Badge theme='outline' color='success'>AUTO</Badge>
+                {card.current.status && <Badge theme='outline' color='success'>ON</Badge>}
+                {!card.current.status && <Badge theme='outline' color='black'>OFF</Badge>}
+                {card.config.mode === 2 && <Badge theme='outline' color='success'>AUTO</Badge>}
+                {card.config.mode !== 2 && <Badge theme='outline' color='black'>MANUAL</Badge>}
               </div>
             </div>
           </div>
@@ -45,50 +47,22 @@ export const PumpCard = ({
         </div>
         <div className={cls.metric}>
           <span>Added Fertilizer</span>
-          <strong>120 / 200 ml</strong>
+          <strong>{(card.current.introduced / 100 * card.config.dosage).toFixed(0)} / {card.config.dosage.toFixed(0)} ml</strong>
           <div className={cls.progress}>
-            <div className={cls.bar} style={{ width: "60%" }}></div>
+            <div className={cls.bar} style={{ width: `${card.current.introduced.toFixed(0)}%`}}></div>
           </div>
           <div className={cls.sub}>
-            <span>60% completed</span>
-            <span>80 ml left</span>
+            <span>{(card.current.introduced).toFixed(0)}% completed</span>
+            <span>{(card.config.dosage - card.config.dosage * card.current.introduced / 100).toFixed(0)} ml left</span>
           </div>
         </div>
         <div className={cls.metric}>
-          <span>Fertilizer Left in Tank</span>
-          <strong>780 / 1000 ml</strong>
-          <div className={cls.progress}><div className={cls.bar} style={{ width: "78%" }}></div></div>
-          <div className={cls.sub}><span>78% remaining</span><span>220 ml used</span></div>
+          <span>Fertilizer Left in Bottle</span>
+          <strong>{card.config.currentVolume.toFixed(0)} / {card.config.maxVolume.toFixed(0)} ml</strong>
+          <div className={cls.progress}><div className={cls.bar} style={{ width: `${card.config.currentVolume / card.config.maxVolume * 100}%` }}></div></div>
+          <div className={cls.sub}><span>{((card.config.currentVolume / card.config.maxVolume) * 100).toFixed(0)}% remaining</span><span>{(card.config.currentVolume / card.config.dosage).toFixed(0)} days</span></div>
         </div>
       </div>
-      {/* <div className={classNames(cls.pumpCard, mods, [className])} onClick={onToggle}>
-        <div className={cls.body}>
-
-
-          {<PumpIcon className={cls.icon} />}
-          <div className={cls.right}>
-            <h2 className={cls.name}>{card.config.name}</h2>
-            <p className={cls.status}>{card.current.status ? "On" : "Off"}</p>
-          </div>
-        </div>
-
-        <span className={cls.blur}></span>
-
-        <div className={cls.mode}>
-          {card.config.mode !== 2 ? <ManualIcon /> : <ScheduleIcon />}
-          <p>{card.config.mode !== 2 ? "Manual" : `${card.config.time}`}</p>
-        </div>
-        <div className={cls.mode}>
-          <DropIcon className={cls.modeIcon} />
-          <p>{(card.current.introduced / 100 * card.config.dosage).toFixed(0)}/{card.config.dosage.toFixed(0)} ml</p>
-          <Progress className={cls.progress_dose} text="none" value={card.current.introduced} />
-        </div>
-        <div className={cls.mode}>
-          <BottleIcon className={cls.modeIcon} />
-          <p>{(card.config.currentVolume / card.config.dosage).toFixed(0)} days</p>
-          <Progress className={cls.progress} text="none" value={card.config.currentVolume / card.config.maxVolume * 100} />
-        </div>
-      </div> */}
     </div>
   );
 }

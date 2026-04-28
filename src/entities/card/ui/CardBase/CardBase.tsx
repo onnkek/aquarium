@@ -17,6 +17,7 @@ interface CardBaseProps {
   onToggle?: () => void;
   icon?: React.ReactNode;
   subheader?: string;
+  indicationState?: boolean;
 }
 export const CardBase = React.memo(({
   children,
@@ -28,7 +29,8 @@ export const CardBase = React.memo(({
   indication,
   onToggle,
   icon,
-  subheader
+  subheader,
+  indicationState
 }: CardBaseProps) => {
   return (
     <motion.div
@@ -51,7 +53,7 @@ export const CardBase = React.memo(({
             <p>{subheader}</p>
           </div>
         </div>
-        <Badge theme='outline' color='light-gray'><div className={cls.indicator}>{indication && <span className={cls.dot} />} {badge}</div></Badge>
+        <Badge theme='outline' color='light-gray'><div className={cls.indicator}>{indication && (indicationState ? <span className={cls.dot} /> : <span className={cls.off} />)} {badge}</div></Badge>
       </div>
       {children}
 

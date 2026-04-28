@@ -57,11 +57,13 @@ export const RelayCard = ({
         <div className={cls.deviceTop}>
           {/* <div className={cls.deviceName}><h4>CO2 System</h4><p>Gas dosing controller</p></div> */}
           {/* <div className={cls.icon}>{getRelayIcon()}</div> */}
-          <div className={cls.chips}>
-            <Badge theme='outline' color='gray'>14:00-21:00</Badge>
+          <div className={classNames(cls.chips, { [cls.manual]: card.config.mode !== 2 }, [])}>
+            {card.config.mode === 2 && <Badge theme='outline' color='gray'>{card.config.on}-{card.config.off}</Badge>}
             <div className={cls.state}>
-              <Badge theme='outline' color='success'>ON</Badge>
-              <Badge theme='outline' color='success'>AUTO</Badge>
+              {card.current.status && <Badge theme='outline' color='success'>ON</Badge>}
+              {!card.current.status && <Badge theme='outline' color='black'>OFF</Badge>}
+              {card.config.mode === 2 && <Badge theme='outline' color='success'>AUTO</Badge>}
+              {card.config.mode !== 2 && <Badge theme='outline' color='black'>MANUAL</Badge>}
             </div>
           </div>
         </div>

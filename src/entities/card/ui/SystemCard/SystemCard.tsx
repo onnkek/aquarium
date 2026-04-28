@@ -16,12 +16,14 @@ interface SystemCardProps {
   className?: string;
   card: SystemCardType;
   onToggle: () => void;
+  indicationState: boolean;
 }
 
 export const SystemCard = ({
   className,
   card,
-  onToggle
+  onToggle,
+  indicationState = false
 }: SystemCardProps) => {
 
 
@@ -38,42 +40,19 @@ export const SystemCard = ({
       // subheader={"Date, time, temperature and humidity"}
       badge={"Live"}
       indication
+      indicationState={indicationState}
       icon={<SystemIcon className={cls.icon} />}
     >
       <div className={cls.section + " " + cls.device}>
         <div className={cls.pair}>
-          <div className={cls.metric}><span>Date</span><strong id="date">2026-04-27</strong></div>
-          <div className={cls.metric}><span>Time</span><strong id="time">08:31:00</strong></div>
+          <div className={cls.metric}><span>Date</span><strong id="date">{getDateString(card.current.time)}</strong></div>
+          <div className={cls.metric}><span>Time</span><strong id="time">{getTimeString(card.current.time)}</strong></div>
         </div>
         <div className={cls.pair}>
-          <div className={cls.metric}><span>Temperature</span><strong>24.6 °C</strong></div>
-          <div className={cls.metric}><span>Humidity</span><strong>51 %</strong></div>
+          <div className={cls.metric}><span>Temperature</span><strong>{card.current.outside.temp.toFixed(2)} ℃</strong></div>
+          <div className={cls.metric}><span>Humidity</span><strong>{card.current.outside.hum.toFixed(2)} %</strong></div>
         </div>
       </div>
-      {/* <div className={classNames(cls.systemCard, mods, [className])} onClick={onToggle}>
-
-        <div className={cls.body}>
-          <div className={cls.header}>
-            <h2 className={cls.date}>{getDateString(card.current.time)}</h2>
-            <p className={cls.time}>{getTimeString(card.current.time)}</p>
-          </div>
-          <div className={cls.temp}>
-            <div className={cls.tempItem}>
-              <TempIcon />
-              <p className={cls.text}>{card.current.outside.temp.toFixed(2)} ℃</p>
-            </div>
-            <div className={cls.tempItem}>
-              <HumidityIcon />
-              <p className={cls.text}>{card.current.outside.hum.toFixed(2)} %</p>
-            </div>
-            <div className={cls.tempItem}>
-              <UpdateIcon />
-              <p className={cls.text}>{card.config.update} sec</p>
-            </div>
-
-          </div>
-        </div>
-      </div> */}
     </CardBase>
   );
 }

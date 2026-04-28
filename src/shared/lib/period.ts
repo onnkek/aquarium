@@ -194,7 +194,13 @@ export function getDateISO(dateTime: ITimeInfo) {
 export function getTimeISO(dateTime: ITimeInfo) {
   return `${pad(dateTime.hour)}:${pad(dateTime.minute)}:${pad(dateTime.second)}`
 }
+export function formatTimestamp(value: string | Date): string {
+  const date = value instanceof Date ? value : new Date(value);
 
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  return `${pad(date.getMonth() + 1)}/${pad(date.getDate())}/${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}
 
 export function getUptime(microseconds: number, showms: boolean): string {
 
