@@ -112,9 +112,8 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   return (
     <Page className={classNames(cls.dashboardPage, {}, [className])}>
 
-
-      <div className={cls.app}>
-        {/* <aside className={cls.sidebar}>
+      {/* <div className={cls.app}> */}
+      {/* <aside className={cls.sidebar}>
           <div className={cls.brand}>
             <div className={cls.logo}></div>
             <div>
@@ -140,14 +139,15 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
           </div>
         </aside> */}
 
-        {/* <Navbar /> */}
+      {/* <Navbar /> */}
 
-        <main className={cls.main}>
+      {/* <div className={cls.main}> */}
 
 
-          <section className={cls.content}>
-            <div className={cls.grid}>
-              {/* <div className={cls.card + " " + cls.span12}>
+      <section className={cls.content}>
+        <div className={cls.wrapper}>
+          <div className={cls.grid}>
+            {/* <div className={cls.card + " " + cls.span12}>
                 <div className={cls.section}>
                   <div className={cls.kpis}>
                     <div className={cls.kpi}><span>Temperature</span><strong>24.6 °C</strong><small>Room climate</small></div>
@@ -159,7 +159,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
               </div> */}
 
 
-              {/* <CardBase cardId={"1"} header={"General Data"} className={cls.span6} badge={"Live"} indication>
+            {/* <CardBase cardId={"1"} header={"General Data"} className={cls.span6} badge={"Live"} indication>
                 <div className={cls.section + " " + cls.device}>
                   <div className={cls.pair}>
                     <div className={cls.metric}><span>Date</span><strong id="date">2026-04-27</strong></div>
@@ -171,18 +171,18 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                   </div>
                 </div>
               </CardBase> */}
-              {cards.filter(x => x.type === "system").map(card => (
-                <React.Fragment key={card.id}>
-                  {getCardComponent(card)}
-                </React.Fragment>
-              ))}
-              {cards.filter(x => x.type === "server").map(card => (
-                <React.Fragment key={card.id}>
-                  {getCardComponent(card)}
-                </React.Fragment>
-              ))}
+            {cards.filter(x => x.type === "system").map(card => (
+              <React.Fragment key={card.id}>
+                {getCardComponent(card)}
+              </React.Fragment>
+            ))}
+            {cards.filter(x => x.type === "server").map(card => (
+              <React.Fragment key={card.id}>
+                {getCardComponent(card)}
+              </React.Fragment>
+            ))}
 
-              {/* <CardBase cardId={"1"} header={"System Card"} className={cls.span6} badge={"Hardware"}>
+            {/* <CardBase cardId={"1"} header={"System Card"} className={cls.span6} badge={"Hardware"}>
                 <div className={cls.section + " " + cls.device}>
                   <div className={cls.pair}>
                     <div className={cls.metric}><span>Chip Temp</span><strong>43.2 °C</strong></div>
@@ -195,7 +195,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                 </div>
               </CardBase> */}
 
-              {/* <CardBase cardId={"1"} header={"CO2 System"} className={cls.span3} badge={"Relay"}>
+            {/* <CardBase cardId={"1"} header={"CO2 System"} className={cls.span3} badge={"Relay"}>
                 <div className={cls.section + " " + cls.device}>
                   <div className={cls.deviceTop}>
                     <div className={cls.deviceName}><h4>CO2 System</h4><p>Gas dosing controller</p></div>
@@ -203,16 +203,16 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                   </div>
                 </div>
               </CardBase> */}
-              {/* <RelayCard card={cards.filter(x => x.type === "relay")[0]} onToggle={() => onOpenCard(cards.filter(x => x.type === "relay")[0])} />
+            {/* <RelayCard card={cards.filter(x => x.type === "relay")[0]} onToggle={() => onOpenCard(cards.filter(x => x.type === "relay")[0])} />
               <RelayCard card={cards.filter(x => x.type === "relay")[1]} onToggle={() => onOpenCard(cards.filter(x => x.type === "relay")[1])} />
               <RelayCard card={cards.filter(x => x.type === "relay")[2]} onToggle={() => onOpenCard(cards.filter(x => x.type === "relay")[2])} />
               <RelayCard card={cards.filter(x => x.type === "relay")[3]} onToggle={() => onOpenCard(cards.filter(x => x.type === "relay")[3])} /> */}
-              {cards.filter(x => x.type === "relay").map(card => (
-                <React.Fragment key={card.id}>
-                  {getCardComponent(card)}
-                </React.Fragment>
-              ))}
-              {/* <CardBase cardId={"1"} header={"O2 System"} className={cls.span3} badge={"Relay"}>
+            {cards.filter(x => x.type === "relay").map(card => (
+              <React.Fragment key={card.id}>
+                {getCardComponent(card)}
+              </React.Fragment>
+            ))}
+            {/* <CardBase cardId={"1"} header={"O2 System"} className={cls.span3} badge={"Relay"}>
                 <div className={cls.section + " " + cls.device}>
                   <div className={cls.deviceTop}>
                     <div className={cls.deviceName}><h4>O2 System</h4><p>Oxygen controller</p></div>
@@ -220,7 +220,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                   </div>
                 </div>
               </CardBase> */}
-              {/* <CardBase cardId={"1"} header={"Lighting Cooling"} className={cls.span3} badge={"Relay"}>
+            {/* <CardBase cardId={"1"} header={"Lighting Cooling"} className={cls.span3} badge={"Relay"}>
                 <div className={cls.section + " " + cls.device}>
                   <div className={cls.deviceTop}>
                     <div className={cls.deviceName}><h4>Lighting Cooling</h4><p>Light thermal control</p></div>
@@ -228,7 +228,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                   </div>
                 </div>
               </CardBase> */}
-              {/* <CardBase cardId={"1"} header={"Filtration"} className={cls.span3} badge={"Relay"}>
+            {/* <CardBase cardId={"1"} header={"Filtration"} className={cls.span3} badge={"Relay"}>
                 <div className={cls.section + " " + cls.device}>
                   <div className={cls.deviceTop}>
                     <div className={cls.deviceName}><h4>Filtration</h4><p>Circulation filtration</p></div>
@@ -238,7 +238,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
               </CardBase> */}
 
 
-              {/* <CardBase cardId={"1"} header={"Water Thermostat"} className={cls.span6} badge={"Thermal"}>
+            {/* <CardBase cardId={"1"} header={"Water Thermostat"} className={cls.span6} badge={"Thermal"}>
                 <div className={cls.section + " " + cls.device}>
                   <div className={cls.pair}>
                     <div className={cls.metric}><span>Current Temp</span><strong>18.4 °C</strong></div>
@@ -251,9 +251,9 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                 </div>
               </CardBase> */}
 
-              {/* <TempCard card={cards.filter(x => x.type === "temp")[0]} onToggle={() => onOpenCard(cards.filter(x => x.type === "temp")[0])} /> */}
+            {/* <TempCard card={cards.filter(x => x.type === "temp")[0]} onToggle={() => onOpenCard(cards.filter(x => x.type === "temp")[0])} /> */}
 
-              {/* <CardBase cardId={"1"} header={"ARGB Backlight"} className={cls.span6} badge={"Lighting"}>
+            {/* <CardBase cardId={"1"} header={"ARGB Backlight"} className={cls.span6} badge={"Lighting"}>
                 <div className={cls.section + " " + cls.device}>
                   <div className={cls.deviceTop}>
                     <div className={cls.deviceName}><h4>Backlight</h4><p>Visual effect system</p></div>
@@ -265,22 +265,22 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                   </div>
                 </div>
               </CardBase> */}
-              {/* <ArgbCard card={cards.filter(x => x.type === "argb")[0]} onToggle={() => onOpenCard(cards.filter(x => x.type === "argb")[0])} /> */}
-              {cards.filter(x => x.type === "argb" || x.type === "temp").map(card => (
-                <React.Fragment key={card.id}>
-                  {getCardComponent(card)}
-                </React.Fragment>
-              ))}
-              <CardBase
-                cardId={"1"}
-                header={"Doser"}
-                className={cls.span12}
-                badge={"4 Channels"}
-                icon={<DoserIcon className={cls.icon} />}
-              >
-                <div className={cls.section}>
-                  <div className={cls.pumpsRow}>
-                    {/* <div className={cls.card + " " + cls.pumpCard}>
+            {/* <ArgbCard card={cards.filter(x => x.type === "argb")[0]} onToggle={() => onOpenCard(cards.filter(x => x.type === "argb")[0])} /> */}
+            {cards.filter(x => x.type === "argb" || x.type === "temp").map(card => (
+              <React.Fragment key={card.id}>
+                {getCardComponent(card)}
+              </React.Fragment>
+            ))}
+            <CardBase
+              cardId={"1"}
+              header={"Doser"}
+              className={cls.span12}
+              badge={"4 Channels"}
+              icon={<DoserIcon className={cls.icon} />}
+            >
+              <div className={cls.section}>
+                <div className={cls.pumpsRow}>
+                  {/* <div className={cls.card + " " + cls.pumpCard}>
                       <div className={cls.section + " " + cls.device}>
                         <div className={cls.deviceTop}>
                           <div className={cls.deviceName}><h4>Pump 1</h4><p>ON • AUTO</p></div>
@@ -301,7 +301,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                       </div>
                     </div> */}
 
-                    {/* <div className={cls.card + " " + cls.pumpCard}>
+                  {/* <div className={cls.card + " " + cls.pumpCard}>
                       <div className={cls.section + " " + cls.device}>
                         <div className={cls.deviceTop}>
                           <div className={cls.deviceName}><h4>Pump 2</h4><p>OFF • MANUAL</p></div>
@@ -322,7 +322,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                       </div>
                     </div> */}
 
-                    {/* <div className={cls.card + " " + cls.pumpCard}>
+                  {/* <div className={cls.card + " " + cls.pumpCard}>
                       <div className={cls.section + " " + cls.device}>
                         <div className={cls.deviceTop}>
                           <div className={cls.deviceName}><h4>Pump 3</h4><p>ON • AUTO</p></div>
@@ -343,7 +343,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                       </div>
                     </div> */}
 
-                    {/* <div className={cls.card + " " + cls.pumpCard}>
+                  {/* <div className={cls.card + " " + cls.pumpCard}>
                       <div className={cls.section + " " + cls.device}>
                         <div className={cls.deviceTop}>
                           <div className={cls.deviceName}><h4>Pump 4</h4><p>OFF • MANUAL</p></div>
@@ -363,23 +363,25 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
                         </div>
                       </div>
                     </div> */}
-                    {/* <PumpCard card={cards.filter(x => x.type === "pump")[0]} onToggle={() => onOpenCard(cards.filter(x => x.type === "pump")[0])} />
+                  {/* <PumpCard card={cards.filter(x => x.type === "pump")[0]} onToggle={() => onOpenCard(cards.filter(x => x.type === "pump")[0])} />
                     <PumpCard card={cards.filter(x => x.type === "pump")[1]} onToggle={() => onOpenCard(cards.filter(x => x.type === "pump")[1])} />
                     <PumpCard card={cards.filter(x => x.type === "pump")[2]} onToggle={() => onOpenCard(cards.filter(x => x.type === "pump")[2])} />
                     <PumpCard card={cards.filter(x => x.type === "pump")[3]} onToggle={() => onOpenCard(cards.filter(x => x.type === "pump")[3])} /> */}
-                    {cards.filter(x => x.type === "pump").map(card => (
-                      <React.Fragment key={card.id}>
-                        {getCardComponent(card)}
-                      </React.Fragment>
-                    ))}
-                  </div>
+                  {cards.filter(x => x.type === "pump").map(card => (
+                    <React.Fragment key={card.id}>
+                      {getCardComponent(card)}
+                    </React.Fragment>
+                  ))}
                 </div>
-              </CardBase>
+              </div>
+            </CardBase>
 
-            </div>
-          </section>
-        </main>
-      </div>
+          </div>
+        </div>
+
+      </section>
+      {/* </div> */}
+      {/* </div> */}
       {selectCard && getSettingsComponent(mappedCard!)}
     </Page>
     // <Page className={classNames(cls.dashboardPage, {}, [className])}>

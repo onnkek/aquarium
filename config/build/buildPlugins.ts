@@ -16,19 +16,20 @@ export default function buildPlugins({ paths, isDev, apiUrl, project }: BuildOpt
     }),
     new webpack.ProgressPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash:8].css',
-      chunkFilename: 'css/[name].[contenthash:8].css',
+      filename: '[name].[contenthash:8].css',
+      chunkFilename: '[name].[contenthash:8].css',
     }),
     new webpack.DefinePlugin({
       __IS_DEV__: JSON.stringify(isDev),
       __API__: JSON.stringify(apiUrl),
       __PROJECT__: JSON.stringify(project),
     }),
-    // new CopyPlugin({
-    //  patterns: [
-    //    { from: paths.locales, to: paths.buildLocales }
-    //  ]
-    // }),
+    new CopyPlugin({
+     patterns: [
+       { from: paths.public + "/favicon.ico", to: paths.build },
+       { from: paths.public + "/manifest.json", to: paths.build }
+     ]
+    }),
     // new CircularDependencyPlugin({ 
     //   exclude: /node_modules/,
     //   failOnError: true

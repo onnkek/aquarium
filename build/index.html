@@ -1,0 +1,228 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="favicon.ico"/><meta name="description" content="Aquarium admin panel"/><meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-visual"><link rel="apple-touch-icon" href="favicon.ico"/><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"><link rel="manifest" href="manifest.json"/><title>Aquarium</title><style>#preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #060b18;
+      /* Or your desired background color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .container-loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .bowl {
+      height: 200px;
+      width: 200px;
+      border-radius: 50%;
+      border: 2px solid white;
+      position: relative;
+      animation: move 8s infinite;
+    }
+
+    @keyframes move {
+      0% {
+        transform: rotate(0);
+      }
+
+      33% {
+        transform: rotate(-20deg);
+      }
+
+      67% {
+        transform: rotate(20deg);
+      }
+
+      100% {
+        transform: rotate(0);
+      }
+    }
+
+    .bowl:after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 26px;
+      border-radius: 50%;
+      background: #060b18;
+      border: 2px solid white;
+      left: 50%;
+      top: -4px;
+      transform: translatex(-50%);
+      z-index: 100;
+    }
+
+    .water {
+      height: 190px;
+      width: 190px;
+      background: linear-gradient(to bottom, #060b18 0% 50%, #2389da 50% 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      animation: move1 8s infinite;
+      z-index: -100;
+    }
+
+    @keyframes move1 {
+      0% {
+        transform: rotate(0);
+      }
+
+      33% {
+        transform: rotate(20deg);
+      }
+
+      67% {
+        transform: rotate(-20deg);
+      }
+
+      100% {
+        transform: rotate(0);
+      }
+    }
+
+    .water:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 30px;
+      background: #0f5e9c;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .body {
+      width: 70px;
+      height: 36px;
+      background-color: orange;
+      border-radius: 40% 50% 50% 40%;
+      bottom: 30px;
+      right: 60px;
+      position: absolute;
+    }
+
+    .fin {
+      width: 40px;
+      height: 24px;
+      position: absolute;
+      background: #ef8a1f;
+      border-radius: 50%;
+    }
+
+    .fin.top {
+      z-index: -100;
+      transform: rotate(-20deg);
+      left: 14px;
+      bottom: 24px;
+      border-radius: 50% 50% 0% 0%;
+    }
+
+    .fin.bottom {
+      z-index: -100;
+      transform: rotate(20deg);
+      left: 14px;
+      bottom: -12px;
+      border-radius: 50% 0% 50% 50%;
+    }
+
+    .fin-center {
+      height: 10px;
+      width: 12px;
+      background: #ef8a1f;
+      border-radius: 50% 0 0 50%;
+      position: absolute;
+      left: 30px;
+      top: 12px;
+    }
+
+    .eye {
+      height: 16px;
+      width: 16px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      left: 2px;
+      top: 10px;
+    }
+
+    .eye:before {
+      content: "";
+      background: black;
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      position: absolute;
+      left: 2px;
+      top: 4px;
+    }
+
+    .eye:after {
+      content: "";
+      background: white;
+      height: 4px;
+      width: 4px;
+      border-radius: 50%;
+      position: absolute;
+      left: 4px;
+      top: 5px;
+    }
+
+    .tail {
+      width: 32px;
+      height: 72px;
+      position: absolute;
+      right: -20px;
+      bottom: -42px;
+      z-index: -200;
+    }
+
+    .tail::before {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ef8a1f;
+      transform: rotate(-30deg);
+      top: -10px;
+    }
+
+    .tail::after {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ef8a1f;
+      transform: rotate(30deg);
+      top: 10px;
+    }
+
+    .container-title {
+      color: rgb(220, 220, 220);
+      position: absolute;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      top: 72%;
+    }
+
+    .container-footer {
+      color: rgb(150, 150, 150);
+      position: absolute;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-weight: 100;
+      font-size: 20px;
+      top: 79%;
+    }</style><script defer="defer" src="/main.8564924aa31d6eb65081.js"></script><link href="/main.a4972b05.css" rel="stylesheet"></head><body><div id="preloader"><h2 class="container-title">Aquarium</h2><h2 class="container-footer">by onnkek</h2><div class="container-loader"><div class="bowl"></div><div class="water"><div class="body"><div class="eye"></div><div class="fin-center"></div><div class="fin top"></div><div class="fin bottom"></div><div class="tail"></div></div></div></div></div><div id="root"></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script></body></html>
