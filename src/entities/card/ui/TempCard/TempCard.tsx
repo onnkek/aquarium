@@ -40,13 +40,13 @@ export const TempCard = ({
           <div className={cls.metric}><span>Current Temp</span><strong>{card.current.current.toFixed(2)} °C</strong></div>
           <div className={cls.deviceTop}>
             <div className={cls.chips}>
-              {card.config.mode === 4 && <Badge theme='outline' color='success'>AUTO</Badge>}
-              {card.config.mode !== 4 && <Badge theme='outline' color='black'>MANUAL</Badge>}
-            </div>
-            <div className={cls.chips}>
               {(card.current.status === 1 || card.current.status === 3) && <Badge theme='outline' color='success'>COOLING</Badge>}
               {(card.current.status === 2 || card.current.status === 3) && <Badge theme='outline' color='success'>HEATING</Badge>}
               {card.current.status === 0 && <Badge theme='outline' color='black'>OFF</Badge>}
+            </div>
+            <div className={cls.chips}>
+              {card.config.mode === 4 && <Badge theme='outline' color='success'>AUTO</Badge>}
+              {card.config.mode !== 4 && <Badge theme='outline' color='black'>MANUAL</Badge>}
             </div>
           </div>
         </div>

@@ -43,13 +43,19 @@
     font-size: 11px
   .chips
     display: flex
+    flex-direction: column
     flex-wrap: wrap
     gap: 6px
-    justify-content: space-between
+    align-items: flex-end
     width: 100%
   .state
     display: flex
     gap: 6px
+
+@media (max-width: 900px)
+  .argbCard
+    .section
+      padding: 0px 12px 10px 12px
 
 //   padding: 5% 5%
 //   width: 100%

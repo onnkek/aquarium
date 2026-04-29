@@ -39,12 +39,16 @@ export const ArgbCard = ({
         <div className={cls.deviceTop}>
           {/* <div className={cls.deviceName}><h4>Backlight</h4><p>Visual effect system</p></div> */}
           <div className={cls.chips}>
-            {card.config.mode === 2 && <Badge theme='outline' color='gray'>{card.config.on}-{card.config.off}</Badge>}
             <div className={cls.state}>
+
               {card.config.style === 1 && <Badge theme='outline' color='black'>STATIC</Badge>}
               {card.config.style === 3 && <Badge theme='outline' color='blue-light'>GRADIENT</Badge>}
               {card.config.style === 2 && <Badge theme='outline' color='warning'>CYCLE</Badge>}
               {card.config.style === 4 && <Badge theme='outline' color='gray'>CUSTOM</Badge>}
+            </div>
+
+            <div className={cls.state}>
+              {card.config.mode === 2 && <Badge theme='outline' color='gray'>{card.config.on}-{card.config.off}</Badge>}
               {card.current.status && <Badge theme='outline' color='success'>ON</Badge>}
               {!card.current.status && <Badge theme='outline' color='black'>OFF</Badge>}
               {card.config.mode === 2 && <Badge theme='outline' color='success'>AUTO</Badge>}
