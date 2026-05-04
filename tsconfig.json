@@ -1,28 +1,31 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "downlevelIteration": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "baseUrl": "src",
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "target": "es2025",
+    "jsx": "react-jsx",
     "allowJs": true,
-    "skipLibCheck": true,
+    "strict": true,
+    "paths": {
+      "*": [
+        "./src/*"
+      ]
+    },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "isolatedModules": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
   },
   "include": [
-    "src"
+    "./config/jest/setupTests.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": [
+    ".fttemplates/*"
   ]
 }

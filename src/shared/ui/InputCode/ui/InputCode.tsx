@@ -42,7 +42,9 @@ export const InputCode = ({ className, type = '4', size = 'S' }: InputCodeProps)
           value={n}
           data-index={i}
           onChange={onChange}
-          inputRef={input => inputRefs.current[i] = input}
+          inputRef={input => {
+            inputRefs.current[i] = input;
+          }}
           maxLength={1}
           placeholder='0'
         />
@@ -58,7 +60,9 @@ export const InputCode = ({ className, type = '4', size = 'S' }: InputCodeProps)
                   value={n}
                   data-index={i}
                   onChange={onChange}
-                  inputRef={input => inputRefs.current[i] = input}
+                  inputRef={input => {
+                    inputRefs.current[i] = input;
+                  }}
                   maxLength={1}
                   placeholder='0'
                 />
@@ -71,7 +75,9 @@ export const InputCode = ({ className, type = '4', size = 'S' }: InputCodeProps)
               value={n}
               data-index={i}
               onChange={onChange}
-              inputRef={input => inputRefs.current[i] = input}
+              inputRef={input => {
+                inputRefs.current[i] = input;
+              }}
               maxLength={1}
               placeholder='0'
             />

@@ -16,7 +16,7 @@ export interface ProgressFileProps {
   status?: Status;
   value?: number;
   fileName?: string;
-  FileIcon?: React.VFC<React.SVGProps<SVGSVGElement>>;
+  FileIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   fileSize?: string;
 }
 

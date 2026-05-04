@@ -10,7 +10,7 @@ type DropdownItem = {
   content: string;
   disabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  Icon?: React.VFC<React.SVGProps<SVGSVGElement>>;
+  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 type DropdownAnchor =
   'bottom' | 'bottom end' | 'bottom start' |

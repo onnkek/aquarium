@@ -1,11 +1,11 @@
 .sliderWrapper
-  --slider-handle-border: var(--border-brand-solid)
-  --slider-handle-bg: var(--bg-primary)
+  --slider-handle-border: #58a6ff
+  --slider-handle-bg: #e6edf3
   position: relative
   display: flex
   flex-direction: column
   align-items: center
-  width: 300px
+  width: 100%
   touch-action: none
 
 .slider
@@ -16,7 +16,7 @@
 .line
   position: absolute
   background-color: var(--bg-quaternary)
-  height: 8px
+  height: 6px
   top: 13px
   width: 100%
   border-radius: var(--radius-full)
@@ -32,7 +32,7 @@
 .thumb
   width: 24px
   height: 24px
-  border: 2px solid var(--slider-handle-border)
+  border: 3px solid var(--slider-handle-border)
   background-color: var(--slider-handle-bg)
   border-radius: var(--radius-full)
   box-shadow: var(--shadow-md)
@@ -43,9 +43,9 @@
   position: absolute
   left: 0
   width: 100px
-  height: 8px
+  height: 6px
   border-radius: var(--radius-full)
-  background-color: var(--fg-brand-primary)
+  background-color: var(--slider-handle-border)
 
 .outputContainer
   height: 32px

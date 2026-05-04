@@ -1,33 +1,296 @@
 .serverSettings
-  padding-top: 20px
-  // display: flex
-  // justify-content: space-between
+  --muted: #8b949e
+  --border: #30363d
+  --panel-2: #0f141a
+  --text: #c9d1d9
+  --accent: #58a6ff
+  --success: #3fb950
+  --off: #6e7681
+  --off-bg: rgba(110, 118, 129, 0.14)
+  --radius: 18px
+  padding: 24px
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 20px
+  min-width: 700px
+  .card
+    padding: 16px
+    background-color: rgba(22, 27, 34, 0.95)
+    border: 1px solid #30363d
+    border-radius: 16px
+    box-shadow: 0 8px 24px rgba(1, 4, 9, 0.4)
+    height: fit-content
 
-.container
-  margin-top: 20px
-  display: flex
-  justify-content: space-between
+    h2
+      margin: 0 0 12px
+      font-size: 14px
+      color: #e6edf3
+      letter-spacing: .02em
+    .statusRow
+      display: flex
+      align-items: center
+      justify-content: space-between
+      gap: 12px
+    .statusLabel
+      color: var(--muted)
+      font-size: 13px
+      margin-bottom: 4px
+    .statusValue
+      font-size: 28px
+      font-weight: 700
+      letter-spacing: -.03em
+      line-height: 1
+      color: #e6edf3
 
-.item
-  padding: 3%
-  background-color: rgba(37, 37, 37, 0.55)
-  border-radius: 22px
+    .metricGrid
+      display: grid
+      gap: 8px
+    .metric
+      display: flex
+      align-items: center
+      justify-content: space-between
+      gap: 12px
+      padding: 12px 12px
+      border-radius: 14px
+      background: rgba(255, 255, 255, .02)
+      border: 1px solid var(--border)
+      span
+        font-size: 13px
+        color: var(--muted)
+      strong
+        color: #e6edf3
+        font-size: 14px
+        font-weight: 700
+        text-align: right
+    .slider
+      padding: 0px
+    .sliderWrap
+      padding: 12px
+      border-radius: 14px
+      background: rgba(255, 255, 255, .02)
+      border: 1px solid var(--border)
+    .sliderHead
+      display: flex
+      align-items: center
+      justify-content: space-between
+      gap: 10px
+      margin-bottom: 10px
+      span
+        color: var(--muted)
+        font-size: 13px
+      strong
+        color: #e6edf3
+        font-size: 15px
+    .sliderMeta
+      display: flex
+      justify-content: space-between
+      gap: 10px
+      font-size: 12px
+      color: var(--muted)
+    .hint
+      margin-top: 8px
+      font-size: 12px
+      color: var(--muted)
+      line-height: 1.45
 
-.info
-  margin-top: 20px
-  &:not(:last-child)
-    margin-bottom: 10px
+    .barTop
+      display: flex
+      align-items: center
+      justify-content: space-between
+      font-size: 13px
+      margin-bottom: 6px
+      strong
+        color: #e6edf3
+        font-weight: 700
+      span
+        color: var(--muted)
 
-.text
-  display: flex
-  justify-content: space-between
-  p
-    margin: 0
-    font-family: "Open Sans", sans-serif
-    font-size: 16px
-    font-weight: 200
+    .bar
+      height: 12px
+      border-radius: 999px
+      overflow: hidden
+      background: #30363d
+      display: flex
+      margin-bottom: 6px
+    .fill
+      height: 100%
+      border-radius: 999px
 
-.uptime
-  font-family: "Open Sans", sans-serif
-  font-size: 16px
-  font-weight: 400
+    .fill.warn
+      background: linear-gradient(90deg, #d29922, #b07d0d)
+    .fill.bad
+      background: linear-gradient(90deg, #f85149, #cf222e)
+
+    .barLegend
+      display: flex
+      justify-content: space-between
+      font-size: 11px
+      color: var(--muted)
+      font-weight: 500
+
+    .sectionTitle
+      margin: 0 0 12px
+      font-size: 14px
+      color: #f0f6fc
+      letter-spacing: 0.02em
+    .field
+      display: flex
+      flex-direction: column
+      gap: 8px
+      margin-bottom: 14px
+    .segmented
+      display: grid
+      grid-template-columns: 1fr 1fr
+      gap: 8px
+      input
+        display: none
+      label
+        height: 44px
+        display: grid
+        place-items: center
+        border-radius: 12px
+        border: 1px solid var(--border)
+        background: var(--panel-2)
+        color: var(--text)
+        font-size: 14px
+        cursor: pointer
+        user-select: none
+        transition: 0.15s ease
+      input:checked + label
+        background: rgba(88, 166, 255, 0.15)
+        border-color: var(--accent)
+        color: #d6e7ff
+  .manualControls
+    position: relative
+    margin-top: 10px
+    padding: 14px
+    border: 1px dashed var(--border)
+    border-radius: 12px
+    background: rgba(15, 20, 26, 0.7)
+  .manualControls.load
+    &::before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      border-radius: 12px
+      background: rgba(15, 20, 26, 1)
+      opacity: 0.5
+      z-index: 0
+    .segmented
+      label
+        border: 1px solid var(--border)
+        background: var(--panel-2)
+        color: var(--text)
+    .loader
+      z-index: 10
+      font-size: 14px
+      opacity: 1
+  .loader
+    opacity: 0
+  .info
+    display: flex
+    justify-content: space-between
+    font-size: 14px
+  .statusIndicator
+    display: inline-flex
+    align-items: center
+    gap: 8px
+    font-size: 14px
+
+  .statusTag
+    padding: 4px 10px
+    border-radius: 999px
+    font-size: 12px
+    border: 1px solid rgba(110, 118, 129, 0.45)
+    background: var(--off-bg)
+    color: rgb(208, 215, 222)
+  .statusTag.active
+    border: 1px solid rgba(63, 185, 80, 0.35)
+    background: rgba(63, 185, 80, 0.12)
+    color: #9be9a8
+  .statusBox
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 12px
+    font-weight: 600
+
+  .dot
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    background: var(--off)
+    box-shadow: 0 0 0 4px rgba(110, 118, 129, 0.15)
+  .dot.active
+    background: var(--success)
+    box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.15)
+
+// .card
+//   border: 1px solid var(--border)
+//   border-radius: var(--radius)
+//   background: rgba(22, 27, 34, 0.92)
+//   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03)
+//   padding: 18px
+
+@media (max-width: 768px)
+  .serverSettings
+    min-width: auto
+    margin: 0 auto
+    display: flex
+    flex-direction: column
+    padding: 0
+    gap: 16px
+
+input[type="time"], select, .statusBox
+  width: 100%
+  height: 48px
+  border-radius: 12px
+  border: 1px solid #30363d
+  background: #0f141a
+  color: #c9d1d9
+  padding: 0 14px
+  font-size: 15px
+  outline: none
+
+label
+  font-size: 13px
+  color: var(--muted)
+
+//   padding-top: 20px
+//   // display: flex
+//   // justify-content: space-between
+
+// .container
+//   margin-top: 20px
+//   display: flex
+//   justify-content: space-between
+
+// .item
+//   padding: 3%
+//   background-color: rgba(37, 37, 37, 0.55)
+//   border-radius: 22px
+
+// .info
+//   margin-top: 20px
+//   &:not(:last-child)
+//     margin-bottom: 10px
+
+// .text
+//   display: flex
+//   justify-content: space-between
+//   p
+//     margin: 0
+//     font-family: "Open Sans", sans-serif
+//     font-size: 16px
+//     font-weight: 200
+
+// .uptime
+//   font-family: "Open Sans", sans-serif
+//   font-size: 16px
+//   font-weight: 400
+
+// .slider
+//   background-color: red 

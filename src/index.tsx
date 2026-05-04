@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import 'app/styles/index.sass';
+import './app/styles/index.sass';
 import App from 'app/App';
 import { Provider } from 'react-redux';
 import store from './redux/store';

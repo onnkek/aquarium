@@ -9,6 +9,8 @@ import { ReactComponent as SquaresBG } from 'shared/assets/icons/bg-squares-s.sv
 import { Button } from 'shared/ui/Button';
 import { Portal } from 'shared/ui/Portal';
 import { useTheme } from 'app/providers/ThemeProvider/lib/useTheme';
+import { ReactComponent as BackIcon } from 'shared/assets/icons/aquarium/back.svg'
+import { ReactComponent as CheckIcon } from 'shared/assets/icons/aquarium/check.svg'
 
 type ModalIconColor = 'green' | 'red' | 'save' | 'purple' | 'default' | 'none';
 type ModalBGWrapper = 'circles' | 'grid' | 'grid-dot' | 'squares' | 'none';
@@ -19,11 +21,13 @@ interface ModalProps {
   children?: ReactNode;
   isOpen?: boolean;
   onClose: () => void;
+  onConfirm: () => void;
   lazy?: boolean;
-  Icon?: React.VFC<React.SVGProps<SVGSVGElement>>;
+  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   iconColor?: ModalIconColor;
   bgWrapper?: ModalBGWrapper;
   modalStyle?: ModalStyle;
+  headerText: string
 }
 
 const colorClasses: Record<ModalIconColor, string> = {
@@ -40,7 +44,7 @@ const styleClasses: Record<ModalStyle, string> = {
 };
 // const ANIMATION_DELAY = 300;
 
-export const Modal = ({ className, children, isOpen, lazy, onClose, Icon, iconColor = 'none', bgWrapper = 'none', modalStyle = 'default' }: ModalProps) => {
+export const Modal = ({ className, children, isOpen, lazy, onClose, onConfirm, Icon, iconColor = 'none', bgWrapper = 'none', modalStyle = 'default', headerText }: ModalProps) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -115,31 +119,38 @@ export const Modal = ({ className, children, isOpen, lazy, onClose, Icon, iconCo
 
   return (
     <Portal>
-      <div className={classNames(cls.modal, mods, [className, theme])} >
+      <div className={classNames(cls.modal, mods, [theme])} >
 
         <div className={cls.overlay} onClick={startClosing}>
 
-          <div className={classNames(cls.content, {}, [isClosing ? cls.close : cls.open])} onClick={onContentClick} onAnimationEnd={handleAnimationEnd}>
+          <div className={classNames(cls.content, {}, [isClosing ? cls.close : cls.open, className])} onClick={onContentClick} onAnimationEnd={handleAnimationEnd}>
 
 
-            {modalStyle === 'none' || <div className={cls.header}>
-              {Icon &&
-                <div className={cls.iconWrapper}>
-                  <Icon className={cls.icon} />
-                </div>
-              }
-              {bgWrapper === 'circles' && <CirclesBG className={cls.wrapper} />}
-              {bgWrapper === 'grid' && <GridBG className={cls.wrapper} />}
-              {bgWrapper === 'grid-dot' && <GridDotBG className={cls.wrapper} />}
-              {bgWrapper === 'squares' && <SquaresBG className={cls.wrapper} />}
-              <Button onClick={startClosing} className={cls.close} theme='clear'>
-                <XIcon />
+            <span className={cls.blur}></span>
+            <div className={cls.header}>
+
+              <Button theme='clear' className={cls.button} onClick={startClosing}>
+                <BackIcon /><span>x</span>
               </Button>
-            </div>}
+              <div className={cls.titleWrap}>
+                <h2 className={cls.title}>{headerText}</h2>
+                <p className={cls.subtitle}>Configure the pump mode, schedule, dosage, and volume values in a desktop-friendly modal window.</p>
+              </div>
+
+              <div className={cls.other}>
+                <Button theme='clear' className={classNames(cls.otherButton, {}, [])} onClick={onConfirm}>
+                  <CheckIcon />
+                </Button>
+              </div>
+
+            </div>
             <div className={cls.body}>
               {children}
             </div>
-
+            <div className={cls.footer}>
+              <button type="button" className="btn btn-secondary" onClick={startClosing}>Close</button>
+              <button type="button" className="btn btn-primary" onClick={onConfirm}>Save changes</button>
+            </div>
           </div>
         </div>
       </div>

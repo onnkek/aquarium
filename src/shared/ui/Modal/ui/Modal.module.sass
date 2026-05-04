@@ -1,6 +1,10 @@
-@import "app/styles/variables"
+@use "app/styles/variables" as *
 
 .modal
+  --border: #30363d
+  --panel-2: #0f141a
+  --text: #c9d1d9
+  --muted: #8b949e
   position: fixed
   top: 0
   bottom: 0
@@ -14,47 +18,56 @@
 .overlay
   width: 100%
   height: 100%
-  background-color: #0C111DCC
+  background-color: rgba(1, 4, 9, 0.78)
   display: flex
   justify-content: center
   align-items: center
 
 .content
 
-  min-width: 400px
-  padding: 24px
-  border-radius: var(--radius-xl)
-  background-color: var(--bg-primary_alt)
-  border: 1px solid var(--border-primary)
-  box-shadow: var(--shadow-xl)
+  position: relative
+  z-index: 1
+  // width: min(920px, 100%)
+  border: 1px solid var(--border)
+  border-radius: 22px
+  background: linear-gradient(180deg, rgba(22, 27, 34, 0.98), rgba(13, 17, 23, 0.98))
+  box-shadow: var(--shadow)
   overflow: hidden
 
-.none
-  .overlay
-    .content
-      background-color: transparent
-      border: none
-      box-shadow: none
-      padding: 0
-
 .header
-  background-color: transparent
-  position: relative
-  margin-bottom: 16px
+  padding: 20px 24px
+  border-bottom: 1px solid var(--border)
+  display: flex
+  align-items: flex-start
+  justify-content: space-between
+  gap: 16px
+  background: rgba(15, 20, 26, 0.75)
 
-.header
-  .close
-    padding: 0
-    width: 12px
-    height: 12px
-    position: absolute
-    top: 0
-    right: 0
-    svg
-      margin: 0
-      width: 12px
-      height: 12px
-      stroke: var(--fg-quinary)
+.footer
+  padding: 20px 24px
+  border-top: 1px solid var(--border)
+  display: flex
+  justify-content: flex-end
+  gap: 10px
+  background: rgba(15, 20, 26, 0.72)
+
+.button
+  width: 40px
+  height: 40px
+  flex: 0 0 auto
+  border-radius: 12px
+  border: 1px solid var(--border)
+  background: var(--panel-2)
+  color: var(--text)
+  cursor: pointer
+  font-size: 18px
+  line-height: 1
+  order: 1
+  svg
+    display: none
+
+.otherButton
+  display: none
 
 .wrapper
   position: absolute
@@ -62,17 +75,17 @@
   left: -143px
   z-index: 0
 
-.body
-  position: relative
-  z-index: 10
-  display: flex
-  justify-content: center
-  label
-    font-size: 18px
-    line-height: 28px
-    font-weight: 600
-    color: var(--text-primary)
-    margin-bottom: 4px
+.title
+  margin: 0
+  font-size: 22px
+  line-height: 1.2
+  color: #f0f6fc
+.subtitle
+  margin: 8px 0 0
+  font-size: 13px
+  line-height: 1.45
+  color: var(--muted)
+  max-width: 58ch
 
 .iconWrapper
   display: flex
@@ -151,3 +164,96 @@
   to
     opacity: 0
     transform: scale(0.5)
+
+
+@media (max-width: 768px)
+  .overlay
+    background-color: #060b18
+
+  .content
+    position: fixed
+    inset: 0
+    z-index: 200
+    background-color: #060b18
+    color: white
+    width: 100.2%
+    height: 100vh
+    display: flex
+    flex-direction: column
+    border: none
+  .body
+
+    flex: 1 1 auto
+    overflow-y: auto
+    scrollbar-width: none
+    padding: 84px 20px 20px 20px
+  .header
+    position: fixed
+    width: 100%
+    left: 0
+    top: 0
+    padding: 20px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    z-index: 1000
+    background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(6, 11, 24, 1))
+    border: none
+    &::before
+      content: ''
+      position: absolute
+      inset: 0
+      backdrop-filter: blur(10px)
+      -webkit-backdrop-filter: blur(10px)
+      -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))
+      -webkit-mask-repeat: no-repeat
+      -webkit-mask-size: 100% 100%
+      z-index: -1
+  .button,
+  .otherButton
+    width: 44px
+    height: 44px
+    border-radius: 50%
+    backdrop-filter: blur(20px)
+    background-color: rgb(37 37 37 / 55%)
+    border: 1px solid rgb(67 67 67 / 55%)
+    padding: 4px
+    display: flex
+    justify-content: center
+    align-items: center
+    -webkit-tap-highlight-color: transparent
+    -webkit-user-select: none
+    -webkit-touch-callout: none
+    svg
+      stroke: white
+      width: 100%
+      height: 100%
+      margin: 0
+  .button
+    order: 0
+    span
+      display: none
+    svg
+      display: block
+  .otherButton
+    width: 44px
+    height: 44px
+    padding: 12px
+    background-color: rgb(225 173 2 / 100%)
+    border-color: #fef128
+    display: block
+    svg
+      fill: #faf554
+    @media (hover: hover)
+      &:hover
+        border-color: #fef128
+  .titleWrap
+    h2
+      font-size: 17px
+      line-height: 22px
+      font-weight: 500
+      margin: 0
+  .footer
+    display: none
+  .subtitle
+    display: none

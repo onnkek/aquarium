@@ -67,13 +67,13 @@ export const RelaySettings = ({
       relay: {
         on: onTime,
         off: offTime,
-        mode: invertMode(mode),
+        mode: invertMode(mode, card.current.status),
         name: card.config.name
       }
     }));
 
     if (status === Status.Succeeded) {
-      setMode(invertMode(mode))
+      setMode(invertMode(mode, card.current.status))
       setTimeout(() => {
         dispatch(getCurrentInfo())
       }, 200); // Написать чтобы сервер на апдейт кофига возвращал не новый конфиг, а currentInfo
@@ -113,11 +113,11 @@ export const RelaySettings = ({
   const mods: Mods = {
     [relaySubtypeClasses[card.subtype]]: true
   }
-
+  console.log(mode)
   return (
     <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={onSendConfig}>
       <div className={classNames(cls.relaySettings, mods, [className])}>
-        <div className={cls.body}>
+        {/* <div className={cls.body}>
           <ButtonGroup className={cls.group}>
             <Button
               className={classNames(cls.groupButton, { [cls.active]: mode !== 2 }, [])}
@@ -146,8 +146,60 @@ export const RelaySettings = ({
               control={<Input className={cls.input} type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)}></Input>}
             />
           </SettingsSection>
-        </div>
-      </div>
-    </SettingsWrapper>
+        </div> */}
+
+        <section className={cls.card}>
+          <h2 className={cls.sectionTitle}>Mode</h2>
+          <div className={cls.segmented}>
+            <input type="radio" name="mode" id="manual" checked={mode === 1 || mode === 0} readOnly />
+            <label htmlFor="manual" onClick={(e) => setMode(card.current.status ? 1 : 0)}>Manual</label>
+            <input type="radio" name="mode" id="auto" checked={mode === 2} readOnly />
+            <label htmlFor="auto" onClick={(e) => setMode(2)}>Automatic</label>
+          </div>
+
+          {mode != 2 &&
+            <div className={classNames(cls.manualControls, { [cls.load]: status === Status.Loading }, [])} id="manualControls" style={{ display: "block" }}>
+              <div className={cls.field} style={{ marginBottom: "0px" }}>
+                <div className={cls.info}>
+                  <label>Relay state</label>
+                  <span className={cls.loader}>Switching...</span>
+                </div>
+
+                <div className={cls.segmented}>
+                  <input type="radio" name="state" id="stateOn" checked={card.current.status} readOnly />
+                  <label htmlFor="stateOn" onClick={!card.current.status ? changeState : () => { }}>On</label>
+                  <input type="radio" name="state" id="stateOff" checked={!card.current.status} readOnly />
+                  <label htmlFor="stateOff" onClick={card.current.status ? changeState : () => { }}>Off</label>
+                </div>
+              </div>
+            </div>
+          }
+
+          {mode == 2 &&
+            <div className={cls.field} id="autoStatus" style={{ marginTop: "14px", marginBottom: "0px" }}>
+              <label>Current status</label>
+              <div className={cls.statusBox}>
+                <span className={cls.statusIndicator}>
+                  <span className={classNames(cls.dot, { [cls.active]: card.current.status }, [])}></span> Relay is {card.current.status ? "" : "in"}active</span>
+                <span className={classNames(cls.statusTag, { [cls.active]: card.current.status }, [])}>{card.current.status ? "ON" : "OFF"}</span>
+              </div>
+            </div>
+          }
+        </section>
+
+
+        <section className={cls.card}>
+          <h2 className={cls.sectionTitle}>Schedule</h2>
+          <div className={cls.field}>
+            <label htmlFor="onTime">Turn on time</label>
+            <input id="onTime" type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
+          </div>
+          <div className={cls.field}>
+            <label htmlFor="offTime">Turn off time</label>
+            <input id="offTime" type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+          </div>
+        </section>
+      </div >
+    </SettingsWrapper >
   );
 }

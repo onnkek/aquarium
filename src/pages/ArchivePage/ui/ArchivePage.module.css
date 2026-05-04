@@ -1,0 +1,69 @@
+.log_container {
+  position: relative;
+  color: white;
+  width: 100%;
+  overflow: auto;
+  height: 350px;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 780px) {
+  .log_container {
+    height: 79dvh;
+  }
+}
+
+.scrollContainer {
+  position: absolute;
+  width: 5000px;
+  height: 100%;
+}
+
+.outsideContainer {
+  color: white;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 780px) {
+  .outsideContainer {
+    height: 350px;
+  }
+  .outsideContainer:not(:last-child) {
+    margin-bottom: 30px;
+  }
+}
+
+.log_body {
+  width: 100%;
+}
+
+.log_text {
+  margin: 0;
+}
+
+.log_header {
+  display: flex;
+  align-items: center;
+}
+
+.log_title {
+  color: white;
+  margin: 0 40px 0 0;
+}
+
+.spinner_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  justify-self: center;
+  color: white;
+  width: 40px;
+  height: 40px;
+}/*# sourceMappingURL=ArchivePage.module.css.map */

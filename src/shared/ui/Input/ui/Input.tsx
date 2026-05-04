@@ -10,7 +10,7 @@ export interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   className?: string;
   placeholder?: string;
-  Icon?: React.VFC<React.SVGProps<SVGSVGElement>>;
+  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   disabled?: boolean;
   descr?: string;
   error?: string;

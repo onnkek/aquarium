@@ -1,0 +1,143 @@
+.toggleContainer {
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  --toggle-fg: #34C759;
+  --toggle-bg: rgb(120 120 120 / 36%);
+  --toggle-button-fg_disabled: var(--bg-disabled_subtle);
+  --animation-duration: 0.2s;
+  --animation-timing: cubic-bezier(0.76,0.05,0.24,0.95);
+  padding: 0;
+  color: var(--indigo-50);
+  align-items: center;
+  min-width: 36px;
+  width: 36px;
+  height: 20px;
+  background-color: var(--toggle-fg);
+  outline: none;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: none;
+}
+
+.toggle {
+  top: 2px;
+  left: 0.5%;
+  margin: 0px 2px;
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background-color: white;
+  transition: none;
+}
+
+.disabled {
+  cursor: default;
+}
+.disabled .toggle {
+  filter: brightness(80%) contrast(90%) grayscale(30%);
+}
+
+.toggleContainer[aria-checked=true].disabled {
+  filter: brightness(80%) contrast(90%) grayscale(30%);
+}
+
+.toggleContainer[aria-checked=true] {
+  background-color: var(--toggle-fg);
+}
+.toggleContainer[aria-checked=true] .toggle {
+  animation: moveRight var(--animation-duration) forwards;
+}
+.toggleContainer[aria-checked=true]:focus-visible {
+  box-shadow: var(--ring-brand);
+}
+
+.toggleContainer[aria-checked=false] {
+  background-color: var(--toggle-bg);
+}
+.toggleContainer[aria-checked=false]:focus-visible {
+  box-shadow: var(--ring-gray-secondary);
+}
+.toggleContainer[aria-checked=false] .toggle {
+  animation: moveLeft var(--animation-duration) forwards;
+}
+
+.toggleContainer.l {
+  width: 44px;
+  min-width: 44px;
+  height: 24px;
+}
+.toggleContainer.l .toggle {
+  width: 20px;
+  height: 20px;
+}
+
+.toggleContainer.xl {
+  width: 64px;
+  min-width: 64px;
+  height: 28px;
+}
+.toggleContainer.xl .toggle {
+  width: 39px;
+  height: 24px;
+  margin: 0px 2px;
+}
+
+.toggleContainer.switch {
+  background-color: #ff2859;
+}
+
+.toggleContainer.switch[aria-checked=true] {
+  background-color: #00be5e;
+}
+
+@keyframes moveRight {
+  0% {
+    transform: scale(1);
+    left: 0px;
+    backdrop-filter: blur(0px);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+  }
+  50% {
+    transform: scale(2);
+    left: 10px;
+    backdrop-filter: blur(2px);
+    background-color: rgba(37, 37, 37, 0.55);
+    border: 1px solid rgba(67, 67, 67, 0.55);
+  }
+  100% {
+    transform: scale(1);
+    left: 21px;
+    backdrop-filter: blur(0px);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+  }
+}
+@keyframes moveLeft {
+  0% {
+    transform: scale(1);
+    left: 21px;
+    backdrop-filter: blur(0px);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+  }
+  50% {
+    transform: scale(2);
+    left: 10px;
+    backdrop-filter: blur(2px);
+    background-color: rgba(37, 37, 37, 0.55);
+    border: 1px solid rgba(67, 67, 67, 0.55);
+  }
+  100% {
+    transform: scale(1);
+    left: 0px;
+    backdrop-filter: blur(0px);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+  }
+}/*# sourceMappingURL=Toggle.module.css.map */

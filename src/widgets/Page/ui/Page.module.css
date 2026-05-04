@@ -1,0 +1,8 @@
+.page {
+  margin: 0;
+}
+@media (max-width: 780px) {
+  .page {
+    margin: 0;
+  }
+}/*# sourceMappingURL=Page.module.css.map */

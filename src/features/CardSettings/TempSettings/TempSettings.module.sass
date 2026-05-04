@@ -1,46 +1,197 @@
-@import "app/styles/variables"
+@use "app/styles/variables" as *
 
 .tempSettings
-  // height: calc(100% - 44px)
-  // padding-top: 40px
-  padding-bottom: calc(env(safe-area-inset-bottom) + 20px)
-  .body
+  --muted: #8b949e
+  --border: #30363d
+  --panel-2: #0f141a
+  --text: #c9d1d9
+  --accent: #58a6ff
+  --success: #3fb950
+  --off: #6e7681
+  --off-bg: rgba(110, 118, 129, 0.14)
+  --radius: 18px
+  padding: 24px
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 20px
+  min-width: 700px
+  .card
+    padding: 16px
+    background-color: rgba(22, 27, 34, 0.95)
+    border: 1px solid #30363d
+    border-radius: 16px
+    box-shadow: 0 8px 24px rgba(1, 4, 9, 0.4)
+    .sectionTitle
+      margin: 0 0 12px
+      font-size: 14px
+      color: #f0f6fc
+      letter-spacing: 0.02em
+    .field
+      display: flex
+      flex-direction: column
+      gap: 8px
+      margin-bottom: 14px
+    .segmented
+      display: grid
+      grid-template-columns: 1fr 1fr
+      gap: 8px
+      input
+        display: none
+      label
+        height: 44px
+        display: grid
+        place-items: center
+        border-radius: 12px
+        border: 1px solid var(--border)
+        background: var(--panel-2)
+        color: var(--text)
+        font-size: 14px
+        cursor: pointer
+        user-select: none
+        transition: 0.15s ease
+      input:checked + label
+        background: rgba(88, 166, 255, 0.15)
+        border-color: var(--accent)
+        color: #d6e7ff
+  .manualControls
+    position: relative
+    margin-top: 10px
+    padding: 14px
+    border: 1px dashed var(--border)
+    border-radius: 12px
+    background: rgba(15, 20, 26, 0.7)
+  .manualControls.load
+    &::before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      border-radius: 12px
+      background: rgba(15, 20, 26, 1)
+      opacity: 0.5
+      z-index: 0
+    .segmented
+      label
+        border: 1px solid var(--border)
+        background: var(--panel-2)
+        color: var(--text)
+    .loader
+      z-index: 10
+      font-size: 14px
+      opacity: 1
+  .loader
+    opacity: 0
+  .info
     display: flex
-    flex-direction: column
+    justify-content: space-between
+    font-size: 14px
+  .statusIndicator
+    display: inline-flex
+    align-items: center
+    gap: 8px
+    font-size: 14px
+
+  .statusTag
+    padding: 4px 10px
+    border-radius: 999px
+    font-size: 12px
+    border: 1px solid rgba(110, 118, 129, 0.45)
+    background: var(--off-bg)
+    color: rgb(208, 215, 222)
+  .statusTag.active
+    border: 1px solid rgba(63, 185, 80, 0.35)
+    background: rgba(63, 185, 80, 0.12)
+    color: #9be9a8
+  .statusBox
+    display: flex
     align-items: center
     justify-content: space-between
-    height: calc(100dvh - 80px - 25px)
-  .icon
-    padding: 40px 0
-    width: 50%
-    height: 400px
-    stroke: $widget-icon-violet
-  .group
-    width: 100%
-    padding: 4px 5px
+    gap: 12px
+    font-weight: 600
+
+  .dot
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    background: var(--off)
+    box-shadow: 0 0 0 4px rgba(110, 118, 129, 0.15)
+  .dot.active
+    background: var(--success)
+    box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.15)
+
+// .card
+//   border: 1px solid var(--border)
+//   border-radius: var(--radius)
+//   background: rgba(22, 27, 34, 0.92)
+//   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03)
+//   padding: 18px
+
+@media (max-width: 768px)
+  .tempSettings
+    min-width: auto
+    margin: 0 auto
     display: flex
-    justify-content: center
-    align-items: center
-    border-radius: 25px
-    backdrop-filter: blur(20px)
-    background-color: rgb(37 37 37 / 55%)
-    border: 1px solid rgb(67 67 67 / 55%)
-    -webkit-tap-highlight-color: transparent
-    -webkit-user-select: none
-    -webkit-touch-callout: none
-    button
-      padding: 5px 17px
-      width: 100%
-      background-color: transparent
-      border-radius: 25px
-      border: none
-      height: 28px
-      font-size: 14px
-      line-height: 18px
-      font-weight: 500
-    .active
-      background-color: rgb(137 137 137 / 55%)
-  .input
-    width: 40%
-    input
-      width: 100%
+    flex-direction: column
+    padding: 0
+    gap: 16px
+
+input[type="time"], select, .statusBox
+  width: 100%
+  height: 48px
+  border-radius: 12px
+  border: 1px solid #30363d
+  background: #0f141a
+  color: #c9d1d9
+  padding: 0 14px
+  font-size: 15px
+  outline: none
+
+label
+  font-size: 13px
+  color: var(--muted)
+
+  // height: calc(100% - 44px)
+  // padding-top: 40px
+  // padding-bottom: calc(env(safe-area-inset-bottom) + 20px)
+  // .body
+  //   display: flex
+  //   flex-direction: column
+  //   align-items: center
+  //   justify-content: space-between
+  //   height: calc(100dvh - 80px - 25px)
+  // .icon
+  //   padding: 40px 0 
+  //   width: 50%
+  //   height: 400px
+  //   stroke: $widget-icon-violet
+  // .group
+  //   width: 100%
+  //   padding: 4px 5px
+  //   display: flex
+  //   justify-content: center
+  //   align-items: center
+  //   border-radius: 25px
+  //   backdrop-filter: blur(20px)
+  //   background-color: rgb(37 37 37 / 55%)
+  //   border: 1px solid rgb(67 67 67 / 55%)
+  //   -webkit-tap-highlight-color: transparent
+  //   -webkit-user-select: none
+  //   -webkit-touch-callout: none
+  //   button
+  //     padding: 5px 17px
+  //     width: 100%
+  //     background-color: transparent
+  //     border-radius: 25px
+  //     border: none
+  //     height: 28px
+  //     font-size: 14px
+  //     line-height: 18px
+  //     font-weight: 500
+  //   .active
+  //     background-color: rgb(137 137 137 / 55%)
+  // .input
+  //   width: 40%
+  //   input
+  //     width: 100%

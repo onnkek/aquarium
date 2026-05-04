@@ -25,11 +25,10 @@ export const LogsPage = ({ className }: LogsPageProps) => {
   const [selectLog, setSelectLog] = useState("System")
   const containerRef = useRef<HTMLDivElement>(null)
 
-
   const selectSystemLogs = () => {
     dispatch(getSystemLogs());
     setSelectLog("System");
-  }
+  } 
   const selectRelayLogs = () => {
     dispatch(getRelayLogs());
     setSelectLog("Relay");

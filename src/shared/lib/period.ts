@@ -64,7 +64,7 @@ export function getStringARGBMode(mode: number) {
   }
 }
 
-export function invertMode(mode: number) {
+export function invertMode(mode: number, status: boolean) {
   switch (mode) {
     case 1:
       return 0;

@@ -11,7 +11,7 @@ var config = {
   // include: ['*', '**/*'],      // this would upload everything except dot files
   include: ['*', 'build/*'],
   // exclude: ['build/**/*.map'],     // e.g. exclude sourcemaps
-  //deleteRoot: true                // delete existing files at destination before uploading
+  deleteRoot: true                // delete existing files at destination before uploading
 }
 
 // use with promises

@@ -20,6 +20,7 @@ interface IOutside {
 
 export interface ISystemInfo {
   time: ITimeInfo,
+  fan: number,
   chipTemp: number,
   uptime: number,
   totalSpace: number,
@@ -102,6 +103,7 @@ interface IARGBCycle {
 export interface IARGB {
   name: string,
   mode: number,
+  style: number,
   brightness: number,
   static: IRGB,
   gradient: IARGBGradient,
@@ -122,7 +124,8 @@ export interface ITemp {
 
 export interface ISystem {
   name: string,
-  update: number
+  update: number,
+  pwm: number
 }
 
 export interface IConfig {
@@ -175,6 +178,7 @@ const initialState: IAquarium = {
         second: 0
       },
       chipTemp: 0,
+      fan: 0,
       uptime: 0,
       totalSpace: 0,
       usedSpace: 0,
@@ -230,7 +234,8 @@ const initialState: IAquarium = {
   config: {
     system: {
       name: "System",
-      update: 0
+      update: 0,
+      pwm: 0
     },
     doser: [
       {
@@ -341,6 +346,7 @@ const initialState: IAquarium = {
     argb: {
       name: "Backlighting",
       mode: 0,
+      style: 0,
       brightness: 0,
       static: {
         r: 0,
@@ -546,6 +552,14 @@ const AquariumSlice = createSlice({
         state.status = Status.Succeeded
       })
 
+      .addCase(updateFanSpeed.pending, (state: IAquarium) => {
+        state.status = Status.Loading
+      })
+      .addCase(updateFanSpeed.fulfilled, (state: IAquarium, action) => {
+        state.config = action.payload
+        state.status = Status.Succeeded
+      })
+
   }
 })
 
@@ -650,6 +664,26 @@ export const updateCO2 = createAsyncThunk<IConfig, IRelay, { state: RootState }>
     newConfig.co2.on = payload.on
     newConfig.co2.off = payload.off
     newConfig.co2.mode = payload.mode
+    const response = await new AquariumService().updateConfig(newConfig)
+
+    if (!response.ok) {
+      return rejectWithValue('Can\'t delete post! Server error!')
+    }
+    return newConfig
+
+  }
+)
+
+export const updateFanSpeed = createAsyncThunk<IConfig, number, { state: RootState }>(
+  'aquarium/updateFanSpeed',
+  async (payload: number, { rejectWithValue, getState, dispatch }) => {
+    const state = getState()
+
+    const newConfig: IConfig = { ...state.aquarium.config }
+
+    newConfig.system = { ...state.aquarium.config.system }
+    newConfig.system.pwm = payload
+
     const response = await new AquariumService().updateConfig(newConfig)
 
     if (!response.ok) {
@@ -798,6 +832,7 @@ export const updateARGB = createAsyncThunk<IConfig, IARGB, { state: RootState }>
     const newConfig: IConfig = { ...state.aquarium.config }
     newConfig.argb = { ...state.aquarium.config.argb }
     newConfig.argb.mode = payload.mode
+    newConfig.argb.style = payload.style
     newConfig.argb.on = payload.on
     newConfig.argb.off = payload.off
     newConfig.argb.brightness = payload.brightness

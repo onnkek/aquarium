@@ -17,7 +17,7 @@ export interface TagProps {
   onRemove?: () => void;
   counter?: string;
   checkbox?: boolean;
-  Icon?: React.VFC<React.SVGProps<SVGSVGElement>>;
+  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   dot?: boolean;
   size?: TagSize;
   checked?: boolean;
