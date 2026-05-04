@@ -1,11 +1,11 @@
-import { useSliderThumb } from "@react-aria/slider";
-import { useRef } from "react";
 import { useFocusRing } from '@react-aria/focus';
+import { useSliderThumb } from "@react-aria/slider";
 import { mergeProps } from '@react-aria/utils';
 import { VisuallyHidden } from "@react-aria/visually-hidden";
-import cls from './Slider.module.sass';
+import { useRef } from "react";
 import { Mods, classNames } from "shared/lib/classNames";
 import { SliderTextType } from "./Slider";
+import cls from './Slider.module.sass';
 
 const textClasses: Record<SliderTextType, string> = {
   bottom: cls.bottom,

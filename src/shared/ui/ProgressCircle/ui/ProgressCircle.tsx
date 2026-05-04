@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import cls from './ProgressCircle.module.sass';
 import { Mods, classNames } from 'shared/lib/classNames';
+import cls from './ProgressCircle.module.sass';
 
 type ProgressCircleSize = 'XXS' | 'M' | 'L' | 'S' | 'XL' | '2XL';
 const sizeClasses: Record<ProgressCircleSize, string> = {

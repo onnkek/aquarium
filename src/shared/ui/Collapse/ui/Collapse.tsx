@@ -1,9 +1,8 @@
-import { Mods, classNames } from 'shared/lib/classNames';
-import cls from './Collapse.module.sass';
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { ReactNode, useState } from 'react';
 import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/chevron.svg';
-import { AnimatePresence, motion } from "motion/react";
+import { Mods, classNames } from 'shared/lib/classNames';
+import cls from './Collapse.module.sass';
 
 export interface CollapseProps {
   className?: string;

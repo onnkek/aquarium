@@ -1,20 +1,19 @@
-import { RelayCardType, SystemCardType, TempCardType } from 'entities/card/model/types';
-import cls from './SystemSettings.module.sass';
-import { classNames, Mods } from "shared/lib/classNames";
+import { SystemCardType } from 'entities/card/model/types';
+import { useAppDispatch, useAppSelector } from 'models/Hook';
+import { Status } from 'models/Status';
+import { useEffect, useState } from 'react';
 import { ReactComponent as UpdateIcon } from 'shared/assets/icons/aquarium/arrow-up.svg';
-import { ReactComponent as TimeIcon } from 'shared/assets/icons/aquarium/time.svg';
 import { ReactComponent as DateIcon } from 'shared/assets/icons/aquarium/calendar.svg';
-import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/power.svg'
-import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/lightning.svg'
-import { SettingsWrapper } from '../SettingsWrapper';
+import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/power.svg';
+import { ReactComponent as TimeIcon } from 'shared/assets/icons/aquarium/time.svg';
+import { classNames, Mods } from "shared/lib/classNames";
+import { getDateFromInput, getDateISO, getTimeFromInput, getTimeISO } from 'shared/lib/period';
+import { Input } from 'shared/ui/Input';
 import { SettingsItem } from 'shared/ui/settings/SettingsItem';
 import { SettingsSection } from 'shared/ui/settings/SettingsSection';
-import { useEffect, useState } from 'react';
-import { Input } from 'shared/ui/Input';
-import { getDateFromInput, getDateISO, getDateTimeFromInput, getDateTimeISO, getTimeFromInput, getTimeISO } from 'shared/lib/period';
-import { useAppDispatch, useAppSelector } from 'models/Hook';
 import { getCurrentInfo, updateDateTime, updateSystem } from '../../../redux/AquariumSlice';
-import { Status } from 'models/Status';
+import { SettingsWrapper } from '../SettingsWrapper';
+import cls from './SystemSettings.module.sass';
 
 interface SystemSettingsProps {
   className?: string;

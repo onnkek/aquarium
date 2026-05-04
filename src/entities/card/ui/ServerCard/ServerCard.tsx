@@ -1,13 +1,8 @@
+import { SystemCardType } from 'entities/card/model/types';
+import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/chip.svg';
+import { classNames, Mods } from "shared/lib/classNames";
 import { CardBase } from '../CardBase';
 import cls from './ServerCard.module.sass';
-import { classNames, Mods } from "shared/lib/classNames";
-import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/chip.svg';
-import { ReactComponent as SDIcon } from 'shared/assets/icons/aquarium/sd.svg';
-import { ReactComponent as RAMIcon } from 'shared/assets/icons/aquarium/ram.svg';
-import { ReactComponent as UptimeIcon } from 'shared/assets/icons/aquarium/arrow-up.svg';
-import { Progress } from 'shared/ui/Progress';
-import { SystemCardType } from 'entities/card/model/types';
-import { getUptime } from 'shared/lib/period';
 
 interface ServerCardProps {
   className?: string;
@@ -45,30 +40,6 @@ export const ServerCard = ({
           <div className={cls.metric}><span>RAM</span><strong>{((card.current.heapSize - card.current.freeHeap) / 1024).toFixed(2)} / {(card.current.heapSize / 1024).toFixed(2)} KB</strong></div>
         </div>
       </div>
-
-      {/* <div className={classNames(cls.serverCard, mods, [className])} onClick={onToggle}>
-        <div className={cls.body}>
-          {<ChipIcon className={cls.icon} />}
-          <div className={cls.right}>
-            <h2 className={cls.name}>{card.config.name}</h2>
-            <p className={cls.status}>{card.current.chipTemp} °C</p>
-          </div>
-        </div>
-
-        <span className={cls.blur}></span>
-        <div className={cls.mode}>
-          {<UptimeIcon className={cls.modeIcon} />}
-          <p>{getUptime(card.current.uptime, false)}</p>
-        </div>
-        <div className={cls.mode}>
-          <SDIcon className={cls.modeIcon} />
-          <Progress className={cls.progress} text="none" value={card.current.usedSpace / card.current.totalSpace * 100} />
-        </div>
-        <div className={cls.mode}>
-          <RAMIcon className={cls.modeIcon} />
-          <Progress className={cls.progress} text="none" value={(card.current.heapSize - card.current.freeHeap) / card.current.heapSize * 100} />
-        </div>
-      </div> */}
 
     </CardBase>
   );

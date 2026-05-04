@@ -1,7 +1,7 @@
+import { Checkbox as HCheckbox } from '@headlessui/react';
+import { useState } from 'react';
 import { Mods, classNames } from 'shared/lib/classNames';
 import cls from './Checkbox.module.sass';
-import { Checkbox as HCheckbox } from '@headlessui/react'
-import { useState } from 'react';
 
 type CheckboxSize = 'S' | 'M' | 'L' | 'XL';
 const sizeClasses: Record<CheckboxSize, string> = {

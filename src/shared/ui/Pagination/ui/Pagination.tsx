@@ -1,10 +1,10 @@
-import { Mods, classNames } from 'shared/lib/classNames';
-import cls from './Pagination.module.sass';
-import { Button } from 'shared/ui/Button';
-import { useState } from 'react';
 import { ReactComponent as ArrowLeftIcon } from 'assets/icons/arrow-left.svg';
 import { ReactComponent as ArrowRightIcon } from 'assets/icons/arrow-right.svg';
+import { useState } from 'react';
+import { Mods, classNames } from 'shared/lib/classNames';
+import { Button } from 'shared/ui/Button';
 import { ButtonGroup } from 'shared/ui/ButtonGroup';
+import cls from './Pagination.module.sass';
 
 type PaginationTheme = 'default' | 'default-circle' | 'minimal' | 'minimal-circle' | 'button-group' | 'text' | 'text-arrow';
 const themeClasses: Record<PaginationTheme, string> = {

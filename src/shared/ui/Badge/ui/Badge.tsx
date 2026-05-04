@@ -1,6 +1,6 @@
+import { ReactNode } from 'react';
 import { Mods, classNames } from 'shared/lib/classNames';
 import cls from './Badge.module.sass';
-import { ReactNode } from 'react';
 
 type BadgeSize = 'S' | 'M' | 'L';
 type BadgeTheme = 'primary' | 'outline' | 'rect' | 'modern';

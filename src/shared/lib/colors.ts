@@ -17,10 +17,6 @@ export function hexToRgb(hex: string): { r: number; g: number; b: number } {
       ? normalizedHex.split('').map(c => c + c).join('')
       : normalizedHex;
 
-  // if (!/^[0-9a-fA-F]{6}$/.test(fullHex)) {
-  //   return null; // Невалидный hex
-  // }
-
   const r = parseInt(fullHex.slice(0, 2), 16);
   const g = parseInt(fullHex.slice(2, 4), 16);
   const b = parseInt(fullHex.slice(4, 6), 16);

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import cls from './SettingsSection.module.sass';
 import { classNames } from "shared/lib/classNames";
+import cls from './SettingsSection.module.sass';
 
 interface SettingsSectionProps {
   className?: string;

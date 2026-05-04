@@ -1,24 +1,16 @@
 import { RelayCardType, RelaySubtype } from 'entities/card/model/types';
+import { useAppDispatch, useAppSelector } from 'models/Hook';
+import { Status } from 'models/Status';
+import { useEffect, useState } from 'react';
+import { ReactComponent as CO2Icon } from 'shared/assets/icons/aquarium/co2.svg';
+import { ReactComponent as FilterIcon } from 'shared/assets/icons/aquarium/filter.svg';
+import { ReactComponent as LightIcon } from 'shared/assets/icons/aquarium/light.svg';
+import { ReactComponent as O2Icon } from 'shared/assets/icons/aquarium/o2.svg';
+import { classNames, Mods } from "shared/lib/classNames";
+import { invertMode } from 'shared/lib/period';
+import { getCurrentInfo, updateRelay } from '../../../redux/AquariumSlice';
 import { SettingsWrapper } from '../SettingsWrapper';
 import cls from './RelaySettings.module.sass';
-import { classNames, Mods } from "shared/lib/classNames";
-import { Input } from 'shared/ui/Input';
-import { ButtonGroup } from 'shared/ui/ButtonGroup';
-import { Button } from 'shared/ui/Button';
-import { Toggle } from 'shared/ui/Toggle';
-import { ReactComponent as LightIcon } from 'shared/assets/icons/aquarium/light.svg'
-import { ReactComponent as O2Icon } from 'shared/assets/icons/aquarium/o2.svg'
-import { ReactComponent as CO2Icon } from 'shared/assets/icons/aquarium/co2.svg'
-import { ReactComponent as FilterIcon } from 'shared/assets/icons/aquarium/filter.svg'
-import { ReactComponent as PowerIcon } from 'shared/assets/icons/aquarium/power.svg'
-import { ReactComponent as TimeIcon } from 'shared/assets/icons/aquarium/time.svg'
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'models/Hook';
-import { getCurrentInfo, updateCO2, updateFilter, updateLight, updateO2, updateRelay } from '../../../redux/AquariumSlice';
-import { invertMode } from 'shared/lib/period';
-import { Status } from 'models/Status';
-import { SettingsSection } from 'shared/ui/settings/SettingsSection';
-import { SettingsItem } from 'shared/ui/settings/SettingsItem';
 
 interface RelaySettingsProps {
   className?: string;
@@ -117,36 +109,6 @@ export const RelaySettings = ({
   return (
     <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={onSendConfig}>
       <div className={classNames(cls.relaySettings, mods, [className])}>
-        {/* <div className={cls.body}>
-          <ButtonGroup className={cls.group}>
-            <Button
-              className={classNames(cls.groupButton, { [cls.active]: mode !== 2 }, [])}
-              onClick={() => selectMode(Number(card.current.status))}
-            >Manual</Button>
-            <Button
-              className={classNames(cls.groupButton, { [cls.active]: mode === 2 }, [])}
-              onClick={() => selectMode(2)}
-            >Schedule</Button>
-          </ButtonGroup>
-          {getRelayIcon()}
-          <SettingsSection>
-            <SettingsItem
-              label="State"
-              icon={<PowerIcon />}
-              control={<Toggle size='XL' checked={card.current.status} disabled={mode === 2} onClick={changeState} />}
-            />
-            <SettingsItem
-              label="On"
-              icon={<TimeIcon />}
-              control={<Input className={cls.input} type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)}></Input>}
-            />
-            <SettingsItem
-              label="Off"
-              icon={<TimeIcon />}
-              control={<Input className={cls.input} type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)}></Input>}
-            />
-          </SettingsSection>
-        </div> */}
 
         <section className={cls.card}>
           <h2 className={cls.sectionTitle}>Mode</h2>

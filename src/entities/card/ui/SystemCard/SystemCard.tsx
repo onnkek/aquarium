@@ -1,16 +1,9 @@
-import { RelayCardType, SystemCardType, TempCardType } from 'entities/card/model/types';
+import { SystemCardType } from 'entities/card/model/types';
+import { ReactComponent as SystemIcon } from 'shared/assets/icons/gear.svg';
+import { classNames, Mods } from "shared/lib/classNames";
+import { getDateString, getTimeString } from 'shared/lib/period';
 import { CardBase } from '../CardBase';
 import cls from './SystemCard.module.sass';
-import { classNames, Mods } from "shared/lib/classNames";
-import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/chip.svg';
-import { ReactComponent as SystemIcon } from 'shared/assets/icons/gear.svg';
-import { ReactComponent as SDIcon } from 'shared/assets/icons/aquarium/sd.svg';
-import { ReactComponent as RAMIcon } from 'shared/assets/icons/aquarium/ram.svg';
-import { Progress } from 'shared/ui/Progress';
-import { getDateString, getTimeString } from 'shared/lib/period';
-import { ReactComponent as TempIcon } from 'shared/assets/icons/aquarium/temp2.svg';
-import { ReactComponent as HumidityIcon } from 'shared/assets/icons/aquarium/humidity.svg';
-import { ReactComponent as UpdateIcon } from 'shared/assets/icons/aquarium/arrow-clockwise.svg';
 
 interface SystemCardProps {
   className?: string;

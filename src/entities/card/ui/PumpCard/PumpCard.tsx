@@ -1,14 +1,8 @@
 import { PumpCardType } from 'entities/card/model/types';
-import cls from './PumpCard.module.sass';
+import { ReactComponent as PumpIcon } from 'shared/assets/icons/aquarium/pump.svg';
 import { classNames, Mods } from "shared/lib/classNames";
-import { ReactComponent as PumpIcon } from 'shared/assets/icons/aquarium/pump.svg'
-import { ReactComponent as BottleIcon } from 'shared/assets/icons/aquarium/bottle.svg'
-import { ReactComponent as DropIcon } from 'shared/assets/icons/aquarium/drop.svg'
-import { ReactComponent as ManualIcon } from 'shared/assets/icons/aquarium/hand.svg'
-import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/arrow-up.svg'
-import { Progress } from 'shared/ui/Progress';
-import { CardBase } from '../CardBase';
 import { Badge } from 'shared/ui/Badge';
+import cls from './PumpCard.module.sass';
 
 interface PumpCardProps {
   className?: string;
@@ -47,13 +41,13 @@ export const PumpCard = ({
         </div>
         <div className={cls.metric}>
           <span>Added Fertilizer</span>
-          <strong>{(card.current.introduced / 100 * card.config.dosage).toFixed(0)} / {card.config.dosage.toFixed(0)} ml</strong>
+          <strong>{(card.current.introduced / 100 * card.config.dosage).toFixed(1)} / {card.config.dosage.toFixed(1)} ml</strong>
           <div className={cls.progress}>
             <div className={cls.bar} style={{ width: `${card.current.introduced.toFixed(0)}%`}}></div>
           </div>
           <div className={cls.sub}>
             <span>{(card.current.introduced).toFixed(0)}% completed</span>
-            <span>{(card.config.dosage - card.config.dosage * card.current.introduced / 100).toFixed(0)} ml left</span>
+            <span>{`${(card.config.dosage - card.config.dosage * card.current.introduced / 100).toFixed(0)} ml left`}</span>
           </div>
         </div>
         <div className={cls.metric}>

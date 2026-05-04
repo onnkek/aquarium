@@ -1,6 +1,6 @@
+import { ReactNode } from 'react';
 import { Mods, classNames } from 'shared/lib/classNames';
 import cls from './InputGroup.module.sass';
-import { ReactNode } from 'react';
 
 export interface InputGroupProps {
   className?: string;

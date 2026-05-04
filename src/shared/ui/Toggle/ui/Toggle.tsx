@@ -1,6 +1,6 @@
+import { Switch } from '@headlessui/react';
 import { Mods, classNames } from 'shared/lib/classNames';
 import cls from './Toggle.module.sass';
-import { Switch } from '@headlessui/react';
 
 type ToggleSize = 'M' | 'L' | 'XL';
 const sizeClasses: Record<ToggleSize, string> = {

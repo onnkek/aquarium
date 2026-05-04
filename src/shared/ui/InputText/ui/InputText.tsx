@@ -1,6 +1,6 @@
+import { ReactNode } from 'react';
 import { classNames } from 'shared/lib/classNames';
 import cls from './InputText.module.sass';
-import { ReactNode } from 'react';
 
 export interface InputTextProps {
   className?: string;

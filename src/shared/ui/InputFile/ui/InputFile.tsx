@@ -1,7 +1,7 @@
-import { Mods, classNames } from 'shared/lib/classNames';
-import cls from './InputFile.module.sass';
 import { ReactComponent as UploadIcon } from 'assets/icons/upload-cloud-02.svg';
 import { DragEvent, useState } from 'react';
+import { Mods, classNames } from 'shared/lib/classNames';
+import cls from './InputFile.module.sass';
 
 export interface InputFileProps {
   className?: string;

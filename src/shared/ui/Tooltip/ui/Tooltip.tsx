@@ -1,6 +1,5 @@
 import { classNames } from 'shared/lib/classNames';
 import cls from './Tooltip.module.sass';
-import {Tooltip as RTooltip} from 'react-tooltip';
 
 export interface TooltipProps {
   className?: string;

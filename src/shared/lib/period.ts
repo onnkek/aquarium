@@ -222,3 +222,16 @@ export function getUptime(microseconds: number, showms: boolean): string {
 
   return `${days}d ${pad(hours)}:${pad(min)}:${pad(sec)}${showms ? `.${padMs(ms)}` : ''}`;
 }
+
+export function isCurrentTimeGreater(serverTime: string): boolean {
+  // 1. Получаем текущее время
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  // 2. Парсим строку с сервера "12:34"
+  const [hours, minutes] = serverTime.split(':').map(Number);
+  const serverMinutes = hours * 60 + minutes;
+
+  // 3. Сравниваем
+  return currentMinutes > serverMinutes;
+}

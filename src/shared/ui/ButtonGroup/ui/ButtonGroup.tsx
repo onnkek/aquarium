@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import cls from './ButtonGroup.module.sass';
 import { classNames } from 'shared/lib/classNames';
+import cls from './ButtonGroup.module.sass';
 
 export interface ButtonGroupProps {
   className?: string;

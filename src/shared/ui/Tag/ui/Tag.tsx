@@ -1,8 +1,8 @@
-import { Mods, classNames } from 'shared/lib/classNames';
-import cls from './Tag.module.sass';
-import { ReactNode } from 'react';
 import { ReactComponent as XIcon } from 'assets/icons/x.svg';
+import { ReactNode } from 'react';
+import { Mods, classNames } from 'shared/lib/classNames';
 import { Checkbox } from 'shared/ui/Checkbox';
+import cls from './Tag.module.sass';
 
 type TagSize = 'S' | 'M' | 'L';
 const sizeClasses: Record<TagSize, string> = {

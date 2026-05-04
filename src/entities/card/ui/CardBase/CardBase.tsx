@@ -1,10 +1,8 @@
-import cls from './CardBase.module.sass';
-import { classNames } from "shared/lib/classNames";
 import { motion } from "motion/react";
-import { ICard } from 'entities/card/model/types';
 import React from 'react';
+import { classNames } from "shared/lib/classNames";
 import { Badge } from 'shared/ui/Badge';
-import { ReactComponent as BackIcon } from 'shared/assets/icons/aquarium/back.svg'
+import cls from './CardBase.module.sass';
 
 interface CardBaseProps {
   children: React.ReactNode;

@@ -1,7 +1,7 @@
+import { Button as HButton } from '@headlessui/react';
+import { ReactNode } from 'react';
 import { Mods, classNames } from 'shared/lib/classNames';
 import cls from './Button.module.sass';
-import { Button as HButton } from '@headlessui/react'
-import { ReactNode } from 'react';
 type ButtonSize = 'XS' | 'S' | 'M' | 'L' | 'XL';
 type ButtonTheme = 'primary' | 'outline' | 'outline-transp' | 'color-outline' | 'clear' | 'color-clear' | 'loading';
 const sizeClasses: Record<ButtonSize, string> = {

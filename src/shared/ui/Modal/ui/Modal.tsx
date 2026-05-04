@@ -1,16 +1,11 @@
-import cls from './Modal.module.sass';
+import { useTheme } from 'app/providers/ThemeProvider/lib/useTheme';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactComponent as BackIcon } from 'shared/assets/icons/aquarium/back.svg';
+import { ReactComponent as CheckIcon } from 'shared/assets/icons/aquarium/check.svg';
 import { Mods, classNames } from 'shared/lib/classNames';
-import { ReactComponent as XIcon } from 'shared/assets/icons/x.svg';
-import { ReactComponent as CirclesBG } from 'shared/assets/icons/bg-circles-s.svg';
-import { ReactComponent as GridBG } from 'shared/assets/icons/bg-grid-s.svg';
-import { ReactComponent as GridDotBG } from 'shared/assets/icons/bg-grid-dot-s.svg';
-import { ReactComponent as SquaresBG } from 'shared/assets/icons/bg-squares-s.svg';
 import { Button } from 'shared/ui/Button';
 import { Portal } from 'shared/ui/Portal';
-import { useTheme } from 'app/providers/ThemeProvider/lib/useTheme';
-import { ReactComponent as BackIcon } from 'shared/assets/icons/aquarium/back.svg'
-import { ReactComponent as CheckIcon } from 'shared/assets/icons/aquarium/check.svg'
+import cls from './Modal.module.sass';
 
 type ModalIconColor = 'green' | 'red' | 'save' | 'purple' | 'default' | 'none';
 type ModalBGWrapper = 'circles' | 'grid' | 'grid-dot' | 'squares' | 'none';
@@ -27,7 +22,7 @@ interface ModalProps {
   iconColor?: ModalIconColor;
   bgWrapper?: ModalBGWrapper;
   modalStyle?: ModalStyle;
-  headerText: string
+  headerText: string;
 }
 
 const colorClasses: Record<ModalIconColor, string> = {
@@ -44,7 +39,19 @@ const styleClasses: Record<ModalStyle, string> = {
 };
 // const ANIMATION_DELAY = 300;
 
-export const Modal = ({ className, children, isOpen, lazy, onClose, onConfirm, Icon, iconColor = 'none', bgWrapper = 'none', modalStyle = 'default', headerText }: ModalProps) => {
+export const Modal = ({
+  className,
+  children,
+  isOpen,
+  lazy,
+  onClose,
+  onConfirm,
+  Icon,
+  iconColor = 'none',
+  bgWrapper = 'none',
+  modalStyle = 'default',
+  headerText
+}: ModalProps) => {
 
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -120,12 +127,8 @@ export const Modal = ({ className, children, isOpen, lazy, onClose, onConfirm, I
   return (
     <Portal>
       <div className={classNames(cls.modal, mods, [theme])} >
-
         <div className={cls.overlay} onClick={startClosing}>
-
           <div className={classNames(cls.content, {}, [isClosing ? cls.close : cls.open, className])} onClick={onContentClick} onAnimationEnd={handleAnimationEnd}>
-
-
             <span className={cls.blur}></span>
             <div className={cls.header}>
 

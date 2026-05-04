@@ -1,7 +1,7 @@
-import { Mods, classNames } from 'shared/lib/classNames';
-import cls from './InputCode.module.sass';
-import { Input } from 'shared/ui/Input';
 import { useRef, useState } from 'react';
+import { Mods, classNames } from 'shared/lib/classNames';
+import { Input } from 'shared/ui/Input';
+import cls from './InputCode.module.sass';
 
 type CodeType = '4' | '3+3';
 type CodeSize = 'S' | 'M' | 'L';

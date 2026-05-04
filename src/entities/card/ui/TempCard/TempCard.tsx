@@ -1,13 +1,9 @@
-import { RelayCardType, TempCardType } from 'entities/card/model/types';
+import { TempCardType } from 'entities/card/model/types';
+import { ReactComponent as TempIcon } from 'shared/assets/icons/aquarium/temp.svg';
+import { classNames, Mods } from "shared/lib/classNames";
+import { Badge } from 'shared/ui/Badge';
 import { CardBase } from '../CardBase';
 import cls from './TempCard.module.sass';
-import { classNames, Mods } from "shared/lib/classNames";
-import { ReactComponent as TempIcon } from 'shared/assets/icons/aquarium/temp.svg';
-import { ReactComponent as CoolIcon } from 'shared/assets/icons/fan.svg';
-import { ReactComponent as HeatIcon } from 'shared/assets/icons/heat.svg';
-import { ReactComponent as ManualIcon } from 'shared/assets/icons/aquarium/hand.svg'
-import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/lightning.svg'
-import { Badge } from 'shared/ui/Badge';
 
 interface TempCardProps {
   className?: string;

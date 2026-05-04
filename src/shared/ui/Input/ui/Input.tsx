@@ -1,10 +1,9 @@
+import { Input as HInput, Textarea as HTextarea } from '@headlessui/react';
+import { ChangeEventHandler, Ref } from 'react';
+import { ReactComponent as AlertIcon } from 'shared/assets/icons/alert.svg';
+import { ReactComponent as QuestionIcon } from 'shared/assets/icons/question.svg';
 import { Mods, classNames } from 'shared/lib/classNames';
 import cls from './Input.module.sass';
-import { Input as HInput } from '@headlessui/react';
-import { Textarea as HTextarea } from '@headlessui/react'
-import { ReactComponent as QuestionIcon } from 'shared/assets/icons/question.svg';
-import { ReactComponent as AlertIcon } from 'shared/assets/icons/alert.svg';
-import { ChangeEventHandler, Ref } from 'react';
 
 export interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;

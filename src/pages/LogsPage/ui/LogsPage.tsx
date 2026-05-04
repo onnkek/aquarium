@@ -1,20 +1,12 @@
 
-import { Page } from "widgets/Page";
-import { classNames } from "shared/lib/classNames";
-import cls from './LogsPage.module.sass';
-import { Dropdown } from "shared/ui/Dropdown";
 import { useAppDispatch, useAppSelector } from "models/Hook";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { clearDoserLogs, clearRelayLogs, clearSystemLogs, getDoserLogs, getRelayLogs, getSystemLogs, switchModal } from "../../../redux/AquariumSlice";
-import { Button } from "shared/ui/Button";
-import { Status } from "models/Status";
-import { ReactComponent as Spinner } from 'shared/assets/icons/spinner.svg';
-import { ReactComponent as TrashIcon } from 'shared/assets/icons/aquarium/trash.svg';
-import { Navbar } from "widgets/Navbar";
-import { ButtonGroup } from "shared/ui/ButtonGroup";
-import BG from 'shared/assets/img/bg4.jpg';
-import { formatTimestamp } from "shared/lib/period";
+import { classNames } from "shared/lib/classNames";
 import { LogEntry } from "shared/lib/logs";
+import { formatTimestamp } from "shared/lib/period";
+import { Page } from "widgets/Page";
+import { getDoserLogs, getRelayLogs, getSystemLogs } from "../../../redux/AquariumSlice";
+import cls from './LogsPage.module.sass';
 
 export interface LogsPageProps {
   className?: string;
@@ -26,35 +18,6 @@ export const LogsPage = ({ className }: LogsPageProps) => {
   const logStatus = useAppSelector(state => state.aquarium.logStatus)
   const [select, setSelect] = useState("all")
   const containerRef = useRef<HTMLDivElement>(null)
-
-  // const selectSystemLogs = () => {
-  //   dispatch(getSystemLogs());
-  //   setSelectLog("System");
-  // }
-  // const selectRelayLogs = () => {
-  //   dispatch(getRelayLogs());
-  //   setSelectLog("Relay");
-  // }
-  // const selectDoserLogs = () => {
-  //   dispatch(getDoserLogs());
-  //   setSelectLog("Doser");
-  // }
-
-  // const clearLogs = () => {
-  //   switch (selectLog) {
-  //     case "System":
-  //       dispatch(clearSystemLogs());
-  //       break;
-  //     case "Relay":
-  //       dispatch(clearRelayLogs());
-  //       break;
-  //     case "Doser":
-  //       dispatch(clearDoserLogs());
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
 
 
   useEffect(() => {
@@ -99,29 +62,10 @@ export const LogsPage = ({ className }: LogsPageProps) => {
                 <option value="relay">Relay</option>
                 <option value="doser">DOSER</option>
               </select>
-              {/* <select className={cls.select} id="severityType">
-                <option value="all">All Severity</option>
-                <option value="info">INFO</option>
-                <option value="warn">WARN</option>
-                <option value="error">ERROR</option>
-              </select> */}
-              {/* <span className={cls.chip} id="liveChip">Live</span>
-              <span className={cls.chip} id="scrollChip">Auto Scroll ON</span>
-              <span className={cls.chip} id="clearBtn">Clear Filter</span> */}
             </div>
           </div>
 
           <div className={cls.viewerWrap}>
-            {/* <div className={cls.viewerToolbar}>
-              <div className={cls.left}>
-                <span className={cls.pill}>Scroll inside log area only</span>
-                <span className={cls.pill}>Monospace output</span>
-              </div>
-              <div className={cls.right}>
-                <span className={cls.pill} id="matchInfo">48 lines</span>
-              </div>
-            </div> */}
-
             <div className={cls.viewer} id="viewer" ref={containerRef}>
               {[...getLogs()].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).map((line) => (
                 <div className={cls.line} key={Math.random()}>

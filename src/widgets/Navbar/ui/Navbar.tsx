@@ -1,14 +1,11 @@
-import { classNames, Mods } from "shared/lib/classNames";
-import cls from './Navbar.module.sass';
-import { ReactComponent as Logo } from 'shared/assets/logo.svg';
-import { ReactComponent as LogsIcon } from 'shared/assets/icons/aquarium/journal.svg';
-import { ReactComponent as ArchiveIcon } from 'shared/assets/icons/aquarium/archive.svg';
-import { ReactComponent as DashboardIcon } from 'shared/assets/icons/aquarium/dashboard.svg';
+import { CSSProperties, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { AppRoutes, RoutePath } from "shared/config/routeConfig/routeConfig";
-import { CSSProperties, LegacyRef, useEffect, useState } from "react";
-import { ButtonGroup } from "shared/ui/ButtonGroup";
-import { Button } from "@headlessui/react";
+import { ReactComponent as DashboardIcon } from 'shared/assets/icons/aquarium/dashboard.svg';
+import { ReactComponent as LogsIcon } from 'shared/assets/icons/aquarium/journal.svg';
+import { ReactComponent as LogoIcon } from 'shared/assets/icons/aquarium/logo.svg';
+import { RoutePath } from "shared/config/routeConfig/routeConfig";
+import { classNames } from "shared/lib/classNames";
+import cls from './Navbar.module.sass';
 
 interface NavbarProps {
   className?: string;
@@ -29,29 +26,11 @@ export const Navbar = ({ className, style }: NavbarProps) => {
   }
 
   return (
-    // <nav className={classNames(cls.header, {}, [className])} style={style}>
-    //   {/* <Logo className={cls.logo} /> */}
-    //   {/* <h1 className={cls.title}>Aquarium</h1> */}
-    //   <ButtonGroup className={cls.group}>
-    //     <Link
-    //       to={RoutePath.dashboard}
-    //       className={classNames(cls.link, {}, [isActive(RoutePath.dashboard)])}
-    //     >
-    //       <DashboardIcon className={cls.header_icon} />
-    //       <div className={cls.header_button_text}>Dashboard</div>
-    //     </Link>
-    //     <Link
-    //       to={RoutePath.logs}
-    //       className={classNames(cls.link, {}, [isActive(RoutePath.logs)])}
-    //     >
-    //       <LogsIcon className={cls.header_icon} />
-    //       <div className={cls.header_button_text}>Logs</div>
-    //     </Link>
-    //   </ButtonGroup>
-    // </nav>
     <aside className={cls.sidebar}>
       <div className={cls.brand}>
-        <div className={cls.logo}></div>
+        <div className={cls.logo}>
+          <LogoIcon />
+        </div>
         <div>
           <h1>Aquarium</h1>
           <p>Control Center</p>
@@ -75,7 +54,7 @@ export const Navbar = ({ className, style }: NavbarProps) => {
         </Link>
       </nav>
 
-      <div className={cls.sidebox}>
+      {/* <div className={cls.sidebox}>
         <span>Controller</span>
         <strong>Online</strong>
       </div>
@@ -83,7 +62,7 @@ export const Navbar = ({ className, style }: NavbarProps) => {
       <div className={cls.sidebox}>
         <span>Last Update</span>
         <strong id="lastUpdate">2026-04-27 08:31:00</strong>
-      </div>
+      </div> */}
     </aside>
   );
 };

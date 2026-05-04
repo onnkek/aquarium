@@ -1,9 +1,9 @@
-import { Mods, classNames } from 'shared/lib/classNames';
-import cls from './ProgressFile.module.sass';
 import { ReactComponent as FileDefaultIcon } from 'assets/icons/file-04.svg';
 import { ReactComponent as RemoveIcon } from 'assets/icons/trash-01.svg';
-import { Progress } from 'shared/ui/Progress';
+import { Mods, classNames } from 'shared/lib/classNames';
 import { Checkbox } from 'shared/ui/Checkbox';
+import { Progress } from 'shared/ui/Progress';
+import cls from './ProgressFile.module.sass';
 
 type Status = 'pending' | 'fulfilled' | 'rejected';
 const statusClasses: Record<Status, string> = {

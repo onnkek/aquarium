@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import cls from './SettingsItem.module.sass';
 import { classNames } from "shared/lib/classNames";
+import cls from './SettingsItem.module.sass';
 
 interface SettingsItemProps {
   className?: string;

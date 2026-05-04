@@ -1,6 +1,6 @@
 import { Mods, classNames } from 'shared/lib/classNames';
-import cls from './Table.module.sass';
 import { Pagination } from 'shared/ui/Pagination';
+import cls from './Table.module.sass';
 
 type TableTheme = 'default' | 'interlaced-fill';
 const themeClasses: Record<TableTheme, string> = {

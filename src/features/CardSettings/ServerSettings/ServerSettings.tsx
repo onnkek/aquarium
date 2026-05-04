@@ -1,22 +1,13 @@
-import { RelayCardType, SystemCardType, TempCardType } from 'entities/card/model/types';
-import cls from './ServerSettings.module.sass';
-import { classNames, Mods } from "shared/lib/classNames";
-import { ReactComponent as TempIcon } from 'shared/assets/icons/aquarium/temp2.svg';
-import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/chip.svg';
-import { ReactComponent as FanIcon } from 'shared/assets/icons/aquarium/fan.svg';
-import { ReactComponent as TimeIcon } from 'shared/assets/icons/aquarium/time.svg'
-import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/lightning.svg'
-import { SettingsWrapper } from '../SettingsWrapper';
-import { ProgressCircle } from 'shared/ui/ProgressCircle';
-import { SettingsSection } from 'shared/ui/settings/SettingsSection';
-import { SettingsItem } from 'shared/ui/settings/SettingsItem';
-import { getDateFromInput, getDateISO, getTimeFromInput, getTimeISO, getUptime } from 'shared/lib/period';
-import { Input } from 'shared/ui/Input';
-import { Slider } from 'shared/ui/Slider';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { SystemCardType } from 'entities/card/model/types';
 import { useAppDispatch, useAppSelector } from 'models/Hook';
-import { getConfig, getCurrentInfo, updateDateTime, updateFanSpeed, updateSystem } from 'redux/AquariumSlice';
 import { Status } from 'models/Status';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { getCurrentInfo, updateDateTime, updateFanSpeed, updateSystem } from 'redux/AquariumSlice';
+import { classNames, Mods } from "shared/lib/classNames";
+import { getDateFromInput, getDateISO, getTimeFromInput, getTimeISO, getUptime } from 'shared/lib/period';
+import { Slider } from 'shared/ui/Slider';
+import { SettingsWrapper } from '../SettingsWrapper';
+import cls from './ServerSettings.module.sass';
 
 interface ServerSettingsProps {
   className?: string;

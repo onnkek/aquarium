@@ -1,29 +1,13 @@
 import { PumpCardType } from 'entities/card/model/types';
+import { useAppDispatch, useAppSelector } from 'models/Hook';
+import { Status } from 'models/Status';
+import { useEffect, useState } from 'react';
+import { classNames } from "shared/lib/classNames";
+import { useIsMobile } from 'shared/lib/isMobile';
+import { invertMode } from 'shared/lib/period';
+import { getConfig, getCurrentInfo, IPumpPeriod, resetPump, updateDoser } from '../../../redux/AquariumSlice';
 import { SettingsWrapper } from '../SettingsWrapper';
 import cls from './PumpSettings.module.sass';
-import { classNames } from "shared/lib/classNames";
-import { useAppDispatch, useAppSelector } from 'models/Hook';
-import { useEffect, useState } from 'react';
-import { ButtonGroup } from 'shared/ui/ButtonGroup';
-import { Button } from 'shared/ui/Button';
-import { SettingsSection } from 'shared/ui/settings/SettingsSection';
-import { SettingsItem } from 'shared/ui/settings/SettingsItem';
-import { Toggle } from 'shared/ui/Toggle';
-import { Input } from 'shared/ui/Input';
-import { ReactComponent as PumpIcon } from 'shared/assets/icons/aquarium/pump.svg'
-import { ReactComponent as SpeedIcon } from 'shared/assets/icons/aquarium/speed.svg'
-import { ReactComponent as TextIcon } from 'shared/assets/icons/aquarium/text.svg'
-import { ReactComponent as FilterIcon } from 'shared/assets/icons/aquarium/filter.svg'
-import { ReactComponent as PowerIcon } from 'shared/assets/icons/aquarium/power.svg'
-import { ReactComponent as TimeIcon } from 'shared/assets/icons/aquarium/time.svg'
-import { ReactComponent as BottleIcon } from 'shared/assets/icons/aquarium/bottle.svg'
-import { ReactComponent as DropIcon } from 'shared/assets/icons/aquarium/drop.svg'
-import { ReactComponent as ManualIcon } from 'shared/assets/icons/aquarium/hand.svg'
-import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/arrow-up.svg'
-import { getConfig, getCurrentInfo, IPumpPeriod, resetPump, updateDoser } from '../../../redux/AquariumSlice';
-import { Status } from 'models/Status';
-import { invertMode } from 'shared/lib/period';
-import { useIsMobile } from 'shared/lib/isMobile';
 
 interface PumpSettingsProps {
   className?: string;
@@ -136,7 +120,7 @@ export const PumpSettings = ({
     setTimeout(() => {
       dispatch(getConfig())
     }, 500);
-    onClose();
+    // onClose();
   }
 
 
@@ -167,7 +151,10 @@ export const PumpSettings = ({
           </div>
         </div>
       }
-
+      {mode === 2 && !card.config.hasRunToday && <div className={cls.warning}>
+        <div>After saving the settings, the pump may start working!</div>
+        <div>If you need to prevent this, ensure that the current time is before the scheduled start time or set the daily flag at the bottom of the page to TRUE.</div>
+      </div>}
       {mode == 2 &&
         <div className={cls.field} id="autoStatus" style={{ marginTop: "14px", marginBottom: "0px" }}>
           <label>Current status</label>
@@ -191,19 +178,19 @@ export const PumpSettings = ({
         <label>Select working days</label>
         <div className={cls.daysWrap}>
           <div className={cls.daysRow}>
-            <input type="checkbox" id="mon" checked={period.mo} onClick={(e) => setPeriod({ ...period, mo: !period.mo })}/>
+            <input type="checkbox" id="mon" checked={period.mo} onClick={(e) => setPeriod({ ...period, mo: !period.mo })} />
             <label className={cls.dayChip} htmlFor="mon">Mon</label>
-            <input type="checkbox" id="tue" checked={period.tu} onClick={(e) => setPeriod({ ...period, tu: !period.tu })}/>
+            <input type="checkbox" id="tue" checked={period.tu} onClick={(e) => setPeriod({ ...period, tu: !period.tu })} />
             <label className={cls.dayChip} htmlFor="tue">Tue</label>
-            <input type="checkbox" id="wed" checked={period.we} onClick={(e) => setPeriod({ ...period, we: !period.we })}/>
+            <input type="checkbox" id="wed" checked={period.we} onClick={(e) => setPeriod({ ...period, we: !period.we })} />
             <label className={cls.dayChip} htmlFor="wed">Wed</label>
-            <input type="checkbox" id="thu" checked={period.th} onClick={(e) => setPeriod({ ...period, th: !period.th })}/>
+            <input type="checkbox" id="thu" checked={period.th} onClick={(e) => setPeriod({ ...period, th: !period.th })} />
             <label className={cls.dayChip} htmlFor="thu">Thu</label>
-            <input type="checkbox" id="fri" checked={period.fr} onClick={(e) => setPeriod({ ...period, fr: !period.fr })}/>
+            <input type="checkbox" id="fri" checked={period.fr} onClick={(e) => setPeriod({ ...period, fr: !period.fr })} />
             <label className={cls.dayChip} htmlFor="fri">Fri</label>
-            <input type="checkbox" id="sat" checked={period.sa} onClick={(e) => setPeriod({ ...period, sa: !period.sa })}/>
+            <input type="checkbox" id="sat" checked={period.sa} onClick={(e) => setPeriod({ ...period, sa: !period.sa })} />
             <label className={cls.dayChip} htmlFor="sat">Sat</label>
-            <input type="checkbox" id="sun" checked={period.su} onClick={(e) => setPeriod({ ...period, su: !period.su })}/>
+            <input type="checkbox" id="sun" checked={period.su} onClick={(e) => setPeriod({ ...period, su: !period.su })} />
             <label className={cls.dayChip} htmlFor="sun">Sun</label>
           </div>
         </div>
@@ -222,7 +209,7 @@ export const PumpSettings = ({
           <span className={classNames(`${cls.statusTag} ${cls.active}`, { [cls.danger]: !card.config.hasRunToday }, [])}>SET</span>
         </div>
       </div>
-      <button className={`btn btn-danger ${cls.button} ${!card.config.hasRunToday && "disabled"}`} onClick={resetPumpHandler}>Reset daily flag</button>
+      <button className={`btn btn-danger ${cls.button}`} onClick={resetPumpHandler}>{card.config.hasRunToday ? "Reset daily flag" : "Set daily flag"}</button>
       <div className={cls.note}>Reset the daily flag when you need the pump to be allowed to run again on the same day.</div>
     </section>
   )
@@ -270,76 +257,6 @@ export const PumpSettings = ({
           {generalContent}
           {dailyFlagContent}
         </>}
-
-
-
-
-
-
-
-
-
-        {/* <div className={cls.body}>
-          <ButtonGroup className={cls.group}>
-            <Button
-              className={classNames(cls.groupButton, { [cls.active]: mode !== 2 }, [])}
-              onClick={() => selectMode(Number(card.current.status))}
-            >Manual</Button>
-            <Button
-              className={classNames(cls.groupButton, { [cls.active]: mode === 2 }, [])}
-              onClick={() => selectMode(2)}
-            >Schedule</Button>
-          </ButtonGroup>
-          {<PumpIcon className={cls.icon} />}
-          <ButtonGroup className={cls.group}>
-            <Button className={classNames(cls.groupButton, { [cls.active]: period.su }, [])} onClick={(e) => setPeriod({ ...period, su: !period.su })}>Su</Button>
-            <Button className={classNames(cls.groupButton, { [cls.active]: period.mo }, [])} onClick={(e) => setPeriod({ ...period, mo: !period.mo })}>Mo</Button>
-            <Button className={classNames(cls.groupButton, { [cls.active]: period.tu }, [])} onClick={(e) => setPeriod({ ...period, tu: !period.tu })}>Tu</Button>
-            <Button className={classNames(cls.groupButton, { [cls.active]: period.we }, [])} onClick={(e) => setPeriod({ ...period, we: !period.we })}>We</Button>
-            <Button className={classNames(cls.groupButton, { [cls.active]: period.th }, [])} onClick={(e) => setPeriod({ ...period, th: !period.th })}>Th</Button>
-            <Button className={classNames(cls.groupButton, { [cls.active]: period.fr }, [])} onClick={(e) => setPeriod({ ...period, fr: !period.fr })}>Fr</Button>
-            <Button className={classNames(cls.groupButton, { [cls.active]: period.sa }, [])} onClick={(e) => setPeriod({ ...period, sa: !period.sa })}>Sa</Button>
-          </ButtonGroup>
-
-          <SettingsSection className={cls.settings}>
-            <SettingsItem
-              label="State"
-              icon={<PowerIcon />}
-              control={<Toggle disabled={mode === 2} size='XL' checked={card.current.status} onClick={sendPumpState} />}
-            />
-            <SettingsItem
-              label="Name"
-              icon={<TextIcon />}
-              control={<Input className={cls.input} value={name} onChange={(e) => setName(e.target.value)} />}
-            />
-            <SettingsItem
-              label="Time"
-              icon={<TimeIcon />}
-              control={<Input className={cls.input} type="time" value={time} onChange={(e) => setTime(e.target.value)} />}
-            />
-            <SettingsItem
-              label="Dosage"
-              icon={<DropIcon />}
-              control={<Input className={cls.input} type="number" value={dosage} onChange={(e) => setDosage(Number(e.target.value))} />}
-            />
-            <SettingsItem
-              label="Rate"
-              icon={<SpeedIcon />}
-              control={<Input className={cls.input} type="number" value={rate} onChange={(e) => setRate(Number(e.target.value))} />}
-            />
-            <SettingsItem
-              label="Remainder"
-              icon={<BottleIcon />}
-              control={<Input className={cls.input} type="number" value={currentVolume} onChange={(e) => setCurrentVolume(Number(e.target.value))} />}
-            />
-            <SettingsItem
-              label="Volume"
-              icon={<BottleIcon />}
-              control={<Input className={cls.input} type="number" value={maxVolume} onChange={(e) => setMaxVolume(Number(e.target.value))} />}
-            />
-          </SettingsSection>
-          <Button onClick={resetPumpHandler} className={cls.resetButton}>Reset pump</Button>
-        </div> */}
       </div>
     </SettingsWrapper>
   );

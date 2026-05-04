@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { LogEntry, parseLogs } from "shared/lib/logs"
 import { Status } from "../models/Status"
 import AquariumService from "../services/AquariumService"
 import { RootState } from "./store"
-import { LogEntry, parseLogs } from "shared/lib/logs"
 
 export interface ITimeInfo {
   year: number,

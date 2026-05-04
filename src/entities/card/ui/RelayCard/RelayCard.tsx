@@ -1,14 +1,12 @@
-import { ICard, RelayCardType, RelaySubtype } from 'entities/card/model/types';
+import { RelayCardType, RelaySubtype } from 'entities/card/model/types';
+import { ReactComponent as CO2Icon } from 'shared/assets/icons/aquarium/co2short.svg';
+import { ReactComponent as LightIcon } from 'shared/assets/icons/aquarium/fanlight.svg';
+import { ReactComponent as FilterIcon } from 'shared/assets/icons/aquarium/filter.svg';
+import { ReactComponent as O2Icon } from 'shared/assets/icons/aquarium/o2.svg';
+import { classNames, Mods } from "shared/lib/classNames";
+import { Badge } from 'shared/ui/Badge';
 import { CardBase } from '../CardBase';
 import cls from './RelayCard.module.sass';
-import { classNames, Mods } from "shared/lib/classNames";
-import { ReactComponent as LightIcon } from 'shared/assets/icons/aquarium/light.svg'
-import { ReactComponent as O2Icon } from 'shared/assets/icons/aquarium/o2.svg'
-import { ReactComponent as CO2Icon } from 'shared/assets/icons/aquarium/co2short.svg'
-import { ReactComponent as FilterIcon } from 'shared/assets/icons/aquarium/filter.svg'
-import { ReactComponent as ManualIcon } from 'shared/assets/icons/aquarium/hand.svg'
-import { ReactComponent as ScheduleIcon } from 'shared/assets/icons/aquarium/arrow-up.svg'
-import { Badge } from 'shared/ui/Badge';
 
 interface RelayCardProps {
   className?: string;
@@ -55,8 +53,6 @@ export const RelayCard = ({
     >
       <div className={cls.section + " " + cls.device}>
         <div className={cls.deviceTop}>
-          {/* <div className={cls.deviceName}><h4>CO2 System</h4><p>Gas dosing controller</p></div> */}
-          {/* <div className={cls.icon}>{getRelayIcon()}</div> */}
           <div className={classNames(cls.chips, { [cls.manual]: card.config.mode !== 2 }, [])}>
             {card.config.mode === 2 && <Badge theme='outline' color='gray'>{card.config.on}-{card.config.off}</Badge>}
             <div className={cls.state}>
@@ -68,25 +64,6 @@ export const RelayCard = ({
           </div>
         </div>
       </div>
-      {/* <div className={classNames(cls.relayCard, mods, [className])} onClick={onToggle}>
-        <div className={cls.body}> 
-
- 
-          {getRelayIcon()}
-          <div className={cls.right}>
-            <h2 className={cls.name}>{card.config.name}</h2>
-            <p className={cls.status}>{card.current.status ? "On" : "Off"}</p>
-          </div>
-        </div>
-
-        <span className={cls.blur}></span>
-
-        <div className={cls.mode}>
-          {card.config.mode !== 2 ? <ManualIcon /> : <ScheduleIcon />}
-
-          <p>{card.config.mode !== 2 ? "Manual" : `${card.config.on} - ${card.config.off}`}</p>
-        </div>
-      </div> */}
     </CardBase>
   );
 }

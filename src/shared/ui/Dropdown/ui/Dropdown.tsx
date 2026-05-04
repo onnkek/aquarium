@@ -1,10 +1,9 @@
-import cls from './Dropdown.module.sass';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { useTheme } from 'app/providers/ThemeProvider/lib/useTheme';
 import { ReactElement } from 'react';
 import { classNames } from 'shared/lib/classNames';
 import { Button } from 'shared/ui/Button';
-import clsButton from 'shared/ui/Button/ui/Button.module.sass'
-import { useTheme } from 'app/providers/ThemeProvider/lib/useTheme';
+import cls from './Dropdown.module.sass';
 
 type DropdownItem = {
   content: string;

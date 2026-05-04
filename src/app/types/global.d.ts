@@ -10,7 +10,6 @@ declare module '*.module.sass' {
   const classNames: Record<string, string>;
   export default classNames;
 }
-
 declare module '*.module.css';
 
 declare module '*.png';
@@ -28,6 +27,7 @@ declare module '*.svg' {
 declare const __IS_DEV__: boolean;
 declare const __API__: string;
 declare const __PROJECT__: 'storybook' | 'frontend' | 'jest';
+declare const __APP_VERSION__: string;
 
 type DeepPartial<T> = T extends object ? {
   [P in keyof T]?: DeepPartial<T[P]>;

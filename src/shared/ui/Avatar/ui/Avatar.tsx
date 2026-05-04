@@ -1,6 +1,6 @@
+import { ReactComponent as PersonIcon } from 'assets/icons/person.svg';
 import { Mods, classNames } from 'shared/lib/classNames';
 import cls from './Avatar.module.sass';
-import { ReactComponent as PersonIcon } from 'assets/icons/person.svg';
 
 type AvatarSize = 'XS' | 'S' | 'M' | 'L' | 'XL' | '2XL';
 type AvatarStatus = 'online' | 'offline' | 'brb' | 'dnd';

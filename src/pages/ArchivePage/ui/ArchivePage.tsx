@@ -1,19 +1,16 @@
 
-import { Page } from "widgets/Page";
-import { classNames } from "shared/lib/classNames";
-import cls from './ArchivePage.module.sass';
-import { Dropdown } from "shared/ui/Dropdown";
-import { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "models/Hook";
-import { Status } from "models/Status";
-import { ReactComponent as Spinner } from 'shared/assets/icons/spinner.svg';
-import { switchModal } from "../../../redux/AquariumSlice";
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, Tooltip, Legend, LinearScale, CategoryScale, PointElement, LineElement, Title, TimeScale, TimeSeriesScale, DateAdapter } from "chart.js";
+import { CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, TimeScale, TimeSeriesScale, Title, Tooltip } from "chart.js";
 import 'chartjs-adapter-moment';
-import { ButtonGroup } from "shared/ui/ButtonGroup";
+import { useAppDispatch, useAppSelector } from "models/Hook";
+import { useEffect, useRef, useState } from "react";
+import { Line } from 'react-chartjs-2';
+import { classNames } from "shared/lib/classNames";
 import { Button } from "shared/ui/Button";
+import { ButtonGroup } from "shared/ui/ButtonGroup";
+import { Dropdown } from "shared/ui/Dropdown";
+import { Page } from "widgets/Page";
 import { useChartZoom } from "../lib/useChartZoom";
+import cls from './ArchivePage.module.sass';
 
 ChartJS.register(
   Tooltip,

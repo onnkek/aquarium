@@ -1,5 +1,5 @@
-import { classNames } from 'shared/lib/classNames';
 import { Suspense } from 'react';
+import { classNames } from 'shared/lib/classNames';
 import { AppRouter } from './providers/router';
 import { useTheme } from './providers/ThemeProvider/lib/useTheme';
 

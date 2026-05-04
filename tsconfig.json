@@ -4,7 +4,6 @@
     "module": "ESNext",
     "target": "esnext",
     "jsx": "react-jsx",
-    "moduleResolution": "node",
     "allowJs": true,
     "strict": true,
     "paths": {
@@ -14,7 +13,9 @@
     },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
   },
   "ts-node": {
     "compilerOptions": {

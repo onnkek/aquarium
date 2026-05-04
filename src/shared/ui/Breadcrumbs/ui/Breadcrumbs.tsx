@@ -1,8 +1,8 @@
+import { ReactComponent as ChevronIcon } from 'assets/icons/chevron-right.svg';
+import { ReactComponent as HomeIcon } from 'assets/icons/home-line.svg';
+import { ReactComponent as SlashIcon } from 'assets/icons/slash-divider.svg';
 import { Mods, classNames } from 'shared/lib/classNames';
 import cls from './Breadcrumbs.module.sass';
-import { ReactComponent as HomeIcon } from 'assets/icons/home-line.svg';
-import { ReactComponent as ChevronIcon } from 'assets/icons/chevron-right.svg';
-import { ReactComponent as SlashIcon } from 'assets/icons/slash-divider.svg';
 
 interface BreadcrumbsItem {
   content: string;

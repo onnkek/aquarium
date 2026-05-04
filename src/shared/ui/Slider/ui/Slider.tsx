@@ -1,11 +1,11 @@
-import { useRef } from "react";
-import { useSliderState } from '@react-stately/slider';
-import { AriaSliderProps, useSlider } from "@react-aria/slider";
-import { Thumb } from "./Thumb";
-import { useNumberFormatter } from "@react-aria/i18n";
-import cls from './Slider.module.sass';
 import { NumberFormatOptions } from "@internationalized/number";
+import { useNumberFormatter } from "@react-aria/i18n";
+import { AriaSliderProps, useSlider } from "@react-aria/slider";
+import { useSliderState } from '@react-stately/slider';
+import { useRef } from "react";
 import { classNames } from "shared/lib/classNames";
+import cls from './Slider.module.sass';
+import { Thumb } from "./Thumb";
 
 export type SliderTextType = 'bottom' | 'tooltip-top' | 'none';
 type SliderThumbType = 'single' | 'range';
