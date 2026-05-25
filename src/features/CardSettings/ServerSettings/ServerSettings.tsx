@@ -2,11 +2,13 @@ import { SystemCardType } from 'entities/card/model/types';
 import { useAppDispatch, useAppSelector } from 'models/Hook';
 import { Status } from 'models/Status';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { getCurrentInfo, updateDateTime, updateFanSpeed, updateSystem } from 'redux/AquariumSlice';
 import { classNames, Mods } from "shared/lib/classNames";
-import { getDateFromInput, getDateISO, getTimeFromInput, getTimeISO, getUptime } from 'shared/lib/period';
+import { getDateFromInput, getTimeFromInput, getUptime, toDateInput, toTimeInput } from 'shared/lib/period';
+import { validateDate, validateNumber, validateTime } from 'shared/lib/validation';
+import { Modal } from 'shared/ui/Modal';
 import { Slider } from 'shared/ui/Slider';
-import { SettingsWrapper } from '../SettingsWrapper';
 import cls from './ServerSettings.module.sass';
 
 interface ServerSettingsProps {
@@ -15,6 +17,12 @@ interface ServerSettingsProps {
   onClose: () => void;
   card: SystemCardType;
 }
+
+type FormData = {
+  update: string;
+  date: string;
+  time: string;
+};
 
 export const ServerSettings = ({
   className,
@@ -26,13 +34,34 @@ export const ServerSettings = ({
   const status = useAppSelector(state => state.aquarium.status)
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [speed, setSpeed] = useState(card.config.pwm);
-  const [updateTime, setUpdateTime] = useState(card.config.update)
-  const [dateTime, setDateTime] = useState(card.current.time)
-  const [time, setTime] = useState({
-    hour: card.current.time.hour,
-    minute: card.current.time.minute,
-    second: card.current.time.second
-  })
+  // const [updateTime, setUpdateTime] = useState<string>(String(card.config.update))
+  // const [updateTimeError, setUpdateTimeError] = useState(false)
+  // const [dateTime, setDateTime] = useState(card.current.time)
+  // const [time, setTime] = useState({
+  //   hour: card.current.time.hour,
+  //   minute: card.current.time.minute,
+  //   second: card.current.time.second
+  // })
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setValue,
+    trigger,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    mode: "onChange",
+    defaultValues: {
+      update: String(card.config.update),
+      date: toDateInput(card.current.time),
+      time: toTimeInput(card.current.time),
+    }
+  });
+
+  useEffect(() => {
+    trigger();
+  }, []);
 
   const handleSliderChange = useCallback(
     (value: number | number[]) => {
@@ -46,11 +75,27 @@ export const ServerSettings = ({
     }, [dispatch]);
 
   useEffect(() => () => clearTimeout(timerRef.current), []);
-  const onSendConfig = async () => {
-    await dispatch(updateSystem({ update: updateTime }))
-    await dispatch(updateDateTime({ dateTime: dateTime }))
+  const sendConfig = async (data: FormData) => {
+    const date = getDateFromInput(data.date);
+    const time = getTimeFromInput(data.time);
+    await dispatch(updateSystem({ update: Number(data.update) }))
+    await dispatch(updateDateTime({
+      dateTime: {
+        ...card.current.time,
+        day: date.day,
+        month: date.month,
+        year: date.year,
+        hour: time.hour,
+        minute: time.minute,
+        second: time.second
+      }
+    }))
     if (status === Status.Succeeded) {
-      setUpdateTime(card.config.update)
+      reset({
+        update: String(card.config.update),
+        date: toDateInput(card.current.time),
+        time: toTimeInput(card.current.time),
+      })
       setTimeout(() => {
         dispatch(getCurrentInfo())
       }, 200);
@@ -58,17 +103,28 @@ export const ServerSettings = ({
     onClose();
   }
   useEffect(() => {
-    setUpdateTime(card.config.update);
-    setDateTime(card.current.time);
+    reset({
+      update: String(card.config.update),
+      date: toDateInput(card.current.time),
+      time: toTimeInput(card.current.time),
+    })
   }, [card.config])
   const mods: Mods = {
     // [cls.on]: card.current.status !== 0
   }
 
+  const handleNumberChange =
+    (name: keyof FormData) =>
+      (e: React.ChangeEvent<HTMLInputElement>) => {
 
+        setValue(name, e.target.value.replace(",", "."), {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
+      };
 
   return (
-    <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={onSendConfig}>
+    <Modal isOpen={open} onClose={onClose} headerText={card.config.name} onConfirm={handleSubmit(sendConfig)} isValid={isValid}>
       <div className={classNames(cls.serverSettings, mods, [className])}>
 
         <section className={cls.card}>
@@ -85,31 +141,44 @@ export const ServerSettings = ({
           <h2 className={cls.sectionTitle}>DateTime & Refresh</h2>
           <div className={cls.field}>
             <label htmlFor="onTime">Server date</label>
-            <input id="onTime" type="date" value={getDateISO(dateTime)}
-              onChange={(e) => setDateTime(
-                {
-                  ...dateTime,
-                  day: getDateFromInput(e.target.value).day,
-                  month: getDateFromInput(e.target.value).month,
-                  year: getDateFromInput(e.target.value).year
-                }
-              )} />
+            <input
+              className={`form-control ${errors.date ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="date"
+              type="date"
+              {...register("date", { 
+                required: "",
+                validate: validateDate,
+              })}
+            />
           </div>
           <div className={cls.field}>
             <label htmlFor="onTime">Server time</label>
-            <input id="onTime" type="time" value={getTimeISO(dateTime)}
-              onChange={(e) => setDateTime(
-                {
-                  ...dateTime,
-                  hour: getTimeFromInput(e.target.value).hour,
-                  minute: getTimeFromInput(e.target.value).minute,
-                  second: getTimeFromInput(e.target.value).second
-                }
-              )} />
+            <input
+              className={`form-control ${errors.time ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="time"
+              type="time"
+              {...register("time", {
+                required: "",
+                validate: validateTime,
+              })}
+            />
           </div>
           <div className={cls.field}>
-            <label htmlFor="onTime">Refresh interval</label>
-            <input id="onTime" type="number" value={updateTime} onChange={(e) => setUpdateTime(Number(e.target.value))} />
+            <label htmlFor="update">Refresh interval</label>
+            <input
+              className={`form-control ${errors.update ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="update"
+              type="text"
+              inputMode='decimal'
+              {...register("update", {
+                required: "",
+                validate: (v) => validateNumber(v, { allowZero: false, allowFloat: false }),
+              })}
+              onChange={handleNumberChange("update")}
+            />
           </div>
         </section>
 
@@ -139,7 +208,7 @@ export const ServerSettings = ({
               <span>Adjust speed</span>
               <strong id="fanPercent">{speed}%</strong>
             </div>
-             <Slider className={cls.slider} minValue={0} maxValue={100} aria-label='fan control' value={speed} text='none' onChange={handleSliderChange} />
+            <Slider className={cls.slider} minValue={0} maxValue={100} aria-label='fan control' value={speed} text='none' onChange={handleSliderChange} />
             <div className={cls.sliderMeta}>
               <span>0%</span>
               <span id="fanHint">{speed >= 35 ? (speed < 75 ? "Balanced cooling" : "Maximum cooling") : "Quiet cooling"}</span>
@@ -166,71 +235,7 @@ export const ServerSettings = ({
             <div className={cls.barLegend}><span>{(card.current.usedSpace / 1024 / 1024).toFixed(1)} MB Used</span><span>{(card.current.freeSpace / 1024 / 1024 / 1024).toFixed(1)} GB Free</span></div>
           </div>
         </section>
-
-        {/* <SettingsSection className={cls.settings}>
-          <SettingsItem
-            label="Uptime"
-            icon={<TimeIcon />}
-            control={<p className={cls.uptime}>{getUptime(card.current.uptime, false)}</p>}
-          />
-          <SettingsItem
-            label="Chip temperature"
-            icon={<TempIcon />}
-            control={<p className={cls.uptime}>{card.current.chipTemp} °C</p>}
-          />
-
-          <SettingsItem
-            label="Fan speed"
-            icon={<FanIcon />}
-            control={<p className={cls.uptime}>{card.current.fan} RPM</p>}
-          />
-          <div className='slider'>
-            <Slider minValue={0} maxValue={100} value={speed} onChange={handleSliderChange} />
-          </div>
-
-          <SettingsItem
-            label="Chip frequency"
-            icon={<ChipIcon />}
-            control={<p className={cls.uptime}>{card.current.frequency} MHz</p>}
-          />
-        </SettingsSection>
-        <div className={cls.container}>
-          <div className={cls.item}>
-            <ProgressCircle size='S' title='SD' value={card.current.usedSpace / card.current.totalSpace * 100} />
-            <div className={cls.info}>
-              <div className={cls.text}>
-                <p>Total space:</p>
-                <p>{(card.current.totalSpace / 1024 / 1024 / 1024).toFixed(1)} GB</p>
-              </div>
-              <div className={cls.text}>
-                <p>Used space:</p>
-                <p>{(card.current.usedSpace / 1024 / 1024).toFixed(1)} MB</p>
-              </div>
-              <div className={cls.text}>
-                <p>Free space:</p>
-                <p>{(card.current.freeSpace / 1024 / 1024 / 1024).toFixed(1)} GB</p>
-              </div>
-            </div>
-          </div>
-          <div className={cls.item}>
-            <ProgressCircle size='S' title='RAM' value={(card.current.heapSize - card.current.freeHeap) / card.current.heapSize * 100} />
-            <div className={cls.info}>
-              <div className={cls.text}>
-                <p>Total RAM:</p>
-                <p>{(card.current.heapSize / 1024).toFixed(1)} KB</p>
-              </div>
-              <div className={cls.text}>
-                <p>Used RAM:</p>
-                <p>{((card.current.heapSize - card.current.freeHeap) / 1024).toFixed(1)} KB</p>
-              </div>
-              <div className={cls.text}>
-                <p>Free RAM:</p>
-                <p>{(card.current.freeHeap / 1024).toFixed(1)} KB</p>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
-    </SettingsWrapper>
+    </Modal>
   );
 }

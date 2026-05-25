@@ -1,5 +1,4 @@
-import { motion } from "motion/react";
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { classNames } from "shared/lib/classNames";
 import { Badge } from 'shared/ui/Badge';
 import cls from './CardBase.module.sass';
@@ -12,7 +11,7 @@ interface CardBaseProps {
   header?: string;
   badge?: string;
   indication?: boolean;
-  onToggle?: () => void;
+  onToggle: (e: MouseEvent<HTMLDivElement>) => void;
   icon?: React.ReactNode;
   subheader?: string;
   indicationState?: boolean;
@@ -30,11 +29,17 @@ export const CardBase = React.memo(({
   subheader,
   indicationState
 }: CardBaseProps) => {
+
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    onToggle(e);
+  }
+
   return (
-    <motion.div
+    <div
       // layoutId={`card-${cardId}`}
       className={classNames(cls.cardBase, {}, [className])}
-      onClick={onToggle}
+      onClick={handleClick}
     // style={{ flexBasis: flexBasis }}
     // transition={{
     //   // duration: 0.15
@@ -55,6 +60,6 @@ export const CardBase = React.memo(({
       </div>
       {children}
 
-    </motion.div>
+    </div>
   );
 })

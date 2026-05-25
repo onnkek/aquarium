@@ -1,4 +1,5 @@
 import { TempCardType } from 'entities/card/model/types';
+import { MouseEvent } from 'react';
 import { ReactComponent as TempIcon } from 'shared/assets/icons/aquarium/temp.svg';
 import { classNames, Mods } from "shared/lib/classNames";
 import { Badge } from 'shared/ui/Badge';
@@ -8,7 +9,7 @@ import cls from './TempCard.module.sass';
 interface TempCardProps {
   className?: string;
   card: TempCardType;
-  onToggle: () => void;
+  onToggle: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const TempCard = ({

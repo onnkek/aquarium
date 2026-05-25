@@ -1,7 +1,9 @@
 import { CSSProperties, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ReactComponent as ArchiveIcon } from 'shared/assets/icons/aquarium/archive.svg';
 import { ReactComponent as DashboardIcon } from 'shared/assets/icons/aquarium/dashboard.svg';
-import { ReactComponent as LogsIcon } from 'shared/assets/icons/aquarium/journal.svg';
+import { ReactComponent as NotesIcon } from 'shared/assets/icons/aquarium/journal.svg';
+import { ReactComponent as LogsIcon } from 'shared/assets/icons/aquarium/list.svg';
 import { ReactComponent as LogoIcon } from 'shared/assets/icons/aquarium/logo.svg';
 import { RoutePath } from "shared/config/routeConfig/routeConfig";
 import { classNames } from "shared/lib/classNames";
@@ -51,6 +53,20 @@ export const Navbar = ({ className, style }: NavbarProps) => {
         >
           <LogsIcon className={cls.header_icon} />
           <div className={cls.header_button_text}>Logs</div>
+        </Link>
+         <Link
+          to={RoutePath.archive}
+          className={classNames(cls.link, {}, [isActive(RoutePath.archive)])}
+        >
+          <ArchiveIcon className={cls.header_icon} />
+          <div className={cls.header_button_text}>Archive</div>
+        </Link>
+        <Link
+          to={RoutePath.notes}
+          className={classNames(cls.link, {}, [isActive(RoutePath.notes)])}
+        >
+          <NotesIcon className={cls.header_icon} />
+          <div className={cls.header_button_text}>Notes</div>
         </Link>
       </nav>
 

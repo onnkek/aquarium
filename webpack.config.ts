@@ -19,7 +19,7 @@ export default (env: BuildEnv) => {
   const PORT = env.port || 3000;
   const apiUrl = env.apiUrl || 'http://localhost:8000';
   
-  const version = '2.0.0';
+  const version = '2.1.0';
 
   const isDev = mode === 'development';
 

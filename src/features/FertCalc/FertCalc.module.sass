@@ -1,0 +1,165 @@
+
+
+.fertCalc
+  --muted: #8b949e
+  --border: #30363d
+  --panel-2: #0f141a
+  --text: #c9d1d9
+  --accent: #58a6ff
+  --success: #3fb950
+  --off: #6e7681
+  --off-bg: rgba(110, 118, 129, 0.14)
+  --radius: 18px
+  padding: 24px
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 20px
+  min-width: 700px
+  .card
+    padding: 16px
+    background-color: rgba(22, 27, 34, 0.95)
+    border: 1px solid #30363d
+    border-radius: 16px
+    box-shadow: 0 8px 24px rgba(1, 4, 9, 0.4)
+    .sectionTitle
+      margin: 0 0 12px
+      font-size: 14px
+      color: #f0f6fc
+      letter-spacing: 0.02em
+    .field
+      display: flex
+      flex-direction: column
+      gap: 8px
+      &:not(:last-child)
+        margin-bottom: 14px
+    .segmented
+      display: grid
+      grid-template-columns: 1fr 1fr
+      gap: 8px
+      input
+        display: none
+      label
+        height: 44px
+        display: grid
+        place-items: center
+        border-radius: 12px
+        border: 1px solid var(--border)
+        background: var(--panel-2)
+        color: var(--text)
+        font-size: 14px
+        cursor: pointer
+        user-select: none
+        transition: 0.15s ease
+      input:checked + label
+        background: rgba(88, 166, 255, 0.15)
+        border-color: var(--accent)
+        color: #d6e7ff
+  .manualControls
+    position: relative
+    margin-top: 10px
+    padding: 14px
+    border: 1px dashed var(--border)
+    border-radius: 12px
+    background: rgba(15, 20, 26, 0.7)
+  .manualControls.load
+    &::before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      border-radius: 12px
+      background: rgba(15, 20, 26, 1)
+      opacity: 0.5
+      z-index: 0
+    .segmented
+      label
+        border: 1px solid var(--border)
+        background: var(--panel-2)
+        color: var(--text)
+    .loader
+      z-index: 10
+      font-size: 14px
+      opacity: 1
+  .loader
+    opacity: 0
+  .info
+    display: flex
+    justify-content: space-between
+    font-size: 14px
+  .statusIndicator
+    display: inline-flex
+    align-items: center
+    gap: 8px
+    font-size: 14px
+
+  .statusTag
+    padding: 4px 10px
+    border-radius: 999px
+    font-size: 12px
+    border: 1px solid rgba(110, 118, 129, 0.45)
+    background: var(--off-bg)
+    color: rgb(208, 215, 222)
+  .statusTag.active
+    border: 1px solid rgba(63, 185, 80, 0.35)
+    background: rgba(63, 185, 80, 0.12)
+    color: #9be9a8
+  .statusBox
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 12px
+    font-weight: 600
+    width: 100%
+    height: 48px
+    border-radius: 12px
+    border: 1px solid #30363d
+    background: #0f141a
+    color: #c9d1d9
+    padding: 0 14px
+    font-size: 15px
+    outline: none
+
+  .dot
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    background: var(--off)
+    box-shadow: 0 0 0 4px rgba(110, 118, 129, 0.15)
+  .dot.active
+    background: var(--success)
+    box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.15)
+
+@media (max-width: 768px)
+  .fertCalc
+    min-width: auto
+    margin: 0 auto
+    display: flex
+    flex-direction: column
+    padding: 0
+    gap: 16px
+
+label
+  font-size: 13px
+  color: var(--muted)
+.metricGrid
+      display: grid
+      gap: 8px
+.metric
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 12px
+  padding: 12px 12px
+  border-radius: 14px
+  background: rgba(255, 255, 255, .02)
+  border: 1px solid var(--border)
+  span
+    font-size: 13px
+    color: var(--muted)
+  strong
+    color: #e6edf3
+    font-size: 14px
+    font-weight: 700
+    text-align: right

@@ -1,4 +1,5 @@
 import { RelayCardType, RelaySubtype } from 'entities/card/model/types';
+import { MouseEvent } from 'react';
 import { ReactComponent as CO2Icon } from 'shared/assets/icons/aquarium/co2short.svg';
 import { ReactComponent as LightIcon } from 'shared/assets/icons/aquarium/fanlight.svg';
 import { ReactComponent as FilterIcon } from 'shared/assets/icons/aquarium/filter.svg';
@@ -11,7 +12,7 @@ import cls from './RelayCard.module.sass';
 interface RelayCardProps {
   className?: string;
   card: RelayCardType;
-  onToggle: () => void;
+  onToggle: (e: MouseEvent<HTMLDivElement>) => void;
 }
 const relaySubtypeClasses: Record<RelaySubtype, string> = {
   light: cls.light,

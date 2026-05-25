@@ -2,11 +2,13 @@ import { PumpCardType } from 'entities/card/model/types';
 import { useAppDispatch, useAppSelector } from 'models/Hook';
 import { Status } from 'models/Status';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { classNames } from "shared/lib/classNames";
 import { useIsMobile } from 'shared/lib/isMobile';
 import { invertMode } from 'shared/lib/period';
+import { validateNumber, validateString, validateTime } from 'shared/lib/validation';
+import { Modal } from 'shared/ui/Modal';
 import { getConfig, getCurrentInfo, IPumpPeriod, resetPump, updateDoser } from '../../../redux/AquariumSlice';
-import { SettingsWrapper } from '../SettingsWrapper';
 import cls from './PumpSettings.module.sass';
 
 interface PumpSettingsProps {
@@ -15,7 +17,14 @@ interface PumpSettingsProps {
   onClose: () => void;
   card: PumpCardType;
 }
-
+type FormData = {
+  name: string
+  dosage: string;
+  performance: string;
+  remaining: string;
+  maxVolume: string;
+  time: string;
+};
 export const PumpSettings = ({
   className,
   open,
@@ -23,92 +32,87 @@ export const PumpSettings = ({
   card
 }: PumpSettingsProps) => {
   const dispatch = useAppDispatch()
-  const [name, setName] = useState(card.config.name)
-  const [time, setTime] = useState(card.config.time)
-  const [currentVolume, setCurrentVolume] = useState(card.config.currentVolume)
-  const [maxVolume, setMaxVolume] = useState(card.config.maxVolume)
-  const [dosage, setDosage] = useState(card.config.dosage)
-  const [rate, setRate] = useState(card.config.rate)
   const [period, setPeriod] = useState<IPumpPeriod>(card.config.period)
   const [mode, setMode] = useState(card.config.mode)
   const status = useAppSelector(state => state.aquarium.status)
   const isMobile = useIsMobile();
 
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setValue,
+    trigger,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    mode: "onChange",
+    defaultValues: {
+      name: card.config.name,
+      dosage: String(card.config.dosage),
+      performance: String(card.config.rate),
+      remaining: String(card.config.currentVolume),
+      maxVolume: String(card.config.maxVolume),
+      time: card.config.time
+    }
+  });
   useEffect(() => {
-    setName(card.config.name)
-    setTime(card.config.time)
-    setCurrentVolume(card.config.currentVolume)
-    setMaxVolume(card.config.maxVolume)
-    setDosage(card.config.dosage)
-    setRate(card.config.rate)
+    trigger();
+  }, []);
+  useEffect(() => {
+    trigger("time");
+  }, [mode]);
+  useEffect(() => {
+    reset({
+      name: card.config.name,
+      dosage: String(card.config.dosage),
+      performance: String(card.config.rate),
+      remaining: String(card.config.currentVolume),
+      maxVolume: String(card.config.maxVolume),
+      time: card.config.time
+    })
     setPeriod(card.config.period)
     setMode(card.config.mode)
 
   }, [card.config])
-  const sendConfig = async () => {
+  const sendConfig = async (data: FormData) => {
     await dispatch(updateDoser({
       number: card.number, config:
       {
-        name: name,
-        dosage: dosage,
-        time: time,
-        currentVolume: currentVolume,
-        maxVolume: maxVolume,
+        name: data.name,
+        dosage: Number(data.dosage),
+        time: data.time,
+        currentVolume: Number(data.remaining),
+        maxVolume: Number(data.maxVolume),
         period: period,
         mode: mode,
         status: card.config.status,
-        rate: rate,
+        rate: Number(data.performance),
         hasRunToday: card.config.hasRunToday
       }
     }));
     if (status === Status.Succeeded) {
-      setName(card.config.name);
-      setTime(card.config.time);
-      setCurrentVolume(card.config.currentVolume);
-      setMaxVolume(card.config.maxVolume);
-      setDosage(card.config.dosage);
-      setRate(card.config.rate);
+      reset({
+        name: card.config.name,
+        dosage: String(card.config.dosage),
+        performance: String(card.config.rate),
+        remaining: String(card.config.currentVolume),
+        maxVolume: String(card.config.maxVolume),
+        time: card.config.time
+      })
       setPeriod(card.config.period);
       setMode(card.config.mode);
     }
     onClose();
   }
-  const selectMode = async (mode: number) => {
-    setMode(mode);
-    await dispatch(updateDoser({
-      number: card.number, config:
-      {
-        name: name,
-        dosage: dosage,
-        time: time,
-        currentVolume: currentVolume,
-        maxVolume: maxVolume,
-        period: period,
-        mode: mode,
-        status: card.config.status,
-        rate: rate,
-        hasRunToday: card.config.hasRunToday
-      }
-    }));
-  }
   const sendPumpState = async () => {
     await dispatch(updateDoser({
       number: card.number, config:
       {
-        name: name,
-        dosage: dosage,
-        time: time,
-        currentVolume: currentVolume,
-        maxVolume: maxVolume,
-        period: period,
-        mode: invertMode(mode, true),
-        status: card.config.status,
-        rate: rate,
-        hasRunToday: card.config.hasRunToday
+        ...card.config,
+        mode: invertMode(mode, true)
       }
     }));
     if (status === Status.Succeeded) {
-
       setMode(invertMode(mode, true))
       setTimeout(() => {
         dispatch(getCurrentInfo())
@@ -122,8 +126,15 @@ export const PumpSettings = ({
     }, 500);
     // onClose();
   }
+  const handleNumberChange =
+    (name: keyof FormData) =>
+      (e: React.ChangeEvent<HTMLInputElement>) => {
 
-
+        setValue(name, e.target.value.replace(",", "."), {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
+      };
   const modeContent = (
     <section className={cls.card}>
       <h2 className={cls.sectionTitle}>Mode</h2>
@@ -151,8 +162,9 @@ export const PumpSettings = ({
           </div>
         </div>
       }
-      {mode === 2 && !card.config.hasRunToday && <div className={cls.warning}>
+      {mode === 2 && !card.config.hasRunToday && <div className={"alert alert-danger " + cls.warning} data-bs-theme="dark">
         <div>After saving the settings, the pump may start working!</div>
+        <hr/>
         <div>If you need to prevent this, ensure that the current time is before the scheduled start time or set the daily flag at the bottom of the page to TRUE.</div>
       </div>}
       {mode == 2 &&
@@ -171,26 +183,38 @@ export const PumpSettings = ({
     <section className={cls.card}>
       <h2 className={cls.sectionTitle}>Schedule</h2>
       <div className={cls.field}>
-        <label htmlFor="onTime">Turn on time</label>
-        <input id="onTime" type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+        <label htmlFor="time">Turn on time</label>
+        <input
+          className={`form-control ${errors.time ? "is-invalid" : ""}`}
+          data-bs-theme="dark"
+          id="time"
+          type="time"
+          {...register("time", {
+            required: "",
+            validate: (v) => {
+              if (mode !== 2) return true;
+              return validateTime(v);
+            }
+          })}
+        />
       </div>
       <div className={`${cls.field} ${cls.m0}`}>
         <label>Select working days</label>
         <div className={cls.daysWrap}>
           <div className={cls.daysRow}>
-            <input type="checkbox" id="mon" checked={period.mo} onClick={(e) => setPeriod({ ...period, mo: !period.mo })} />
+            <input type="checkbox" id="mon" checked={period.mo} onClick={(e) => setPeriod({ ...period, mo: !period.mo })} readOnly />
             <label className={cls.dayChip} htmlFor="mon">Mon</label>
-            <input type="checkbox" id="tue" checked={period.tu} onClick={(e) => setPeriod({ ...period, tu: !period.tu })} />
+            <input type="checkbox" id="tue" checked={period.tu} onClick={(e) => setPeriod({ ...period, tu: !period.tu })} readOnly />
             <label className={cls.dayChip} htmlFor="tue">Tue</label>
-            <input type="checkbox" id="wed" checked={period.we} onClick={(e) => setPeriod({ ...period, we: !period.we })} />
+            <input type="checkbox" id="wed" checked={period.we} onClick={(e) => setPeriod({ ...period, we: !period.we })} readOnly />
             <label className={cls.dayChip} htmlFor="wed">Wed</label>
-            <input type="checkbox" id="thu" checked={period.th} onClick={(e) => setPeriod({ ...period, th: !period.th })} />
+            <input type="checkbox" id="thu" checked={period.th} onClick={(e) => setPeriod({ ...period, th: !period.th })} readOnly />
             <label className={cls.dayChip} htmlFor="thu">Thu</label>
-            <input type="checkbox" id="fri" checked={period.fr} onClick={(e) => setPeriod({ ...period, fr: !period.fr })} />
+            <input type="checkbox" id="fri" checked={period.fr} onClick={(e) => setPeriod({ ...period, fr: !period.fr })} readOnly />
             <label className={cls.dayChip} htmlFor="fri">Fri</label>
-            <input type="checkbox" id="sat" checked={period.sa} onClick={(e) => setPeriod({ ...period, sa: !period.sa })} />
+            <input type="checkbox" id="sat" checked={period.sa} onClick={(e) => setPeriod({ ...period, sa: !period.sa })} readOnly />
             <label className={cls.dayChip} htmlFor="sat">Sat</label>
-            <input type="checkbox" id="sun" checked={period.su} onClick={(e) => setPeriod({ ...period, su: !period.su })} />
+            <input type="checkbox" id="sun" checked={period.su} onClick={(e) => setPeriod({ ...period, su: !period.su })} readOnly />
             <label className={cls.dayChip} htmlFor="sun">Sun</label>
           </div>
         </div>
@@ -217,30 +241,87 @@ export const PumpSettings = ({
     <section className={cls.card}>
       <h2 className={cls.sectionTitle}>General</h2>
       <div className={cls.field}>
-        <label htmlFor="pumpName">Name</label>
-        <input id="pumpName" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <label htmlFor="name">Name</label>
+        <input
+          className={`form-control ${errors.name ? "is-invalid" : ""}`}
+          data-bs-theme="dark"
+          id="name"
+          type="text"
+          {...register("name", {
+            required: "",
+            validate: (v) =>
+              validateString(v, {
+                minLength: 1,
+                maxLength: 20,
+              }),
+          })}
+        />
       </div>
       <div className={cls.field}>
         <label htmlFor="dose">Dosage</label>
-        <input id="dose" type="number" inputMode="decimal" value={dosage} step="0.1" onChange={(e) => setDosage(Number(e.target.value))} />
+        <input
+          className={`form-control ${errors.dosage ? "is-invalid" : ""}`}
+          data-bs-theme="dark"
+          id="dose"
+          type="text"
+          inputMode="decimal"
+          {...register("dosage", {
+            required: "",
+            validate: (v) => validateNumber(v),
+          })}
+          onChange={handleNumberChange("dosage")}
+        />
       </div>
       <div className={cls.field}>
         <label htmlFor="performance">Performance</label>
-        <input id="performance" type="number" inputMode="decimal" value={rate} step="1" onChange={(e) => setRate(Number(e.target.value))} />
+        <input
+          className={`form-control ${errors.performance ? "is-invalid" : ""}`}
+          data-bs-theme="dark"
+          id="performance"
+          type="text"
+          inputMode="decimal"
+          {...register("performance", {
+            required: "",
+            validate: (v) => validateNumber(v),
+          })}
+          onChange={handleNumberChange("performance")}
+        />
       </div>
       <div className={cls.field}>
         <label htmlFor="remaining">Remaining volume</label>
-        <input id="remaining" type="number" inputMode="decimal" value={currentVolume} step="1" onChange={(e) => setCurrentVolume(Number(e.target.value))} />
+        <input
+          className={`form-control ${errors.remaining ? "is-invalid" : ""}`}
+          data-bs-theme="dark"
+          id="remaining"
+          type="text"
+          inputMode="decimal"
+          {...register("remaining", {
+            required: "",
+            validate: (v) => validateNumber(v),
+          })}
+          onChange={handleNumberChange("remaining")}
+        />
       </div>
       <div className={`${cls.field} ${cls.m0}`}>
         <label htmlFor="maxVolume">Max volume</label>
-        <input id="maxVolume" type="number" inputMode="decimal" value={maxVolume} step="1" onChange={(e) => setMaxVolume(Number(e.target.value))} />
+        <input
+          className={`form-control ${errors.maxVolume ? "is-invalid" : ""}`}
+          data-bs-theme="dark"
+          id="maxVolume"
+          type="text"
+          inputMode="decimal"
+          {...register("maxVolume", {
+            required: "",
+            validate: (v) => validateNumber(v),
+          })}
+          onChange={handleNumberChange("maxVolume")}
+        />
       </div>
     </section>
   )
 
   return (
-    <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={sendConfig}>
+    <Modal isOpen={open} onClose={onClose} headerText={card.config.name} onConfirm={handleSubmit(sendConfig)} isValid={isValid}>
       <div className={classNames(cls.pumpSettings, {}, [className])}>
 
         {isMobile || <>
@@ -258,6 +339,6 @@ export const PumpSettings = ({
           {dailyFlagContent}
         </>}
       </div>
-    </SettingsWrapper>
+    </Modal>
   );
 }

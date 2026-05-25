@@ -3,11 +3,12 @@ import { ReactComponent as ChipIcon } from 'shared/assets/icons/aquarium/chip.sv
 import { classNames, Mods } from "shared/lib/classNames";
 import { CardBase } from '../CardBase';
 import cls from './ServerCard.module.sass';
+import { MouseEvent } from 'react';
 
 interface ServerCardProps {
   className?: string;
   card: SystemCardType;
-  onToggle: () => void;
+  onToggle: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const ServerCard = ({

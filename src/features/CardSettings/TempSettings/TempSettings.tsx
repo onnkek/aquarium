@@ -2,10 +2,12 @@ import { TempCardType } from 'entities/card/model/types';
 import { useAppDispatch, useAppSelector } from 'models/Hook';
 import { Status } from 'models/Status';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { classNames } from "shared/lib/classNames";
 import { invertCoolMode, invertHeatMode } from 'shared/lib/period';
+import { validateNumber } from 'shared/lib/validation';
+import { Modal } from 'shared/ui/Modal';
 import { getCurrentInfo, updateTemp } from '../../../redux/AquariumSlice';
-import { SettingsWrapper } from '../SettingsWrapper';
 import cls from './TempSettings.module.sass';
 
 interface TempSettingsProps {
@@ -14,6 +16,12 @@ interface TempSettingsProps {
   onClose: () => void;
   card: TempCardType;
 }
+type FormData = {
+  setting: string;
+  k: string;
+  hysteresis: string;
+  timeout: string;
+};
 
 export const TempSettings = ({
   className,
@@ -23,34 +31,41 @@ export const TempSettings = ({
 }: TempSettingsProps) => {
   const dispatch = useAppDispatch()
   const [mode, setMode] = useState(card.config.mode)
-  const [setting, setSetting] = useState(card.config.setting)
-  const [k, setK] = useState(card.config.k)
-  const [hysteresis, setHysteresis] = useState(card.config.hysteresis)
-  const [PIDTimeout, setPIDTimeout] = useState(card.config.timeout)
   const status = useAppSelector(state => state.aquarium.status)
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setValue,
+    trigger,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    mode: "onChange",
+    defaultValues: {
+      setting: String(card.config.setting),
+      k: String(card.config.k),
+      hysteresis: String(card.config.hysteresis),
+      timeout: String(card.config.timeout)
+    }
+  });
+
 
   useEffect(() => {
     setMode(card.config.mode)
-    setSetting(card.config.setting)
-    setK(card.config.k)
-    setHysteresis(card.config.hysteresis)
-    setPIDTimeout(card.config.timeout)
+    reset({
+      setting: String(card.config.setting),
+      k: String(card.config.k),
+      hysteresis: String(card.config.hysteresis),
+      timeout: String(card.config.timeout)
+    })
   }, [card.config])
 
-  const selectMode = async (mode: number) => {
-    setMode(mode);
-    await dispatch(updateTemp({
-      name: card.config.name,
-      setting: setting,
-      timeout: PIDTimeout,
-      k: k,
-      hysteresis: hysteresis,
-      mode: mode
-    }))
-  }
-
   const toggleCoolState = async () => {
-    await dispatch(updateTemp({ name: card.config.name, setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertCoolMode(mode) }))
+    await dispatch(updateTemp({
+      ...card.config,
+      mode: invertCoolMode(mode)
+    }))
     if (status === Status.Succeeded) {
       setMode(invertCoolMode(mode))
       setTimeout(() => {
@@ -59,7 +74,10 @@ export const TempSettings = ({
     }
   }
   const toggleHeatState = async () => {
-    await dispatch(updateTemp({ name: card.config.name, setting: setting, timeout: PIDTimeout, k: k, hysteresis: hysteresis, mode: invertHeatMode(mode) }))
+    await dispatch(updateTemp({
+      ...card.config,
+      mode: invertHeatMode(mode)
+    }))
     if (status === Status.Succeeded) {
       setMode(invertHeatMode(mode))
       setTimeout(() => {
@@ -68,30 +86,43 @@ export const TempSettings = ({
     }
   }
 
-  const sendConfig = async () => {
-    console.log(mode)
+  const sendConfig = async (data: FormData) => {
     await dispatch(updateTemp({
       name: card.config.name,
-      setting: setting,
-      k: k,
-      hysteresis: hysteresis,
-      timeout: PIDTimeout,
+      setting: Number(data.setting),
+      k: Number(data.k),
+      hysteresis: Number(data.hysteresis),
+      timeout: Number(data.timeout),
       mode: mode
     }))
     if (status === Status.Succeeded) {
-      setSetting(card.config.setting)
-      setK(card.config.k)
-      setHysteresis(card.config.hysteresis)
-      setPIDTimeout(card.config.timeout)
+      reset({
+        setting: String(card.config.setting),
+        k: String(card.config.k),
+        hysteresis: String(card.config.hysteresis),
+        timeout: String(card.config.timeout)
+      })
       setMode(card.config.mode)
     }
     onClose();
   }
 
-  return (
-    <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={sendConfig}>
-      <div className={classNames(cls.tempSettings, {}, [className])}>
 
+
+  const handleNumberChange =
+    (name: keyof FormData) =>
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setValue(name, e.target.value.replace(",", "."), {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
+      };
+
+
+  return (
+    <Modal onClose={onClose} isOpen={open} headerText={card.config.name} onConfirm={handleSubmit(sendConfig)} isValid={isValid}>
+      <div className={classNames(cls.tempSettings, {}, [className])}>
         <section className={cls.card}>
           <h2 className={cls.sectionTitle}>Mode</h2>
           <div className={cls.segmented}>
@@ -110,9 +141,9 @@ export const TempSettings = ({
                 </div>
 
                 <div className={cls.segmented}>
-                  <input type="radio" name="coolState" id="coolStateOn" checked={(card.current.status === 1 || card.current.status === 3)} />
+                  <input type="radio" name="coolState" id="coolStateOn" checked={(card.current.status === 1 || card.current.status === 3)} readOnly />
                   <label htmlFor="coolStateOn" onClick={toggleCoolState}>On</label>
-                  <input type="radio" name="coolState" id="coolStateOff" checked={!(card.current.status == 1 || card.current.status == 3)} />
+                  <input type="radio" name="coolState" id="coolStateOff" checked={!(card.current.status == 1 || card.current.status == 3)} readOnly />
                   <label htmlFor="coolStateOff" onClick={toggleCoolState}>Off</label>
                 </div>
               </div>
@@ -122,9 +153,9 @@ export const TempSettings = ({
                 </div>
 
                 <div className={cls.segmented}>
-                  <input type="radio" name="heatState" id="heatStateOn" checked={(card.current.status === 2 || card.current.status === 3)} />
+                  <input type="radio" name="heatState" id="heatStateOn" checked={(card.current.status === 2 || card.current.status === 3)} readOnly />
                   <label htmlFor="heatStateOn" onClick={toggleHeatState} >On</label>
-                  <input type="radio" name="heatState" id="heatStateOff" checked={!(card.current.status === 2 || card.current.status === 3)} />
+                  <input type="radio" name="heatState" id="heatStateOff" checked={!(card.current.status === 2 || card.current.status === 3)} readOnly />
                   <label htmlFor="heatStateOff" onClick={toggleHeatState} >Off</label>
                 </div>
               </div>
@@ -152,22 +183,66 @@ export const TempSettings = ({
           <h2 className={cls.sectionTitle}>General</h2>
           <div className={cls.field}>
             <label htmlFor="setting">Setting</label>
-            <input id="setting" type="number" inputMode="decimal" value={setting} onChange={(e) => setSetting(Number(e.target.value))}/>
+            <input
+              className={`form-control ${errors.setting ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="setting"
+              type="text"
+              inputMode="decimal"
+              {...register("setting", {
+                required: "",
+                validate: (v) => validateNumber(v),
+              })}
+              onChange={handleNumberChange("setting")}
+            />
           </div>
           <div className={cls.field}>
             <label htmlFor="k">K</label>
-            <input id="k" type="number" inputMode="decimal" value={k} onChange={(e) => setK(Number(e.target.value))} />
+            <input
+              className={`form-control ${errors.k ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="k"
+              type="text"
+              inputMode="decimal"
+              {...register("k", {
+                required: "",
+                validate: (v) => validateNumber(v),
+              })}
+              onChange={handleNumberChange("k")}
+            />
           </div>
           <div className={cls.field}>
             <label htmlFor="hysteresis">Hysteresis</label>
-            <input id="hysteresis" type="number" inputMode="decimal" value={hysteresis} onChange={(e) => setHysteresis(Number(e.target.value))} />
+            <input
+              className={`form-control ${errors.hysteresis ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="hysteresis"
+              type="text"
+              inputMode="decimal"
+              {...register("hysteresis", {
+                required: "",
+                validate: (v) => validateNumber(v),
+              })}
+              onChange={handleNumberChange("hysteresis")}
+            />
           </div>
           <div className={cls.field}>
             <label htmlFor="timeout">Timeout</label>
-            <input id="timeout" type="number" inputMode="decimal" value={PIDTimeout} onChange={(e) => setPIDTimeout(Number(e.target.value))} />
+            <input
+              className={`form-control ${errors.timeout ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="timeout"
+              type="text"
+              inputMode="decimal"
+              {...register("timeout", {
+                required: "",
+                validate: (v) => validateNumber(v),
+              })}
+              onChange={handleNumberChange("timeout")}
+            />
           </div>
         </section>
       </div>
-    </SettingsWrapper>
+    </Modal>
   );
 }

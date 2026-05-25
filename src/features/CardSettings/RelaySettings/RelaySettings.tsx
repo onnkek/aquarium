@@ -2,14 +2,12 @@ import { RelayCardType, RelaySubtype } from 'entities/card/model/types';
 import { useAppDispatch, useAppSelector } from 'models/Hook';
 import { Status } from 'models/Status';
 import { useEffect, useState } from 'react';
-import { ReactComponent as CO2Icon } from 'shared/assets/icons/aquarium/co2.svg';
-import { ReactComponent as FilterIcon } from 'shared/assets/icons/aquarium/filter.svg';
-import { ReactComponent as LightIcon } from 'shared/assets/icons/aquarium/light.svg';
-import { ReactComponent as O2Icon } from 'shared/assets/icons/aquarium/o2.svg';
+import { useForm } from 'react-hook-form';
 import { classNames, Mods } from "shared/lib/classNames";
 import { invertMode } from 'shared/lib/period';
+import { validateTime } from 'shared/lib/validation';
+import { Modal } from 'shared/ui/Modal';
 import { getCurrentInfo, updateRelay } from '../../../redux/AquariumSlice';
-import { SettingsWrapper } from '../SettingsWrapper';
 import cls from './RelaySettings.module.sass';
 
 interface RelaySettingsProps {
@@ -18,6 +16,10 @@ interface RelaySettingsProps {
   onClose: () => void;
   card: RelayCardType;
 }
+type FormData = {
+  onTime: string
+  offTime: string;
+};
 const relaySubtypeClasses: Record<RelaySubtype, string> = {
   light: cls.light,
   co2: cls.co2,
@@ -29,38 +31,44 @@ export const RelaySettings = ({
   open,
   onClose,
   card
-}: RelaySettingsProps) => {
+}: RelaySettingsProps) => { 
   const dispatch = useAppDispatch()
   const [mode, setMode] = useState(card.config.mode);
-  const [onTime, setOnTime] = useState(card.config.on);
-  const [offTime, setOffTime] = useState(card.config.off);
   const status = useAppSelector(state => state.aquarium.status)
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setValue,
+    trigger,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    mode: "onChange",
+    defaultValues: {
+      onTime: card.config.on,
+      offTime: card.config.off
+    }
+  });
   useEffect(() => {
+    trigger();
+  }, []);
+  useEffect(() => {
+    trigger();
+  }, [mode]);
+  useEffect(() => {
+    reset({
+      onTime: card.config.on,
+      offTime: card.config.off
+    })
     setMode(card.config.mode)
-    setOnTime(card.config.on)
-    setOffTime(card.config.off)
   }, [card.config])
 
-  const getRelayIcon = () => {
-    switch (card.subtype) {
-      case "co2":
-        return <CO2Icon className={cls.icon} />
-      case "o2":
-        return <O2Icon className={cls.icon} />
-      case "light":
-        return <LightIcon className={cls.icon} />
-      case "filter":
-        return <FilterIcon className={cls.icon} />
-    }
-  }
   const changeState = async () => {
     await dispatch(updateRelay({
       subtype: card.subtype,
       relay: {
-        on: onTime,
-        off: offTime,
-        mode: invertMode(mode, card.current.status),
-        name: card.config.name
+        ...card.config,
+        mode: invertMode(mode, card.current.status)
       }
     }));
 
@@ -71,43 +79,33 @@ export const RelaySettings = ({
       }, 200); // Написать чтобы сервер на апдейт кофига возвращал не новый конфиг, а currentInfo
     }
   }
-  const onSendConfig = async () => {
+  const sendConfig = async (data: FormData) => {
     await dispatch(updateRelay({
       subtype: card.subtype,
       relay: {
-        on: onTime,
-        off: offTime,
+        on: data.onTime,
+        off: data.offTime,
         mode: mode,
         name: card.config.name
       }
     }));
     if (status === Status.Succeeded) {
-      setOnTime(card.config.on)
-      setOffTime(card.config.off)
+      reset({
+        onTime: card.config.on,
+        offTime: card.config.off
+      })
       setMode(card.config.mode)
     }
     onClose();
   }
 
-  const selectMode = async (mode: number) => {
-    setMode(mode);
-    await dispatch(updateRelay({
-      subtype: card.subtype,
-      relay: {
-        on: onTime,
-        off: offTime,
-        mode: mode,
-        name: card.config.name
-      }
-    }));
-  }
 
   const mods: Mods = {
     [relaySubtypeClasses[card.subtype]]: true
   }
   console.log(mode)
   return (
-    <SettingsWrapper open={open} onClose={onClose} card={card} onConfirm={onSendConfig}>
+    <Modal isOpen={open} onClose={onClose} headerText={card.config.name} onConfirm={handleSubmit(sendConfig)} isValid={isValid}>
       <div className={classNames(cls.relaySettings, mods, [className])}>
 
         <section className={cls.card}>
@@ -150,18 +148,42 @@ export const RelaySettings = ({
         </section>
 
 
-        <section className={cls.card}>
+        {mode === 2 && <section className={cls.card}>
           <h2 className={cls.sectionTitle}>Schedule</h2>
           <div className={cls.field}>
             <label htmlFor="onTime">Turn on time</label>
-            <input id="onTime" type="time" value={onTime} onChange={(e) => setOnTime(e.target.value)} />
+            <input
+              className={`form-control ${errors.onTime ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="onTime"
+              type="time"
+              {...register("onTime", {
+                required: "",
+                validate: (v) => {
+                  if (mode !== 2) return true;
+                  return validateTime(v);
+                }
+              })}
+            />
           </div>
           <div className={cls.field}>
             <label htmlFor="offTime">Turn off time</label>
-            <input id="offTime" type="time" value={offTime} onChange={(e) => setOffTime(e.target.value)} />
+            <input
+              className={`form-control ${errors.offTime ? "is-invalid" : ""}`}
+              data-bs-theme="dark"
+              id="offTime"
+              type="time"
+              {...register("offTime", {
+                required: "",
+                validate: (v) => {
+                  if (mode !== 2) return true;
+                  return validateTime(v);
+                }
+              })}
+            />
           </div>
-        </section>
+        </section>}
       </div >
-    </SettingsWrapper >
+    </Modal >
   );
 }

@@ -1,4 +1,5 @@
 import { PumpCardType } from 'entities/card/model/types';
+import { MouseEvent } from 'react';
 import { ReactComponent as PumpIcon } from 'shared/assets/icons/aquarium/pump.svg';
 import { classNames, Mods } from "shared/lib/classNames";
 import { Badge } from 'shared/ui/Badge';
@@ -7,7 +8,7 @@ import cls from './PumpCard.module.sass';
 interface PumpCardProps {
   className?: string;
   card: PumpCardType;
-  onToggle: () => void;
+  onToggle: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const PumpCard = ({
@@ -43,7 +44,7 @@ export const PumpCard = ({
           <span>Added Fertilizer</span>
           <strong>{(card.current.introduced / 100 * card.config.dosage).toFixed(1)} / {card.config.dosage.toFixed(1)} ml</strong>
           <div className={cls.progress}>
-            <div className={cls.bar} style={{ width: `${card.current.introduced.toFixed(0)}%`}}></div>
+            <div className={cls.bar} style={{ width: `${card.current.introduced.toFixed(0)}%` }}></div>
           </div>
           <div className={cls.sub}>
             <span>{(card.current.introduced).toFixed(0)}% completed</span>

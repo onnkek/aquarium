@@ -1,5 +1,7 @@
 import { useTheme } from 'app/providers/ThemeProvider/lib/useTheme';
+import { useAppDispatch } from 'models/Hook';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { switchModal } from 'redux/AquariumSlice';
 import { ReactComponent as BackIcon } from 'shared/assets/icons/aquarium/back.svg';
 import { ReactComponent as CheckIcon } from 'shared/assets/icons/aquarium/check.svg';
 import { Mods, classNames } from 'shared/lib/classNames';
@@ -16,13 +18,14 @@ interface ModalProps {
   children?: ReactNode;
   isOpen?: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm?: () => void;
   lazy?: boolean;
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   iconColor?: ModalIconColor;
   bgWrapper?: ModalBGWrapper;
   modalStyle?: ModalStyle;
   headerText: string;
+  isValid?: boolean
 }
 
 const colorClasses: Record<ModalIconColor, string> = {
@@ -50,9 +53,10 @@ export const Modal = ({
   iconColor = 'none',
   bgWrapper = 'none',
   modalStyle = 'default',
-  headerText
+  headerText,
+  isValid = true
 }: ModalProps) => {
-
+  const dispatch = useAppDispatch()
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -71,6 +75,7 @@ export const Modal = ({
   }, [isOpen]);
 
   const startClosing = () => {
+    dispatch(switchModal(false));
     if (!isClosing) setIsClosing(true);
   };
 
@@ -117,13 +122,19 @@ export const Modal = ({
 
   if (!isVisible) return null
 
-
+  const onConfirmHandler = () => {
+    if (onConfirm) {
+      if (headerText !== "System") {
+        dispatch(switchModal(false));
+      }
+      onConfirm();
+    }
+  }
 
   const mods: Mods = {
     [colorClasses[iconColor]]: true,
     [styleClasses[modalStyle]]: true
   };
-
   return (
     <Portal>
       <div className={classNames(cls.modal, mods, [theme])} >
@@ -141,7 +152,7 @@ export const Modal = ({
               </div>
 
               <div className={cls.other}>
-                <Button theme='clear' className={classNames(cls.otherButton, {}, [])} onClick={onConfirm}>
+                <Button theme='clear' className={classNames(cls.otherButton, { }, [])} disabled={!isValid} onClick={onConfirmHandler}>
                   <CheckIcon />
                 </Button>
               </div>
@@ -152,7 +163,7 @@ export const Modal = ({
             </div>
             <div className={cls.footer}>
               <button type="button" className="btn btn-secondary" onClick={startClosing}>Close</button>
-              <button type="button" className="btn btn-primary" onClick={onConfirm}>Save changes</button>
+              <button type="button" className="btn btn-primary" onClick={onConfirmHandler}>Save changes</button>
             </div>
           </div>
         </div>

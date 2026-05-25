@@ -1,9 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 import AquariumReducer from './AquariumSlice'
+import EventsReducer from './EventsSlice'
+import LogsReducer from './LogsSlice'
+import MetricsReducer from './MetricsSlice'
+import NotesReducer from './NotesSlice'
 
 const store = configureStore({
     reducer: {
-        aquarium: AquariumReducer
+        aquarium: AquariumReducer,
+        metrics: MetricsReducer,
+        events: EventsReducer,
+        logs: LogsReducer,
+        notes: NotesReducer
     }
 })
 

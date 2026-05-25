@@ -1,4 +1,5 @@
 import { ArgbCardType } from 'entities/card/model/types';
+import { MouseEvent } from 'react';
 import { ReactComponent as ARGBIcon } from 'shared/assets/icons/aquarium/argb.svg';
 import { classNames, Mods } from "shared/lib/classNames";
 import { Badge } from 'shared/ui/Badge';
@@ -8,7 +9,7 @@ import cls from './ArgbCard.module.sass';
 interface ArgbCardProps {
   className?: string;
   card: ArgbCardType;
-  onToggle: () => void;
+  onToggle: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 export const ArgbCard = ({

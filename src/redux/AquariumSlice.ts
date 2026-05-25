@@ -235,8 +235,8 @@ const initialState: IAquarium = {
   config: {
     system: {
       name: "System",
-      update: 0,
-      pwm: 0
+      update: 1,
+      pwm: 30
     },
     doser: [
       {
@@ -566,6 +566,34 @@ const AquariumSlice = createSlice({
 
   }
 })
+
+export const getMetrics = createAsyncThunk(
+  "metrics/getMetrics",
+  async (
+    params: {
+      metric: string
+      year: number
+      month: number
+      day: number
+    },
+    thunkAPI
+  ) => {
+    try {
+      const csv = await new AquariumService().getMetrics(params)
+
+      const points = new AquariumService().parseMetricsCSV(csv)
+
+      return {
+        metric: params.metric,
+        points
+      }
+    } catch (e: any) {
+      return thunkAPI.rejectWithValue(
+        e?.message ?? "Failed to fetch metrics"
+      )
+    }
+  }
+)
 
 export const getCurrentInfo = createAsyncThunk(
   'aquarium/getCurrentInfo',

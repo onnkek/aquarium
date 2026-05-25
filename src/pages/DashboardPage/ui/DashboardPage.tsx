@@ -12,6 +12,7 @@ import { PumpSettings } from "features/CardSettings/PumpSettings";
 import { RelaySettings } from "features/CardSettings/RelaySettings";
 import { ServerSettings } from "features/CardSettings/ServerSettings";
 import { TempSettings } from "features/CardSettings/TempSettings";
+import { FertCalc } from "features/FertCalc";
 import { useAppDispatch, useAppSelector } from "models/Hook";
 import { Status } from "models/Status";
 import React, { useEffect, useMemo, useState } from "react";
@@ -36,6 +37,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   const cards = mapConfigToCards(config, current);
   const [now, setNow] = useState(Date.now());
   const [lastHeartbeatReceivedAt, setLastHeartbeatReceivedAt] = useState<number>(0);
+  const [openCalc, setOpenCalc] = useState(false);
 
   useEffect(() => {
     dispatch(getCurrentInfo())
@@ -68,12 +70,17 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
   }, [updateStatus, system.update, dispatch, openModal])
 
-  const onOpenCard = (card: ICard) => {
-    setSelectCard(card);
-    if (card.type !== "server") {
-      dispatch(switchModal(true));
-    }
-  }
+  const handleOpenCard = (card: ICard) => {
+	return (e: React.MouseEvent<HTMLDivElement>) => {
+		e.stopPropagation()
+
+		setSelectCard(card)
+
+		if (card.type !== "server" && card.type !== "system") {
+			dispatch(switchModal(true))
+		}
+	}
+}
 
   const mappedCard = useMemo(() => {
     if (!selectCard) return;
@@ -82,13 +89,14 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   }, [config, current, selectCard?.id])
 
   const getCardComponent = (card: ICard) => {
+    const onToggle = handleOpenCard(card)
     switch (card.type) {
-      case "server": return <ServerCard className={cls.server} card={card} onToggle={() => onOpenCard(card)} />
-      case "system": return <SystemCard indicationState={online} className={cls.system} card={card} onToggle={() => onOpenCard(card)} />
-      case "relay": return <RelayCard className={cls.relay} card={card} onToggle={() => onOpenCard(card)} />
-      case "temp": return <TempCard className={cls.temp} card={card} onToggle={() => onOpenCard(card)} />
-      case "argb": return <ArgbCard className={cls.argb} card={card} onToggle={() => onOpenCard(card)} />
-      case "pump": return <PumpCard className={cls.pump} card={card} onToggle={() => onOpenCard(card)} />
+      case "server": return <ServerCard className={cls.server} card={card} onToggle={onToggle} />
+      case "system": return <SystemCard indicationState={online} className={cls.system} card={card} onToggle={onToggle} />
+      case "relay": return <RelayCard className={cls.relay} card={card} onToggle={onToggle} />
+      case "temp": return <TempCard className={cls.temp} card={card} onToggle={onToggle} />
+      case "argb": return <ArgbCard className={cls.argb} card={card} onToggle={onToggle} />
+      case "pump": return <PumpCard className={cls.pump} card={card} onToggle={onToggle} />
     }
   }
   const getSettingsComponent = (card: ICard) => {
@@ -138,6 +146,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
               className={cls.span12}
               badge={"4 Channels"}
               icon={<DoserIcon className={cls.icon} />}
+              onToggle={() => {setOpenCalc(true)}}
             >
               <div className={cls.section}>
                 <div className={cls.pumpsRow}>
@@ -154,7 +163,7 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
         </div>
       </section>
       {selectCard && getSettingsComponent(mappedCard!)}
-
+      <FertCalc open={openCalc} onClose={() => setOpenCalc(false)} />
     </Page>
   );
 };

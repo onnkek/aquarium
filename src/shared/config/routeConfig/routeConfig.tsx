@@ -1,6 +1,7 @@
 import { ArchivePage } from "pages/ArchivePage";
 import { DashboardPage } from "pages/DashboardPage";
 import { LogsPage } from "pages/LogsPage";
+import { NotesPage } from "pages/NotesPage/ui/NotesPage";
 import { RouteProps } from 'react-router-dom';
 
 export type AppRoutesProps = RouteProps & {
@@ -12,6 +13,7 @@ export enum AppRoutes {
   DASHBOARD = 'dashboard',
   LOGS = 'logs',
   ARCHIVE = 'archive',
+  NOTES = 'notes',
   NOT_FOUND = 'not_found'
 }
 
@@ -19,6 +21,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.DASHBOARD]: '/',
   [AppRoutes.LOGS]: '/logs',
   [AppRoutes.ARCHIVE]: '/archive',
+  [AppRoutes.NOTES]: '/notes',
   [AppRoutes.NOT_FOUND]: '*'
 };
 
@@ -34,6 +37,10 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.ARCHIVE]: {
     path: RoutePath.archive,
     element: <ArchivePage />
+  },
+  [AppRoutes.NOTES]: {
+    path: RoutePath.notes,
+    element: <NotesPage />
   },
   [AppRoutes.NOT_FOUND]: {
     path: RoutePath.not_found,

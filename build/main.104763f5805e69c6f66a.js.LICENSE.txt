@@ -1,11 +1,4 @@
 /*!
-  * chartjs-adapter-moment v1.0.1
-  * https://www.chartjs.org
-  * (c) 2022 chartjs-adapter-moment Contributors
-  * Released under the MIT license
-  */
-
-/*!
  * @kurkle/color v0.3.4
  * https://github.com/kurkle/color#readme
  * (c) 2024 Jukka Kurkela
@@ -18,6 +11,19 @@
  * (c) 2025 Chart.js Contributors
  * Released under the MIT License
  */
+
+/*!
+* chartjs-plugin-zoom v2.2.0
+* https://www.chartjs.org/chartjs-plugin-zoom/2.2.0/
+ * (c) 2016-2024 chartjs-plugin-zoom Contributors
+ * Released under the MIT License
+ */
+
+/*! Hammer.JS - v2.0.7 - 2016-04-22
+ * http://hammerjs.github.io/
+ *
+ * Copyright (c) 2016 Jorik Tangelder;
+ * Licensed under the MIT license */
 
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
 
@@ -91,7 +97,3 @@
  *
  * @license MIT
  */
-
-//! moment.js
-
-//! moment.js locale configuration

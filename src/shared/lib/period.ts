@@ -235,3 +235,44 @@ export function isCurrentTimeGreater(serverTime: string): boolean {
   // 3. Сравниваем
   return currentMinutes > serverMinutes;
 }
+
+const padDateTime = (n: number) => String(n).padStart(2, "0");
+const isEmptyTime = (t: ITimeInfo) =>
+  t.hour === 0 &&
+  t.minute === 0 &&
+  t.second === 0;
+export const toTimeInput = (t: ITimeInfo) => {
+  if (isEmptyTime(t)) return ""; // 👈 ключевой момент
+
+  return `${pad(t.hour)}:${pad(t.minute)}`;
+};
+
+export const toDateInput = (t: ITimeInfo) => {
+  return `${t.year}-${padDateTime(t.month)}-${padDateTime(t.day)}`;
+};
+
+export function formatDateForInput(date: Date): string {
+  return date.toISOString().split('T')[0];
+}
+export const formatNoteDate = (dateString: string) => {
+	const date = new Date(dateString)
+
+	const parts = new Intl.DateTimeFormat("ru-RU", {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+	}).formatToParts(date)
+
+	const get = (type: string) =>
+		parts.find((p) => p.type === type)?.value || ""
+
+	return `${get("day")} ${get("month")} ${get("year")} · ${get("hour")}:${get("minute")}`
+}
+
+export function getLocalISODateTime(): string {
+  const now = new Date();
+  const offset = now.getTimezoneOffset() * 60000;
+  return new Date(now.getTime() - offset).toISOString().slice(0, 16);
+}

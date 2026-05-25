@@ -1,4 +1,5 @@
 import { SystemCardType } from 'entities/card/model/types';
+import { MouseEvent } from 'react';
 import { ReactComponent as SystemIcon } from 'shared/assets/icons/gear.svg';
 import { classNames, Mods } from "shared/lib/classNames";
 import { getDateString, getTimeString } from 'shared/lib/period';
@@ -8,7 +9,7 @@ import cls from './SystemCard.module.sass';
 interface SystemCardProps {
   className?: string;
   card: SystemCardType;
-  onToggle: () => void;
+  onToggle: (e: MouseEvent<HTMLDivElement>) => void;
   indicationState: boolean;
 }
 
