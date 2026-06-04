@@ -89,23 +89,34 @@
     font-variant-numeric: tabular-nums
 @media (max-width:900px)
   .sidebar
-    height: 70px
-    padding: 10px
+    position: fixed
+    left: 0
+    right: 0
+    bottom: 0
+    top: auto
+    z-index: 1000
+    height: calc(70px + env(safe-area-inset-bottom))
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom))
     order: 1
     border: none
     border-top: 1px solid var(--border)
     width: 100%
     display: flex
     align-items: center
+    background: rgba(13, 17, 23, 0.98)
+    backdrop-filter: blur(14px)
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.28)
     .nav
       width: 100%
       display: flex
       justify-content: space-around
+      align-items: center
+      gap: 6px
     .brand,
     .sidebox
       display: none
     .link
-      color: var(--fg-tertiary)
+      color: var(--muted)
       font-weight: 600
       margin-right: 10px
       padding: 0
@@ -115,5 +126,9 @@
       -webkit-tap-highlight-color: transparent
       margin: 0
       height: 54px
+      gap: 4px
       svg
         display: block
+    .header_button_text
+      font-size: 11px
+      line-height: 1

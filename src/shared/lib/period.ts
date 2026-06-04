@@ -13,7 +13,17 @@ export function getPeriodString(period: IPumpPeriod): string {
 }
 
 export function getDateString(dateTime: ITimeInfo) {
-  return `${getDayOfWeek(dateTime.dayOfWeek)} ${getMonth(dateTime.month)} ${dateTime.day == 0 ? "" : dateTime.day}`;
+  const day = Number(dateTime.day);
+  const month = Number(dateTime.month);
+
+  if (!day || !month) {
+    return "Unknown date";
+  }
+
+  const dayOfWeek = getDayOfWeek(dateTime.dayOfWeek);
+  const monthName = getMonth(month);
+
+  return `${dayOfWeek} ${monthName} ${day}`;
 }
 
 const pad = (n: number, len: number = 2) => n.toString().padStart(len, '0');
@@ -105,24 +115,47 @@ export function invertHeatMode(mode: number) {
   }
 }
 
-function getDayOfWeek(dayOfWeek: string) {
-  switch (dayOfWeek) {
+function getDayOfWeek(dayOfWeek: string | number) {
+  const normalized = String(dayOfWeek ?? "").toLowerCase();
+
+  switch (normalized) {
+    case "0":
     case "su":
+    case "sun":
+    case "sunday":
       return "Sun";
+    case "1":
     case "mo":
+    case "mon":
+    case "monday":
       return "Mon";
+    case "2":
     case "tu":
+    case "tue":
+    case "tuesday":
       return "Tue";
+    case "3":
     case "we":
+    case "wed":
+    case "wednesday":
       return "Wed";
+    case "4":
     case "th":
+    case "thu":
+    case "thursday":
       return "Thu";
+    case "5":
     case "fr":
+    case "fri":
+    case "friday":
       return "Fri";
+    case "6":
     case "sa":
+    case "sat":
+    case "saturday":
       return "Sat";
     default:
-      return "Unknown data";
+      return "";
   }
 }
 function getMonth(month: number) {

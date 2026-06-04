@@ -1,9 +1,9 @@
 import { SystemCardType } from 'entities/card/model/types';
 import { useAppDispatch, useAppSelector } from 'models/Hook';
 import { Status } from 'models/Status';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { getCurrentInfo, updateDateTime, updateFanSpeed, updateSystem } from 'redux/AquariumSlice';
+import { clearEmergencyMode, clearEmergencyOverride, enterEmergencyMode, getCurrentInfo, updateDateTime, updateFanSpeed, updateSystem } from 'redux/AquariumSlice';
 import { classNames, Mods } from "shared/lib/classNames";
 import { getDateFromInput, getTimeFromInput, getUptime, toDateInput, toTimeInput } from 'shared/lib/period';
 import { validateDate, validateNumber, validateTime } from 'shared/lib/validation';
@@ -32,8 +32,10 @@ export const ServerSettings = ({
 }: ServerSettingsProps) => {
   const dispatch = useAppDispatch()
   const status = useAppSelector(state => state.aquarium.status)
+  const safety = useAppSelector(state => state.aquarium.safety)
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [speed, setSpeed] = useState(card.config.pwm);
+  const [pendingSafetyAction, setPendingSafetyAction] = useState<"enter" | "clear" | "clearOverride" | null>(null);
   // const [updateTime, setUpdateTime] = useState<string>(String(card.config.update))
   // const [updateTimeError, setUpdateTimeError] = useState(false)
   // const [dateTime, setDateTime] = useState(card.current.time)
@@ -113,6 +115,12 @@ export const ServerSettings = ({
     // [cls.on]: card.current.status !== 0
   }
 
+  const isSafetyBusy = pendingSafetyAction !== null;
+
+  const safetyButtonClass = (kind: typeof pendingSafetyAction, extra?: string) => classNames(cls.actionButton, {
+    [cls.loading]: pendingSafetyAction === kind,
+  }, extra ? [extra] : []);
+
   const handleNumberChange =
     (name: keyof FormData) =>
       (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,6 +130,56 @@ export const ServerSettings = ({
           shouldValidate: true,
         });
       };
+
+  const refreshSafetyState = useCallback(() => {
+    setTimeout(() => {
+      dispatch(getCurrentInfo())
+    }, 200)
+  }, [dispatch])
+
+  const blurButton = (event: MouseEvent<HTMLButtonElement>) => {
+    event.currentTarget.blur()
+  }
+
+  const preventButtonFocus = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+  }
+
+  const handleEnterEmergency = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
+    blurButton(event)
+    if (isSafetyBusy) return;
+    setPendingSafetyAction("enter");
+    try {
+      await dispatch(enterEmergencyMode()).unwrap();
+      refreshSafetyState();
+    } finally {
+      setPendingSafetyAction(null);
+    }
+  }, [dispatch, refreshSafetyState, isSafetyBusy])
+
+  const handleClearEmergency = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
+    blurButton(event)
+    if (isSafetyBusy) return;
+    setPendingSafetyAction("clear");
+    try {
+      await dispatch(clearEmergencyMode()).unwrap();
+      refreshSafetyState();
+    } finally {
+      setPendingSafetyAction(null);
+    }
+  }, [dispatch, refreshSafetyState, isSafetyBusy])
+
+  const handleClearOverride = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
+    blurButton(event)
+    if (isSafetyBusy) return;
+    setPendingSafetyAction("clearOverride");
+    try {
+      await dispatch(clearEmergencyOverride()).unwrap();
+      refreshSafetyState();
+    } finally {
+      setPendingSafetyAction(null);
+    }
+  }, [dispatch, refreshSafetyState, isSafetyBusy])
 
   return (
     <Modal isOpen={open} onClose={onClose} headerText={card.config.name} onConfirm={handleSubmit(sendConfig)} isValid={isValid}>
@@ -135,6 +193,69 @@ export const ServerSettings = ({
               <div className={cls.statusValue}>{getUptime(card.current.uptime, false)}</div>
             </div>
           </div>
+        </section>
+
+        <section className={`${cls.card} ${safety.emergencyMode ? cls.emergencyCard : ""}`}>
+          <h2 className={cls.sectionTitle}>Emergency Control</h2>
+          <div className={cls.metricGrid}>
+            <div className={cls.metric}>
+              <span>Emergency mode</span>
+              <strong className={safety.emergencyMode ? cls.dangerText : cls.okText}>{safety.emergencyMode ? "ACTIVE" : "OFF"}</strong>
+            </div>
+            <div className={cls.metric}>
+              <span>Override</span>
+              <strong className={safety.emergencyOverride ? cls.warnText : cls.okText}>{safety.emergencyOverride ? "ON" : "OFF"}</strong>
+            </div>
+            <div className={cls.metric}>
+              <span>RTC status</span>
+              <strong className={safety.rtcValid ? cls.okText : cls.dangerText}>{safety.rtcValid ? "VALID" : "INVALID"}</strong>
+            </div>
+            <div className={cls.metric}>
+              <span>Restore snapshot</span>
+              <strong>{safety.restoreAvailable ? "Available" : "Empty"}</strong>
+            </div>
+          </div>
+          {Boolean(safety.activeReasons?.length) && (
+            <div className={cls.safetyReason}>
+              {safety.activeReasons?.join(", ")}
+            </div>
+          )}
+          <div className={cls.safetyActions}>
+            {!safety.emergencyMode && (
+              <button
+                type="button"
+                className={safetyButtonClass("enter", cls.dangerButton)}
+                onMouseDown={preventButtonFocus}
+                onClick={handleEnterEmergency}
+                disabled={isSafetyBusy}
+              >
+                <span>{pendingSafetyAction === "enter" ? "Enabling..." : "Enable emergency"}</span>
+              </button>
+            )}
+            {safety.emergencyMode && (
+              <button
+                type="button"
+                className={safetyButtonClass("clear")}
+                onMouseDown={preventButtonFocus}
+                onClick={handleClearEmergency}
+                disabled={isSafetyBusy}
+              >
+                <span>{pendingSafetyAction === "clear" ? "Clearing..." : "Clear emergency"}</span>
+              </button>
+            )}
+            {safety.emergencyOverride && (
+              <button
+                type="button"
+                className={safetyButtonClass("clearOverride")}
+                onMouseDown={preventButtonFocus}
+                onClick={handleClearOverride}
+                disabled={isSafetyBusy}
+              >
+                <span>{pendingSafetyAction === "clearOverride" ? "Clearing..." : "Clear override"}</span>
+              </button>
+            )}
+          </div>
+          <div className={cls.hint}>Emergency policy disables CO2, heat/cool and dosers, keeps O2/filter/light cooling ON and turns ARGB red. Clear emergency restores saved modes.</div>
         </section>
 
         <section className={cls.card}>

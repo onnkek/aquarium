@@ -237,9 +237,107 @@
     background: var(--success)
     box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.15)
 
+  .emergencyCard
+    border-color: rgba(248, 81, 73, 0.42) !important
+    background: linear-gradient(180deg, rgba(248, 81, 73, 0.12), rgba(22, 27, 34, 0.95)) !important
+
+  .okText
+    color: #9be9a8 !important
+
+  .warnText
+    color: #e3b341 !important
+
+  .dangerText
+    color: #ffb4ad !important
+
+  .safetyReason
+    margin-top: 10px
+    padding: 10px 12px
+    border-radius: 12px
+    border: 1px solid rgba(248, 81, 73, 0.25)
+    background: rgba(248, 81, 73, 0.08)
+    color: #ffb4ad
+    font-size: 12px
+    line-height: 1.45
+
+  .safetyActions
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))
+    gap: 8px
+    margin-top: 12px
+
+  .actionButton
+    position: relative
+    height: 38px
+    border-radius: 12px
+    border: 1px solid var(--border)
+    background: #0f141a
+    color: #c9d1d9
+    font-size: 12px
+    font-weight: 700
+    cursor: pointer
+    transition: border-color .15s ease, background .15s ease, color .15s ease, opacity .15s ease
+    -webkit-tap-highlight-color: transparent
+    user-select: none
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    gap: 8px
+    span
+      display: inline-flex
+      align-items: center
+      gap: 8px
+    &:hover:not(:disabled)
+      border-color: rgba(88, 166, 255, 0.45)
+      background: rgba(88, 166, 255, 0.10)
+      color: #d6e7ff
+    &:focus,
+    &:focus-visible
+      outline: none
+      box-shadow: none
+    &:focus:not(:hover)
+      border-color: var(--border)
+      background: #0f141a
+      color: #c9d1d9
+    &:active:not(:disabled)
+      transform: translateY(1px)
+    &:disabled
+      cursor: wait
+      opacity: .82
+
+  .actionButton.loading
+    pointer-events: none
+    span::before
+      content: ""
+      width: 12px
+      height: 12px
+      border-radius: 50%
+      border: 2px solid rgba(201, 209, 217, 0.28)
+      border-top-color: currentColor
+      animation: safetySpin .75s linear infinite
+
+  @keyframes safetySpin
+    to
+      transform: rotate(360deg)
+
+  .dangerButton
+    border-color: rgba(248, 81, 73, 0.35)
+    background: rgba(248, 81, 73, 0.10)
+    color: #ffb4ad
+    &:hover
+      border-color: rgba(248, 81, 73, 0.55)
+      background: rgba(248, 81, 73, 0.18)
+      color: #ffd1cc
+    &:focus:not(:hover)
+      border-color: rgba(248, 81, 73, 0.35)
+      background: rgba(248, 81, 73, 0.10)
+      color: #ffb4ad
+
 
 @media (max-width: 768px)
   .serverSettings
+    .safetyActions
+      grid-template-columns: 1fr
     min-width: auto
     margin: 0 auto
     display: flex

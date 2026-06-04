@@ -32,12 +32,15 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   const openModal = useAppSelector(state => state.aquarium.modal)
   const updateStatus = useAppSelector(state => state.aquarium.updateStatus)
   const config = useAppSelector(state => state.aquarium.config)
+  const doserState = useAppSelector(state => state.aquarium.doserState)
   const current = useAppSelector(state => state.aquarium.currentInfo)
+  const safety = useAppSelector(state => state.aquarium.safety)
   const [selectCard, setSelectCard] = useState<ICard | null>(null);
-  const cards = mapConfigToCards(config, current);
+  const cards = mapConfigToCards(config, current, doserState);
   const [now, setNow] = useState(Date.now());
   const [lastHeartbeatReceivedAt, setLastHeartbeatReceivedAt] = useState<number>(0);
   const [openCalc, setOpenCalc] = useState(false);
+  const hasEmergencyOverride = safety.emergencyOverride && !safety.emergencyMode;
 
   useEffect(() => {
     dispatch(getCurrentInfo())
@@ -84,9 +87,9 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
 
   const mappedCard = useMemo(() => {
     if (!selectCard) return;
-    const cards = mapConfigToCards(config, current);
+    const cards = mapConfigToCards(config, current, doserState);
     return cards.find(card => card.id === selectCard.id);
-  }, [config, current, selectCard?.id])
+  }, [config, current, doserState, selectCard?.id])
 
   const getCardComponent = (card: ICard) => {
     const onToggle = handleOpenCard(card)
@@ -112,10 +115,23 @@ export const DashboardPage = ({ className }: DashboardPageProps) => {
   }
   console.log(online)
   return (
-    <Page className={classNames(cls.dashboardPage, {}, [className])}>
+    <Page className={classNames(cls.dashboardPage, { [cls.emergency]: safety.emergencyMode, [cls.override]: hasEmergencyOverride }, [className])}>
 
       <section className={cls.content}>
         <div className={cls.wrapper}>
+          {safety.emergencyMode && (
+            <div className={cls.emergencyBanner}>
+              <strong>Emergency mode active</strong>
+              <span>{safety.activeReasons?.length ? safety.activeReasons.join(", ") : "Aquarium is running in safety policy mode"}</span>
+            </div>
+          )}
+
+          {hasEmergencyOverride && (
+            <div className={`${cls.emergencyBanner} ${cls.overrideBanner}`}>
+              <strong>Emergency override active</strong>
+              <span>{safety.activeReasons?.length ? `Ignored: ${safety.activeReasons.join(", ")}` : "Manual override is enabled"}</span>
+            </div>
+          )}
           <div className={cls.grid}>
 
             {cards.filter(x => x.type === "system").map(card => (

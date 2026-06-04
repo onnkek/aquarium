@@ -57,3 +57,16 @@ main
   display: flex
   flex-direction: column
   overflow: hidden
+
+@media (max-width: 900px)
+  .page
+    height: 100dvh
+    min-height: 0
+    padding-bottom: calc(70px + env(safe-area-inset-bottom))
+    overflow: hidden
+
+  main
+    height: 100dvh
+    min-height: 0
+    padding-bottom: calc(70px + env(safe-area-inset-bottom))
+    overflow: hidden
